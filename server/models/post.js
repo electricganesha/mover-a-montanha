@@ -6,7 +6,9 @@ var postSchema = new mongoose.Schema({
 	author: { type: mongoose.Schema.Types.ObjectId, ref: 'Author'},
 	created_at: { type: Date, default: Date.now },
 	updated_at: { type: Date, default: Date.now },
-	isDraft: { type: Boolean, default: true}
+	isDraft: { type: Boolean, default: true},
+	recap: { type:String, required: '{PATH} is required!'},
+	categories: [{ type:mongoose.Schema.ObjectId, ref:'Category'}]
 });
 
 postSchema.pre('save', function(next){

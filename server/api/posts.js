@@ -32,6 +32,7 @@ module.exports = function(apiRouter){
 		post.author = req.body.author;
 		post.body = req.body.body;
 		post.isDraft = req.body.isDraft;
+		post.recap = req.body.recap;
 
 		post.save(function(err, post){
 			if(err) res.send(err);
@@ -44,9 +45,8 @@ module.exports = function(apiRouter){
 	apiRouter.get('/posts/:id', function(req, res){
 		Post.findById(req.params.id, function(err, post){
 			if (err) res.send(err);
-
 			res.json(post);
-		});
+		}).populate('author');
 	});
 
 	// update a post

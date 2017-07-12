@@ -85,11 +85,21 @@ adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, Authors){
 	}
 });
 
-adminApp.controller('AddPostCtrl', function($scope, Posts, authorList){
+adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Services){
 	$scope.post = {};
 	$scope.authors = authorList;
 	$scope.selectedAuthor = {};
 	$scope.post.isDraft = false;
+
+	$scope.post.tags = [
+    { text: 'Política' },
+    { text: 'Portugal' },
+    { text: 'Europa' }
+  ];
+
+  $scope.loadTags = function(query) {
+    return Services.readJSON('/admin/json/tags.json');
+  };
 
 	$scope.selectAuthor = function(author){
 		$scope.post.author = author;
