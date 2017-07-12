@@ -1,0 +1,15 @@
+<!-- Main Content -->
+<div class="container" style="margin-top:2vh;">
+  <div class="row">
+    <h1 style="margin-bottom:6vw; text-align:center;"> Autores </h1>
+  </div>
+  <div class="row">
+    <div ng-repeat="author in authors | orderBy:'toString()'" style="width:32%; display:inline-block;">
+      <img style="border-radius:50%; width:6vw; margin-left:33%; padding:0.5vw;" src="{{ author.photo }}"></img>
+      <br>
+      <br>
+      <a href="#/author/{{author._id}}"><h2 style="display:block; margin:auto; text-align:center; font-size:16px;">{{ author.name }}</h2></a>
+      <hr>
+    </div>
+  </div>
+</div>

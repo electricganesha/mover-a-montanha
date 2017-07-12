@@ -1,0 +1,38 @@
+<div class="container">
+<div class='row full-height'>
+    <!-- Sidebar -->
+    <div class='col-sm-4'style="border-right:1px solid black; margin-bottom:4vh;">
+        <h3>Artigos Publicados</h3>
+        <ul class="list-group">
+            <li ng-show="!posts.length">N&atilde;o existe nenhum artigo publicado.</li>
+            <div ng-repeat='post in posts track by $index' style="margin-top:4vh; border:2px solid black;" ng-style="post.isDraft && {'border':'2px solid green'} || {'border': '2px solid red'}">
+            <li
+                class="list-group-item"
+                ng-class="{'active': (activePost === post)}"
+                ng-click='setActive(post)'>
+
+                <h6 style="">Criado a : {{post.created_at | date :  "MMM d, y - HH:mm" }} </h6>
+                <h6 style="">Ultima Actualização : {{post.updated_at | date :  "MMM d, y - HH:mm" }}</h6>
+                <br>
+                <h4 class="list-group-item-heading" style="display:inline;">{{post.title}} </h4><h6 style="display:inline;">por {{ post.author.name }}</h6>
+
+                <hr>
+                <div class="list-group-item-text" btf-markdown='trimContentTo140Char(post)'></div>
+            </li>
+            <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="post.isDraft" ng-click="draftIt(post)" ng-src="/home/img/icons/public.png" alt="Rascunho"></div>
+            <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="!post.isDraft" ng-click="draftIt(post)" ng-src="/home/img/icons/private.png" alt="Rascunho"></div>
+            <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-click="removePost( post._id )" src="/home/img/icons/delete.png" alt="Apagar Artigo"></div>
+            </div>
+        </ul>
+    </div>
+    <!-- /Sidebar -->
+    <div class='col-sm-4' style="width:0.5px; height:90vh; padding:0px; position:absolute; margin-left:20.2vw;">
+    </div>
+    <!-- Page Content -->
+    <div class='col-sm-8' ng-show="activePost">
+        <h2 contenteditable="true" ng-model="activePost.title">{{activePost.title}}</h2>
+        <div id="pad" text-angular ng-model="activePost.body" style="height:80vh;"></div>
+        <div class='btn btn-success pull-right' style="margin-bottom:10px;" ng-click='editPost(activePost._id,activePost)'>Editar Artigo</div>
+    </div>
+</div>
+</div>

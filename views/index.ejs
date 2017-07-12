@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" ng-app='mean-blog.home'>
+<head>
+  <meta charset="utf-8">
+
+  <title>Mover a Montanha</title>
+  <meta name="description" content="blog politica">
+  <meta name="author" content="PUSHVFX">
+  <!-- Mobile First -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Angular Material Dependencies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+
+  <!-- UI Router -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular-sanitize.js"></script>
+  <script src="https://cdn.rawgit.com/showdownjs/showdown/1.0.2/dist/showdown.min.js"></script>
+
+  <!-- JQuery -->
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="http://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+  <!-- Bootstrap -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="/home/css/main.css">
+
+  <!-- Custom JS -->
+  <script src="../modules/moment/moment-with-locales.min.js"></script>
+  <script src="../modules/moment/angular-moment.min.js"></script>
+  <script src="../modules/ng-socialshare/angular-socialshare.min.js"></script>
+  <script src='/admin/js/lib/markdown.js'></script>
+  <script src='/home/js/app.js'></script>
+  <script src='/home/js/controllers/main.js'></script>
+  <script src='/common/modules/posts.js'></script>
+  <script src='/common/modules/authors.js'></script>
+  <script src='/common/modules/services.js'></script>
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div ng-include='"/home/templates/nav.html"'></div>
+  <!-- Main Content -->
+  <div ui-view></div>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!-- Top navigation -->
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller='NavCtrl'>
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Mover A Montanha - Administração |</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li ng-class="{ active: isActive('allPosts') }"><a ui-sref="allPosts">Todos os Artigos</a></li>
+          <li ng-class="{ active: isActive('addPost') }"><a ui-sref="addPost">Publicar Novo Artigo</a></li>
+          <li ng-class="{ active: isActive('allAuthors') }"><a ui-sref="allAuthors">Todos os Autores</a></li>
+          <li ng-class="{ active: isActive('addAuthors') }"><a ui-sref="addAuthor">Adicionar Autor</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href>{{currentUser.email}}</a></li>
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+<!-- /Top navigation -->
