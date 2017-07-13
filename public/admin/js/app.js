@@ -8,6 +8,7 @@ var adminApp = angular.module('mean-blog.admin', [
 	'textAngular',
 	'angularMoment',
 	'mean-blog.services',
+	'mean-blog.categories',
 ]);
 
 adminApp.config(function($stateProvider, $urlRouterProvider){

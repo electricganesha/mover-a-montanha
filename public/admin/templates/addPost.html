@@ -24,8 +24,8 @@
       <input type='text' style="height:10vh;" placeholder='Resumo do Artigo' ng-model='post.recap' name='title' class='form-control'>
     </div>
     <div class="col-lg-12 full-height">
-      <tags-input ng-model="post.tags" tag-class="{even: $index % 2 == 0, odd: $index % 2 != 0}" placeholder="Escolha as Palavras-Chave">
-        <auto-complete source="loadTags($query)" match-class="{even: $index % 2 == 0, odd: $index % 2 != 0}"></auto-complete>
+      <tags-input replace-spaces-with-dashes="false" ng-model="tags" tag-class="{even: $index % 2 == 0, odd: $index % 2 != 0}" placeholder="Escolha as Palavras-Chave">
+        <auto-complete source="loadTags($query)" load-on-focus="true" match-class="{even: $index % 2 == 0, odd: $index % 2 != 0}"></auto-complete>
       </tags-input>
     </div>
     <div class="col-lg-12 full-height">
