@@ -6,6 +6,7 @@
   <title>Mover a Montanha</title>
   <meta name="description" content="blog politica">
   <meta name="author" content="PUSHVFX">
+  <link href="https://fonts.googleapis.com/css?family=Raleway:700,800" rel="stylesheet">
   <!-- Mobile First -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -47,15 +48,79 @@
   <script src='/common/modules/posts.js'></script>
   <script src='/common/modules/authors.js'></script>
   <script src='/common/modules/services.js'></script>
+  <script>
+    (function($) {
+    $.fn.menumaker = function(options) {  
+    var cssmenu = $(this), settings = $.extend({
+      format: "dropdown",
+      sticky: false
+    }, options);
+    return this.each(function() {
+      $(this).find(".button").on('click', function(){
+        $(this).toggleClass('menu-opened');
+        var mainmenu = $(this).next('ul');
+        if (mainmenu.hasClass('open')) { 
+          mainmenu.slideToggle().removeClass('open');
+        } else {
+          mainmenu.slideToggle().addClass('open');
+          if (settings.format === "dropdown") {
+            mainmenu.find('ul').show();
+          }
+        }
+      });
+      cssmenu.find('li ul').parent().addClass('has-sub');
+      multiTg = function() {
+        cssmenu.find(".has-sub").prepend('<span class="submenu-button"></span>');
+        cssmenu.find('.submenu-button').on('click', function() {
+          $(this).toggleClass('submenu-opened');
+          if ($(this).siblings('ul').hasClass('open')) {
+            $(this).siblings('ul').removeClass('open').slideToggle();
+          }
+          else {
+            $(this).siblings('ul').addClass('open').slideToggle();
+          }
+        });
+      };
+      if (settings.format === 'multitoggle'){
+        multiTg();
+      } else {
+        cssmenu.addClass('dropdown');
+      }
+      if (settings.sticky === true){
+        cssmenu.css('position', 'fixed');
+      }
+      resizeFix = function() {
+      var mediasize = 1000;
+        if ($( window ).width() > mediasize) {
+          cssmenu.find('ul').show();
+        }
+        if ($(window).width() <= mediasize) {
+          cssmenu.find('ul').hide().removeClass('open');
+        }
+      };
+      resizeFix();
+      return $(window).on('resize', resizeFix);
+    });
+      };
+    })(jQuery);
+
+    (function($){
+    $(document).ready(function(){
+      $("#cssmenu").menumaker({
+        format: "multitoggle"
+      });
+    });
+    })(jQuery);
+  </script>
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
 <body>
-  <div ng-include='"/home/templates/nav.html"'></div>
+  <header ng-include='"/home/templates/nav.html"'></header>
   <!-- Main Content -->
   <div ui-view></div>
-
+  <footer ng-include='"/home/templates/footer.html"'></footer>
 </body>
 </html>
