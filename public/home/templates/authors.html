@@ -1,15 +1,14 @@
 <!-- Main Content -->
-<div class="container" style="margin-top:2vh;">
+<div id="mainautor" class="col-md-12">
   <div class="row">
-    <h1 style="margin-bottom:6vw; text-align:center;"> Autores </h1>
-  </div>
-  <div class="row">
-    <div ng-repeat="author in authors | orderBy:'toString()'" style="width:32%; display:inline-block;">
-      <img style="border-radius:50%; width:6vw; margin-left:33%; padding:0.5vw;" src="{{ author.photo }}"></img>
-      <br>
-      <br>
-      <a href="#/author/{{author._id}}"><h2 style="display:block; margin:auto; text-align:center; font-size:16px;">{{ author.name }}</h2></a>
-      <hr>
-    </div>
+    <h1 id="autorestitle"> Autores </h1>
+    <div style="width:70%; margin: auto;">
+      <a href="#/author/{{author._id}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-3 linkautor" ng-repeat="author in authors | orderBy:'toString()'" style="text-align:center; margin-bottom:100px;">
+        <img id="autorfoto" src="{{ author.photo }}"></img>
+        <br>
+        <br>
+        <p class="autornome">{{ author.name }}</p>
+      </a>
+    </div> 
   </div>
 </div>

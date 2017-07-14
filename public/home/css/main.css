@@ -4,6 +4,18 @@
     text-decoration: none
 }
 
+@font-face {
+    font-family: caslonitalic;
+    src: url(/fonts/CaslonProItalic.ttf);
+}
+
+@font-face {
+    font-family: caslonregular;
+    src: url(/fonts/CaslonProRegular.ttf);
+}
+
+/*------------------------- Cabeçalho ----------------------------------*/
+
 
 #menu-link{
   text-decoration: none;
@@ -26,15 +38,6 @@
   transition: 0.4s;
 }
 
-#menu-link:after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  transition: 0.4s;
-}
-
 #menu-link:hover:after {
   width: 100%;
 }
@@ -46,6 +49,7 @@ header {
     font-family: 'Raleway', sans-serif;
     
 }
+
 .logo {
     position: relative;
     z-index: 123;
@@ -55,6 +59,7 @@ header {
     width: 28%;
     margin-top: 17px;
 }
+
 .logo a {
     color: white;
     text-decoration: none;
@@ -62,11 +67,13 @@ header {
     letter-spacing: 2px;
     font-size: 11px;
 }
+
 nav {
     position: relative;
     width: 980px;
     margin: 0 auto;
 }
+
 #cssmenu,
 #cssmenu ul,
 #cssmenu ul li,
@@ -81,6 +88,7 @@ nav {
     -moz-box-sizing: border-box;
     box-sizing: border-box
 }
+
 #cssmenu:after,
 #cssmenu > ul:after {
     content: ".";
@@ -90,15 +98,19 @@ nav {
     line-height: 0;
     height: 0
 }
+
 #cssmenu #head-mobile {
     display: none
 }
+
 #cssmenu {
     background: #3b3d40;
 }
+
 #cssmenu > ul > li {
     float: left
 }
+
 #cssmenu > ul > li > a {
     padding-top: 10px;
     margin: 20px;
@@ -114,6 +126,7 @@ nav {
 #cssmenu ul li.active a {
     color: white;
 }
+
 #cssmenu > ul > li:hover,
 #cssmenu ul li.active:hover,
 #cssmenu ul li.active,
@@ -123,9 +136,11 @@ nav {
     -ms-transition: background .3s ease;
     transition: background .3s ease;
 }
+
 #cssmenu > ul > li.has-sub > a {
     padding-right: 30px
 }
+
 #cssmenu > ul > li.has-sub > a:after {
     position: absolute;
     top: 22px;
@@ -136,6 +151,7 @@ nav {
     background: #ddd;
     content: ''
 }
+
 #cssmenu > ul > li.has-sub > a:before {
     position: absolute;
     top: 19px;
@@ -149,14 +165,17 @@ nav {
     -ms-transition: all .25s ease;
     transition: all .25s ease
 }
+
 #cssmenu > ul > li.has-sub:hover > a:before {
     top: 23px;
     height: 0
 }
+
 #cssmenu ul ul {
     position: absolute;
     left: -9999px
 }
+
 #cssmenu ul ul li {
     height: 0;
     -webkit-transition: all .25s ease;
@@ -164,16 +183,20 @@ nav {
     background: #3b3d40;
     transition: all .25s ease
 }
+
 #cssmenu ul ul li:hover {} #cssmenu li:hover > ul {
     left: auto
 }
+
 #cssmenu li:hover > ul > li {
     height: 35px
 }
+
 #cssmenu ul ul ul {
     margin-left: 100%;
     top: 0
 }
+
 #cssmenu ul ul li a {
     border-bottom: 1px solid rgba(150, 150, 150, 0.15);
     padding: 11px 15px;
@@ -185,14 +208,17 @@ nav {
 
     
 }
+
 #cssmenu ul ul li:last-child > a,
 #cssmenu ul ul li.last-item > a {
     border-bottom: 0
 }
+
 #cssmenu ul ul li:hover > a,
 #cssmenu ul ul li a:hover {
     color: #fff
 }
+
 #cssmenu ul ul li.has-sub > a:after {
     position: absolute;
     top: 16px;
@@ -203,6 +229,7 @@ nav {
     background: #ddd;
     content: ''
 }
+
 #cssmenu ul ul li.has-sub > a:before {
     position: absolute;
     top: 13px;
@@ -216,17 +243,21 @@ nav {
     -ms-transition: all .25s ease;
     transition: all .25s ease
 }
+
 #cssmenu ul ul > li.has-sub:hover > a:before {
     top: 17px;
     height: 0
 }
+
 #cssmenu ul ul li.has-sub:hover,
 #cssmenu ul li.has-sub ul li.has-sub ul li:hover {
     background: #363636;
 }
+
 #cssmenu ul ul ul li.active a {
     border-left: 1px solid #333
 }
+
 #cssmenu > ul > li.has-sub > ul > li.active > a,
 #cssmenu > ul ul > li.has-sub > ul > li.active> a {
     border-top: 1px solid #3b3d40
@@ -467,72 +498,145 @@ nav {
     }
 }
 
-/* .navbar{
-  background: #3e3f42;
-  height: 80px;
+
+/*------------------------- Rodapé ----------------------------------*/
+
+#seguirmain{
+  background-image: url(../img/footerimg.jpg);
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  height: 392px;
 }
 
-.navbar-collapse {
+#seguirtexto{
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 800;
+  font-size: 45px;
+}
+
+#seguirinfo{
+  color: white;
+  font-family: caslonregular;
+  font-size: 20px;
+}
+
+#formulario{
+  text-align: center;
+}
+
+#textboxsubscribe{
+  background: rgba(255,255,255,0.2);
+  border: rgba(255,255,255,0.2);
+  border-radius: 4px;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  height: 35px;
+  width: 20%;
+  padding-left: 15px;
+  padding-right: 15px;
+  outline:0;
+}
+
+#buttonsubscribe{
+  width: 130px;
+  height: 36px;
+  font-size: 11px;
+  border-radius: 20px;
+  background-color: #486af0;
+  border: #486af0;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  padding-top: 4px;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    white;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    white;
+   opacity:  1;
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    white;
+   opacity:  1;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    white;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    white;
+}
+
+#footermain{
+  background-color: #3b3d40;
+  font-family: 'Raleway', sans-serif;
+}
+
+#footerleft{
+  height: 130px;
+  line-height: 130px;
+  text-align: center;
+}
+
+#footerleft a {
+  color: white;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 11px;
+}
+
+#footerright{
+  color: white;
+  height: 130px;
+  line-height: 130px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 10px;
+}
+
+#footerright p{
+  margin: 0;
+}
+
+/*------------------------- Autores ----------------------------------*/
+
+#mainautor{
+  font-family: 'Raleway', sans-serif;
+}
+
+#autorfoto{
+  width: 100px;
+  height: 100px;
+  border-radius:50%;
+}
+
+a.linkautor{
+    text-decoration: none;
+}
+
+.autornome {
+  color: #3b3d40;
+  font-size:12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+#autorestitle{
+  color: #3b3d40;
+  margin-top:60px; 
+  margin-bottom:80px;
   text-align:center;
-  }
-
-.navbar-nav {
-    display:inline-block;
-    float:none;
-  }
-
-
-
-.navbar-header {
-  position: absolute;
-  float: left;
-  padding: 15px;
-  text-align: right;
-  width: 35%;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 43px;
 }
 
-
-.navbar-inverse {
-    background-color: #3e3f42;
-    border-color: #3e3f42;
-    border-radius: 0;
-}
-
-.navbar-inverse .navbar-brand,
-.navbar-inverse .navbar-brand:hover,
-.navbar-inverse .navbar-brand:focus {
-    color: #FFF;
-}
-
-.navbar-inverse .navbar-nav > li > a {
-    color: #FFF;
-}
-
-.navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:focus {
-    background-color: #3e3f42;
-}
-
-.navbar-inverse .navbar-nav > .active > a,
-.navbar-inverse .navbar-nav > .active > a:hover,
-.navbar-inverse .navbar-nav > .active > a:focus {
-    color: #FFF;
-    background: #3e3f42;
-}
-
-.navbar-inverse .navbar-text {
-    color: #FFF;
-}
-
-.navbar-inverse .navbar-toggle {
-    border-color: #3e3f42;
-}
-
-.navbar-inverse .navbar-toggle:hover,
-.navbar-inverse .navbar-toggle:focus {
-    background: #3e3f42;
-}
-
-.navbar-default .navbar-toggle .icon-bar {
-    background-color: #FFF;
-} */
