@@ -85,11 +85,77 @@ adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, Authors){
 	}
 });
 
-adminApp.controller('AddPostCtrl', function($scope, Posts, authorList){
+adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categories){
 	$scope.post = {};
 	$scope.authors = authorList;
 	$scope.selectedAuthor = {};
 	$scope.post.isDraft = false;
+	var tagsIndex;
+
+	Categories.all().then(function(data){
+			tagsIndex = data;
+	});
+
+
+	$scope.tags = [
+    { text: 'Política' },
+    { text: 'Portugal' },
+    { text: 'Europa' }
+  ];
+
+  $scope.loadTags = function(query) {
+			console.log(Categories.returnJSON());
+			return Categories.returnJSON();
+  };
+
+	$scope.$watch('tags.length', function(value) {
+
+		var idsTags = [];
+
+		// ver se as novas tags ja existem
+		var jaExiste = false;
+		for(var i=0 ; i < tagsIndex.length; i++)
+		{
+			if(tagsIndex[i].tag.toString() == $scope.tags[value-1].text.toString())
+			{
+				jaExiste = true;
+			}
+		}
+		if(!jaExiste)
+		{
+			var category = {};
+			category.tag = $scope.tags[value-1].text.toString();
+			Categories.add(category).then(function(data){
+		      idsTags[value-1] = data;
+		    });
+			console.log($scope.tags[value-1].text.toString() + " NOVO")
+		}
+		else
+		{
+			console.log($scope.tags[value-1].text.toString() + " JA EXISTE")
+		}
+
+		// popular as tags no post
+		if(tagsIndex)
+		{
+			for(var i=0 ; i < tagsIndex.length; i++)
+			{
+
+				for(var j=0; j<$scope.tags.length; j++)
+				{
+					if(tagsIndex[i].tag == $scope.tags[j].text)
+					{
+						idsTags[j] = tagsIndex[i];
+					}
+
+				}
+
+				$scope.post.tags = idsTags;
+
+			}
+		}
+			console.log($scope.post.tags);
+  });
 
 	$scope.selectAuthor = function(author){
 		$scope.post.author = author;
@@ -97,13 +163,14 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList){
 
 	$scope.draftIt = function(post)
 	{
-		console.log(post.isDraft);
 		post.isDraft = !post.isDraft;
 	}
 
 	$scope.addPost = function(newPost){
-		Posts.add(newPost).then(function(res){
-			console.log(res);
+
+
+
+		/*Posts.add(newPost).then(function(res){
 			if(res.message != undefined)
 			{
 				alert(res.message);
@@ -113,7 +180,7 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList){
 				$scope.post = {};
 				$scope.isActive('allPosts');
 			}
-		});
+		});*/
 	};
 
 

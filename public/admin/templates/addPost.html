@@ -1,26 +1,44 @@
+<div class="container" style="width:80%;">
 <div class="row full-height">
     <div class='col-lg-12'>
       <div class='btn btn-success pull-right' style="margin-bottom:10px;" ng-click='addPost(post)'>Publicar Artigo</div>
       <div class='form-group'>
         <input type='text' placeholder='T&iacute;tulo' ng-model='post.title' name='title' class='form-control'>
-
-        <label for="authorSelect"> Autor: </label><br>
-        <select name="authorSelect" id="authorSelect" ng-model="selectedAuthor" ng-change="selectAuthor(selectedAuthor)"
-        data-ng-options="author as author.name for author in authors">
-           <option value="">---Escolha o autor---</option> <!-- not selected / blank option -->
-         </select>
+        <div style="margin:1vw; float:left;">
+          <label for="authorSelect"> Autor: </label><br>
+          <select name="authorSelect" id="authorSelect" ng-model="selectedAuthor" ng-change="selectAuthor(selectedAuthor)"
+          data-ng-options="author as author.name for author in authors">
+             <option value="">---Escolha o autor---</option> <!-- not selected / blank option -->
+           </select>
+         </div>
          <br>
-         <div style="float:right; cursor:pointer; margin-right:20px;" ng-click="draftIt(post)"><img style="display:inline-block; margin-right:14px;" ng-if="post.isDraft"  ng-src="/home/img/icons/public.png" alt="Rascunho"><p ng-if="post.isDraft" style="display:inline-block; text-align:center;">Artigo Visivel</p></div>
-         <div style="float:right; cursor:pointer; margin-right:20px;" ng-click="draftIt(post)"><img style="display:inline-block; margin-right:14px;" ng-if="!post.isDraft"  ng-src="/home/img/icons/private.png" alt="Rascunho"><p ng-if="!post.isDraft" style="display:inline-block; text-align:center;">Rascunho</p></div>
+         <div style="float:right; margin:1vw;">
+           <div style="float:right; cursor:pointer; margin-right:20px;" ng-click="draftIt(post)"><img style="display:inline-block; margin-right:14px;" ng-if="post.isDraft"  ng-src="/home/img/icons/public.png" alt="Rascunho"><p ng-if="post.isDraft" style="display:inline-block; text-align:center;">Artigo Visivel</p></div>
+           <div style="float:right; cursor:pointer; margin-right:20px;" ng-click="draftIt(post)"><img style="display:inline-block; margin-right:14px;" ng-if="!post.isDraft"  ng-src="/home/img/icons/private.png" alt="Rascunho"><p ng-if="!post.isDraft" style="display:inline-block; text-align:center;">Rascunho</p></div>
+         </div>
          <br>
         <!--<input type='text' placeholder='Autor' ng-model='post.author' name='author' class='form-control'>-->
       </div>
     </div>
+    <div class='col-lg-12'>
+      <input type='text' style="height:10vh;" placeholder='Resumo do Artigo' ng-model='post.recap' name='title' class='form-control'>
+    </div>
+    <div class="col-lg-12 full-height">
+      <tags-input replace-spaces-with-dashes="false" ng-model="tags" tag-class="{even: $index % 2 == 0, odd: $index % 2 != 0}" placeholder="Escolha as Palavras-Chave">
+        <auto-complete source="loadTags($query)" load-on-focus="true" match-class="{even: $index % 2 == 0, odd: $index % 2 != 0}"></auto-complete>
+      </tags-input>
+    </div>
     <div class="col-lg-12 full-height">
         <!--<textarea class="col-md-6 full-height" id="pad" ng-model='post.body' placeholder='Escreva o seu artigo aqui...'></textarea>-->
-        <div class="col-md-6 full-height" id="pad" text-angular ng-model="post.body" placeholder='Escreva o seu artigo aqui...'></div>
-        <div class="col-md-6 full-height" id="markdown">
-          <div btf-markdown='post.body'></div>
-        </div>
+        <div class="row">
+          <div class="col-md-6 full-height" id="pad" text-angular ng-model="post.body" placeholder='Escreva o seu artigo aqui...'></div>
+          <p> Pré-Visualização:</p>
+                      <hr>
+          <div class="col-md-6 full-height" id="markdown" style="background-color:lightgrey; padding-bottom:4vh;">
+            <div><h1 style="display:inline-block;" ng-if="post.title">{{post.title}}</h1><h1 style="display:inline-block;" ng-if="!post.title">Sem T&iacute;tulo</h1> por <h4 style="display:inline-block;" ng-if="selectedAuthor.name">{{selectedAuthor.name}}</h4><h4 style="display:inline-block;" ng-if="!selectedAuthor.name">Autor Desconhecido</h4></div>
+            <div btf-markdown='post.body'></div>
+          </div>
+      </div>
     </div>
+</div>
 </div>

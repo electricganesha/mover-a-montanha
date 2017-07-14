@@ -51,7 +51,21 @@ app.config(function($stateProvider, $urlRouterProvider){
 				}
 			},
 			controller: 'AuthorCtrl',
-		}).state('contact', {
+		})
+		.state('article', {
+			url: "/article/:id",
+			templateUrl: "/home/templates/article.html",
+			resolve: {
+				article: function($stateParams, Posts){
+					return Posts.one($stateParams.id).then(function(data){
+						console.log(data);
+						return data;
+					});
+				}
+			},
+			controller: 'ArticleCtrl',
+		}).
+		state('contact', {
 			url: "/contact",
 			templateUrl: "/home/templates/contact.html",
 			controller: 'ContactCtrl',

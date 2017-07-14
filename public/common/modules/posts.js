@@ -9,6 +9,12 @@ postsModule.service('Posts', function($http){
 				return postList.data;
 			});
 		},
+		one: function(id){
+			return $http.get('/api/posts/'+id).then(function(post){
+				console.log(post);
+				return post.data;
+			});
+		},
 		add: function(newPost){
 			return $http({
 				method: 'post',

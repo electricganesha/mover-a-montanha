@@ -11,6 +11,10 @@ servicesModule.service('Services', function($http){
         error(function(data,status,headers,config){
           console.log(data);
         });
+		},
+		readJSON: function(json)
+		{
+			return $http.get(json);
 		}
 	};
 });

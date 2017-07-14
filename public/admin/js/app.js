@@ -4,8 +4,11 @@ var adminApp = angular.module('mean-blog.admin', [
 	'mean-blog.posts',
 	'mean-blog.authors',
 	'ngFileUpload',
+	'ngTagsInput',
 	'textAngular',
 	'angularMoment',
+	'mean-blog.services',
+	'mean-blog.categories',
 ]);
 
 adminApp.config(function($stateProvider, $urlRouterProvider){
@@ -19,8 +22,6 @@ adminApp.config(function($stateProvider, $urlRouterProvider){
 			resolve: {
 				postList: function(Posts){
 					return Posts.all().then(function(data){
-						console.log("STATEPROVIDER");
-						console.log(data);
 						return data;
 					});
 				}

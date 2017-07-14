@@ -12,6 +12,7 @@ module.exports = function(app, passport){
 	// API routes
 	require('./api/posts')(apiRouter);
 	require('./api/authors')(apiRouter);
+	require('./api/categories')(apiRouter);
 
 	// home route
 	router.get('/', function(req, res) {
