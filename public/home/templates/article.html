@@ -15,6 +15,9 @@
     <div style="text-align:justify; margin-bottom:2vh;" btf-markdown='post.body'></div>
     <div style="position:absolute; left:0px; padding:0px; margin:0px; margin-bottom:2vh; width:100%; background-color:#2E71F2; color:white;">
       <div style="text-align:center; margin:auto; margin-bottom:2.5vh; margin-top:2.5vh; width:50%;"><p><b>&quot; {{ post.recap }} &quot;</b></p></div>
+      <div ng-repeat="category in post.categories">
+        <div><a style="color:white;" href="#/category/{{category._id}}"><p> {{ category.tag }} </p></a></div>
+      </div>
     </div>
     <div style="font-size:12px; margin-top:15vh; margin-bottom:4vh;">
       <b>

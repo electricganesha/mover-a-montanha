@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"mover-a-montanha.categories"},{"v":1,"unique":true,"key":{"tag":1},"name":"tag_1","ns":"mover-a-montanha.categories","background":true}]}
