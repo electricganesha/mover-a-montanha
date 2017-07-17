@@ -633,11 +633,21 @@ a.linkautor{
 #autorestitle{
   color: #3b3d40;
   margin-top:60px; 
-  margin-bottom:80px;
+  margin-bottom:36px;
   text-align:center;
   font-weight: 800;
   text-transform: uppercase;
   font-size: 43px;
+}
+
+#autoressubtitle{
+    width: 303px;
+    margin: auto;
+    font-family: caslonregular;
+    color: #3b3d40;
+    margin-bottom: 80px;
+    text-align: center;
+    font-size: 19px;
 }
 
 /*------------------------- Artigo ----------------------------------*/
@@ -686,7 +696,6 @@ a.linkautor{
   font-family: caslonregular; 
   font-size: 19px;  
   text-align:justify; 
-  margin-bottom:2vh; 
 }
 
 #cabecalhoarticle{
@@ -700,4 +709,34 @@ a.linkautor{
     font-size:12px; 
     margin-top:50px; 
     margin-bottom:4vh;
+}
+
+#recap{
+    text-align:justify; 
+    margin:auto; 
+    margin-bottom:100px; 
+    margin-top:100px; 
+    width:50%;
+    font-family: caslonitalic; 
+    font-size: 26px;
+    letter-spacing: 1px;
+}
+
+#categorias{
+    float: right;
+    text-align: right;
+    position: absolute;
+    margin-left: 87.5%;
+    bottom: 0;
+    margin-bottom: 20px;
+    font-family: caslonregular; 
+    font-size: 17px;  
+}
+
+#categorias p{
+    margin: 0; 
+}
+
+#recap p{
+    margin: 0; 
 }
