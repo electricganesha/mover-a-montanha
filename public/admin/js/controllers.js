@@ -91,6 +91,7 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 	$scope.selectedAuthor = {};
 	$scope.post.isDraft = false;
 	var tagsIndex;
+	var idsTags = [];
 
 	Categories.all().then(function(data){
 			tagsIndex = data;
@@ -110,8 +111,6 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 
 	$scope.$watch('tags.length', function(value) {
 
-		var idsTags = [];
-
 		// ver se as novas tags ja existem
 		var jaExiste = false;
 		for(var i=0 ; i < tagsIndex.length; i++)
@@ -126,7 +125,8 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 			var category = {};
 			category.tag = $scope.tags[value-1].text.toString();
 			Categories.add(category).then(function(data){
-		      idsTags[value-1] = data;
+		      idsTags[value-1] = data._id;
+					tagsIndex[value-1] = data;
 		    });
 			console.log($scope.tags[value-1].text.toString() + " NOVO")
 		}
@@ -134,6 +134,7 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 		{
 			console.log($scope.tags[value-1].text.toString() + " JA EXISTE")
 		}
+
 
 		// popular as tags no post
 		if(tagsIndex)
@@ -145,7 +146,7 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 				{
 					if(tagsIndex[i].tag == $scope.tags[j].text)
 					{
-						idsTags[j] = tagsIndex[i];
+						idsTags[j] = tagsIndex[i]._id;
 					}
 
 				}
@@ -154,6 +155,7 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 
 			}
 		}
+			console.log(idsTags);
 			console.log($scope.post.tags);
   });
 
@@ -168,9 +170,9 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 
 	$scope.addPost = function(newPost){
 
+		newPost.tags = idsTags;
 
-
-		/*Posts.add(newPost).then(function(res){
+		Posts.add(newPost).then(function(res){
 			if(res.message != undefined)
 			{
 				alert(res.message);
@@ -180,7 +182,7 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 				$scope.post = {};
 				$scope.isActive('allPosts');
 			}
-		});*/
+		});
 	};
 
 

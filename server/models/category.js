@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var categorySchema = new mongoose.Schema({
-	tag: { type: String },
+	tag: { type: String, required: true, unique: true },
 });
 
 categorySchema.pre('save', function(next){
