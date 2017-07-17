@@ -9,6 +9,16 @@ postsModule.service('Posts', function($http){
 				return postList.data;
 			});
 		},
+		category: function(id){
+			return $http.get('/api/posts/category/'+id).then(function(postList){
+				return postList.data;
+			});
+		},
+		author: function(id){
+			return $http.get('/api/posts/author/'+id).then(function(postList){
+				return postList.data;
+			});
+		},
 		one: function(id){
 			return $http.get('/api/posts/'+id).then(function(post){
 				console.log(post);

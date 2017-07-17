@@ -14,12 +14,19 @@
       <p id="tituloartigo">{{ post.title }}</p>
     </div>
     <div id="post1" btf-markdown='post1'></div>
+<<<<<<< Updated upstream
     <div class="col-md-12" style="margin-bottom:2vh; background-color:#486af0; color:white;">
       <div id="categorias">
         <p style="font-family: 'Raleway', sans-serif;"> PALAVRAS-CHAVE </p>
         <a style="color:white;" href="#/category/{{category._id}}" ng-repeat="category in post.categories">
           <p> {{ category.tag }} </p>
         </a >
+=======
+    <div class="col-md-12" style=" left:0px; padding:0px; margin:0px; margin-bottom:2vh; width:100%; background-color:#2E71F2; color:white;">
+      <div style="text-align:center; margin:auto; margin-bottom:2.5vh; margin-top:2.5vh; width:50%;"><p><b>&quot; {{ post.recap }} &quot;</b></p></div>
+      <div ng-repeat="category in post.categories">
+        <div><a style="color:white;" href="/?category={{category._id}}"><p> {{ category.tag }} </p></a></div>
+>>>>>>> Stashed changes
       </div>
       <div id="recap"><span style="font-size:80px; margin-left: -41px;">"</span><p style="margin-top: -84px;">{{ post.recap }}</p></div>
     </div>

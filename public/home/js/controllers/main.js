@@ -1,6 +1,8 @@
-app.controller('MainCtrl', function ($scope, $log, postList, Services) {
+app.controller('MainCtrl', function ($scope, $log, postList, category, author, Services) {
 
   $scope.posts = postList;
+  $scope.category = category;
+  $scope.author = author;
 
   /*$scope.shortenURL = function(postId)
   {
@@ -37,7 +39,13 @@ $scope.convertDateToPT = function(date)
   var brDoMeio = article.body.indexOf("<br/>", meioartigo);
   $scope.post1 = article.body.substr(0, brDoMeio);
   $scope.post2 = article.body.substr(brDoMeio, article.body.length);
+<<<<<<< Updated upstream
   
+=======
+  console.log($scope.post1);
+  console.log($scope.post2);
+
+>>>>>>> Stashed changes
 
   $scope.convertDateToPT = function(date)
   {
