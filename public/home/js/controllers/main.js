@@ -33,6 +33,13 @@ $scope.convertDateToPT = function(date)
 })
 .controller('ArticleCtrl', function ($scope, $log, article) {
   $scope.post = article;
+  var meioartigo = article.body.length/2;
+  var brDoMeio = article.body.indexOf("<br/>", meioartigo);
+  $scope.post1 = article.body.substr(0, brDoMeio);
+  $scope.post2 = article.body.substr(brDoMeio, article.body.length);
+  console.log($scope.post1);
+  console.log($scope.post2);
+  
 
   $scope.convertDateToPT = function(date)
   {

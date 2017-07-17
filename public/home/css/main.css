@@ -47,7 +47,7 @@ header {
     width: 100%;
     background: #3b3d40;
     font-family: 'Raleway', sans-serif;
-    
+    z-index: 1;
 }
 
 .logo {
@@ -580,8 +580,8 @@ nav {
 }
 
 #footerleft{
-  height: 130px;
-  line-height: 130px;
+  height: 100px;
+  line-height: 100px;
   text-align: center;
 }
 
@@ -595,8 +595,8 @@ nav {
 
 #footerright{
   color: white;
-  height: 130px;
-  line-height: 130px;
+  height: 100px;
+  line-height: 100px;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -640,3 +640,64 @@ a.linkautor{
   font-size: 43px;
 }
 
+/*------------------------- Artigo ----------------------------------*/
+
+#headerimg{
+  background-image: url(../img/headerimg.jpg);
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  height: 230px;
+}
+
+#autorfotoarticle{
+  width: 130px;
+  height: 130px;
+  border-radius:50%;
+}
+
+#tituloartigo{
+    color: #3b3d40;
+    font-family: 'Raleway', sans-serif;
+    font-size:45px;
+}
+
+#articleautorname{
+    margin-top:10px;
+    font-weight: 800;
+    letter-spacing: 1px; 
+    font-size: 11px;
+    text-transform:uppercase;
+}
+
+#post1{
+  width: 57%;
+  margin: auto;
+  font-family: caslonregular;
+  font-size: 19px; 
+  text-align:justify; 
+  margin-bottom:30px;
+}
+
+#post2{
+  width: 57%;
+  margin: auto;
+  margin-top:30px;
+  font-family: caslonregular; 
+  font-size: 19px;  
+  text-align:justify; 
+  margin-bottom:2vh; 
+}
+
+#cabecalhoarticle{
+    width: 57%;
+    margin: auto;
+}
+
+#articlefooter{
+    width: 57%;
+    margin: auto;
+    font-size:12px; 
+    margin-top:50px; 
+    margin-bottom:4vh;
+}
