@@ -13,8 +13,11 @@
       <br>
       <p id="tituloartigo">{{ post.title }}</p>
     </div>
+    <div id="artigoautor">
+      <p style="text-transform: uppercase;"> Artigos deste autor </p>
+    </div>
     <div id="post1" btf-markdown='post1'></div>
-    <div class="col-md-12" style="margin-bottom:2vh; background-color:#486af0; color:white;">
+    <div class="col-md-12" style="margin-bottom:2vh; background-color:#486af0; color:white; margin-bottom: 35px;">
       <div id="categorias">
         <p style="font-family: 'Raleway', sans-serif;"> PALAVRAS-CHAVE </p>
         <!--<a style="color:white;" href="/category/{{category._id}}" ng-repeat="category in post.categories">

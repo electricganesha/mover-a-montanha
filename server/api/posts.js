@@ -7,7 +7,7 @@ module.exports = function(apiRouter){
 	// get all posts
 	apiRouter.get('/posts', function(req, res){
 
-		Post.find().populate('author').populate('categories')
+		Post.find().sort('-created_at').populate('author').populate('categories')
 	    .exec(function(err, posts){
 	        if(err)
 					{

@@ -26,7 +26,6 @@
   float: none;
 }
 
-
 #menu-link:after{
   color:white;
   content: '';
@@ -549,7 +548,7 @@ nav {
   color: white;
   font-family: 'Raleway', sans-serif;
   text-transform: uppercase;
-  padding-top: 4px;
+  padding-top: 3px;
 }
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
@@ -687,6 +686,7 @@ a.linkautor{
   font-size: 19px; 
   text-align:justify; 
   margin-bottom:30px;
+  min-height: 515px;
 }
 
 #post2{
@@ -739,4 +739,90 @@ a.linkautor{
 
 #recap p{
     margin: 0; 
+}
+
+#artigoautor{
+    position: absolute;
+    left: 59px;
+    top: 135px;
+    background-color: #486af0;
+    z-index: 0;
+    width: 259px;
+    min-height: 415px;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    padding-top: 20px;
+}
+
+/*------------------------- Home ----------------------------------*/
+
+#headerimghome{
+  background-image: url(../img/frontmontanhaoverlayed.jpg);
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:center;
+  height: 621px;
+}
+
+#autornamearticle{
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    margin-top:10px;
+    font-size: 13px;
+    text-transform:uppercase;
+}
+
+#hometitlearticle{
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    margin-top:40px;
+    font-size: 37px;
+}
+
+#homebodyarticle{
+    font-family: caslonregular; 
+    color: white;
+    margin-top:40px;
+    font-size: 20px;
+    text-align: justify;
+    text-overflow: clip;
+    height: 450px;
+    overflow: hidden;
+}
+
+#gradient{
+    height: 319px;
+    background: url("../img/frontmontanhatransparency.png");
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:bottom center;
+    text-align: -webkit-center;
+}
+
+#buttonseemore{
+  width: 130px;
+  height: 36px;
+  font-size: 11px;
+  border-radius: 20px;
+  background-color: #486af0;
+  border: #486af0;
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  padding-top: 11px;
+  margin-top: 215px;
+}
+
+#authorlink{
+  color: white;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  margin-top: 115px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#authorlink:hover{
+    color: #3b3d40;
 }
