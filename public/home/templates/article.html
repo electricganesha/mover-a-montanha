@@ -17,9 +17,10 @@
     <div class="col-md-12" style="margin-bottom:2vh; background-color:#486af0; color:white;">
       <div id="categorias">
         <p style="font-family: 'Raleway', sans-serif;"> PALAVRAS-CHAVE </p>
-        <a style="color:white;" href="#/category/{{category._id}}" ng-repeat="category in post.categories">
-          <p> {{ category.tag }} </p>
-        </a >
+        <!--<a style="color:white;" href="/category/{{category._id}}" ng-repeat="category in post.categories">
+          {{ category }}-->
+          <div ng-repeat="category in post.categories"><a style="color:white;" href="/?category={{category._id}}"><p> {{ category.tag }} </p></a></div>
+        <!--</a >-->
       </div>
       <div id="recap"><span style="font-size:80px; margin-left: -41px;">"</span><p style="margin-top: -84px;">{{ post.recap }}</p></div>
     </div>

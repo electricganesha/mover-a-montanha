@@ -5,9 +5,9 @@
   </div>
   <div class="row">
     <div ng-repeat="post in posts | orderBy:'-created_at'" style="margin-bottom:4vw;" ng-if="post.isDraft">
-      <a href="#/author/{{post.author._id}}"><img style="display:inline-block; border-radius:50%; width:6vw; float:left; margin-left:-9vw; margin-top:2vw;" src="{{ post.author.photo }}"></img></a>
+      <a href="/author/{{post.author._id}}"><img style="display:inline-block; border-radius:50%; width:6vw; float:left; margin-left:-9vw; margin-top:2vw;" src="{{ post.author.photo }}"></img></a>
       <br>
-      <h2><a href="#/article/{{post._id}}">{{ post.title }}</a></h2>
+      <h2><a href="/article/{{post._id}}">{{ post.title }}</a></h2>
       <hr>
       <!--<p style="text-align:justify;">{{ post.body }}</p>-->
       <div style="text-align:justify;" btf-markdown='post.body'></div>

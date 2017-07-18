@@ -48,9 +48,10 @@
   <script src='/common/modules/posts.js'></script>
   <script src='/common/modules/authors.js'></script>
   <script src='/common/modules/services.js'></script>
+  <script src='/common/modules/categories.js'></script> 
   <script>
     (function($) {
-    $.fn.menumaker = function(options) {  
+    $.fn.menumaker = function(options) {
     var cssmenu = $(this), settings = $.extend({
       format: "dropdown",
       sticky: false
@@ -59,7 +60,7 @@
       $(this).find(".button").on('click', function(){
         $(this).toggleClass('menu-opened');
         var mainmenu = $(this).next('ul');
-        if (mainmenu.hasClass('open')) { 
+        if (mainmenu.hasClass('open')) {
           mainmenu.slideToggle().removeClass('open');
         } else {
           mainmenu.slideToggle().addClass('open');
