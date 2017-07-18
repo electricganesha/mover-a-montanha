@@ -1,8 +1,24 @@
-app.controller('MainCtrl', function ($scope, $log, postList, category, author, Services) {
+app.controller('MainCtrl', function ($scope, $log, postList, authorList, category, author, Services) {
 
   $scope.posts = postList;
   $scope.category = category;
   $scope.author = author;
+  $scope.authors = authorList;
+
+    for(var i=0 ; i < $scope.posts.length; i++)
+      {
+        console.log($scope.posts);
+        console.log("DENTRO");
+        if($scope.posts[i].isDraft == true)
+          {
+            console.log("PRIMEIRO POST");
+            console.log($scope.posts[i]);
+            $scope.firstPost = $scope.posts[i];
+            break;
+          }
+          
+      }
+
   /*$scope.shortenURL = function(postId)
   {
   var urlShortenPromise = Services.shortenURL("http://www.moveramontanha.com/posts/"+postId);

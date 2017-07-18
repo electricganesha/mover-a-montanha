@@ -1,72 +1,93 @@
 <!-- Main Content -->
-<div class="container" style="margin-top:2vh;">
-  <div class="row">
-    <h1 style=" text-align:center;"> Artigos </h1>
-    <div ng-if="category"><h5 style=" margin-bottom:6vw; text-align:center;">Filtro : " {{ category.tag }} " </h5> </div>
-    <div ng-if="author"><h5 style="margin-bottom:6vw; text-align:center;">Filtro : " {{ author.name }} " </h5> </div>
-  </div>
-  <div class="row">
-    <div ng-repeat="post in posts | orderBy:'-created_at'" style="margin-bottom:4vw;" ng-if="post.isDraft">
-      <a href="/author/{{post.author._id}}"><img style="display:inline-block; border-radius:50%; width:6vw; float:left; margin-left:-9vw; margin-top:2vw;" src="{{ post.author.photo }}"></img></a>
-      <br>
-      <h2><a href="/article/{{post._id}}">{{ post.title }}</a></h2>
-      <hr>
-      <!--<p style="text-align:justify;">{{ post.body }}</p>-->
-      <div style="text-align:justify;" btf-markdown='post.body'></div>
-      <div style="position:absolute; left:0px; padding:0px; margin:0px; margin-bottom:2vh; width:100%; background-color:#2E71F2; color:white;">
-        <div style="text-align:center; margin:auto; margin-bottom:2.5vh; margin-top:2.5vh; width:50%;"><p><b>&quot; {{ post.recap }} &quot;</b></p></div>
+<div class="row" style="margin:0">
+  <div id="headerimghome" style="width:100%;">
+    <div class="col-md-3" style="text-align: -webkit-center;">
+      <div style="background-color:#486af0; z-index:0; width:253px; height:315px;">
+        <img id="autorfotoarticle" style="margin:auto; margin-top: 76px;" src="{{ firstPost.author.photo  }}"></img>
+        <br>
+        <p id="autornamearticle">{{ firstPost.author.name}}</p>
       </div>
-      <div style="font-size:12px; margin-top:15vh;">
-        <b>
-          <hr>
-          <span style="float:left;"><i>{{ post.author.name }}</i></span><span style="float:right"> {{ convertDateToPT(post.created_at )}} </span>
-        </b>
-        <br>
-        <br>
-        <input type="image" src="icons/email.png" href="#" style="width:1.5vw;" alt = "Partilhar via Email" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
-            socialshare
-            socialshare-provider="email"
-            socialshare-type="sharer"
-            socialshare-subject="Mover A Montanha - Partilha de Artigo"
-            socialshare-body="{{post.title}} por {{post.author.name}}
+    </div>
+    <div id="homearticletopdiv" class="col-md-6" style="border: 2px blue; height: 300px;">
+      <p id="hometitlearticle">{{ firstPost.title}}</p>
+      <div id="homebodyarticle" btf-markdown='firstPost.body'></div>
+    </div>
+    <div id="gradient" class="col-md-12">
+          <a href="/article/{{firstPost._id}}"><div id="buttonseemore">Ler Mais</div></a>
+    </div>
+  </div>
+  <div style="width:100%; background-color:#2E71F2; color:white; text-align:center;">
+    <br>
+    <p style="color: white; font-family: 'Raleway', sans-serif; text-transform: uppercase; padding-top:15px; font-size: 19px;">Os nossos Autores</p>
+    <div style="width:60%; margin:auto;">
+      <p ng-repeat="autor in authors" ng-if="$index < authors.length - 1" style="display: inline-block;"><a id="authorlink">{{ autor.name }}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
+      <p ng-repeat="autor in authors" ng-if="$index == authors.length - 1" style="display: inline-block;"><a id="authorlink">{{ autor.name }}</a></p>
+    </div>
+    <br>
+  </div>
+  <h1 style="margin-bottom:6vw; text-align:center;">Artigos</h1>
+</div>
+<div class="row">
+  <div ng-repeat="post in posts" style="margin-bottom:4vw;" ng-if="post.isDraft && $index > 0">
+    <a href="/author/{{post.author._id}}"><img style="display:inline-block; border-radius:50%; width:6vw; float:left; margin-left:-9vw; margin-top:2vw;" src="{{ post.author.photo }}"></img></a>
+    <br>
+    <h2><a href="/article/{{post._id}}">{{ post.title }}</a></h2>
+    <hr>
+    <!--<p style="text-align:justify;">{{ post.body }}</p>-->
+    <div style="text-align:justify;" btf-markdown='post.body'></div>
+    <div style="position:absolute; left:0px; padding:0px; margin:0px; margin-bottom:2vh; width:100%; background-color:#2E71F2; color:white;">
+      <div style="text-align:center; margin:auto; margin-bottom:2.5vh; margin-top:2.5vh; width:50%;"><p><b>&quot; {{ post.recap }} &quot;</b></p></div>
+    </div>
+    <div style="font-size:12px; margin-top:15vh;">
+      <b>
+        <hr>
+        <span style="float:left;"><i>{{ post.author.name }}</i></span><span style="float:right"> {{ convertDateToPT(post.created_at )}} </span>
+      </b>
+      <br>
+      <br>
+      <input type="image" src="icons/email.png" href="#" style="width:1.5vw;" alt = "Partilhar via Email" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
+          socialshare
+          socialshare-provider="email"
+          socialshare-type="sharer"
+          socialshare-subject="Mover A Montanha - Partilha de Artigo"
+          socialshare-body="{{post.title}} por {{post.author.name}}
 
 Leia este artigo em {{url}}"
-            socialshare-hashtags="moveramontanha"
-            socialshare-url="{{url}}">
-        </input>
-        <input type="image" src="icons/twitter.png" href="#" style="width:1.5vw;" alt = "Partilhar no Twitter" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
-            socialshare
-            socialshare-provider="twitter"
-            socialshare-type="sharer"
-            socialshare-text="{{post.title}} por {{post.author.name}}"
-            socialshare-hashtags="moveramontanha"
-            socialshare-url="{{url}}">
-        </input>
-        <input type="image" src="icons/facebook.png" href="#" style="width:1.5vw;" alt = "Partilhar no Facebook" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
-            socialshare
-            socialshare-provider="facebook"
-            socialshare-type="sharer"
-            socialshare-text="{{post.title}} por {{post.author.name}}"
-            socialshare-hashtags="moveramontanha"
-            socialshare-url="{{url}}">
-        </input>
-        <input type="image" src="icons/google.png" href="#" style="width:1.5vw;" alt = "Partilhar no Google+" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
-            socialshare
-            socialshare-provider="google"
-            socialshare-type="sharer"
-            socialshare-text="{{post.title}} por {{post.author.name}}"
-            socialshare-hashtags="moveramontanha"
-            socialshare-url="{{url}}">
-        </input>
-        <input type="image" src="icons/pocket.png" href="#" style="width:1.5vw;" alt = "Partilhar no Pocket" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
-            socialshare
-            socialshare-provider="pocket"
-            socialshare-type="sharer"
-            socialshare-text="{{post.title}} por {{post.author.name}}"
-            socialshare-hashtags="moveramontanha"
-            socialshare-url="{{url}}">
-        </input>
-      </div>
+          socialshare-hashtags="moveramontanha"
+          socialshare-url="{{url}}">
+      </input>
+      <input type="image" src="icons/twitter.png" href="#" style="width:1.5vw;" alt = "Partilhar no Twitter" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
+          socialshare
+          socialshare-provider="twitter"
+          socialshare-type="sharer"
+          socialshare-text="{{post.title}} por {{post.author.name}}"
+          socialshare-hashtags="moveramontanha"
+          socialshare-url="{{url}}">
+      </input>
+      <input type="image" src="icons/facebook.png" href="#" style="width:1.5vw;" alt = "Partilhar no Facebook" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
+          socialshare
+          socialshare-provider="facebook"
+          socialshare-type="sharer"
+          socialshare-text="{{post.title}} por {{post.author.name}}"
+          socialshare-hashtags="moveramontanha"
+          socialshare-url="{{url}}">
+      </input>
+      <input type="image" src="icons/google.png" href="#" style="width:1.5vw;" alt = "Partilhar no Google+" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
+          socialshare
+          socialshare-provider="google"
+          socialshare-type="sharer"
+          socialshare-text="{{post.title}} por {{post.author.name}}"
+          socialshare-hashtags="moveramontanha"
+          socialshare-url="{{url}}">
+      </input>
+      <input type="image" src="icons/pocket.png" href="#" style="width:1.5vw;" alt = "Partilhar no Pocket" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
+          socialshare
+          socialshare-provider="pocket"
+          socialshare-type="sharer"
+          socialshare-text="{{post.title}} por {{post.author.name}}"
+          socialshare-hashtags="moveramontanha"
+          socialshare-url="{{url}}">
+      </input>
     </div>
   </div>
 </div>

@@ -62,7 +62,13 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 						return $stateParams.author;
 					}
 
+				},
+				authorList: function(Authors){
+					return Authors.all().then(function(data){
+						return data;
+					});
 				}
+				
 			},
 		controller: 'MainCtrl',
 	}).state('about', {
