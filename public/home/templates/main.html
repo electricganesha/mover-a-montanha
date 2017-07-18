@@ -1,13 +1,15 @@
 <!-- Main Content -->
 <div class="container" style="margin-top:2vh;">
   <div class="row">
-    <h1 style="margin-bottom:6vw; text-align:center;"> Artigos </h1>
+    <h1 style=" text-align:center;"> Artigos </h1>
+    <div ng-if="category"><h5 style=" margin-bottom:6vw; text-align:center;">Filtro : " {{ category.tag }} " </h5> </div>
+    <div ng-if="author"><h5 style="margin-bottom:6vw; text-align:center;">Filtro : " {{ author.name }} " </h5> </div>
   </div>
   <div class="row">
     <div ng-repeat="post in posts | orderBy:'-created_at'" style="margin-bottom:4vw;" ng-if="post.isDraft">
-      <a href="#/author/{{post.author._id}}"><img style="display:inline-block; border-radius:50%; width:6vw; float:left; margin-left:-9vw; margin-top:2vw;" src="{{ post.author.photo }}"></img></a>
+      <a href="/author/{{post.author._id}}"><img style="display:inline-block; border-radius:50%; width:6vw; float:left; margin-left:-9vw; margin-top:2vw;" src="{{ post.author.photo }}"></img></a>
       <br>
-      <h2><a href="#/article/{{post._id}}">{{ post.title }}</a></h2>
+      <h2><a href="/article/{{post._id}}">{{ post.title }}</a></h2>
       <hr>
       <!--<p style="text-align:justify;">{{ post.body }}</p>-->
       <div style="text-align:justify;" btf-markdown='post.body'></div>
