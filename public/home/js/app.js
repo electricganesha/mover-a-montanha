@@ -12,57 +12,58 @@ var app = angular.module('mean-blog.home', [
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
 	$stateProvider
-	.state('home', {
-		url: "/?category/?author",
-		templateUrl: "/home/templates/main.html",
-		resolve: {
-			postList: function($stateParams, Posts){
+		.state('home', {
+			url: "/?category/?author",
+			templateUrl: "/home/templates/main.html",
+			resolve: {
+				postList: function($stateParams, Posts){
 
-				if($stateParams.category != undefined)
+					if($stateParams.category != undefined)
+					{
+						return Posts.category($stateParams.category).then(function(data){
+							return data;
+						});
+					}
+					else if($stateParams.author != undefined) {
+						return Posts.author($stateParams.author).then(function(data){
+							return data;
+						});
+					}
+					else {
+						return Posts.all().then(function(data){
+							return data;
+						});
+					}
+				},
+				category: function($stateParams, Categories)
 				{
-					return Posts.category($stateParams.category).then(function(data){
-						return data;
-					});
-				}
-				else if($stateParams.author != undefined) {
-					return Posts.author($stateParams.author).then(function(data){
-						return data;
-					});
-				}
-				else {
-					return Posts.all().then(function(data){
-						return data;
-					});
+					console.log($stateParams.category);
+					if($stateParams.category)
+					{
+						return Categories.one($stateParams.category).then(function(data){
+							return data;
+						});
+					}
+					else {
+						return $stateParams.category;
+					}
+
+				},
+				author: function($stateParams, Authors)
+				{
+					console.log($stateParams.author);
+					if($stateParams.author)
+					{
+						return Authors.one($stateParams.author).then(function(data){
+							return data;
+						});
+					}
+					else {
+						return $stateParams.author;
+					}
+
 				}
 			},
-			category: function($stateParams, Categories)
-			{
-				console.log($stateParams.category);
-				if($stateParams.category)
-				{
-					return Categories.one($stateParams.category).then(function(data){
-						return data;
-					});
-				}
-				else {
-					return $stateParams.category;
-				}
-
-			},
-			author: function($stateParams, Authors)
-			{
-				console.log($stateParams.author);
-				if($stateParams.author)
-				{
-					return Authors.one($stateParams.author).then(function(data){
-						return data;
-					});
-				}
-				else {
-					return $stateParams.author;
-				}
-			}
-		},
 		controller: 'MainCtrl',
 	}).state('about', {
 		url: "/about",
@@ -117,6 +118,6 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
   $locationProvider.html5Mode({
     enabled: true,
     requireBase: false
-  }); 
+  });
 	$urlRouterProvider.otherwise("/");
 });

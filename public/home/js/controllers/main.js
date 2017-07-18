@@ -39,7 +39,6 @@ $scope.convertDateToPT = function(date)
   $scope.post1 = article.body.substr(0, brDoMeio);
   $scope.post2 = article.body.substr(brDoMeio, article.body.length);
 
-
   $scope.convertDateToPT = function(date)
   {
     var date = new Date(date);
