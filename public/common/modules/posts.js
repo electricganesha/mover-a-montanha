@@ -5,7 +5,6 @@ postsModule.service('Posts', function($http){
 	return {
 		all: function(){
 			return $http.get('/api/posts').then(function(postList){
-				console.log(postList);
 				return postList.data;
 			});
 		},
@@ -21,7 +20,6 @@ postsModule.service('Posts', function($http){
 		},
 		one: function(id){
 			return $http.get('/api/posts/'+id).then(function(post){
-				console.log(post);
 				return post.data;
 			});
 		},

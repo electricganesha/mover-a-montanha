@@ -5,7 +5,6 @@ authorsModule.service('Authors', function($http){
 	return {
 		all: function(){
 			return $http.get('/api/authors').then(function(authorList){
-				console.log(authorList);
 				return authorList.data;
 			});
 		},

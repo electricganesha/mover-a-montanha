@@ -79,7 +79,8 @@ adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, Authors){
 
 	$scope.trimContentTo140Char = function(content)
 	{
-		var trimmedContent = content.body.substr(0, 140);
+		console.log(content);
+		var trimmedContent = content.substr(0, 140);
 		trimmedContent = trimmedContent + "...";
 		return trimmedContent;
 	}

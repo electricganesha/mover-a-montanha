@@ -15,6 +15,10 @@
     </div>
     <div id="artigoautor">
       <p style="text-transform: uppercase;"> Artigos deste autor </p>
+      <br>
+      <a href="/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor" ng-if="post._id != otherPost._id">
+        <p>{{ otherPost.title }}</p>
+      </a>
     </div>
     <div id="post1" btf-markdown='post1'></div>
     <div class="col-md-12" style="margin-bottom:2vh; background-color:#486af0; color:white; margin-bottom: 35px;">
@@ -30,7 +34,7 @@
     <div id="post2" btf-markdown='post2'></div>
     <div id="articlefooter">
       <div class="col-md-6">
-        <input type="image" src="icons/email.png" href="#" style="width:1.5vw;" alt = "Partilhar via Email" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
+        <input type="image" src="/icons/email.png" href="#" style="width:1.5vw;" alt = "Partilhar via Email" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
             socialshare
             socialshare-provider="email"
             socialshare-type="sharer"
@@ -39,7 +43,7 @@
             socialshare-hashtags="moveramontanha"
             socialshare-url="{{url}}">
         </input>
-        <input type="image" src="icons/twitter.png" href="#" style="width:1.5vw;" alt = "Partilhar no Twitter" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
+        <input type="image" src="/icons/twitter.png" href="#" style="width:1.5vw;" alt = "Partilhar no Twitter" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
             socialshare
             socialshare-provider="twitter"
             socialshare-type="sharer"
@@ -47,7 +51,7 @@
             socialshare-hashtags="moveramontanha"
             socialshare-url="{{url}}">
         </input>
-        <input type="image" src="icons/facebook.png" href="#" style="width:1.5vw;" alt = "Partilhar no Facebook" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
+        <input type="image" src="/icons/facebook.png" href="#" style="width:1.5vw;" alt = "Partilhar no Facebook" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
             socialshare
             socialshare-provider="facebook"
             socialshare-type="sharer"
@@ -55,7 +59,7 @@
             socialshare-hashtags="moveramontanha"
             socialshare-url="{{url}}">
         </input>
-        <input type="image" src="icons/google.png" href="#" style="width:1.5vw;" alt = "Partilhar no Google+" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
+        <input type="image" src="/icons/google.png" href="#" style="width:1.5vw;" alt = "Partilhar no Google+" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
             socialshare
             socialshare-provider="google"
             socialshare-type="sharer"
@@ -63,7 +67,7 @@
             socialshare-hashtags="moveramontanha"
             socialshare-url="{{url}}">
         </input>
-        <input type="image" src="icons/pocket.png" href="#" style="width:1.5vw;" alt = "Partilhar no Pocket" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
+        <input type="image" src="/icons/pocket.png" href="#" style="width:1.5vw;" alt = "Partilhar no Pocket" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"
             socialshare
             socialshare-provider="pocket"
             socialshare-type="sharer"

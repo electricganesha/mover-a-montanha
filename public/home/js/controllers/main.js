@@ -4,36 +4,50 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
   $scope.category = category;
   $scope.author = author;
   $scope.authors = authorList;
+  $scope.activePosts = [];
 
     for(var i=0 ; i < $scope.posts.length; i++)
-      {
-        console.log($scope.posts);
-        console.log("DENTRO");
-        if($scope.posts[i].isDraft == true)
-          {
-            console.log("PRIMEIRO POST");
-            console.log($scope.posts[i]);
-            $scope.firstPost = $scope.posts[i];
-            break;
-          }
-          
-      }
+    {
+      if($scope.posts[i].isDraft == true)
+        {
+          $scope.firstPost = $scope.posts[i];
+          break;
+        }
+    }
 
-  /*$scope.shortenURL = function(postId)
-  {
-  var urlShortenPromise = Services.shortenURL("http://www.moveramontanha.com/posts/"+postId);
-  urlShortenPromise.then(function(result) {
+    for(var i=1 ; i < $scope.posts.length; i++)
+    {
+      if($scope.posts[i].isDraft == true)
+        {
+          $scope.activePosts[i-1] = $scope.posts[i];
+        }
+    }
 
-  // this is only run after getData() resolves
-  $scope.data = result;
-  console.log("data.name"+$scope.data.name);
-});
-}*/
+
+    $scope.slickConfig = {
+        draggable: false,
+        centerMode: false,
+        slidesToShow: 4,
+        infinite: true,
+        event: {
+            beforeChange: function (event, slick, currentSlide, nextSlide) {
+            },
+            afterChange: function (event, slick, currentSlide, nextSlide) {
+            }
+        }
+    };
 
 $scope.convertDateToPT = function(date)
 {
   var date = new Date(date);
   return moment(date, "D_M_YYYY").locale('pt-br').format('LLL');
+}
+
+$scope.trimContentTo100Char = function(content)
+{
+  var trimmedContent = content.body.substr(0, 100);
+  trimmedContent = trimmedContent + "...";
+  return trimmedContent;
 }
 
 })
@@ -48,13 +62,19 @@ $scope.convertDateToPT = function(date)
 })
 .controller('AboutCtrl', function ($scope, $log) {
 })
-.controller('ArticleCtrl', function ($scope, $log, article) {
+.controller('ArticleCtrl', function ($scope, $log, article, Posts) {
   $scope.post = article;
   var meioartigo = article.body.length/2;
   var brDoMeio = article.body.indexOf("<br/>", meioartigo);
   $scope.post1 = article.body.substr(0, brDoMeio);
   $scope.post2 = article.body.substr(brDoMeio, article.body.length);
 
+  
+
+	$scope.authorPosts = Posts.author($scope.post.author._id).then(function(data){
+    $scope.postsAuthor = data;
+  });
+      
   $scope.convertDateToPT = function(date)
   {
     var date = new Date(date);
