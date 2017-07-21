@@ -22,8 +22,8 @@
     <br>
     <p style="color: white; font-family: 'Raleway', sans-serif; text-transform: uppercase; padding-top:15px; font-size: 19px;">Os nossos Autores</p>
     <div style="width:60%; margin:auto;">
-      <p ng-repeat="autor in authors" ng-if="$index < authors.length - 1" style="display: inline-block;"><a id="authorlink">{{ autor.name }}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
-      <p ng-repeat="autor in authors" ng-if="$index == authors.length - 1" style="display: inline-block;"><a id="authorlink">{{ autor.name }}</a></p>
+      <p ng-repeat="author in authors" ng-if="$index < authors.length - 1" style="display: inline-block;"><a id="authorlink" href="/author/{{author._id}}">{{ author.name }}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
+      <p ng-repeat="author in authors" ng-if="$index == authors.length - 1" style="display: inline-block;"><a id="authorlink" href="/author/{{author._id}}">{{ author.name }}</a></p>
     </div>
     <br>
   </div>
