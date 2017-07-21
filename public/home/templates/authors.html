@@ -3,12 +3,14 @@
   <div class="row">
     <h1 id="autorestitle"> Autores </h1>
     <h3 id="autoressubtitle"> Pode consultar neste espaço os nossos autores </h3>
-    <div style="width:70%; margin: auto;">
-      <a href="#/author/{{author._id}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-3 linkautor" ng-repeat="author in authors | orderBy:'toString()'" style="text-align:center; margin-bottom:100px;">
+    <div style="width:65%; margin: auto;">
+      <a href="#/author/{{author._id}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-3 linkautor" ng-repeat="author in authors | orderBy:'toString()'" style="text-align:center;">
+        <div id="ballazul">
         <img id="autorfoto" src="{{ author.photo }}"></img>
         <br>
         <br>
         <p class="autornome">{{ author.name }}</p>
+        </div>
       </a>
     </div> 
   </div>

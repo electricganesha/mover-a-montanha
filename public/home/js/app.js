@@ -6,7 +6,8 @@ var app = angular.module('mean-blog.home', [
 	'mean-blog.authors',
 	'mean-blog.services',
 	'mean-blog.categories',
-	'720kb.socialshare'
+	'720kb.socialshare',
+	'slickCarousel'
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
@@ -37,7 +38,6 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 				},
 				category: function($stateParams, Categories)
 				{
-					console.log($stateParams.category);
 					if($stateParams.category)
 					{
 						return Categories.one($stateParams.category).then(function(data){
@@ -51,7 +51,6 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 				},
 				author: function($stateParams, Authors)
 				{
-					console.log($stateParams.author);
 					if($stateParams.author)
 					{
 						return Authors.one($stateParams.author).then(function(data){
@@ -62,7 +61,13 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 						return $stateParams.author;
 					}
 
+				},
+				authorList: function(Authors){
+					return Authors.all().then(function(data){
+						return data;
+					});
 				}
+				
 			},
 		controller: 'MainCtrl',
 	}).state('about', {
@@ -88,7 +93,6 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 		resolve: {
 			author: function($stateParams, Authors){
 				return Authors.one($stateParams.id).then(function(data){
-					console.log("xpto");
 					return data;
 				});
 			}
@@ -101,7 +105,6 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 		resolve: {
 			article: function($stateParams, Posts){
 				return Posts.one($stateParams.id).then(function(data){
-					console.log(data);
 					return data;
 				});
 			}

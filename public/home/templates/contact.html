@@ -1,16 +1,25 @@
 <!-- Main Content -->
-<div class="container" style="margin-top:2vh;">
-  <div class="row">
-    <h1 style="margin-bottom:6vw; text-align:center;"> Contacto </h1>
-  </div>
-  <div class="row">
-    <div style="width:100%; display:inline-block;">
-      <img style="border-radius:50%; width:6vw; margin-left:45%; padding:0.5vw;" src="{{ author.photo }}"></img>
-      <br>
-      <br>
-      <h2 style="display:block; margin:auto; text-align:center; ">{{ author.name }}</h2>
-      <hr>
-      <h4 style="text-align:center; line-height:140%;" btf-markdown='author.bio'> </h4>
-    </div>
-  </div>
+<div id="headerimgcontact" class="col-md-12"></div>
+<div class="col-md-4" style="margin-top: 73px;">
+</div>
+<div class="col-md-8" style="margin-top: 73px; height: 90px; background-color: #486af0;">
+  <p style="font-family: 'Raleway', sans-serif; text-transform: uppercase; font-weight: 800; color: white; font-size: 34px; padding-top: 10px; padding-left: 12px;"> Contacto </p>
+</div>
+<div id="formulariocontacto" class="col-md-12">
+  <form style="border: solid 2px red; width: 30%; margin: auto;">
+    Nome (obrigatório)<br>
+    <input type="text" name="nome">
+    <br>
+    <br>
+    Endereço electrónico (obrigatório)<br>
+    <input type="text" name="email">
+    <br>
+    <br>
+    Texto (obrigatório)<br>
+    <textarea rows="4" cols="50">
+    At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
+    </textarea>
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
 </div>
