@@ -1,11 +1,13 @@
 <!-- Main Content -->
 <div class="row" style="margin:0">
   <div id="headerimghome" style="width:100%;">
-    <div class="col-md-3" style="text-align: -webkit-center;">
-      <div style="background-color:#486af0; z-index:0; width:253px; height:315px;">
-        <img id="autorfotoarticle" style="margin:auto; margin-top: 76px;" src="{{ firstPost.author.photo  }}"></img>
-        <br>
-        <p id="autornamearticle">{{ firstPost.author.name}}</p>
+    <div class="col-md-3" style="text-align: center;">
+      <div style="background-color:#486af0; z-index:0; width:253px; height:315px; margin: auto;">
+        <a href="/author/{{firstPost.author._id}}" style="text-decoration: none;">
+          <img id="autorfotoarticle" style="margin:auto; margin-top: 76px;" src="{{ firstPost.author.photo  }}"></img>
+          <br>
+          <p id="autornamearticle">{{ firstPost.author.name}}</p>
+        </a>
       </div>
     </div>
     <div id="homearticletopdiv" class="col-md-6" style="border: 2px blue; height: 300px;">
@@ -33,14 +35,14 @@
     <div class="slick-container">
       <slick infinite=true slides-to-show=4 slides-to-scroll=1>
         <a style="text-decoration: none; color:#3b3d40;" ng-href="/article/{{post._id}}" ng-repeat="post in activePosts track by $index">
-          <div class="slick-item box" style="text-align: -webkit-center; outline: 0;">
+          <div class="slick-item box" style="text-align: center; outline: 0;">
             <div class="stay-in-place">
-              <img class="autorfotoarticle" ng-src="{{post.author.photo}}"></img>
+              <img class="autorfotoarticle" ng-src="{{post.author.photo}}" style="margin: auto;"></img>
               <br>
-              <p style="text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px;">{{ post.title}}</p>
-              <p style=" font-family: caslonregular;font-size: 14px; width: 240px;" btf-markdown='trimContentTo100Char(post)'></p>
+              <p style="margin: auto; text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px; width: 90%;">{{ post.title}}</p>
+              <p style="margin: auto; font-family: caslonregular;font-size: 14px; width: 240px; min-height: 150px;" btf-markdown='trimContentTo100Char(post)'></p>
               <br>
-              <p style="text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px;">{{ post.author.name}}</p>
+              <p style="margin: auto; text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px;">{{ post.author.name}}</p>
               <br>
               <br>
               <br>
@@ -50,11 +52,11 @@
             </div>
             <div class="move-in-to-place">
               <br>
-              <p style="text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px;">{{ post.title}}</p>
+              <p style="margin: auto; text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px; width: 80%;">{{ post.title}}</p>
               <br>
-              <div id="recaprecentposts"><span style="font-size:53px; float: left;">"</span><br><p style="width:80%; min-height: 150px;">{{ post.recap }}</p></div>
+              <div id="recaprecentposts"><span style="font-size:53px; float: left;">"</span><br><p style="width:80%; margin: auto; min-height: 150px;">{{ post.recap }}</p></div>
               <br>
-              <p style="text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px;">{{ post.author.name}}</p>
+              <p style="margin: auto; text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px;">{{ post.author.name}}</p>
               <br>
               <br>
               <br>

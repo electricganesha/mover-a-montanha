@@ -894,6 +894,7 @@ a.linkautor:hover > #ballazul p {
 .stay-in-place {
     height: 100%;
     cursor:pointer;
+        height: 480px;
 }
 
 .move-in-to-place {
