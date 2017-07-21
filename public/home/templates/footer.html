@@ -19,10 +19,10 @@
         <br>
         <br>
         <br>
-        <div id="formulario" class="col-md-12">
+        <div id="formulario" class="col-md-12" ng-controller="FooterCtrl">
             <form>
-                <input id="textboxsubscribe" type="text" placeholder="Email">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <input id="buttonsubscribe" type="submit" value="subscrever">
+                <input id="textboxsubscribe" ng-model="email" type="text" placeholder="Email">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="buttonsubscribe" ng-click="subscribe()" type="submit" value="subscrever">
             </form>
         </div>
     </div>
