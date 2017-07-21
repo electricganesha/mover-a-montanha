@@ -13,6 +13,7 @@ module.exports = function(app, passport){
 	require('./api/posts')(apiRouter);
 	require('./api/authors')(apiRouter);
 	require('./api/categories')(apiRouter);
+	require('./api/subscribers')(apiRouter);
 
 	// home route
 	router.get('/', function(req, res) {

@@ -9,6 +9,7 @@ var adminApp = angular.module('mean-blog.admin', [
 	'angularMoment',
 	'mean-blog.services',
 	'mean-blog.categories',
+	'mean-blog.subscribers',
 ]);
 
 adminApp.config(function($stateProvider, $urlRouterProvider){
@@ -51,6 +52,18 @@ adminApp.config(function($stateProvider, $urlRouterProvider){
 				}
 			},
 			controller: 'AllAuthorsCtrl'
+		})
+		.state('allSubscribers', {
+			url: '/allSubscribers',
+			templateUrl: '/admin/templates/allSubscribers.html',
+			resolve: {
+				subscriberList: function(Subscribers){
+					return Subscribers.all().then(function(data){
+						return data;
+					});
+				}
+			},
+			controller: 'AllSubscribersCtrl'
 		})
 		.state('addAuthor', {
 			url: '/addAuthor',

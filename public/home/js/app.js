@@ -7,6 +7,7 @@ var app = angular.module('mean-blog.home', [
 	'mean-blog.services',
 	'mean-blog.categories',
 	'720kb.socialshare',
+	'mean-blog.subscribers',
 	'slickCarousel'
 ]);
 
@@ -67,7 +68,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 						return data;
 					});
 				}
-				
+
 			},
 		controller: 'MainCtrl',
 	}).state('about', {

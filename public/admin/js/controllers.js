@@ -241,6 +241,37 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors){
 	};
 });
 
+// SUBSCRIBERS
+
+adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subscribers){
+
+	$scope.updateSubscribers = function () {
+		Subscribers.all().then(function(data){
+	      $scope.subscribers=data;
+	    });
+  };
+
+	$scope.subscribers = $scope.updateSubscribers();
+	$scope.activeSubscriber = false;
+
+	$scope.setActive = function(subscriber){
+		$scope.activeSubscriber = subscriber;
+	}
+
+	$scope.removeSubscriber = function(subscriber){
+		Subscribers.remove(subscriber._id).then(function(res){
+			if(res.message != undefined)
+			{
+				if(res.message == 'Subscriber deleted!')
+				$scope.updateSubscribers();
+			}
+			else {
+				$scope.updateSubscribers();
+			}
+		});
+	};
+});
+
 adminApp.controller('AddAuthorCtrl', function($scope, Authors){
 	$scope.author = {};
 	$scope.defaultPhoto = '../home/img/thumbnail.jpeg'

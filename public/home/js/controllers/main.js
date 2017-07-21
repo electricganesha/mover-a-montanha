@@ -69,12 +69,12 @@ $scope.trimContentTo100Char = function(content)
   $scope.post1 = article.body.substr(0, brDoMeio);
   $scope.post2 = article.body.substr(brDoMeio, article.body.length);
 
-  
+
 
 	$scope.authorPosts = Posts.author($scope.post.author._id).then(function(data){
     $scope.postsAuthor = data;
   });
-      
+
   $scope.convertDateToPT = function(date)
   {
     var date = new Date(date);
@@ -89,6 +89,17 @@ $scope.trimContentTo100Char = function(content)
     var active = (viewLocation === $state.current.name);
     return active;
   };
+})
+.controller('FooterCtrl', function($scope, $state, Subscribers){
+  $scope.subscribe = function()
+  {
+    var subscriber = { email:'' };
+    subscriber.email = $scope.email;
+    console.log(subscriber);
+    Subscribers.add(subscriber).then(function(data){
+        $scope.email = '';
+    });
+  }
 })
 .controller('SidenavCtrl', function ($scope, $log) {
   $scope.close = function () {
