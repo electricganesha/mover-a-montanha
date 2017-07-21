@@ -991,11 +991,59 @@ a.linkautor:hover > #ballazul p {
 }
 
 /*------------------------- Contactos ----------------------------------*/
-
+#formulariocontacto{
+    z-index: 1;
+}
 #headerimgcontact{
   background-image: url(../img/contacto_header.jpg);
   background-repeat:no-repeat;
   background-size:cover;
   background-position:center;
   height: 241px;
+}
+
+#textboxcontacto{
+    border: solid 2px #486af0;
+    border-radius: 2px;
+    width: 70%;
+    height: 37px;
+}
+
+#textareacontacto{
+    border: solid 2px #486af0;
+    border-radius: 2px;
+    width: 100%;
+    resize: none;
+}
+
+#labelformulario{
+    font-family: 'Raleway', sans-serif;
+    color: #3b3d40;
+    font-size: 18px;
+}
+
+#labelother{
+    font-family: caslonregular;
+}
+
+#buttonsendmsg{
+  width: 130px;
+  height: 36px;
+  font-size: 11px;
+  border-radius: 20px;
+  background-color: white;
+  border: #486af0;
+  color: #486af0;
+  font-family: 'Raleway', sans-serif;
+  text-transform: uppercase;
+  padding-top: 3px;
+  float: right;
+}
+
+#divbluecontact{
+    margin-top: -203px;
+    background-color: #486af0;
+    height: 600px;
+    z-index: 0;
+    padding-top: 200px;
 }
