@@ -6,7 +6,7 @@
     <div style="width:65%; margin: auto;">
       <a href="/author/{{author._id}}" class="col-xs-12 col-sm-6 col-md-4 col-lg-3 linkautor" ng-repeat="author in authors | orderBy:'toString()'" style="text-align:center;">
         <div id="ballazul">
-        <img id="autorfoto" src="{{ author.photo }}"></img>
+        <img id="autorfoto" ng-src="{{ author.photo }}"></img>
         <br>
         <br>
         <p class="autornome">{{ author.name }}</p>

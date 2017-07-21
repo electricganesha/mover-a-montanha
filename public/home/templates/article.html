@@ -1,11 +1,13 @@
 <!-- Main Content -->
 <div id="headerimg" class="col-md-12"></div>
 <div style="position:absolute; left:59px; top:76px; background-color:#486af0; z-index:0; width:259px; height:251px;"></div>
-<div style="width:300px; position:absolute; top:260px; left:39px; text-align: center">
-  <a href="#/author/{{post.author._id}}"><img id="autorfotoarticle" style="margin:auto;" src="{{ post.author.photo }}"></img></a>
-  <br>
-  <p id="articleautorname">{{ post.author.name }}</p>
-</div>
+<a href="/author/{{post.author._id}}" style="z-index:1; color: #3b3d40; width:300px; position:absolute; top:260px; left:39px; text-align: center">
+  <div >
+    <img id="autorfotoarticle" style="margin:auto;" src="{{ post.author.photo }}"></img>
+    <br>
+    <p id="articleautorname">{{ post.author.name }}</p>
+  </div>
+  </a>
 <div id="mainarticle" class="col-md-12">
   <div class="row">
     <div id="cabecalhoarticle">
@@ -21,7 +23,7 @@
       </a>
     </div>
     <div id="post1" btf-markdown='post1'></div>
-    <div class="col-md-12" style="margin-bottom:2vh; background-color:#486af0; color:white; margin-bottom: 35px;">
+    <div class="col-md-12" ng-show="mostraRecap" style="margin-bottom:2vh; background-color:#486af0; color:white; margin-bottom: 35px;">
       <div id="categorias">
         <p style="font-family: 'Raleway', sans-serif;"> PALAVRAS-CHAVE </p>
         <!--<a style="color:white;" href="/category/{{category._id}}" ng-repeat="category in post.categories">
@@ -30,6 +32,16 @@
         <!--</a >-->
       </div>
       <div id="recap"><span style="font-size:80px; margin-left: -41px;">"</span><p style="margin-top: -84px;">{{ post.recap }}</p></div>
+    </div>
+    <div class="col-md-12" ng-show="mostraRecapSoCat" style="margin-bottom:2vh; background-color:#486af0; color:white; margin-bottom: 35px;">
+      <div id="categorias" style="position:relative;">
+        <br>
+        <p style="font-family: 'Raleway', sans-serif;"> PALAVRAS-CHAVE </p>
+        <!--<a style="color:white;" href="/category/{{category._id}}" ng-repeat="category in post.categories">
+          {{ category }}-->
+          <div ng-repeat="category in post.categories"><a style="color:white;" href="/?category={{category._id}}"><p> {{ category.tag }} </p></a></div>
+        <!--</a >-->
+      </div>
     </div>
     <div id="post2" btf-markdown='post2'></div>
     <div id="articlefooter">

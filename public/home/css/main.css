@@ -993,9 +993,11 @@ a.linkautor:hover > #ballazul p {
 }
 
 /*------------------------- Contactos ----------------------------------*/
+
 #formulariocontacto{
     z-index: 1;
 }
+
 #headerimgcontact{
   background-image: url(../img/contacto_header.jpg);
   background-repeat:no-repeat;
@@ -1048,4 +1050,31 @@ a.linkautor:hover > #ballazul p {
     height: 600px;
     z-index: 0;
     padding-top: 200px;
+}
+
+/*------------------------- Author ----------------------------------*/
+
+#bio{
+    padding-top: 50px;
+  width: 65%;
+  font-family: caslonregular;
+  font-size: 19px; 
+  text-align:justify; 
+  margin-bottom:30px;
+  min-height: 515px;
+  padding-left: 50px;
+}
+
+#artigoautorbio{
+    position: absolute;
+    left: 147px;
+    top: 135px;
+    background-color: #486af0;
+    z-index: 0;
+    width: 259px;
+    min-height: 480px;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    padding-top: 20px;
 }
