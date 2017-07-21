@@ -16,9 +16,7 @@ module.exports = function(apiRouter){
 					}
 	        else
 					{
-						console.log(posts);
 						res.json(posts);
-
 					}
 
 	    });
@@ -36,9 +34,7 @@ module.exports = function(apiRouter){
 					}
 	        else
 					{
-						console.log(posts);
 						res.json(posts);
-
 					}
 
 	    });
@@ -56,9 +52,7 @@ module.exports = function(apiRouter){
 					}
 	        else
 					{
-						console.log(posts);
 						res.json(posts);
-
 					}
 
 	    });
@@ -96,9 +90,6 @@ module.exports = function(apiRouter){
 
 			if(err) res.send(err);
 
-			console.log("UPDATE " + req.body);
-			console.log(req.body);
-
 			post.title = req.body.title;
 			post.body = req.body.body;
 			post.isDraft = req.body.isDraft;
@@ -113,7 +104,6 @@ module.exports = function(apiRouter){
 
 	// delete a post
 	apiRouter.delete('/posts/:id', function(req, res){
-		console.log("ID PARA APAGAR : " + req.params.id);
 		Post.remove({
 			_id: req.params.id
 		}, function(err, post){

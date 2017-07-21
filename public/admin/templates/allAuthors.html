@@ -1,11 +1,11 @@
 <div class="container">
 <div class='row full-height'>
     <!-- Sidebar -->
-    <div class='col-sm-4' style="border-right:1px solid black; margin-bottom:4vh;">
+    <div class='col-sm-4' style="border-right:1px solid black; margin-bottom:4vh; overflow:auto; height:90vh;">
         <h3>Lista de Autores</h3>
         <ul class="list-group">
             <li ng-show="!authors.length">N&atilde;o existe nenhum autor em base de dados.</li>
-            <div ng-repeat='author in authors track by $index' style="margin-top:4vh;">
+            <div ng-repeat='author in authors | orderBy:"name"' style="margin-top:4vh;">
             <li
                 class="list-group-item"
                 ng-class="{'active': (activeAuthor === author)}"
@@ -25,8 +25,18 @@
 
     <!-- Page Content -->
     <div class='col-sm-8' ng-show="activeAuthor">
+      <div style="float:left">
         <h2 contenteditable="true" ng-model="activeAuthor.name">{{activeAuthor.name}}</h2>
         <div id="pad" text-angular ng-model="activeAuthor.bio" style="height:80vh;"></div>
+      </div>
+        <div  style="position:absolute; top:4vh;  right:-10vw;">
+          <img style="width:8.5vw; margin-left:0vw; margin-top:5vw; margin-bottom:2vh; border-radius:50%;" class="post-thumbnail" src="{{ activeAuthor.photo ? activeAuthor.photo : defaultPhoto }}"/>
+          <br>
+          <div style=" width:8vw; margin:auto;  color:#444;    border:1px solid #CCC;    background:#DDD;    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);    cursor:pointer;    vertical-align:middle;     padding: 5px;  text-align: center;"
+          class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+            ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-change="upload(file)"
+            ngf-resize="{width: 100, height: 100}"> Escolher Fotografia </div>
+        </div>
         <div class='btn btn-success pull-right' style="margin-bottom:10px;" ng-click='editAuthor(activeAuthor._id,activeAuthor)'>Editar Autor</div>
     </div>
         </div>

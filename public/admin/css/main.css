@@ -40,3 +40,8 @@ html, body, section, .full-height {
 .odd.selected, .even.selected {
   background-color: rgba(255,93,177,1) !important;
 }
+
+.quoteArea .ta-editor
+{
+  height: 200px;
+}

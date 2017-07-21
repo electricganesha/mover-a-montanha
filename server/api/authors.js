@@ -39,6 +39,7 @@ apiRouter.post('/authors', function(req, res){
   author.name = req.body.name;
   author.bio = req.body.bio;
   author.photo = req.body.photo;
+  author.quote = req.body.quote;
 
   author.save(function(err, author){
     if(err) res.send(err);
@@ -61,9 +62,6 @@ apiRouter.put('/authors/:id', function(req, res){
 
     if(err) res.send(err);
 
-    console.log("UPDATE " + req.body);
-    console.log(req.body);
-
     author.name = req.body.name;
     author.bio = req.body.bio;
 
@@ -77,7 +75,6 @@ apiRouter.put('/authors/:id', function(req, res){
 
 // delete an author
 apiRouter.delete('/authors/:id', function(req, res){
-  console.log("ID PARA APAGAR : " + req.params.id);
   Author.remove({
     _id: req.params.id
   }, function(err, post){
@@ -89,7 +86,6 @@ apiRouter.delete('/authors/:id', function(req, res){
 
 // add an author
 apiRouter.post('/authors/upload',upload.single('uploadImageFile'), function(req, res){
-    console.log(req.file);
     res.json({ path: req.file.path });
 });
 
