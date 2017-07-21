@@ -830,6 +830,7 @@ a.linkautor:hover > #ballazul p {
 #buttonseemore{
   width: 130px;
   height: 36px;
+  margin: auto;
   font-size: 11px;
   border-radius: 20px;
   background-color: #486af0;
