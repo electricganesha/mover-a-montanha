@@ -8,6 +8,8 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var methodOverride = require('method-override');
 var cors = require('cors');
+const CronJob = require('cron').CronJob;
+const mailingListJob = require('./server/mailinglist');
 
 require('./server/passport')(passport);   // this file is defined below
 
@@ -79,6 +81,22 @@ app.use(function(err, req, res, next) {
 // Start server
 app.listen(envConfig.port, function(){
   console.log('Server listening on port ' + envConfig.port)
+});
+
+//CRON JOBS
+var jobs = [
+    new CronJob({
+        cronTime: "30 27 18 * * 0-6", //todos os dias as 14:00 (segunda a domingo)
+        onTick: function() {
+            mailingListJob();
+        },
+        start: false, //don't start immediately
+        timeZone: 'Europe/Lisbon'
+    })
+];
+
+jobs.forEach(function(job) {
+    job.start(); //start the jobs
 });
 
 module.exports = app;
