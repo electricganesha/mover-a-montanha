@@ -1,13 +1,13 @@
 var mongoose = require('mongoose');
 
 var postSchema = new mongoose.Schema({
-	title: { type: String, required: '{PATH} is required!'},
-	body: { type: String, required: '{PATH} is required!'},
+	title: { type: String},
+	body: { type: String},
 	author: { type: mongoose.Schema.Types.ObjectId, ref: 'Author'},
 	created_at: { type: Date, default: Date.now },
 	updated_at: { type: Date, default: Date.now },
 	isDraft: { type: Boolean, default: true},
-	recap: { type:String, required: '{PATH} is required!'},
+	recap: { type:String},
 	categories: [{ type:mongoose.Schema.ObjectId, ref:'Category'}]
 });
 

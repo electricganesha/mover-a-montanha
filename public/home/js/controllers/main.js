@@ -54,19 +54,8 @@ $scope.trimContentTo100Char = function(content)
 .controller('AuthorsCtrl', function ($scope, $log, authorList) {
   $scope.authors = authorList;
 })
-.controller('AuthorCtrl', function ($scope, $log, author, Posts) {
+.controller('AuthorCtrl', function ($scope, $log, author) {
   $scope.author = author;
-  $scope.mostraQuote = false;
-
-  if($scope.author.quote == '' || $scope.author.quote == undefined){
-    $scope.mostraQuote = false;
-  }else{
-    $scope.mostraQuote = true;
-  }
-
-  $scope.authorPosts = Posts.author($scope.author._id).then(function(data){
-    $scope.postsAuthor = data;
-  });
 })
 .controller('AboutCtrl', function ($scope, $log) {
 })
@@ -77,23 +66,7 @@ $scope.trimContentTo100Char = function(content)
   $scope.post1 = article.body.substr(0, brDoMeio);
   $scope.post2 = article.body.substr(brDoMeio, article.body.length);
 
-  $scope.mostraRecap = false;
-  $scope.mostraRecapSoCat = false;
 
-  if($scope.post.recap == '' || $scope.post.recap == undefined){
-    $scope.mostraRecap = false;
-    if($scope.post.categories.length == 0){
-      console.log("Entrei");
-      $scope.mostraRecapSoCat = false;
-    }else{
-      $scope.mostraRecapSoCat = true;
-    }
-  }else{
-    $scope.mostraRecap = true;
-  }
-  console.log($scope.post.categories.length);
-  console.log($scope.mostraRecap);
-  console.log($scope.mostraRecapSoCat);
 
 	$scope.authorPosts = Posts.author($scope.post.author._id).then(function(data){
     $scope.postsAuthor = data;
@@ -105,7 +78,25 @@ $scope.trimContentTo100Char = function(content)
     return moment(date, "D_M_YYYY").locale('pt-br').format('LLL');
   }
 })
-.controller('ContactCtrl', function ($scope, $log) {
+.controller('ContactCtrl', function ($scope, $log, Services) {
+
+  $scope.contactName = '';
+  $scope.contactMail = '';
+  $scope.contactBody = '<html>	<head><title></title></head><body><p style="text-align: center;"><img alt="" src="http://il5.picdn.net/shutterstock/videos/4796915/thumb/1.jpg"/></p><p><strong>Caro Administrador de Mover-A-Montanha</strong>,</p><p><strong>Foi efectuado um contacto com proveni&ecirc;ncia na p&aacute;gina de contacto de <a href="http://www.moveramontanha.com">www.moveramontanha.com</a></strong></p><p><strong>A mensagem enviada foi a seguinte:</strong></p><p>&nbsp;</p>';
+  $scope.contactMessage = '';
+
+
+  $scope.sendEmail = function()
+  {
+    var data = ({
+      contactName: $scope.contactName,
+      contactEmail: $scope.contactEmail,
+      contactMessage: $scope.contactBody +'<p>&quot;<i>' + $scope.contactMessage + '</p></i>&quot;<br><p><strong>Este e-mail &eacute; gerado automaticamente atrav&eacute;s do servidor da p&aacute;gina.</strong></p></body></html>'
+    });
+
+    Services.sendEmail(data);
+  }
+
 })
 .controller('NavCtrl', function($scope, $state){
   $scope.active = $state;
@@ -119,7 +110,6 @@ $scope.trimContentTo100Char = function(content)
   {
     var subscriber = { email:'' };
     subscriber.email = $scope.email;
-    console.log(subscriber);
     Subscribers.add(subscriber).then(function(data){
         $scope.email = '';
     });
