@@ -48,9 +48,30 @@ $scope.trimContentTo100Char = function(content)
 })
 .controller('ArticlesCtrl', function ($scope, $log, allPosts, allCategories, allAuthors, Posts) {
   $scope.allP = allPosts;
-  $scope.allC = allCategories;
-  $scope.allA = allAuthors;
+
+  /*-------- Categories -------*/
+  var categoriesArray = [];
+  categoriesArray.push({tag:"Todos", _id:"Todos"});
+  for(var i=0; i<allCategories.length; i++){
+    categoriesArray.push(allCategories[i]);
+  }
+  console.log(categoriesArray);
+  $scope.allC = categoriesArray;
+
+  /*-------- Authors -------*/
+  var authorsArray = [];
+  authorsArray.push({name:"Todos", _id:"Todos"});
+  for(var i=0; i<allAuthors.length; i++){
+    authorsArray.push(allAuthors[i]);
+  }
+  $scope.allA = authorsArray;
+
   $scope.formattedDate = '';
+
+  $scope.changedDate = 'All';
+  $scope.changedAuthor = 'All';
+  $scope.changedCategory = 'All';
+
 
   $scope.convertDateToPT = function(date)
   {
@@ -61,6 +82,7 @@ $scope.trimContentTo100Char = function(content)
   var getMonthList = function()
   {
     var dates = [];
+    dates.push("Todos");
 
     for(var i=0; i<allPosts.length; i++)
     {
@@ -74,15 +96,55 @@ $scope.trimContentTo100Char = function(content)
     return dates;
   }
 
+
+  $scope.changedCategories = function(value)
+  {
+    if(value != 'Todos')
+    {
+      $scope.changedCategory = value;
+    }
+    else
+    {
+      $scope.changedCategory = 'All';
+    }
+
+    apllyFilter();
+  }
+
+  $scope.changedAuthors = function(value)
+  {
+    if(value != 'Todos')
+    {
+      $scope.changedAuthor = value;
+    }
+    else
+    {
+      $scope.changedAuthor = 'All';
+    }
+
+    apllyFilter();
+  }
+
   $scope.changeMonthDropDown = function(value)
   {
-    var month = value.split(" ");
-    var monthFormatted = formatMonthNumeric(month[0]);
-    var changedDate = monthFormatted+month[2];
+    if(value != 'Todos')
+    {
+      var month = value.split(" ");
+      var monthFormatted = formatMonthNumeric(month[0]);
+      $scope.changedDate = monthFormatted+month[2];
+    }
+    else
+    {
+      $scope.changedDate = 'All';
+    }
 
-    Posts.filter(changedDate,'All','All').then(function(data){
+    apllyFilter();
+  }
+
+  var apllyFilter = function (){
+    Posts.filter($scope.changedDate,$scope.changedAuthor,$scope.changedCategory).then(function(data){
 	      $scope.allP=data;
-	   });
+     });
   }
 
   var formatMonthExtended = function(month)

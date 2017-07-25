@@ -840,6 +840,7 @@ a.linkautor:hover > #ballazul p {
   text-transform: uppercase;
   padding-top: 11px;
   margin-top: 215px;
+  text-align: center;
 }
 
 #authorlink{
@@ -1120,6 +1121,20 @@ a.linkautor:hover > #ballazul p {
     color: #486af0
 }
 
-#divfilter{
-    height: 150px;
+#warningpost{
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    font-size: 20px;
+    color: #3b3d40;
+    width: 60%;
+    margin: auto;
+    font-weight: 800;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+#filtertitle{
+  font-family: 'Raleway', sans-serif;  
+  color: white;
+  text-transform: uppercase;
 }
