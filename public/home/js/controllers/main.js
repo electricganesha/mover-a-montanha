@@ -71,7 +71,6 @@ $scope.trimContentTo100Char = function(content)
       if(dates.indexOf(date) == -1)
         dates.push(date);
     }
-
     return dates;
   }
 
@@ -82,8 +81,8 @@ $scope.trimContentTo100Char = function(content)
     var changedDate = monthFormatted+month[2];
 
     Posts.filter(changedDate,'All','All').then(function(data){
-	      $scope.posts=data;
-	    });
+	      $scope.allP=data;
+	   });
   }
 
   var formatMonthExtended = function(month)
