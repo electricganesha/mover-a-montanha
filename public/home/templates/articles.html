@@ -2,24 +2,25 @@
 <div id="headerimgcontact" class="col-md-12">
     <p id="tituloartigos">ARTIGOS</p>
 </div>
-<div id="divfilter" class="col-md-12" style="background-color:#486af0;">
-    <div class="col-md-4">
-        <select class="form-control">
-            <option value="allCategories">Todos</option>
-            <option ng-repeat="cat in allC" value="cat._id">{{ cat.tag }}</option>
+<div id="divfilter" class="col-md-12" style="background-color:#486af0; padding-bottom: 43px;">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-2" style="text-align:center; margin-top: 40px;">
+        <p id="filtertitle">Palavras-Chave</p>
+        <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px;" class="form-control" ng-model="categoriesSelected" ng-change="changedCategories(categoriesSelected._id)" ng-init="categoriesSelected = allC[0]" data-ng-options="category.tag for category in allC">
         </select>
     </div>
-    <div class="col-md-4">
-        <select class="form-control">
-            <option value="allAuthors">Todos</option>
-            <option ng-repeat="authors in allA" value="authors._id">{{ authors.name }}</option>
+    <div class="col-md-2" style="text-align:center; margin-top: 40px;">
+        <p id="filtertitle">Autores</p>
+        <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px;" class="form-control" ng-model="authorsSelected" ng-change="changedAuthors(authorsSelected._id)" ng-init="authorsSelected = allA[0]" data-ng-options="author.name for author in allA">
         </select>
     </div>
-    <div class="col-md-4">
-        <select class="form-control">
-            <option value="allAuthors">Todos</option>
-            <option ng-repeat="month in monthList" ng-click="changeMonthDropDown(month)" value="{{month}}">{{ month }}</option>
+    <div class="col-md-2" style="text-align:center; margin-top: 40px;">
+        <p id="filtertitle">Data de Publicação</p>
+        <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px;" class="form-control" ng-model="dateSelected" ng-change="changeMonthDropDown(dateSelected)" ng-init="dateSelected = monthList[0]" data-ng-options="month as month for month in monthList">
         </select>
+    </div>
+    <div class="col-md-3">
     </div>
 </div>
 <div class="col-md-12">
@@ -33,4 +34,7 @@
             <p id="nomeData">{{post.author.name}}, {{ convertDateToPT(post.created_at) }}</p>
         </div>
     </a>
+    <div ng-if="allP.length <= 0" >
+        <p id="warningpost">Não existem artigos correspondentes ao filtro selecionado</p>
+    </div>
 </div>

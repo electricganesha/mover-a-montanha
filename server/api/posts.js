@@ -59,7 +59,7 @@ module.exports = function(apiRouter){
 
 		if(req.query.category != 'All')
 		{
-			query.category = req.query.category;
+			query.categories = req.query.category;
 		}
 
 		console.log(query);
