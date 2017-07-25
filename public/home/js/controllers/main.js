@@ -46,17 +46,133 @@ $scope.trimContentTo100Char = function(content)
 })
 .controller('AboutCtrl', function ($scope, $log) {
 })
-.controller('ArticlesCtrl', function ($scope, $log, allPosts, allCategories, allAuthors) {
+.controller('ArticlesCtrl', function ($scope, $log, allPosts, allCategories, allAuthors, Posts) {
   $scope.allP = allPosts;
   $scope.allC = allCategories;
   $scope.allA = allAuthors;
+  $scope.formattedDate = '';
 
   $scope.convertDateToPT = function(date)
   {
     var date = new Date(date);
     return moment(date, "D_M_YYYY").locale('pt-br').format('LLL');
   }
-  console.log(allAuthors);
+
+  var getMonthList = function()
+  {
+    var dates = [];
+
+    for(var i=0; i<allPosts.length; i++)
+    {
+      var post = allPosts[i];
+
+      var date = formatMonthExtended(post.created_at[5]+post.created_at[6])+" de "+post.created_at[0]+post.created_at[1]+post.created_at[2]+post.created_at[3];
+
+      if(dates.indexOf(date) == -1)
+        dates.push(date);
+    }
+
+    return dates;
+  }
+
+  $scope.changeMonthDropDown = function(value)
+  {
+    var month = value.split(" ");
+    var monthFormatted = formatMonthNumeric(month[0]);
+    var changedDate = monthFormatted+month[2];
+
+    Posts.filter(changedDate,'All','All').then(function(data){
+	      $scope.posts=data;
+	    });
+  }
+
+  var formatMonthExtended = function(month)
+  {
+    switch(month)
+    {
+      case('01'):
+        return 'Janeiro';
+      break;
+      case('02'):
+        return 'Fevereiro';
+      break;
+      case('03'):
+        return 'Mar&ccedil;o';
+      break;
+      case('04'):
+        return 'Abril';
+      break;
+      case('05'):
+        return 'Maio';
+      break;
+      case('06'):
+        return 'Junho';
+      break;
+      case('07'):
+        return 'Julho';
+      break;
+      case('08'):
+        return 'Agosto';
+      break;
+      case('09'):
+        return 'Setembro';
+      break;
+      case('10'):
+        return 'Outubro';
+      break;
+      case('11'):
+        return 'Novembro';
+      break;
+      case('12'):
+        return 'Dezembro';
+      break;
+    }
+  }
+
+  var formatMonthNumeric = function(month)
+  {
+    switch(month)
+    {
+      case('Janeiro'):
+        return '01';
+      break;
+      case('Fevereiro'):
+        return '02';
+      break;
+      case('Mar&ccedil;o'):
+        return '03';
+      break;
+      case('Abril'):
+        return '04';
+      break;
+      case('Maio'):
+        return '05';
+      break;
+      case('Junho'):
+        return '06';
+      break;
+      case('Julho'):
+        return '07';
+      break;
+      case('Agosto'):
+        return '08';
+      break;
+      case('Setembro'):
+        return '09';
+      break;
+      case('Outubro'):
+        return '10';
+      break;
+      case('Novembro'):
+        return '11';
+      break;
+      case('Dezembro'):
+        return '12';
+      break;
+    }
+  }
+
+  $scope.monthList = getMonthList();
 })
 .controller('ArticleCtrl', function ($scope, $log, article, Posts) {
   $scope.post = article;

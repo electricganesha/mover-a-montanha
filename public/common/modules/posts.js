@@ -63,6 +63,18 @@ postsModule.service('Posts', function($http){
 				console.error(err);
 				return err;
 			});
+		},
+		filter: function(date,author,category){
+			return $http({
+				method: 'get',
+				url: '/api/posts/filters?date='+date+'&author='+author+'&category='+category,
+			}).then(function(res){
+				return res.data;
+			}).catch(function(err){
+				console.error('Ocorreu um erro com a filtragem indicada');
+				console.error(err);
+				return err;
+			});
 		}
 	};
 });

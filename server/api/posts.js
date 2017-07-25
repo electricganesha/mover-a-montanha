@@ -26,14 +26,9 @@ module.exports = function(apiRouter){
 	// uso : /posts/filters?date=032016&author=:id&category=:id
 	apiRouter.get('/posts/filters', function(req, res){
 
-		var dateEnd = undefined;
-		var dateBegin = undefined;
-		var author = undefined;
-		var category = undefined;
-
 		var query = {};
 
-		if(req.query.date != undefined)
+		if(req.query.date != 'All')
 		{
 
 			var daysInMonth = function(month,year)
@@ -57,12 +52,12 @@ module.exports = function(apiRouter){
 			query.created_at = { '$lte': dateEnd, '$gte':dateBegin };
 		}
 
-		if(req.query.author != undefined)
+		if(req.query.author != 'All')
 		{
 			query.author = req.query.author;
 		}
 
-		if(req.query.category != undefined)
+		if(req.query.category != 'All')
 		{
 			query.category = req.query.category;
 		}
