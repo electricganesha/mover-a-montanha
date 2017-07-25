@@ -11,6 +11,15 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
       if($scope.posts[i].isDraft == true)
         {
           $scope.firstPost = $scope.posts[i];
+
+          if($scope.firstPost.body.indexOf("ta-insert-video") > -1)
+          {
+            $scope.temVideo = true;
+          }
+          else
+          {
+            $scope.temVideo = false;
+          }
           break;
         }
     }
