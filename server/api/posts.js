@@ -22,6 +22,68 @@ module.exports = function(apiRouter){
 	    });
 	});
 
+	// get all posts filtered
+	// uso : /posts/filters?date=032016&author=:id&category=:id
+	apiRouter.get('/posts/filters', function(req, res){
+
+		var dateEnd = undefined;
+		var dateBegin = undefined;
+		var author = undefined;
+		var category = undefined;
+
+		var query = {};
+
+		if(req.query.date != undefined)
+		{
+
+			var daysInMonth = function(month,year)
+			{
+				return new Date(year, month, 0).getDate();
+			}
+
+			month = req.query.date[0]+req.query.date[1];
+			year = req.query.date[2]+req.query.date[3]+req.query.date[4]+req.query.date[5];
+
+			//transformar a data num formato mais simpatico
+			var parsedDate = month+"/"+daysInMonth(month,year)+"/"+year;
+
+			console.log(parsedDate);
+
+			var dateEnd = new Date(parsedDate);
+
+			var dateBegin = new Date(dateEnd);
+			dateBegin.setMonth(dateBegin.getMonth()-1);
+
+			query.created_at = { '$lte': dateEnd, '$gte':dateBegin };
+		}
+
+		if(req.query.author != undefined)
+		{
+			query.author = req.query.author;
+		}
+
+		if(req.query.category != undefined)
+		{
+			query.category = req.query.category;
+		}
+
+		console.log(query);
+
+		Post.find(query).sort('-created_at').populate('author').populate('categories')
+	    .exec(function(err, posts){
+	        if(err)
+					{
+						res.send(err);
+						console.log(err);
+					}
+	        else
+					{
+						res.json(posts);
+					}
+
+	    });
+	});
+
 	// get all posts from a certain Author
 	apiRouter.get('/posts/author/:id', function(req, res){
 

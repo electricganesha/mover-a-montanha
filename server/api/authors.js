@@ -19,7 +19,7 @@ module.exports = function(apiRouter){
 
 // get all authors
 apiRouter.get('/authors', function(req, res){
-  Author.find()
+  Author.find().sort('name')
     .exec(function(err, authors){
         if(err)
             res.send(err);
