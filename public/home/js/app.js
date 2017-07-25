@@ -8,7 +8,8 @@ var app = angular.module('mean-blog.home', [
 	'mean-blog.categories',
 	'720kb.socialshare',
 	'mean-blog.subscribers',
-	'slickCarousel'
+	'slickCarousel',
+	'textAngular'
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider){

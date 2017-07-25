@@ -12,7 +12,8 @@
     </div>
     <div id="homearticletopdiv" class="col-md-6" style="border: 2px blue; height: 300px;">
       <p id="hometitlearticle">{{ firstPost.title}}</p>
-      <div id="homebodyarticle" btf-markdown='firstPost.body'></div>
+      <div id="homebodyarticle" btf-markdown='firstPost.body' ng-if="!temVideo"></div>
+      <div id="homebodyarticle" ta-bind ng-model="firstPost.body" ng-if="temVideo"></div>
     </div>
     <div id="gradient" class="col-md-12">
           <a href="/article/{{firstPost._id}}"><div id="buttonseemore">Ler Mais</div></a>
