@@ -1,0 +1,36 @@
+<!-- Main Content -->
+<div id="headerimgcontact" class="col-md-12">
+    <p id="tituloartigos">ARTIGOS</p>
+</div>
+<div id="divfilter" class="col-md-12" style="background-color:#486af0;">
+    <div class="col-md-4">
+        <select class="form-control">
+            <option value="allCategories">Todos</option>
+            <option ng-repeat="cat in allC" value="cat._id">{{ cat.tag }}</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <select class="form-control">
+            <option value="allAuthors">Todos</option>
+            <option ng-repeat="authors in allA" value="authors._id">{{ authors.name }}</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <select class="form-control">
+            <option value="allAuthors">Todos</option>
+            <option ng-repeat="authors in allA" value="authors._id">{{ authors.name }}</option>
+        </select>
+    </div>
+</div>
+<div class="col-md-12">
+    <a id="linkallposts" href="/article/{{post._id}}" ng-repeat="post in allP">
+        <div ng-if="$index < allP.length -1" id="divArtigo" >
+            <p id="titleartigos">{{post.title}}</p>
+            <p id="nomeData">{{post.author.name}}, {{ convertDateToPT(post.created_at) }}</p>
+        </div>
+        <div ng-if="$index == allP.length -1" id="divArtigo" style="margin-bottom: 40px;" >
+            <p id="titleartigos">{{post.title}}</p>
+            <p id="nomeData">{{post.author.name}}, {{ convertDateToPT(post.created_at) }}</p>
+        </div>
+    </a>
+</div>
