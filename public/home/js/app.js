@@ -88,6 +88,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 		},
 		controller: 'AuthorsCtrl',
 	})
+
 	.state('author', {
 		url: "/author/:id",
 		templateUrl: "/home/templates/author.html",
@@ -99,6 +100,28 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 			}
 		},
 		controller: 'AuthorCtrl',
+	})
+	.state('articles', {
+		url: "/articles",
+		templateUrl: "/home/templates/articles.html",
+		resolve: {
+			allPosts: function($stateParams, Posts){
+				return Posts.all().then(function(data){
+					return data;
+				});
+			},
+			allCategories: function($stateParams, Categories){
+				return Categories.all().then(function(data){
+					return data;
+				});
+			},
+			allAuthors: function($stateParams, Authors){
+				return Authors.all().then(function(data){
+					return data;
+				});
+			},
+		},
+		controller: 'ArticlesCtrl',
 	})
 	.state('article', {
 		url: "/article/:id",

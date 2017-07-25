@@ -1078,3 +1078,48 @@ a.linkautor:hover > #ballazul p {
     color: white;
     padding-top: 20px;
 }
+
+
+/*------------------------- Artigos ----------------------------------*/
+
+#tituloartigos{
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    font-size: 40px;
+    color: white;
+    padding-top: 87px;
+    
+}
+
+#divArtigo{
+    margin-top: 40px;
+}
+
+#titleartigos{
+    font-family: 'Raleway', sans-serif;
+    text-align: center;
+    font-size: 40px;
+    color: #3b3d40;
+    width: 60%;
+    margin: auto;
+    font-weight: 800;
+}
+
+#nomeData{
+    font-family: caslonregular;
+    text-align: center;
+    color: #3b3d40;
+    font-size: 17px;
+}
+
+#linkallposts{
+    text-decoration: none;
+}
+
+#linkallposts:hover #titleartigos{
+    color: #486af0
+}
+
+#divfilter{
+    height: 150px;
+}

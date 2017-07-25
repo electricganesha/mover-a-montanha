@@ -24,19 +24,6 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
     }
 
 
-    $scope.slickConfig = {
-        draggable: false,
-        centerMode: false,
-        slidesToShow: 4,
-        infinite: true,
-        event: {
-            beforeChange: function (event, slick, currentSlide, nextSlide) {
-            },
-            afterChange: function (event, slick, currentSlide, nextSlide) {
-            }
-        }
-    };
-
 $scope.convertDateToPT = function(date)
 {
   var date = new Date(date);
@@ -58,6 +45,18 @@ $scope.trimContentTo100Char = function(content)
   $scope.author = author;
 })
 .controller('AboutCtrl', function ($scope, $log) {
+})
+.controller('ArticlesCtrl', function ($scope, $log, allPosts, allCategories, allAuthors) {
+  $scope.allP = allPosts;
+  $scope.allC = allCategories;
+  $scope.allA = allAuthors;
+
+  $scope.convertDateToPT = function(date)
+  {
+    var date = new Date(date);
+    return moment(date, "D_M_YYYY").locale('pt-br').format('LLL');
+  }
+  console.log(allAuthors);
 })
 .controller('ArticleCtrl', function ($scope, $log, article, Posts) {
   $scope.post = article;
