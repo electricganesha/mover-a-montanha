@@ -894,6 +894,8 @@ a.linkautor:hover > #ballazul p {
     font-family: 'Raleway', sans-serif; 
     font-weight: 800; 
     font-size:45px;
+    clear: both;
+    padding-top: 35px;
 }
 
 #artigossubtitle{
