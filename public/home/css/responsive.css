@@ -35,6 +35,30 @@
     #textboxsubscribe{
         width: 85%;
     }
+
+    /*----------- Contacts -----------*/
+
+    #divleftcontact{
+        /* margin-top: 73px; */
+        display: none;
+    }
+
+    #divrightcontact{
+        margin-top: 0;
+        text-align: center;
+    }
+
+    #formcontacto{
+        width: 90%;
+    }
+
+    #textboxcontacto {
+        width: 100%;
+    }
+
+    #recap {
+        width:70%;
+    }
 }
 
 
@@ -75,6 +99,30 @@
     #textboxsubscribe{
         width: 50%;
     }
+
+    /*----------- Contacts -----------*/
+
+    #divleftcontact{
+        /* margin-top: 73px; */
+        display: none;
+    }
+
+    #divrightcontact{
+        margin-top: 0;
+        text-align: center;
+    }
+
+    #formcontacto{
+        width: 90%;
+    }
+
+    #textboxcontacto {
+        width: 100%;
+    }
+
+    #recap {
+        width:70%;
+    }
 }
 
 
@@ -114,5 +162,29 @@
   
     #textboxsubscribe{
         width: 50%;
+    }
+
+    /*----------- Contacts -----------*/
+
+    #divleftcontact{
+        /* margin-top: 73px; */
+        display: none;
+    }
+
+    #divrightcontact{
+        margin-top: 0;
+        text-align: center;
+    }
+
+    #formcontacto{
+        width: 75%;
+    }
+
+    #textboxcontacto {
+        width: 100%;
+    }
+
+    #recap {
+        width:70%;
     }
 }

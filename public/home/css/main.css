@@ -1013,6 +1013,21 @@ a.linkautor:hover > #ballazul p {
     z-index: 1;
 }
 
+#divleftcontact{
+    margin-top: 73px;
+}
+
+#divrightcontact{
+    margin-top: 73px; 
+    height: 90px; 
+    background-color: #486af0;
+}
+
+#formcontacto{
+    width: 30%; 
+    margin: auto;
+}
+
 #headerimgcontact{
   background-image: url(../img/contacto_header.jpg);
   background-repeat:no-repeat;
