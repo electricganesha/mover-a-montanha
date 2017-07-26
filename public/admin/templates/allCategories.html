@@ -1,0 +1,22 @@
+<div class="container">
+<div class='row full-height'>
+    <!-- Sidebar -->
+    <div class='col-sm-12' style="margin-bottom:4vh; overflow:auto; height:90vh;">
+        <h3>Lista de Categorias</h3>
+        <ul style="list-style-type: none;">
+            <li ng-show="!categories.length">N&atilde;o existe nenhuma categoria em base de dados.</li>
+            <div ng-repeat='category in categories | orderBy:"name"' style="margin-top:2vh;">
+            <li
+                ng-class="{'active': (activeCategory === category)}"
+                ng-click='setActive(category)'>
+                <br>
+                <p style="display:inline-block; border-bottom:1px solid black; width:100%; height:100%;">
+                  <p style="display:inline-block;"> {{ category.tag }}</p><div style="float:right; margin-left:4vw; display:inline-block; cursor:pointer;"><img style="margin-top:4px;" ng-click="removeCategory( category )" src="/home/img/icons/delete.png"></div>
+                </p>
+            </li>
+
+            </div>
+        </ul>
+    </div>
+        </div>
+</div>

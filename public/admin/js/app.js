@@ -25,6 +25,11 @@ adminApp.config(function($stateProvider, $urlRouterProvider){
 					return Posts.all().then(function(data){
 						return data;
 					});
+				},
+				authorList: function(Authors){
+					return Authors.all().then(function(data){
+						return data;
+					});
 				}
 			},
 			controller: 'AllPostsCtrl'
@@ -69,5 +74,18 @@ adminApp.config(function($stateProvider, $urlRouterProvider){
 			url: '/addAuthor',
 			templateUrl: '/admin/templates/addAuthor.html',
 			controller: 'AddAuthorCtrl'
-		});
+		})
+		.state('allCategories', {
+			url: '/allCategories',
+			templateUrl: '/admin/templates/allCategories.html',
+			resolve: {
+				categoryList: function(Categories){
+					return Categories.all().then(function(data){
+						return data;
+					});
+				}
+			},
+			controller: 'AllCategoriesCtrl'
+		})
+		;
 });

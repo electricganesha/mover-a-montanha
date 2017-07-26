@@ -62,11 +62,11 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
       };
     })(jQuery);
   };
-  
+
   $scope.initMenu();
 
   $scope.slickConfig = {
-    infinite: true, 
+    infinite: true,
     slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
@@ -355,7 +355,23 @@ $scope.trimContentTo100Char = function(content)
   $scope.post1 = article.body.substr(0, brDoMeio);
   $scope.post2 = article.body.substr(brDoMeio, article.body.length);
 
+  if($scope.post1.indexOf("ta-insert-video") > -1)
+  {
+    $scope.post1TemVideo = true;
+  }
+  else
+  {
+    $scope.post1TemVideo = false;
+  }
 
+  if($scope.post2.indexOf("ta-insert-video") > -1)
+  {
+    $scope.post2TemVideo = true;
+  }
+  else
+  {
+    $scope.post2TemVideo = false;
+  }
 
 	$scope.authorPosts = Posts.author($scope.post.author._id).then(function(data){
     $scope.postsAuthor = data;

@@ -22,7 +22,8 @@
         <p>{{ otherPost.title }}</p>
       </a>
     </div>
-    <div id="post1" btf-markdown='post1'></div>
+    <div id="post1" btf-markdown='post1' ng-if="!post1TemVideo"></div>
+    <div id="post1" ta-bind ng-model="post1" ng-if="post1TemVideo"></div>
     <div class="col-md-12" ng-show="mostraRecap" style="margin-bottom:2vh; background-color:#486af0; color:white; margin-bottom: 35px;">
       <div id="categorias">
         <p style="font-family: 'Raleway', sans-serif;"> PALAVRAS-CHAVE </p>
@@ -43,7 +44,8 @@
         <!--</a >-->
       </div>
     </div>
-    <div id="post2" btf-markdown='post2'></div>
+    <div id="post2" btf-markdown='post2' ng-if="!post2TemVideo"></div>
+    <div id="post2" ta-bind ng-model="post2" ng-if="post2TemVideo"></div>
     <div id="articlefooter">
       <div class="col-md-6">
         <input type="image" src="/icons/email.png" href="#" style="width:1.5vw;" alt = "Partilhar via Email" ng-init="url='http://www.moveramontanha.com/posts/'+post._id"

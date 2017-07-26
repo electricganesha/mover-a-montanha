@@ -15,7 +15,6 @@
                 <h6 style="">Ultima Actualização : {{post.updated_at | date :  "MMM d, y - HH:mm" }}</h6>
                 <br>
                 <h4 class="list-group-item-heading" style="display:inline;">{{post.title}} </h4><h6 style="display:inline;">por {{ post.author.name }}</h6>
-
                 <hr>
                 <div class="list-group-item-text" btf-markdown='trimContentTo140Char(post)'></div>
             </li>
@@ -30,7 +29,18 @@
     </div>
     <!-- Page Content -->
     <div class='col-sm-8' ng-show="activePost">
-        <h2 contenteditable="true" ng-model="activePost.title">{{activePost.title}}</h2>
+        <h2 contenteditable="true" style="display:inline-block;" ng-model="activePost.title">{{activePost.title}}</h2> por
+        <select style="display:inline-block;" name="authorSelect" id="authorSelect" ng-model="selectedAuthor" ng-change="selectAuthor(selectedAuthor)"
+        data-ng-options="author as author.name for author in authors">
+         </select>
+         <div>
+           <textarea placeholder='Resumo do Artigo' ng-model='activePost.recap' name='title' class='form-control'></textarea>
+         </div>
+         <div>
+           <tags-input ng-if="tagsLoaded" track-by-expr="$index" replace-spaces-with-dashes="false" ng-model="tags" tag-class="{even: $index % 2 == 0, odd: $index % 2 != 0}" placeholder="Escolha as Palavras-Chave">
+             <auto-complete source="loadTags($query)" track-by-expr="$index" load-on-focus="true" match-class="{even: $index % 2 == 0, odd: $index % 2 != 0}"></auto-complete>
+           </tags-input>
+         </div>
         <div id="pad" text-angular ng-model="activePost.body" style="height:80vh;"></div>
         <div class='btn btn-success pull-right' style="margin-bottom:10px;" ng-click='editPost(activePost._id,activePost)'>Editar Artigo</div>
     </div>

@@ -150,6 +150,8 @@ module.exports = function(apiRouter){
 			post.title = req.body.title;
 			post.body = req.body.body;
 			post.isDraft = req.body.isDraft;
+			post.author = req.body.author;
+			post.recap = req.body.recap;
 
 			post.save(function(err){
 				if(err) res.send(err);

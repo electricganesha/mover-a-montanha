@@ -6,7 +6,7 @@ adminApp.controller('NavCtrl', function($scope, $state){
 	};
 });
 
-adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, Authors){
+adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, authorList, Authors, Categories){
 
 	$scope.updatePosts = function () {
 		Posts.all().then(function(data){
@@ -14,12 +14,45 @@ adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, Authors){
 	    });
   };
 
+	$scope.authors = authorList;
+	$scope.selectedAuthor = {};
 	$scope.posts = $scope.updatePosts();
 	$scope.activePost = false;
 
+	var tagsIndex = [];
+	var idsTags = [];
+	$scope.tagsLoaded = false;
+
+	Categories.all().then(function(data){
+			tagsIndex = data;
+			$scope.tagsLoaded = true;
+			console.log(tagsIndex);
+	});
+
+
+	$scope.tags = [];
+
 	$scope.setActive = function(post){
+		$scope.tags = [];
 		$scope.activePost = post;
-		//$scope.getPostAuthor(post);
+		var authorIndex;
+
+		var json = [];
+		for(var i=0; i<post.categories.length; i++)
+		{
+			json[i] = { text: post.categories[i].tag }
+		}
+
+		$scope.tags = json;
+
+		for(var i=0; i< $scope.authors.length; i++)
+		{
+			if($scope.authors[i]._id == post.author._id)
+			{
+				authorIndex = i;
+			}
+		}
+		$scope.selectedAuthor = $scope.authors[authorIndex];
 	}
 
 	$scope.draftIt = function(post)
@@ -27,7 +60,6 @@ adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, Authors){
 		post.isDraft = !post.isDraft;
 
 		Posts.update(post._id, post).then(function(res){
-			console.log(res);
 			if(res.message != undefined)
 			{
 				if(res.message == "Post updated!")
@@ -42,10 +74,10 @@ adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, Authors){
 	}
 
 	$scope.editPost = function(id,editedPost){
-		console.log("ID A EDITAR " + id);
+
+		console.log(editedPost);
 
 		Posts.update(id,editedPost).then(function(res){
-			console.log(res);
 			if(res.message != undefined)
 			{
 				if(res.message == "Post updated!")
@@ -54,15 +86,12 @@ adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, Authors){
 				$scope.post = {};
 				$scope.posts = postList;
 				$scope.activePost = false;
-				$scope.isActive('allPosts');
 			}
 		});
 	};
 
 	$scope.removePost = function(id){
-		console.log("ID PASSADO " + id);
 		Posts.remove(id).then(function(res){
-			console.log(res);
 			if(res.message != undefined)
 			{
 				alert(res.message);
@@ -77,13 +106,88 @@ adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, Authors){
 		});
 	};
 
+	$scope.selectAuthor = function(author){
+		$scope.activePost.author = author;
+	};
+
 	$scope.trimContentTo140Char = function(content)
 	{
-		console.log(content);
-		var trimmedContent = content.substr(0, 140);
-		trimmedContent = trimmedContent + "...";
+		var trimmedContent = '';
+
+		if(content.body.indexOf('ta-insert-video') > -1)
+		{
+			trimmedContent = '(V&iacute;deo)';
+		}
+		else if(content.body.indexOf('<img src="') > -1)
+		{
+			trimmedContent = '(Imagem)';
+		}
+		else {
+			trimmedContent = content.body.substr(0, 140);
+			trimmedContent = trimmedContent + "...";
+		}
+
 		return trimmedContent;
 	}
+
+	$scope.loadTags = function(query) {
+			console.log(query);
+			var loadedTags = Categories.returnJSON();
+			console.log(loadedTags);
+			return loadedTags;
+	};
+
+	$scope.$watch('tags.length', function(value) {
+
+		// ver se as novas tags ja existem
+		var jaExiste = false;
+		for(var i=0 ; i < tagsIndex.length; i++)
+		{
+			if($scope.tags.length > 0)
+			{
+				if(tagsIndex[i].tag.toString() == $scope.tags[value-1].text.toString())
+				{
+					jaExiste = true;
+				}
+			}
+		}
+		if(!jaExiste)
+		{
+			var category = {};
+			if($scope.tags.length > 0)
+			{
+				category.tag = $scope.tags[value-1].text.toString();
+				Categories.add(category).then(function(data){
+			      idsTags[value-1] = data._id;
+						tagsIndex[value-1] = data;
+			    });
+			}
+		}
+		else
+		{
+		}
+
+
+		// popular as tags no post
+		if(tagsIndex)
+		{
+			for(var i=0 ; i < tagsIndex.length; i++)
+			{
+				for(var j=0; j<$scope.tags.length; j++)
+				{
+					if(tagsIndex[i].tag == $scope.tags[j].text)
+					{
+						idsTags[j] = tagsIndex[i]._id;
+					}
+
+				}
+				/*console.log("id tags");
+				console.log(idsTags);
+				$scope.activePost.tags = idsTags;
+				console.log($scope.activePost);*/
+			}
+		}
+  });
 });
 
 adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categories){
@@ -106,7 +210,6 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
   ];
 
   $scope.loadTags = function(query) {
-			console.log(Categories.returnJSON());
 			return Categories.returnJSON();
   };
 
@@ -129,11 +232,9 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 		      idsTags[value-1] = data._id;
 					tagsIndex[value-1] = data;
 		    });
-			console.log($scope.tags[value-1].text.toString() + " NOVO")
 		}
 		else
 		{
-			console.log($scope.tags[value-1].text.toString() + " JA EXISTE")
 		}
 
 
@@ -156,8 +257,6 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 
 			}
 		}
-			console.log(idsTags);
-			console.log($scope.post.tags);
   });
 
 	$scope.selectAuthor = function(author){
@@ -209,10 +308,7 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors){
 	}
 
 	$scope.editAuthor = function(id,editedAuthor){
-		console.log("ID A EDITAR " + id);
-
 		Authors.update(id,editedAuthor).then(function(res){
-			console.log(res);
 			if(res.message != undefined)
 			{
 				if(res.message == "Author updated!")
@@ -223,12 +319,9 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors){
 	};
 
 	$scope.removeAuthor = function(author){
-		console.log("ID PASSADO " + author._id);
 		Authors.remove(author._id).then(function(res){
-			console.log(res);
 			if(res.message != undefined)
 			{
-				console.log(res);
 				if(res.message == 'Author deleted!')
 					alert("Autor - " + author.name + " - Removido");
 				$scope.updateAuthors();
@@ -272,10 +365,39 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 	};
 });
 
+adminApp.controller('AllCategoriesCtrl', function($scope, categoryList, Categories){
+
+	$scope.updateCategories = function () {
+		Categories.all().then(function(data){
+	      $scope.categories=data;
+	    });
+  };
+
+	$scope.categories = $scope.updateCategories();
+	$scope.activeCategory = false;
+
+	$scope.setActive = function(category){
+		$scope.activeCategory = category;
+	}
+
+	$scope.removeCategory = function(category){
+		console.log(category);
+		Categories.remove(category._id).then(function(res){
+			if(res.message != undefined)
+			{
+				if(res.message == 'Category deleted!')
+				$scope.updateCategories();
+			}
+			else {
+				$scope.updateCategories();
+			}
+		});
+	};
+});
+
 adminApp.controller('AddAuthorCtrl', function($scope, Authors){
 	$scope.author = {};
 	$scope.defaultPhoto = '../home/img/thumbnail.jpeg'
-	console.log($scope.author.photo);
 
 	// upload on file select or drop
 		 $scope.upload = function (file) {
@@ -286,11 +408,9 @@ adminApp.controller('AddAuthorCtrl', function($scope, Authors){
 				 $scope.author.photo = res.path.replace("public/","../");
 				 $scope.author.photo = res.path.replace("public/","../");
 
-				 console.log($scope.author);
 				 if(res.message != undefined)
 				 {
 					 alert(res.message);
-					 console.log(res.message);
 				 }
 				 else {
 					 alert("Imagem Carregada com Sucesso");
@@ -303,8 +423,6 @@ adminApp.controller('AddAuthorCtrl', function($scope, Authors){
 	$scope.addAuthor = function(newAuthor){
 		$scope.author.photo = photo;
 		Authors.add(newAuthor).then(function(res){
-			console.log(newAuthor);
-			console.log(res);
 			if(res.message != undefined)
 			{
 				alert(res.message);

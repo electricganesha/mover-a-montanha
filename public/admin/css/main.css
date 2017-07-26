@@ -45,3 +45,7 @@ html, body, section, .full-height {
 {
   height: 200px;
 }
+
+textarea {
+  resize: none;
+}

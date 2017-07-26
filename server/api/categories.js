@@ -43,7 +43,7 @@ module.exports = function(apiRouter){
 	});
 
 	// update a post
-	apiRouter.put('/category/:id', function(req, res){
+	apiRouter.put('/categories/:id', function(req, res){
 		Category.findById(req.params.id, function(err, category){
 
 			if(err) res.send(err);
@@ -59,12 +59,16 @@ module.exports = function(apiRouter){
 	});
 
 	// delete a post
-	apiRouter.delete('/category/:id', function(req, res){
+	apiRouter.delete('/categories/:id', function(req, res){
 		Category.remove({
 			_id: req.params.id
 		}, function(err, category){
-			if(err) res.send(err);
-
+			if(err)
+			{
+				console.log(err);
+				 res.send(err);
+			}
+			console.log(res);
 			res.json({ message: 'Category deleted!' });
 		})
 	});
