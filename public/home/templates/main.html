@@ -34,13 +34,13 @@
   <p id="artigossubtitle">Pode consultar neste espaço os últimos artigos publicados nesta página</p>
   <div id="slideposts">
     <div class="slick-container">
-      <slick infinite=true slides-to-show=4 slides-to-scroll=1>
+      <slick settings="slickConfig">
         <a style="text-decoration: none; color:#3b3d40;" ng-href="/article/{{post._id}}" ng-repeat="post in activePosts track by $index" ng-if="post.author.name != 'Outros'">
           <div class="slick-item box" style="text-align: center; outline: 0;">
             <div class="stay-in-place">
               <img class="autorfotoarticle" ng-src="{{post.author.photo}}" style="margin: auto;"></img>
               <br>
-              <p style="margin: auto; text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px; width: 90%;">{{ post.title}}</p>
+              <p style="margin: auto; text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px; width: 90%; min-height: 30px;">{{ post.title}}</p>
               <p style="margin: auto; font-family: caslonregular;font-size: 14px; width: 240px; min-height: 150px;" btf-markdown='trimContentTo100Char(post)'></p>
               <br>
               <p style="margin: auto; text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px;">{{ post.author.name}}</p>
@@ -55,7 +55,7 @@
               <br>
               <p style="margin: auto; text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px; width: 80%;">{{ post.title}}</p>
               <br>
-              <div id="recaprecentposts"><span style="font-size:53px; float: left;">"</span><br><p style="width:80%; margin: auto; min-height: 150px;">{{ post.recap }}</p></div>
+              <div id="recaprecentposts"><span style="font-size:53px; float: left;">"</span><br><p style="width:80%; margin: auto; min-height: 263px;">{{ post.recap }}</p></div>
               <br>
               <p style="margin: auto; text-transform:uppercase; font-family: 'Raleway', sans-serif; letter-spacing:1px; font-size: 11px;">{{ post.author.name}}</p>
               <br>
