@@ -1,0 +1,118 @@
+@media (max-width: 480px) {
+
+    /*----------- Home -----------*/
+
+    #hometitlearticle {
+        font-size: 33px;
+        text-align: center;
+    }
+
+    #homebodyarticle{
+        font-size: 16px;
+    }
+
+    #listaAutores{
+        width: 100%;
+        font-size: 11px;
+    }
+
+    #bandaauthor{
+        margin-top: -5px;
+    }
+
+    /*----------- Footer -----------*/
+
+    #footerleft{
+        height: auto;
+        line-height: 43px;
+    }
+
+    #footerright{
+        line-height: 43px;
+        font-size: 7px;
+    }
+  
+    #textboxsubscribe{
+        width: 85%;
+    }
+}
+
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+    /*----------- Home -----------*/
+
+    #hometitlearticle {
+        font-size: 33px;
+        text-align: center;
+    }
+
+    #homebodyarticle{
+        font-size: 18px;
+    }
+
+    #listaAutores{
+        width: 100%;
+        font-size: 11px;
+    }
+
+    #bandaauthor{
+        margin-top: -5px;
+    }
+
+    /*----------- Footer -----------*/
+
+    #footerleft{
+        height: auto;
+        line-height: 43px;
+    }
+
+    #footerright{
+        line-height: 43px;
+        font-size: 9px;;
+    }
+  
+    #textboxsubscribe{
+        width: 50%;
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 990px) {
+
+    /*----------- Home -----------*/
+
+    #hometitlearticle {
+        font-size: 33px;
+        text-align: center;
+    }
+
+    #homebodyarticle{
+        font-size: 18px;
+    }
+
+    #listaAutores{
+        width: 100%;
+        font-size: 11px;
+    }
+
+    #bandaauthor{
+        margin-top: 4px;
+    }
+
+    /*----------- Footer -----------*/
+
+    #footerleft{
+        height: auto;
+        line-height: 43px;
+    }
+
+    #footerright{
+        line-height: 43px;
+        font-size: 9px;;
+    }
+  
+    #textboxsubscribe{
+        width: 50%;
+    }
+}

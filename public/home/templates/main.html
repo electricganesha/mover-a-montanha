@@ -1,8 +1,8 @@
 <!-- Main Content -->
 <div class="row" style="margin:0">
   <div id="headerimghome" style="width:100%;">
-    <div class="col-md-3" style="text-align: center;">
-      <div style="background-color:#486af0; z-index:0; width:253px; height:315px; margin: auto;">
+    <div class="col-sm-12 col-md-4 col-lg-3" style="text-align: center;">
+      <div id="bandaauthor">
         <a href="/author/{{firstPost.author._id}}" style="text-decoration: none;">
           <img id="autorfotoarticle" style="margin:auto; margin-top: 76px;" src="{{ firstPost.author.photo  }}"></img>
           <br>
@@ -10,23 +10,23 @@
         </a>
       </div>
     </div>
-    <div id="homearticletopdiv" class="col-md-6" style="border: 2px blue; height: 300px;">
+    <div id="homearticletopdiv" class="col-sm-12 col-md-6 col-lg-7" style="border: 2px blue; height: 300px;">
       <p id="hometitlearticle">{{ firstPost.title}}</p>
       <div id="homebodyarticle" btf-markdown='firstPost.body' ng-if="!temVideo"></div>
       <div id="homebodyarticle" ta-bind ng-model="firstPost.body" ng-if="temVideo"></div>
     </div>
-    <div id="gradient" class="col-md-12">
-          <a href="/article/{{firstPost._id}}"><div id="buttonseemore">Ler Mais</div></a>
+    <div id="gradient" class="col-md-12 col-lg-12">
+          <a href="/article/{{firstPost._id}}" style="position: absolute; left: 0; right: 0;"><div id="buttonseemore">Ler Mais</div></a>
     </div>
-  </div>
-  <div style="width:100%; background-color:#2E71F2; color:white; text-align:center;">
-    <br>
-    <p style="color: white; font-family: 'Raleway', sans-serif; text-transform: uppercase; padding-top:15px; font-size: 19px;">Os nossos Autores</p>
-    <div style="width:60%; margin:auto;">
-      <p ng-repeat="author in authors" ng-if="$index < authors.length - 1" style="display: inline-block;"><a id="authorlink" href="/author/{{author._id}}">{{ author.name }}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
-      <p ng-repeat="author in authors" ng-if="$index == authors.length - 1" style="display: inline-block;"><a id="authorlink" href="/author/{{author._id}}">{{ author.name }}</a></p>
+    <div class="col-md-12 col-lg-12" style="background-color:#2E71F2; color:white; text-align:center;">
+      <br>
+      <p style="color: white; font-family: 'Raleway', sans-serif; text-transform: uppercase; padding-top:15px; font-size: 19px; 67%">Os nossos Autores</p>
+      <div id="listaAutores">
+        <p ng-repeat="author in authors" ng-if="$index < authors.length - 1" style="display: inline-block;"><a id="authorlink" href="/author/{{author._id}}">{{ author.name }}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
+        <p ng-repeat="author in authors" ng-if="$index == authors.length - 1" style="display: inline-block;"><a id="authorlink" href="/author/{{author._id}}">{{ author.name }}</a></p>
+      </div>
+      <br>
     </div>
-    <br>
   </div>
   <br>
   <br>

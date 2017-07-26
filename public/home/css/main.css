@@ -595,7 +595,6 @@ nav {
 
 #footerright{
   color: white;
-  height: 100px;
   line-height: 100px;
   text-align: center;
   text-transform: uppercase;
@@ -784,12 +783,24 @@ a.linkautor:hover > #ballazul p {
 
 /*------------------------- Home ----------------------------------*/
 
+#bandaauthor{
+    background-color:#486af0;
+    z-index:0; width:253px; 
+    height:315px; 
+    margin: auto;
+}
+
+#listaAutores{
+    width:60%; 
+    margin:auto;
+}
+
 #headerimghome{
   background-image: url(../img/frontmontanhaoverlayed.jpg);
   background-repeat:no-repeat;
   background-size:cover;
   background-position:center;
-  height: 621px;
+  min-height: 621px;
 }
 
 #autornamearticle{
@@ -822,9 +833,9 @@ a.linkautor:hover > #ballazul p {
     height: 319px;
     background: url("../img/frontmontanhatransparency.png");
     background-repeat:no-repeat;
-    background-size:cover;
     background-position:bottom center;
-    text-align: -webkit-center;
+    text-align: center;
+    clear: both;
 }
 
 #buttonseemore{
@@ -839,6 +850,7 @@ a.linkautor:hover > #ballazul p {
   font-family: 'Raleway', sans-serif;
   text-transform: uppercase;
   padding-top: 11px;
+  clear: both;
   margin-top: 215px;
   text-align: center;
 }
@@ -857,7 +869,7 @@ a.linkautor:hover > #ballazul p {
 }
 
 #slideposts{
-    width:75%;
+    width:67%;
     margin: auto;
 }
 
@@ -885,7 +897,7 @@ a.linkautor:hover > #ballazul p {
 }
 
 #artigossubtitle{
-    width: 400px; 
+    /* width: 400px;  */
     margin: auto; 
     text-align:center; 
     font-family: caslonregular; 
