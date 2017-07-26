@@ -59,6 +59,17 @@
     #recap {
         width:70%;
     }
+
+    /*----------- Artigos -----------*/
+
+    #titleartigos{
+       font-size: 19px;
+       width: 90%; 
+    }
+
+    #nomeData{
+        font-size: 12px;
+    }
 }
 
 
@@ -123,6 +134,22 @@
     #recap {
         width:70%;
     }
+
+    /*----------- Artigos -----------*/
+
+    #titleartigos{
+       font-size: 21px;
+       width: 90%; 
+    }
+
+    #nomeData{
+        font-size: 14px;
+    }
+
+    .form-control{
+        width: 65%;
+        margin: auto;
+    }
 }
 
 
@@ -186,5 +213,21 @@
 
     #recap {
         width:70%;
+    }
+
+    /*----------- Artigos -----------*/
+
+    #titleartigos{
+       font-size: 21px;
+       width: 90%; 
+    }
+
+    #nomeData{
+        font-size: 14px;
+    }
+
+    .form-control{
+        width: 65%;
+        margin: auto;
     }
 }
