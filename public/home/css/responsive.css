@@ -1,0 +1,233 @@
+@media (max-width: 480px) {
+
+    /*----------- Home -----------*/
+
+    #hometitlearticle {
+        font-size: 33px;
+        text-align: center;
+    }
+
+    #homebodyarticle{
+        font-size: 16px;
+    }
+
+    #listaAutores{
+        width: 100%;
+        font-size: 11px;
+    }
+
+    #bandaauthor{
+        margin-top: -5px;
+    }
+
+    /*----------- Footer -----------*/
+
+    #footerleft{
+        height: auto;
+        line-height: 43px;
+    }
+
+    #footerright{
+        line-height: 43px;
+        font-size: 7px;
+    }
+  
+    #textboxsubscribe{
+        width: 85%;
+    }
+
+    /*----------- Contacts -----------*/
+
+    #divleftcontact{
+        /* margin-top: 73px; */
+        display: none;
+    }
+
+    #divrightcontact{
+        margin-top: 0;
+        text-align: center;
+    }
+
+    #formcontacto{
+        width: 90%;
+    }
+
+    #textboxcontacto {
+        width: 100%;
+    }
+
+    #recap {
+        width:70%;
+    }
+
+    /*----------- Artigos -----------*/
+
+    #titleartigos{
+       font-size: 19px;
+       width: 90%; 
+    }
+
+    #nomeData{
+        font-size: 12px;
+    }
+}
+
+
+@media (min-width: 481px) and (max-width: 767px) {
+
+    /*----------- Home -----------*/
+
+    #hometitlearticle {
+        font-size: 33px;
+        text-align: center;
+    }
+
+    #homebodyarticle{
+        font-size: 18px;
+    }
+
+    #listaAutores{
+        width: 100%;
+        font-size: 11px;
+    }
+
+    #bandaauthor{
+        margin-top: -5px;
+    }
+
+    /*----------- Footer -----------*/
+
+    #footerleft{
+        height: auto;
+        line-height: 43px;
+    }
+
+    #footerright{
+        line-height: 43px;
+        font-size: 9px;;
+    }
+  
+    #textboxsubscribe{
+        width: 50%;
+    }
+
+    /*----------- Contacts -----------*/
+
+    #divleftcontact{
+        /* margin-top: 73px; */
+        display: none;
+    }
+
+    #divrightcontact{
+        margin-top: 0;
+        text-align: center;
+    }
+
+    #formcontacto{
+        width: 90%;
+    }
+
+    #textboxcontacto {
+        width: 100%;
+    }
+
+    #recap {
+        width:70%;
+    }
+
+    /*----------- Artigos -----------*/
+
+    #titleartigos{
+       font-size: 21px;
+       width: 90%; 
+    }
+
+    #nomeData{
+        font-size: 14px;
+    }
+
+    .form-control{
+        width: 65%;
+        margin: auto;
+    }
+}
+
+
+@media (min-width: 768px) and (max-width: 990px) {
+
+    /*----------- Home -----------*/
+
+    #hometitlearticle {
+        font-size: 33px;
+        text-align: center;
+    }
+
+    #homebodyarticle{
+        font-size: 18px;
+    }
+
+    #listaAutores{
+        width: 100%;
+        font-size: 11px;
+    }
+
+    #bandaauthor{
+        margin-top: 4px;
+    }
+
+    /*----------- Footer -----------*/
+
+    #footerleft{
+        height: auto;
+        line-height: 43px;
+    }
+
+    #footerright{
+        line-height: 43px;
+        font-size: 9px;;
+    }
+  
+    #textboxsubscribe{
+        width: 50%;
+    }
+
+    /*----------- Contacts -----------*/
+
+    #divleftcontact{
+        /* margin-top: 73px; */
+        display: none;
+    }
+
+    #divrightcontact{
+        margin-top: 0;
+        text-align: center;
+    }
+
+    #formcontacto{
+        width: 75%;
+    }
+
+    #textboxcontacto {
+        width: 100%;
+    }
+
+    #recap {
+        width:70%;
+    }
+
+    /*----------- Artigos -----------*/
+
+    #titleartigos{
+       font-size: 21px;
+       width: 90%; 
+    }
+
+    #nomeData{
+        font-size: 14px;
+    }
+
+    .form-control{
+        width: 65%;
+        margin: auto;
+    }
+}

@@ -26,38 +26,6 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
               }
             }
           });
-          cssmenu.find('li ul').parent().addClass('has-sub');
-          multiTg = function() {
-            cssmenu.find(".has-sub").prepend('<span class="submenu-button"></span>');
-            cssmenu.find('.submenu-button').on('click', function() {
-              $(this).toggleClass('submenu-opened');
-              if ($(this).siblings('ul').hasClass('open')) {
-                $(this).siblings('ul').removeClass('open').slideToggle();
-              }
-              else {
-                $(this).siblings('ul').addClass('open').slideToggle();
-              }
-            });
-          };
-          if (settings.format === 'multitoggle'){
-            multiTg();
-          } else {
-            cssmenu.addClass('dropdown');
-          }
-          if (settings.sticky === true){
-            cssmenu.css('position', 'fixed');
-          }
-          resizeFix = function() {
-          var mediasize = 1000;
-            if ($( window ).width() > mediasize) {
-              cssmenu.find('ul').show();
-            }
-            if ($(window).width() <= mediasize) {
-              cssmenu.find('ul').hide().removeClass('open');
-            }
-          };
-          resizeFix();
-          return $(window).on('resize', resizeFix);
         });
       };
     })(jQuery);
