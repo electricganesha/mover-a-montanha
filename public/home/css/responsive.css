@@ -56,7 +56,7 @@
         width: 100%;
     }
 
-    #recap {
+    #recapAuthor {
         width:70%;
     }
 
@@ -70,6 +70,105 @@
     #nomeData{
         font-size: 12px;
     }
+
+    /*----------- Artigo -----------*/
+
+    #headerblueband{
+        position: initial;
+        left:0px;
+        right: 0px;
+        margin:auto;
+        z-index: 1;
+        margin-top: -230px;
+    }
+
+    #artigoAuthor{
+        position: initial;
+        left:0px;
+        right: 0px;
+        margin:auto;
+    }
+
+    #headerimg {
+        z-index: -1;
+    }
+
+    #infoAuthorArticle{
+        margin-top: -70px;
+    }
+
+    #cabecalhoarticle {
+        width: 90%;
+        text-align: center;
+    }
+
+    #tituloartigo {
+        font-size: 30px;
+    }
+
+    #artigoautor{
+        display: none;
+    }
+
+    #post1 {
+        width: 90%;
+        font-size: 16px;
+    }
+
+    #post2 {
+        width: 90%;
+        font-size: 16px;
+        margin-top:0px;
+    }
+
+    #articlefooterright{
+        text-align: center;
+    }
+
+    #articlefooterleft{
+        margin-top: 10px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    #artigoautormobile{
+        display: block;
+    }
+
+    #categorias{
+        font-size: 12px;
+        right: 20px;
+    }
+
+    #categoriassemrecap{
+        right: 20px;
+        font-size: 15px; 
+        margin-bottom: 0px; 
+        padding-bottom: 15px;
+    }
+
+    #recap{
+        margin:0;
+        margin-left: 24px;
+        width: 58%;
+        font-size: 17px;
+        letter-spacing: 0px;
+        padding-bottom: 20px;
+    }
+
+    #aspa{
+        font-size: 78px;
+        margin-left: -34px;
+    }
+
+    #maincat{
+        margin-bottom: 0px;
+    }
+
+    #maincatsemrecap{
+        margin-bottom: 0px;
+    }
+
 }
 
 
@@ -131,7 +230,7 @@
         width: 100%;
     }
 
-    #recap {
+    #recapAuthor {
         width:70%;
     }
 
@@ -149,6 +248,104 @@
     .form-control{
         width: 65%;
         margin: auto;
+    }
+
+    /*----------- Artigo -----------*/
+
+    #headerblueband{
+        position: initial;
+        left:0px;
+        right: 0px;
+        margin:auto;
+        z-index: 1;
+        margin-top: -230px;
+    }
+
+    #artigoAuthor{
+        position: initial;
+        left:0px;
+        right: 0px;
+        margin:auto;
+    }
+
+    #headerimg {
+        z-index: -1;
+    }
+
+    #infoAuthorArticle{
+        margin-top: -70px;
+    }
+
+    #cabecalhoarticle {
+        width: 90%;
+        text-align: center;
+    }
+
+    #tituloartigo {
+        font-size: 30px;
+    }
+
+    #artigoautor{
+        display: none;
+    }
+
+    #post1 {
+        width: 90%;
+        font-size: 16px;
+    }
+
+    #post2 {
+        width: 90%;
+        font-size: 16px;
+        margin-top:0px;
+    }
+
+    #articlefooterright{
+        text-align: center;
+    }
+
+    #articlefooterleft{
+        margin-top: 10px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    #artigoautormobile{
+        display: block;
+    }
+
+    #categorias{
+        font-size: 12px;
+        right: 20px;
+    }
+
+    #categoriassemrecap{
+        right: 20px;
+        font-size: 15px; 
+        margin-bottom: 0px; 
+        padding-bottom: 15px;
+    }
+
+    #recap{
+        margin:0;
+        margin-left: 24px;
+        width: 58%;
+        font-size: 17px;
+        letter-spacing: 0px;
+        padding-bottom: 20px;
+    }
+
+    #aspa{
+        font-size: 78px;
+        margin-left: -34px;
+    }
+
+    #maincat{
+        margin-bottom: 0px;
+    }
+
+    #maincatsemrecap{
+        margin-bottom: 0px;
     }
 }
 
@@ -211,7 +408,7 @@
         width: 100%;
     }
 
-    #recap {
+    #recapAuthor {
         width:70%;
     }
 
@@ -229,5 +426,129 @@
     .form-control{
         width: 65%;
         margin: auto;
+    }
+
+    /*----------- Artigo -----------*/
+
+    #headerblueband{
+        position: initial;
+        left:0px;
+        right: 0px;
+        margin:auto;
+        z-index: 1;
+        margin-top: -230px;
+    }
+
+    #artigoAuthor{
+        position: initial;
+        left:0px;
+        right: 0px;
+        margin:auto;
+    }
+
+    #headerimg {
+        z-index: -1;
+    }
+
+    #infoAuthorArticle{
+        margin-top: -70px;
+    }
+
+    #cabecalhoarticle {
+        width: 90%;
+        text-align: center;
+    }
+
+    #tituloartigo {
+        font-size: 30px;
+    }
+
+    #artigoautor{
+        display: none;
+    }
+
+    #post1 {
+        width: 70%;
+        font-size: 17px;
+    }
+
+    #post2 {
+        width: 70%;
+        font-size: 17px;
+        margin-top:0px;
+    }
+
+    #articlefooterright{
+        text-align: center;
+    }
+
+    #articlefooterleft{
+        margin-top: 10px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    #artigoautormobile{
+        display: block;
+    }
+
+    #categorias{
+        font-size: 12px;
+        right: 20px;
+    }
+
+    #categoriassemrecap{
+        right: 20px;
+        font-size: 15px; 
+        margin-bottom: 0px; 
+        padding-bottom: 15px;
+    }
+
+    #recap{
+        margin-bottom: 0px;
+        margin-top: 0px;
+        font-size: 17px;
+        letter-spacing: 0px;
+        padding-bottom: 20px;
+    }
+
+    #aspa{
+        font-size: 78px;
+        margin-left: -34px;
+    }
+
+    #maincat{
+        margin-bottom: 0px;
+    }
+
+    #maincatsemrecap{
+        margin-bottom: 0px;
+    }
+
+}
+
+
+@media (min-width: 991px) and (max-width: 1600px) {
+
+    /*----------- Artigo -----------*/
+
+    #cabecalhoarticle{
+        margin: 0;
+        margin-left: 350px;
+    }
+
+    #post1{
+        margin: 0;
+        margin-left: 350px;
+    }
+
+    #post2{
+        margin: 0;
+        margin-left: 350px;
+    }
+
+    #recap{
+        margin-bottom: 50px;
+        margin-top: 50px;
     }
 }
