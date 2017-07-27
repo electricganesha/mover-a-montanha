@@ -152,6 +152,7 @@ module.exports = function(apiRouter){
 			post.isDraft = req.body.isDraft;
 			post.author = req.body.author;
 			post.recap = req.body.recap;
+			post.categories = req.body.tags;
 
 			post.save(function(err){
 				if(err) res.send(err);

@@ -3,9 +3,13 @@
     <!-- Sidebar -->
     <div class='col-sm-4'style="border-right:1px solid black; margin-bottom:4vh; overflow:auto; height:90vh;">
         <h3>Artigos Publicados</h3>
+        <select ng-init="selectedFilter = '-created_at'" name="filterSelect" ng-model="selectedFilter">
+          <option value="-created_at">Ordem Decrescente</option>
+          <option value="created_at">Ordem Crescente</option>
+        </select>
         <ul class="list-group">
             <li ng-show="!posts.length">N&atilde;o existe nenhum artigo publicado.</li>
-            <div ng-repeat='post in posts track by $index' style="margin-top:4vh; border:2px solid black;" ng-style="post.isDraft && {'border':'2px solid green'} || {'border': '2px solid red'}">
+            <div ng-repeat='post in posts | orderBy:selectedFilter' style="margin-top:4vh; border:2px solid black;" ng-style="post.isDraft && {'border':'2px solid green'} || {'border': '2px solid red'}">
             <li
                 class="list-group-item"
                 ng-class="{'active': (activePost === post)}"
@@ -37,12 +41,12 @@
            <textarea placeholder='Resumo do Artigo' ng-model='activePost.recap' name='title' class='form-control'></textarea>
          </div>
          <div>
-           <tags-input ng-if="tagsLoaded" track-by-expr="$index" replace-spaces-with-dashes="false" ng-model="tags" tag-class="{even: $index % 2 == 0, odd: $index % 2 != 0}" placeholder="Escolha as Palavras-Chave">
+           <tags-input on-tag-removed="removeTag($tag)" ng-if="tagsLoaded" track-by-expr="$index" replace-spaces-with-dashes="false" ng-model="tags" tag-class="{even: $index % 2 == 0, odd: $index % 2 != 0}">
              <auto-complete source="loadTags($query)" track-by-expr="$index" load-on-focus="true" match-class="{even: $index % 2 == 0, odd: $index % 2 != 0}"></auto-complete>
            </tags-input>
          </div>
         <div id="pad" text-angular ng-model="activePost.body" style="height:80vh;"></div>
-        <div class='btn btn-success pull-right' style="margin-bottom:10px;" ng-click='editPost(activePost._id,activePost)'>Editar Artigo</div>
+        <div class='btn btn-success pull-right' style="position:absolute; top:2vh; right:-5vw;" ng-click='editPost(activePost._id,activePost)'>Editar Artigo</div>
     </div>
 </div>
 </div>
