@@ -1167,3 +1167,30 @@ a.linkautor:hover > #ballazul p {
   color: white;
   text-transform: uppercase;
 }
+
+@keyframes flickerAnimation {
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-o-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-moz-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+@-webkit-keyframes flickerAnimation{
+  0%   { opacity:1; }
+  50%  { opacity:0; }
+  100% { opacity:1; }
+}
+.animate-flicker {
+   -webkit-animation: flickerAnimation 0.8s forwards;
+   -moz-animation: flickerAnimation 0.8s forwards;
+   -o-animation: flickerAnimation 0.8s forwards;
+    animation: flickerAnimation 0.8s forwards;
+}

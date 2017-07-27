@@ -122,12 +122,15 @@ $scope.trimContentTo100Char = function(content)
 .controller('AuthorsCtrl', function ($scope, $log, authorList) {
   $scope.authors = authorList;
 })
-.controller('AuthorCtrl', function ($scope, $log, author) {
+.controller('AuthorCtrl', function ($scope, $log, author, Posts) {
   $scope.author = author;
+  $scope.authorPosts = Posts.author($scope.author._id).then(function(data){
+    $scope.postsAuthor = data;
+  });
 })
 .controller('AboutCtrl', function ($scope, $log) {
 })
-.controller('ArticlesCtrl', function ($scope, $log, allPosts, allCategories, allAuthors, Posts) {
+.controller('ArticlesCtrl', function ($scope, $log, allPosts, allCategories, allAuthors, Posts, $timeout) {
   $scope.allP = allPosts;
 
   /*-------- Categories -------*/
@@ -188,8 +191,13 @@ $scope.trimContentTo100Char = function(content)
     {
       $scope.changedCategory = 'All';
     }
+    
 
-    apllyFilter();
+    angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
+
+    $timeout(function() {
+       apllyFilter();
+    }, 400);
   }
 
   $scope.changedAuthors = function(value)
@@ -203,7 +211,11 @@ $scope.trimContentTo100Char = function(content)
       $scope.changedAuthor = 'All';
     }
 
-    apllyFilter();
+    angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
+
+    $timeout(function() {
+       apllyFilter();
+    }, 400);
   }
 
   $scope.changeMonthDropDown = function(value)
@@ -219,13 +231,20 @@ $scope.trimContentTo100Char = function(content)
       $scope.changedDate = 'All';
     }
 
-    apllyFilter();
+    angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
+
+    $timeout(function() {
+       apllyFilter();
+    }, 400);
   }
 
   var apllyFilter = function (){
     Posts.filter($scope.changedDate,$scope.changedAuthor,$scope.changedCategory).then(function(data){
 	      $scope.allP=data;
      });
+    $timeout(function() {
+       angular.element(document.querySelector(".divAllArtigos")).removeClass("animate-flicker");
+    }, 600);
   }
 
   var formatMonthExtended = function(month)
