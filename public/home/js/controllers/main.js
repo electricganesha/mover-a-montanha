@@ -342,6 +342,24 @@ $scope.trimContentTo100Char = function(content)
   $scope.post1 = article.body.substr(0, brDoMeio);
   $scope.post2 = article.body.substr(brDoMeio, article.body.length);
 
+  $scope.mostraRecap = false;
+  $scope.mostraRecapSoCat = false;
+
+  if($scope.post.recap == '' || $scope.post.recap == undefined){
+    $scope.mostraRecap = false;
+    if($scope.post.categories.length == 0){
+      console.log("Entrei");
+      $scope.mostraRecapSoCat = false;
+    }else{
+      $scope.mostraRecapSoCat = true;
+    }
+  }else{
+    $scope.mostraRecap = true;
+  }
+  console.log($scope.post.categories.length);
+  console.log($scope.mostraRecap);
+  console.log($scope.mostraRecapSoCat);
+
   if($scope.post1.indexOf("ta-insert-video") > -1)
   {
     $scope.post1TemVideo = true;
