@@ -6,7 +6,7 @@ adminApp.controller('NavCtrl', function($scope, $state){
 	};
 });
 
-adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, authorList, Authors, Categories){
+adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, authorList, Authors, Categories){
 
 	$scope.updatePosts = function () {
 		Posts.all().then(function(data){
@@ -14,26 +14,44 @@ adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, authorList
 	    });
   };
 
+	$scope.selectedFilter = 'descend';
+
+	var tagsIndex = [];
+	var idsTags = [];
+
 	$scope.authors = authorList;
 	$scope.selectedAuthor = {};
 	$scope.posts = $scope.updatePosts();
 	$scope.activePost = false;
+	var originalRetrievedTagsLength = 0;
 
-	var tagsIndex = [];
-	var idsTags = [];
 	$scope.tagsLoaded = false;
 
 	Categories.all().then(function(data){
 			tagsIndex = data;
 			$scope.tagsLoaded = true;
-			console.log(tagsIndex);
 	});
 
+	$scope.clearScope = function()
+	{
+		$scope.selectedAuthor = {};
+		$scope.activePost = false;
+		tagsIndex = [];
+		idsTags = [];
+		$scope.tags = [];
+		$scope.tagsLoaded = false;
+
+		Categories.all().then(function(data){
+				tagsIndex = data;
+				$scope.tagsLoaded = true;
+		});
+	}
 
 	$scope.tags = [];
 
 	$scope.setActive = function(post){
-		$scope.tags = [];
+		$scope.clearScope();
+
 		$scope.activePost = post;
 		var authorIndex;
 
@@ -43,6 +61,9 @@ adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, authorList
 			json[i] = { text: post.categories[i].tag }
 		}
 
+		originalRetrievedTagsLength = post.categories.length;
+
+		$scope.tags = [];
 		$scope.tags = json;
 
 		for(var i=0; i< $scope.authors.length; i++)
@@ -83,10 +104,15 @@ adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, authorList
 				if(res.message == "Post updated!")
 					res.message = "Artigo Actualizado!";
 				alert(res.message);
+				$scope.title = '';
+				$scope.author = '';
 				$scope.post = {};
 				$scope.posts = postList;
 				$scope.activePost = false;
+				$scope.activePost.tags = [];
+				$scope.tags = [];
 			}
+			$window.location.reload();
 		});
 	};
 
@@ -131,62 +157,82 @@ adminApp.controller('AllPostsCtrl', function($scope, postList, Posts, authorList
 	}
 
 	$scope.loadTags = function(query) {
-			console.log(query);
 			var loadedTags = Categories.returnJSON();
-			console.log(loadedTags);
 			return loadedTags;
 	};
 
-	$scope.$watch('tags.length', function(value) {
+	$scope.removeTag = function(tag)
+	{
 
-		// ver se as novas tags ja existem
-		var jaExiste = false;
+		var indexToRemove = '';
+
 		for(var i=0 ; i < tagsIndex.length; i++)
 		{
-			if($scope.tags.length > 0)
-			{
-				if(tagsIndex[i].tag.toString() == $scope.tags[value-1].text.toString())
+				if(tagsIndex[i].tag == tag.text)
 				{
-					jaExiste = true;
+					indexToRemove = tagsIndex[i]._id;
 				}
-			}
-		}
-		if(!jaExiste)
-		{
-			var category = {};
-			if($scope.tags.length > 0)
-			{
-				category.tag = $scope.tags[value-1].text.toString();
-				Categories.add(category).then(function(data){
-			      idsTags[value-1] = data._id;
-						tagsIndex[value-1] = data;
-			    });
-			}
-		}
-		else
-		{
-		}
 
+				// Find and remove item from an array
+				var x = idsTags.indexOf(indexToRemove);
+				if(x != -1) {
+					idsTags.splice(x, 1);
+				}
 
-		// popular as tags no post
-		if(tagsIndex)
+			$scope.activePost.tags = idsTags;
+		}
+	}
+
+	$scope.$watch('tags.length', function(value) {
+
+		if($scope.tags.length != originalRetrievedTagsLength)
 		{
+
+			console.log("entrei caralho");
+			// ver se as novas tags ja existem
+			var jaExiste = false;
 			for(var i=0 ; i < tagsIndex.length; i++)
 			{
-				for(var j=0; j<$scope.tags.length; j++)
+				if($scope.tags.length > 0)
 				{
-					if(tagsIndex[i].tag == $scope.tags[j].text)
+					if(tagsIndex[i].tag.toString() == $scope.tags[value-1].text.toString())
 					{
-						idsTags[j] = tagsIndex[i]._id;
+						jaExiste = true;
+					}
+				}
+			}
+			if(!jaExiste)
+			{
+				var category = {};
+				if($scope.tags.length > 0)
+				{
+					category.tag = $scope.tags[value-1].text.toString();
+					Categories.add(category).then(function(data){
+				      idsTags[value-1] = data._id;
+							tagsIndex[value-1] = data;
+				    });
+				}
+			}
+
+			// popular as tags no post
+			if(tagsIndex)
+			{
+				for(var i=0 ; i < tagsIndex.length; i++)
+				{
+					for(var j=0; j<$scope.tags.length; j++)
+					{
+						if(tagsIndex[i].tag == $scope.tags[j].text)
+						{
+							idsTags[j] = tagsIndex[i]._id;
+						}
+
 					}
 
+					$scope.activePost.tags = idsTags;
 				}
-				/*console.log("id tags");
-				console.log(idsTags);
-				$scope.activePost.tags = idsTags;
-				console.log($scope.activePost);*/
 			}
 		}
+
   });
 });
 
@@ -381,7 +427,6 @@ adminApp.controller('AllCategoriesCtrl', function($scope, categoryList, Categori
 	}
 
 	$scope.removeCategory = function(category){
-		console.log(category);
 		Categories.remove(category._id).then(function(res){
 			if(res.message != undefined)
 			{
