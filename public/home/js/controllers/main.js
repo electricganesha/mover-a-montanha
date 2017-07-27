@@ -124,6 +124,14 @@ $scope.trimContentTo100Char = function(content)
 })
 .controller('AuthorCtrl', function ($scope, $log, author, Posts) {
   $scope.author = author;
+  $scope.mostraQuote = false;
+
+  if($scope.author.quote == '' || $scope.author.quote == undefined){
+    $scope.mostraQuote = false;
+  }else{
+    $scope.mostraQuote = true;
+  }
+  
   $scope.authorPosts = Posts.author($scope.author._id).then(function(data){
     $scope.postsAuthor = data;
   });

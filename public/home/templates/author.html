@@ -1,18 +1,22 @@
 <!-- Main Content -->
 <div id="headerimg" class="col-md-12"></div>
-<div style="position:absolute; left:147px; top:76px; background-color:#486af0; z-index:0; width:259px; height:251px;"></div>
-<div style="width:300px; position:absolute; top:260px; left:127px; text-align: center">
+<div id="headerbluebandauthor" ></div>
+<div id="infoAuthorBio">
   <img id="autorfotoarticle" style="margin:auto;" ng-src="{{ author.photo }}"></img>
   <br>
   <p id="articleautorname">{{ author.name }}</p>
+</div>
+<div id="recapAuthorBioMobile" ng-show="mostraQuote" class="col-md-12">
+  <div id="recapAuthor"><span style="font-size:80px; margin-left: -41px;">"</span><p style="margin-top: -84px;">{{ author.quote }}</p></div>
 </div>
 <div class="col-md-3">
   <div id="artigoautorbio" >
     <p style="text-transform: uppercase;"> Artigos deste autor </p>
     <br>
-    <a href="/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor" ng-if="post._id != otherPost._id">
+    <a href="/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor" ng-if="postsAuthor.length > 0">
       <p style="width: 85%; margin: auto;">{{ otherPost.title }}</p>
     </a>
+    <p ng-if="postsAuthor.length <= 0">Sem artigos</p>
   </div>
 </div>
 <div id="mainarticle" class="col-md-9">
@@ -20,6 +24,14 @@
     <div id="bio" btf-markdown='author.bio'></div>
   </div>
 </div>
-<div class="col-md-12" style="background-color:#486af0; color:white;">
-  <div id="recapAuthor" ng-show="mostraQuote"><span style="font-size:80px; margin-left: -41px;">"</span><p style="margin-top: -84px;">{{ author.quote }}</p></div>
+<div id="recapAuthorBio" ng-show="mostraQuote" class="col-md-12">
+  <div id="recapAuthor"><span style="font-size:80px; margin-left: -41px;">"</span><p style="margin-top: -84px;">{{ author.quote }}</p></div>
+</div>
+<div id="artigoautorbiomobile" >
+  <p style="text-transform: uppercase;"> Artigos deste autor </p>
+  <br>
+  <a href="/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor" ng-if="postsAuthor.length > 0">
+    <p>{{ otherPost.title }}</p>
+  </a>
+  <p ng-if="postsAuthor.length <= 0">Sem artigos</p>
 </div>
