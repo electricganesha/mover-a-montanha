@@ -1,11 +1,11 @@
-<div class="container">
+<div class="container" style="width:80%;">
 <div class='row full-height'>
     <!-- Sidebar -->
     <div class='col-sm-4'style="border-right:1px solid black; margin-bottom:4vh; overflow:auto; height:90vh;">
         <h3>Artigos Publicados</h3>
         <select ng-init="selectedFilter = '-created_at'" name="filterSelect" ng-model="selectedFilter">
-          <option value="-created_at">Ordem Decrescente</option>
-          <option value="created_at">Ordem Crescente</option>
+          <option value="-created_at">Ordem Decrescente </option>
+          <option value="created_at">Ordem Crescente </option>
         </select>
         <ul class="list-group">
             <li ng-show="!posts.length">N&atilde;o existe nenhum artigo publicado.</li>
@@ -46,7 +46,7 @@
            </tags-input>
          </div>
         <div id="pad" text-angular ng-model="activePost.body" style="height:80vh;"></div>
-        <div class='btn btn-success pull-right' style="position:absolute; top:2vh; right:-5vw;" ng-click='editPost(activePost._id,activePost)'>Editar Artigo</div>
+        <div class='btn btn-primary pull-right' style="position:absolute; top:-1.5vh; right:0px;" ng-click='editPost(activePost._id,activePost)'>Editar Artigo</div>
     </div>
 </div>
 </div>

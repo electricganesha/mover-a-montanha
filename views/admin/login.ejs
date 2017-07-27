@@ -8,17 +8,26 @@
   <meta name="author" content="PUSHVFX">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel='stylesheet' href='/admin/css/main.css'>
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
 <body>
+  <div class='row'>
+  <div style="background-image: url('/home/img/frontmontanhaoverlayed.jpg'); background-position:center center; background-repeat: no-repeat; height:35vh; width:100%;">
+    <div style="color:white; width:50%; margin:auto; text-align:center;">
+      <h1 style="padding-top:6vw; font-size:4vh;"> Mover a Montanha </h1>
+      <hr>
+      <h1 style="font-size:4vh;">Administra&ccedil;&atilde;o</h1>
+    </div>
+  </div>
+</div>
   <div class='container'>
     <div class='row'>
-		<div class='col-sm-4 col-sm-offset-4 text-center'>
-      <h1> Mover a Montanha </h1>
-			<h1>Login - Administra&ccedil;&atilde;o</h1>
+		<div class='col-sm-4 col-sm-offset-4 text-center' style="margin-top:5vh;">
+
 			<form method='post' action='/login'>
 				<input type='text' placeholder='Email' name='email' ng-model='user.email' class='form-control'>
 

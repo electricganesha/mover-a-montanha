@@ -64,6 +64,8 @@ apiRouter.put('/authors/:id', function(req, res){
 
     author.name = req.body.name;
     author.bio = req.body.bio;
+    author.photo = req.body.photo;
+    author.quote = req.body.quote;
 
     author.save(function(err){
       if(err) res.send(err);

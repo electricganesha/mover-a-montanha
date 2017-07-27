@@ -187,8 +187,6 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 
 		if($scope.tags.length != originalRetrievedTagsLength)
 		{
-
-			console.log("entrei caralho");
 			// ver se as novas tags ja existem
 			var jaExiste = false;
 			for(var i=0 ; i < tagsIndex.length; i++)
@@ -241,7 +239,7 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 	$scope.authors = authorList;
 	$scope.selectedAuthor = {};
 	$scope.post.isDraft = false;
-	var tagsIndex;
+	var tagsIndex = [];
 	var idsTags = [];
 
 	Categories.all().then(function(data){
@@ -378,6 +376,27 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors){
 			}
 		});
 	};
+
+	// upload on file select or drop
+		 $scope.upload = function (file) {
+			 var fd = new FormData();
+			 //Take the first selected file
+			 fd.append("uploadImageFile", file);
+			 Authors.upload(fd).then(function(res,err){
+				 $scope.activeAuthor.photo = res.path.replace("public/","../");
+				 $scope.activeAuthor.photo = res.path.replace("public/","../");
+
+				 if(res.message != undefined)
+				 {
+					 alert(res.message);
+				 }
+				 else {
+					 alert("Imagem Carregada com Sucesso");
+					 $scope.activeAuthor.photo = res.path.replace("public/","../");
+					 photo = res.path.replace("public/","../");
+				 }
+			 });
+	 };
 });
 
 // SUBSCRIBERS
