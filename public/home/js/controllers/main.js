@@ -1,6 +1,6 @@
 app.controller('MainCtrl', function ($scope, $log, postList, authorList, category, author, Services) {
 
-
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
   $scope.initMenu = function () {
       (function($) {
       var isLargeWindow;
@@ -134,8 +134,10 @@ $scope.trimContentTo100Char = function(content)
 })
 .controller('AuthorsCtrl', function ($scope, $log, authorList) {
   $scope.authors = authorList;
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
 })
 .controller('AuthorCtrl', function ($scope, $log, author, Posts) {
+	document.body.scrollTop = document.documentElement.scrollTop = 0;
   $scope.author = author;
   $scope.mostraQuote = false;
 
@@ -150,8 +152,10 @@ $scope.trimContentTo100Char = function(content)
   });
 })
 .controller('AboutCtrl', function ($scope, $log) {
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
 })
 .controller('ArticlesCtrl', function ($scope, $log, allPosts, allCategories, allAuthors, Posts, $timeout) {
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
   $scope.allP = allPosts;
 
   /*-------- Categories -------*/
@@ -356,6 +360,7 @@ $scope.trimContentTo100Char = function(content)
   $scope.monthList = getMonthList();
 })
 .controller('ArticleCtrl', function ($scope, $log, article, Posts) {
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
   $scope.post = article;
   var meioartigo = article.body.length/2;
   var brDoMeio = article.body.indexOf("<br/>", meioartigo);
@@ -405,6 +410,7 @@ $scope.trimContentTo100Char = function(content)
   }
 })
 .controller('ContactCtrl', function ($scope, $log, Services) {
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
 
   $scope.contactName = '';
   $scope.contactMail = '';
