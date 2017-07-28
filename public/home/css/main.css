@@ -760,6 +760,12 @@ a.linkautor:hover > #ballazul p {
   min-height: 515px;
 }
 
+iframe{
+    width: 100%;
+    min-height: 550px;
+}
+
+
 #post2{
   width: 57%;
   margin: auto;
@@ -1153,6 +1159,25 @@ a.linkautor:hover > #ballazul p {
 
 /*------------------------- Author ----------------------------------*/
 
+#artigoAuthor{
+    z-index:1; 
+    color: #3b3d40; 
+    width:300px; 
+    position:absolute; 
+    top:260px; 
+    left:39px; 
+    text-align: center
+}
+
+
+#infoAuthorBio{
+    width:300px; 
+    position:absolute; 
+    top:260px; 
+    left:127px; 
+    text-align: center
+}
+
 #bio{
     padding-top: 50px;
   width: 65%;
@@ -1178,6 +1203,21 @@ a.linkautor:hover > #ballazul p {
     padding-top: 20px;
 }
 
+#artigoautorbiomobile{
+    display: none;
+    top: 135px;
+    background-color: #486af0;
+    z-index: 0;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    color: white;
+    padding-top: 20px;
+}
+
+#artigoautorbiomobile p{
+    margin-bottom: 5px;
+}
+
 #recapAuthor{
     text-align:justify; 
     margin:auto; 
@@ -1187,6 +1227,27 @@ a.linkautor:hover > #ballazul p {
     font-family: caslonitalic; 
     font-size: 26px;
     letter-spacing: 1px;
+}
+
+#recapAuthorBioMobile{
+    background-color:#486af0; 
+    color:white;
+    display: none;
+}
+
+#recapAuthorBio{
+    background-color:#486af0; 
+    color:white;
+}
+
+#headerbluebandauthor{
+    position:absolute; 
+    left:147px; 
+    top:76px; 
+    background-color:#486af0; 
+    z-index:0; 
+    width:259px; 
+    height:251px;
 }
 
 

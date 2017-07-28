@@ -16,7 +16,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
 	$stateProvider
 		.state('home', {
-			url: "/?category/?author",
+			url: "/",
 			templateUrl: "/home/templates/main.html",
 			resolve: {
 				postList: function($stateParams, Posts){
@@ -103,7 +103,7 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 		controller: 'AuthorCtrl',
 	})
 	.state('articles', {
-		url: "/articles",
+		url: "/articles?category",
 		templateUrl: "/home/templates/articles.html",
 		resolve: {
 			allPosts: function($stateParams, Posts){
@@ -121,6 +121,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 					return data;
 				});
 			},
+			hasCategory:function($stateParams){
+					return $stateParams.category;
+			}
 		},
 		controller: 'ArticlesCtrl',
 	})
@@ -143,9 +146,9 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 	});
 
 	//Remover o trailing # do url
-  $locationProvider.html5Mode({
-    enabled: true,
-    requireBase: false
-  });
+	$locationProvider.html5Mode({
+		enabled: true,
+		requireBase: false
+	});
 	$urlRouterProvider.otherwise("/");
 });

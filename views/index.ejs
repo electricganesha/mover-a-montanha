@@ -68,10 +68,10 @@
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
 </head>
-<body>
+<body ng-view autoscroll>
   <header ng-include='"/home/templates/nav.html"'></header>
   <!-- Main Content -->
-  <div ui-view></div>
+  <div ui-view ></div>
   <footer ng-include='"/home/templates/footer.html"'></footer>
 </body>
 </html>

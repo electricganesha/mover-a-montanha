@@ -73,6 +73,10 @@
 
     /*----------- Artigo -----------*/
 
+    iframe{
+        min-height: 200px;
+    }
+
     #headerblueband{
         position: initial;
         left:0px;
@@ -113,6 +117,7 @@
     #post1 {
         width: 90%;
         font-size: 16px;
+        min-height: 250px;
     }
 
     #post2 {
@@ -169,8 +174,60 @@
         margin-bottom: 0px;
     }
 
-}
+    /*----------- Autor -----------*/
 
+    #headerbluebandauthor{
+        position: initial;
+        left:0px;
+        right: 0px;
+        margin:auto;
+        z-index: 1;
+        margin-top: -230px;
+    }
+
+    #infoAuthorBio{
+        position: relative;
+        top: -74px;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    #artigoautorbio{
+        display: none;
+    }
+
+    #bio {
+        padding-top: 10px;
+        width: 90%;
+        font-size: 14px;
+        margin: auto;
+        padding-left: 0px;
+        min-height: 0;
+    }
+
+    #artigoautorbiomobile{
+        display: block;
+        padding-bottom: 10px;
+    }
+
+    #recapAuthorBioMobile{
+        display: block;
+        padding-bottom: 15px;
+    }
+
+    #recapAuthorBio{
+        display: none;
+    }
+
+    #recapAuthor {
+        text-align: justify;
+        margin: auto;
+        margin-bottom: 0px;
+        font-size: 18px;
+    }
+
+}
 
 @media (min-width: 481px) and (max-width: 767px) {
 
@@ -252,6 +309,10 @@
 
     /*----------- Artigo -----------*/
 
+    iframe{
+        min-height: 300px;
+    }
+
     #headerblueband{
         position: initial;
         left:0px;
@@ -292,6 +353,7 @@
     #post1 {
         width: 90%;
         font-size: 16px;
+        min-height: 350px;
     }
 
     #post2 {
@@ -317,7 +379,9 @@
     #categorias{
         font-size: 12px;
         right: 20px;
+        margin-bottom: 0;
     }
+
 
     #categoriassemrecap{
         right: 20px;
@@ -346,6 +410,59 @@
 
     #maincatsemrecap{
         margin-bottom: 0px;
+    }
+
+    /*----------- Autor -----------*/
+
+    #headerbluebandauthor{
+        position: initial;
+        left:0px;
+        right: 0px;
+        margin:auto;
+        z-index: 1;
+        margin-top: -230px;
+    }
+
+    #infoAuthorBio{
+        position: relative;
+        top: -74px;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    #artigoautorbio{
+        display: none;
+    }
+
+    #bio {
+        padding-top: 10px;
+        width: 90%;
+        font-size: 14px;
+        margin: auto;
+        padding-left: 0px;
+        min-height: 0;
+    }
+
+    #artigoautorbiomobile{
+        display: block;
+        padding-bottom: 10px;
+    }
+
+    #recapAuthorBioMobile{
+        display: block;
+        padding-bottom: 15px;
+    }
+
+    #recapAuthorBio{
+        display: none;
+    }
+
+    #recapAuthor {
+        text-align: justify;
+        margin: auto;
+        margin-bottom: 0px;
+        font-size: 18px;
     }
 }
 
@@ -495,6 +612,7 @@
     #categorias{
         font-size: 12px;
         right: 20px;
+        margin-bottom: 0;
     }
 
     #categoriassemrecap{
@@ -525,6 +643,59 @@
         margin-bottom: 0px;
     }
 
+    /*----------- Autor -----------*/
+
+    #headerbluebandauthor{
+        position: initial;
+        left:0px;
+        right: 0px;
+        margin:auto;
+        z-index: 1;
+        margin-top: -230px;
+    }
+
+    #infoAuthorBio{
+        position: relative;
+        top: -74px;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    #artigoautorbio{
+        display: none;
+    }
+
+    #bio {
+        padding-top: 10px;
+        width: 90%;
+        font-size: 14px;
+        margin: auto;
+        padding-left: 0px;
+        min-height: 0;
+    }
+
+    #artigoautorbiomobile{
+        display: block;
+        padding-bottom: 10px;
+    }
+
+    #recapAuthorBioMobile{
+        display: block;
+        padding-bottom: 15px;
+    }
+
+    #recapAuthorBio{
+        display: none;
+    }
+
+    #recapAuthor {
+        text-align: justify;
+        margin: auto;
+        margin-bottom: 0px;
+        font-size: 18px;
+    }
+
 }
 
 
@@ -550,5 +721,12 @@
     #recap{
         margin-bottom: 50px;
         margin-top: 50px;
+    }
+
+    /*----------- Autor -----------*/
+
+    #mainarticleauthor{
+        margin: 0;
+        margin-left: 400px;
     }
 }

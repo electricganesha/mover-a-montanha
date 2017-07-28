@@ -29,7 +29,7 @@
         <p style="font-family: 'Raleway', sans-serif;"> PALAVRAS-CHAVE </p>
         <!--<a style="color:white;" href="/category/{{category._id}}" ng-repeat="category in post.categories">
           {{ category }}-->
-          <div ng-repeat="category in post.categories"><a style="color:white;" href="/?category={{category._id}}"><p> {{ category.tag }} </p></a></div>
+          <div ng-repeat="category in post.categories"><a style="color:white;" href="/articles?category={{category._id}}"><p> {{ category.tag }} </p></a></div>
         <!--</a >-->
       </div>
       <div id="recap"><span id="aspa">"</span><p style="margin-top: -84px;">{{ post.recap }}</p></div>
@@ -40,7 +40,7 @@
         <p style="font-family: 'Raleway', sans-serif;"> PALAVRAS-CHAVE </p>
         <!--<a style="color:white;" href="/category/{{category._id}}" ng-repeat="category in post.categories">
           {{ category }}-->
-          <div ng-repeat="category in post.categories"><a style="color:white;" href="/?category={{category._id}}"><p> {{ category.tag }} </p></a></div>
+          <div ng-repeat="category in post.categories"><a style="color:white;" href="/articles?category={{category._id}}"><p> {{ category.tag }} </p></a></div>
         <!--</a >-->
       </div>
     </div>
