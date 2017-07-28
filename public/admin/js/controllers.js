@@ -10,9 +10,9 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 
 	$scope.updatePosts = function () {
 		Posts.all().then(function(data){
-	      $scope.posts=data;
-	    });
-  };
+			$scope.posts=data;
+		});
+	};
 
 	$scope.selectedFilter = 'descend';
 
@@ -28,8 +28,8 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 	$scope.tagsLoaded = false;
 
 	Categories.all().then(function(data){
-			tagsIndex = data;
-			$scope.tagsLoaded = true;
+		tagsIndex = data;
+		$scope.tagsLoaded = true;
 	});
 
 	$scope.clearScope = function()
@@ -42,8 +42,8 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 		$scope.tagsLoaded = false;
 
 		Categories.all().then(function(data){
-				tagsIndex = data;
-				$scope.tagsLoaded = true;
+			tagsIndex = data;
+			$scope.tagsLoaded = true;
 		});
 	}
 
@@ -89,7 +89,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 			if(res.message != undefined)
 			{
 				if(res.message == "Post updated!")
-					res.message = "Artigo Actualizado!";
+				res.message = "Artigo Actualizado!";
 				$scope.post = {};
 				$scope.posts = postList;
 				$scope.activePost = false;
@@ -104,7 +104,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 			if(res.message != undefined)
 			{
 				if(res.message == "Post updated!")
-					res.message = "Artigo Actualizado!";
+				res.message = "Artigo Actualizado!";
 				ngToast.create(res.message);
 				$scope.title = '';
 				$scope.author = '';
@@ -161,8 +161,8 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 	}
 
 	$scope.loadTags = function(query) {
-			var loadedTags = Categories.returnJSON();
-			return loadedTags;
+		var loadedTags = Categories.returnJSON();
+		return loadedTags;
 	};
 
 	$scope.removeTag = function(tag)
@@ -172,16 +172,16 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 
 		for(var i=0 ; i < tagsIndex.length; i++)
 		{
-				if(tagsIndex[i].tag == tag.text)
-				{
-					indexToRemove = tagsIndex[i]._id;
-				}
+			if(tagsIndex[i].tag == tag.text)
+			{
+				indexToRemove = tagsIndex[i]._id;
+			}
 
-				// Find and remove item from an array
-				var x = idsTags.indexOf(indexToRemove);
-				if(x != -1) {
-					idsTags.splice(x, 1);
-				}
+			// Find and remove item from an array
+			var x = idsTags.indexOf(indexToRemove);
+			if(x != -1) {
+				idsTags.splice(x, 1);
+			}
 
 			$scope.activePost.tags = idsTags;
 		}
@@ -210,9 +210,9 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 				{
 					category.tag = $scope.tags[value-1].text.toString();
 					Categories.add(category).then(function(data){
-				      idsTags[value-1] = data._id;
-							tagsIndex[value-1] = data;
-				    });
+						idsTags[value-1] = data._id;
+						tagsIndex[value-1] = data;
+					});
 				}
 			}
 
@@ -235,7 +235,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 			}
 		}
 
-  });
+	});
 });
 
 adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categories, ngToast){
@@ -247,19 +247,19 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 	var idsTags = [];
 
 	Categories.all().then(function(data){
-			tagsIndex = data;
+		tagsIndex = data;
 	});
 
 
 	$scope.tags = [
-    { text: 'Política' },
-    { text: 'Portugal' },
-    { text: 'Europa' }
-  ];
+		{ text: 'Política' },
+		{ text: 'Portugal' },
+		{ text: 'Europa' }
+	];
 
-  $scope.loadTags = function(query) {
-			return Categories.returnJSON();
-  };
+	$scope.loadTags = function(query) {
+		return Categories.returnJSON();
+	};
 
 	$scope.$watch('tags.length', function(value) {
 
@@ -277,9 +277,9 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 			var category = {};
 			category.tag = $scope.tags[value-1].text.toString();
 			Categories.add(category).then(function(data){
-		      idsTags[value-1] = data._id;
-					tagsIndex[value-1] = data;
-		    });
+				idsTags[value-1] = data._id;
+				tagsIndex[value-1] = data;
+			});
 		}
 		else
 		{
@@ -305,7 +305,7 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 
 			}
 		}
-  });
+	});
 
 	$scope.selectAuthor = function(author){
 		$scope.post.author = author;
@@ -342,9 +342,9 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors, ngTo
 
 	$scope.updateAuthors = function () {
 		Authors.all().then(function(data){
-	      $scope.authors=data;
-	    });
-  };
+			$scope.authors=data;
+		});
+	};
 
 	$scope.authors = $scope.updateAuthors();
 	$scope.activeAuthor = false;
@@ -358,7 +358,7 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors, ngTo
 			if(res.message != undefined)
 			{
 				if(res.message == "Author updated!")
-					ngToast.create("Autor - " + editedAuthor.name + " - Actualizado");
+				ngToast.create("Autor - " + editedAuthor.name + " - Actualizado");
 				$scope.$apply();
 			}
 		});
@@ -369,7 +369,7 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors, ngTo
 			if(res.message != undefined)
 			{
 				if(res.message == 'Author deleted!')
-					ngToast.create("Autor - " + author.name + " - Removido");
+				ngToast.create("Autor - " + author.name + " - Removido");
 				$scope.updateAuthors();
 			}
 			else {
@@ -380,25 +380,25 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors, ngTo
 	};
 
 	// upload on file select or drop
-		 $scope.upload = function (file) {
-			 var fd = new FormData();
-			 //Take the first selected file
-			 fd.append("uploadImageFile", file);
-			 Authors.upload(fd).then(function(res,err){
-				 $scope.activeAuthor.photo = res.path.replace("public/","../");
-				 $scope.activeAuthor.photo = res.path.replace("public/","../");
+	$scope.upload = function (file) {
+		var fd = new FormData();
+		//Take the first selected file
+		fd.append("uploadImageFile", file);
+		Authors.upload(fd).then(function(res,err){
+			$scope.activeAuthor.photo = res.path.replace("public/","../");
+			$scope.activeAuthor.photo = res.path.replace("public/","../");
 
-				 if(res.message != undefined)
-				 {
-					 ngToast.create(res.message);
-				 }
-				 else {
-					 ngToast.create("Imagem Carregada com Sucesso");
-					 $scope.activeAuthor.photo = res.path.replace("public/","../");
-					 photo = res.path.replace("public/","../");
-				 }
-			 });
-	 };
+			if(res.message != undefined)
+			{
+				ngToast.create(res.message);
+			}
+			else {
+				ngToast.create("Imagem Carregada com Sucesso");
+				$scope.activeAuthor.photo = res.path.replace("public/","../");
+				photo = res.path.replace("public/","../");
+			}
+		});
+	};
 });
 
 // SUBSCRIBERS
@@ -407,9 +407,9 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 
 	$scope.updateSubscribers = function () {
 		Subscribers.all().then(function(data){
-	      $scope.subscribers=data;
-	    });
-  };
+			$scope.subscribers=data;
+		});
+	};
 
 	$scope.subscribers = $scope.updateSubscribers();
 	$scope.activeSubscriber = false;
@@ -436,9 +436,9 @@ adminApp.controller('AllCategoriesCtrl', function($scope, categoryList, Categori
 
 	$scope.updateCategories = function () {
 		Categories.all().then(function(data){
-	      $scope.categories=data;
-	    });
-  };
+			$scope.categories=data;
+		});
+	};
 
 	$scope.categories = $scope.updateCategories();
 	$scope.activeCategory = false;
@@ -466,25 +466,25 @@ adminApp.controller('AddAuthorCtrl', function($scope, Authors, ngToast){
 	$scope.defaultPhoto = '../home/img/thumbnail.jpeg'
 
 	// upload on file select or drop
-		 $scope.upload = function (file) {
-			 var fd = new FormData();
-			 //Take the first selected file
-			 fd.append("uploadImageFile", file);
-			 Authors.upload(fd).then(function(res,err){
-				 $scope.author.photo = res.path.replace("public/","../");
-				 $scope.author.photo = res.path.replace("public/","../");
+	$scope.upload = function (file) {
+		var fd = new FormData();
+		//Take the first selected file
+		fd.append("uploadImageFile", file);
+		Authors.upload(fd).then(function(res,err){
+			$scope.author.photo = res.path.replace("public/","../");
+			$scope.author.photo = res.path.replace("public/","../");
 
-				 if(res.message != undefined)
-				 {
-					 ngToast.create(res.message);
-				 }
-				 else {
-					 ngToast.create("Imagem Carregada com Sucesso");
-					 $scope.author.photo = res.path.replace("public/","../");
-					 photo = res.path.replace("public/","../");
-				 }
-			 });
-	 };
+			if(res.message != undefined)
+			{
+				ngToast.create(res.message);
+			}
+			else {
+				ngToast.create("Imagem Carregada com Sucesso");
+				$scope.author.photo = res.path.replace("public/","../");
+				photo = res.path.replace("public/","../");
+			}
+		});
+	};
 
 	$scope.addAuthor = function(newAuthor){
 		$scope.author.photo = photo;
@@ -502,74 +502,102 @@ adminApp.controller('AddAuthorCtrl', function($scope, Authors, ngToast){
 
 });
 
-adminApp.controller('StatisticsCtrl', function($scope, Authors){
+adminApp.controller('StatisticsCtrl', function($scope, postList){
 
+	$scope.labels = ["Janeiro", "Fevereiro", "Mar&ccedil;o", "Abril", "Maio", "Junho", "Julho", 'Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  $scope.series = ['Series A'];
+  $scope.data = [
+    [65, 59, 80, 81, 56, 55, 40]
+  ];
+  $scope.onClick = function (points, evt) {
+    console.log(points, evt);
+  };
+  $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
+	$scope.colors = {colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']};
+  $scope.options = {
+    scales: {
+      yAxes: [
+        {
+          id: 'y-axis-1',
+          type: 'linear',
+          display: true,
+          position: 'left'
+        },
+        {
+          id: 'y-axis-2',
+          type: 'linear',
+          display: true,
+          position: 'right'
+        }
+      ]
+    }
+  };
 
 });
 
 //IMAGE upload
 adminApp.controller('UploadImageModalInstance', function($scope, $modalInstance, Services, ngToast){
 
-            $scope.image = '/home/img/default.jpeg';
+	$scope.image = '/home/img/default.jpeg';
 
-            $scope.progress = 0;
-            $scope.files = [];
+	$scope.progress = 0;
+	$scope.files = [];
 
-						console.log($scope.files);
-            $scope.upload = function(file){
-								console.log(file);
-								var fd = new FormData();
-								//Take the first selected file
-								fd.append("uploadImageFile", file);
+	console.log($scope.files);
+	$scope.upload = function(file){
+		console.log(file);
+		var fd = new FormData();
+		//Take the first selected file
+		fd.append("uploadImageFile", file);
 
-								Services.imageUpload(fd).then(function(res,err){
+		Services.imageUpload(fd).then(function(res,err){
 
-				 				 if(res.message != undefined)
-				 				 {
-				 					 ngToast.create(res.message);
-				 				 }
-				 				 else {
-				 					 ngToast.create("Imagem Carregada com Sucesso");
-									 $scope.image = res.path.replace("public/","../");
-				 				 }
-							 });
- 					};
+			if(res.message != undefined)
+			{
+				ngToast.create(res.message);
+			}
+			else {
+				ngToast.create("Imagem Carregada com Sucesso");
+				$scope.image = res.path.replace("public/","../");
+			}
+		});
+	};
 
-            $scope.insert = function(){
-                $modalInstance.close($scope.image);
-            };
-        })
+	$scope.insert = function(){
+		$modalInstance.close($scope.image);
+	};
+})
 
 // DIRECTIVES
 
 adminApp.directive('contenteditable', [function() {
-    return {
-        require: '?ngModel',
-        scope: {
+	return {
+		require: '?ngModel',
+		scope: {
 
-        },
-        link: function(scope, element, attrs, ctrl) {
-            // view -> model (when div gets blur update the view value of the model)
-            element.bind('blur', function() {
-                scope.$apply(function() {
-                    ctrl.$setViewValue(element.html());
-                });
-            });
+		},
+		link: function(scope, element, attrs, ctrl) {
+			// view -> model (when div gets blur update the view value of the model)
+			element.bind('blur', function() {
+				scope.$apply(function() {
+					ctrl.$setViewValue(element.html());
+				});
+			});
 
-            // model -> view
-            ctrl.$render = function() {
-                element.html(ctrl.$viewValue);
-            };
+			// model -> view
+			ctrl.$render = function() {
+				element.html(ctrl.$viewValue);
+			};
 
-            // load init value from DOM
-            ctrl.$render();
+			// load init value from DOM
+			ctrl.$render();
 
-            // remove the attached events to element when destroying the scope
-            scope.$on('$destroy', function() {
-                element.unbind('blur');
-                element.unbind('paste');
-                element.unbind('focus');
-            });
-        }
-    };
+			// remove the attached events to element when destroying the scope
+			scope.$on('$destroy', function() {
+				element.unbind('blur');
+				element.unbind('paste');
+				element.unbind('focus');
+			});
+		}
+	};
 }]);

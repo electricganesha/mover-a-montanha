@@ -1,22 +1,30 @@
 <div class="container" style="width:80%;">
 <div class='row full-height'>
     <!-- Sidebar -->
-    <div class='col-sm-12' style="margin-bottom:4vh; overflow:auto; height:90vh;">
         <h3>Estat&iacute;sticas</h3>
-        <ul style="list-style-type: none;">
-            <li ng-show="!subscribers.length">N&atilde;o existe nenhum subscritor em base de dados.</li>
-            <div ng-repeat='subscriber in subscribers | orderBy:"name"' style="margin-top:4vh;">
-            <li
-                ng-class="{'active': (activeSubscriber === subscriber)}"
-                ng-click='setActive(subscriber)'>
-                <br>
-                <p style="display:inline-block; border-bottom:1px solid black; width:100%; height:100%;">
-                  <p style="display:inline-block;"> {{ subscriber.email }}</p><div style="float:right; margin-left:4vw; display:inline-block; cursor:pointer;"><img style="margin-top:4px;" ng-click="removeSubscriber( subscriber )" src="/home/img/icons/delete.png"></div>
-                </p>
-            </li>
-
-            </div>
-        </ul>
-    </div>
+        <div class="col-sm-4">
+    <div class="panel panel-default">
+        <div class="panel-heading" style="padding:3px;">
+            <button type="button" class="btn btn-default btn-sm" ng-disabled="!graphLoaded"
+                    ng-click="reset()">
+                <span class="fa fa-refresh"> Reiniciar</span>
+            </button>
         </div>
+        <div class="panel-body" style="height:400px;padding:3px;">
+            <div class="list-group">
+                <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
+                    <span class="fa fa-fw fa-list"></span>
+                    <span>Legenda</span>
+                    <span class="pull-right">
+                        <span ng-if="graphOptions.legend" class="fa fa-check-square-o"></span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-8">
+  <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels"> chart-series="series"</canvas>
+    </div>
+</div>
 </div>

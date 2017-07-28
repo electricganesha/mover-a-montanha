@@ -12,7 +12,8 @@ var adminApp = angular.module('mean-blog.admin', [
 	'mean-blog.categories',
 	'mean-blog.subscribers',
 	'angulartics',
-	'ngToast'
+	'ngToast',
+	'chart.js'
 ]);
 
 adminApp.config(function($stateProvider, $urlRouterProvider, $provide){
