@@ -22,6 +22,49 @@ module.exports = function(apiRouter){
 	    });
 	});
 
+	// get all posts
+	apiRouter.get('/posts/count/:year', function(req, res){
+
+		console.log("ANO");
+		console.log(req.params.year);
+
+
+		var dataToReturn = [];
+		var calcIsDone = false;
+
+		var daysInMonth = function(month,year) {
+    	return new Date(year, month, 0).getDate();
+		}
+
+
+		var returnStuff = function() {
+			console.log(dataToReturn);
+			res.json(dataToReturn);
+		}
+
+		for(var i=0; i<12; i++)
+		{
+			var start = new Date(req.params.year, i, 1);
+			var end = new Date(req.params.year, i, daysInMonth(i,req.params.year));
+
+			Post.count({created_at :{'$gte': start, '$lt': end}})
+		    .exec(function(err, posts){
+		        if(err)
+						{
+							res.send(err);
+							console.log(err);
+						}
+		        else
+						{
+							dataToReturn.push(posts);
+							if(dataToReturn.length == 12)
+								returnStuff();
+						}
+		    });
+
+		}
+	});
+
 	// get all posts filtered
 	// uso : /posts/filters?date=032016&author=:id&category=:id
 	apiRouter.get('/posts/filters', function(req, res){

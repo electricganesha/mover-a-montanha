@@ -43,6 +43,11 @@ servicesModule.service('Services', function($http){
 				console.error(err);
 				return err;
 			});
-		}
+		},
+		getPostCountStatistics: function(year){
+			return $http.get('/api/posts/count/'+year).then(function(postCountArray){
+				return postCountArray.data;
+			});
+		},
 	};
 });

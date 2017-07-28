@@ -502,18 +502,19 @@ adminApp.controller('AddAuthorCtrl', function($scope, Authors, ngToast){
 
 });
 
-adminApp.controller('StatisticsCtrl', function($scope, postList){
+adminApp.controller('StatisticsCtrl', function($scope, postList, Services){
 
-	$scope.labels = ["Janeiro", "Fevereiro", "Mar&ccedil;o", "Abril", "Maio", "Junho", "Julho", 'Agosto','Setembro','Outubro','Novembro','Dezembro'];
+	Services.getPostCountStatistics(2016).then(function(data){
+		$scope.data=data;
+	});
+
+	$scope.labels = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", 'Agosto','Setembro','Outubro','Novembro','Dezembro'];
   $scope.series = ['Series A'];
-  $scope.data = [
-    [65, 59, 80, 81, 56, 55, 40]
-  ];
   $scope.onClick = function (points, evt) {
     console.log(points, evt);
   };
   $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
-	$scope.colors = {colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']};
+	//$scope.colors = {colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']};
   $scope.options = {
     scales: {
       yAxes: [
