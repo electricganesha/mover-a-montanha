@@ -47,6 +47,11 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 		});
 	}
 
+	$scope.switchSelectedFilter = function(value)
+	{
+		$scope.selectedFilter = value;
+	}
+
 	$scope.tags = [];
 
 	$scope.setActive = function(post){
