@@ -73,6 +73,10 @@
 
     /*----------- Artigo -----------*/
 
+    iframe{
+        min-height: 200px;
+    }
+
     #headerblueband{
         position: initial;
         left:0px;
@@ -113,6 +117,7 @@
     #post1 {
         width: 90%;
         font-size: 16px;
+        min-height: 250px;
     }
 
     #post2 {
@@ -224,7 +229,6 @@
 
 }
 
-
 @media (min-width: 481px) and (max-width: 767px) {
 
     /*----------- Home -----------*/
@@ -305,6 +309,10 @@
 
     /*----------- Artigo -----------*/
 
+    iframe{
+        min-height: 300px;
+    }
+
     #headerblueband{
         position: initial;
         left:0px;
@@ -345,6 +353,7 @@
     #post1 {
         width: 90%;
         font-size: 16px;
+        min-height: 350px;
     }
 
     #post2 {
@@ -370,7 +379,9 @@
     #categorias{
         font-size: 12px;
         right: 20px;
+        margin-bottom: 0;
     }
+
 
     #categoriassemrecap{
         right: 20px;
@@ -601,6 +612,7 @@
     #categorias{
         font-size: 12px;
         right: 20px;
+        margin-bottom: 0;
     }
 
     #categoriassemrecap{
@@ -713,7 +725,7 @@
 
     /*----------- Autor -----------*/
 
-    #mainarticle{
+    #mainarticleauthor{
         margin: 0;
         margin-left: 400px;
     }

@@ -760,6 +760,12 @@ a.linkautor:hover > #ballazul p {
   min-height: 515px;
 }
 
+iframe{
+    width: 100%;
+    min-height: 550px;
+}
+
+
 #post2{
   width: 57%;
   margin: auto;

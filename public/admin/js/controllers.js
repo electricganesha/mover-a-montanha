@@ -96,8 +96,6 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 
 	$scope.editPost = function(id,editedPost){
 
-		console.log(editedPost);
-
 		Posts.update(id,editedPost).then(function(res){
 			if(res.message != undefined)
 			{

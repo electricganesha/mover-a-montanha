@@ -3,7 +3,13 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
 
   $scope.initMenu = function () {
       (function($) {
+      var isLargeWindow;
       $(document).ready(function(){
+        if($(this).width() > 1015){
+          isLargeWindow = true;
+        }else{
+          isLargeWindow = false;
+        }
         $("#cssmenu").menumaker({
           format: "multitoggle"
         });
@@ -24,6 +30,13 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
               if (settings.format === "dropdown") {
                 mainmenu.find('ul').show();
               }
+            }
+          }),
+          $("#cssmenu ul").on("click", "li", function () {
+            if (!isLargeWindow){
+              var mainmenu = $("#cssmenu").next('ul');
+              $("#cssmenu ").find(".button").removeClass('menu-opened');
+              $("#cssmenu ul").slideToggle().removeClass('open');
             }
           });
         });
@@ -147,7 +160,6 @@ $scope.trimContentTo100Char = function(content)
   for(var i=0; i<allCategories.length; i++){
     categoriesArray.push(allCategories[i]);
   }
-  console.log(categoriesArray);
   $scope.allC = categoriesArray;
 
   /*-------- Authors -------*/
@@ -356,7 +368,6 @@ $scope.trimContentTo100Char = function(content)
   if($scope.post.recap == '' || $scope.post.recap == undefined){
     $scope.mostraRecap = false;
     if($scope.post.categories.length == 0){
-      console.log("Entrei");
       $scope.mostraRecapSoCat = false;
     }else{
       $scope.mostraRecapSoCat = true;
@@ -364,9 +375,6 @@ $scope.trimContentTo100Char = function(content)
   }else{
     $scope.mostraRecap = true;
   }
-  console.log($scope.post.categories.length);
-  console.log($scope.mostraRecap);
-  console.log($scope.mostraRecapSoCat);
 
   if($scope.post1.indexOf("ta-insert-video") > -1)
   {

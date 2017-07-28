@@ -14,7 +14,6 @@ subscribersModule.service('Subscribers', function($http){
 			});
 		},
 		add: function(newSubscriber){
-			console.log(newSubscriber);
 			return $http({
 				method: 'post',
 				url: '/api/subscribers',
