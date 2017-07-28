@@ -22,6 +22,27 @@ servicesModule.service('Services', function($http){
 				alert('ja ta');
 			}
 			);
+		},
+		imageUpload: function(fd)
+		{
+			console.log(fd);
+			return $http({
+				method: 'post',
+				url: '/api/imageUpload',
+				data: fd,
+				withCredentials: true,
+        headers: {'Content-Type': undefined },
+        transformRequest: angular.identity
+			}).then(function(res){
+				// return the new author
+				console.log("RESULTADO");
+				console.log(res.data);
+				return res.data;
+			}).catch(function(err){
+				console.error('Ocorreu um erro ao carregar a imagem');
+				console.error(err);
+				return err;
+			});
 		}
 	};
 });

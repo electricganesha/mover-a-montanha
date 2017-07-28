@@ -9,6 +9,7 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel='stylesheet' href='/admin/css/main.css'>
+  <link rel='stylesheet' href='../modules/ng-toast/ngToast.css'>
 
   <link href="https://fonts.googleapis.com/css?family=Raleway:700,800" rel="stylesheet">
   <!-- Mobile First -->
@@ -22,6 +23,7 @@
   <![endif]-->
 </head>
 <body>
+  <toast></toast>
   <div ng-include='"/admin/templates/nav.html"'></div>
 
   <div ui-view class='full-height' id='main-content'></div>
@@ -39,10 +41,23 @@
    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
    <link rel="stylesheet" href="http://mbenford.github.io/ngTagsInput/css/ng-tags-input.min.css" />
 
+   <!-- JQuery -->
+   <!-- Latest compiled and minified JavaScript -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+   <!-- Latest compiled and minified JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+   <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js"></script>
+
+
   <script src="../modules/moment/moment.js"></script>
   <script src="../modules/moment/angular-moment.min.js"></script>
   <script src='../modules/ng-file-upload/ng-file-upload.min.js'></script>
   <script src='../modules/ng-tags-input/ng-tags-input.min.js'></script>
+  <script src="../modules/angulartics/angulartics.js"></script>
+  <script src="../modules/angulartics/angulartics-ga-cordova.js"></script>
+  <script src="../modules/ng-toast/ngToast.js"></script>
   <script src='/admin/js/lib/markdown.js'></script>
   <script src='/admin/js/app.js'></script>
   <script src='/admin/js/controllers.js'></script>

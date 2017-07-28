@@ -6,7 +6,7 @@ adminApp.controller('NavCtrl', function($scope, $state){
 	};
 });
 
-adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, authorList, Authors, Categories){
+adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, authorList, Authors, Categories, ngToast){
 
 	$scope.updatePosts = function () {
 		Posts.all().then(function(data){
@@ -85,7 +85,6 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 			{
 				if(res.message == "Post updated!")
 					res.message = "Artigo Actualizado!";
-				//alert(res.message);
 				$scope.post = {};
 				$scope.posts = postList;
 				$scope.activePost = false;
@@ -103,7 +102,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 			{
 				if(res.message == "Post updated!")
 					res.message = "Artigo Actualizado!";
-				alert(res.message);
+				ngToast.create(res.message);
 				$scope.title = '';
 				$scope.author = '';
 				$scope.post = {};
@@ -112,6 +111,8 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 				$scope.activePost.tags = [];
 				$scope.tags = [];
 			}
+			// create a simple toast:
+
 			$window.location.reload();
 		});
 	};
@@ -120,11 +121,11 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 		Posts.remove(id).then(function(res){
 			if(res.message != undefined)
 			{
-				alert(res.message);
+				ngToast.create(res.message);
 				$scope.updatePosts();
 			}
 			else {
-				alert("Artigo " + id + " Removido");
+				ngToast.create("Artigo " + id + " Removido");
 				$scope.post = {};
 				$scope.activePost = false;
 				$scope.updatePosts();
@@ -234,7 +235,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
   });
 });
 
-adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categories){
+adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categories, ngToast){
 	$scope.post = {};
 	$scope.authors = authorList;
 	$scope.selectedAuthor = {};
@@ -319,10 +320,10 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 		Posts.add(newPost).then(function(res){
 			if(res.message != undefined)
 			{
-				alert(res.message);
+				ngToast.create(res.message);
 			}
 			else {
-				alert("Artigo Publicado");
+				ngToast.create('Artigo Publicado');
 				$scope.post = {};
 				$scope.isActive('allPosts');
 			}
@@ -334,15 +335,13 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 
 // AUTHORS
 
-adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors){
+adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors, ngToast){
 
 	$scope.updateAuthors = function () {
 		Authors.all().then(function(data){
 	      $scope.authors=data;
 	    });
   };
-
-
 
 	$scope.authors = $scope.updateAuthors();
 	$scope.activeAuthor = false;
@@ -356,7 +355,7 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors){
 			if(res.message != undefined)
 			{
 				if(res.message == "Author updated!")
-					alert("Autor - " + editedAuthor.name + " - Actualizado");
+					ngToast.create("Autor - " + editedAuthor.name + " - Actualizado");
 				$scope.$apply();
 			}
 		});
@@ -367,11 +366,11 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors){
 			if(res.message != undefined)
 			{
 				if(res.message == 'Author deleted!')
-					alert("Autor - " + author.name + " - Removido");
+					ngToast.create("Autor - " + author.name + " - Removido");
 				$scope.updateAuthors();
 			}
 			else {
-				alert("Autor - " + author.name + " - Removido");
+				ngToast.create("Autor - " + author.name + " - Removido");
 				$scope.updateAuthors();
 			}
 		});
@@ -388,10 +387,10 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors){
 
 				 if(res.message != undefined)
 				 {
-					 alert(res.message);
+					 ngToast.create(res.message);
 				 }
 				 else {
-					 alert("Imagem Carregada com Sucesso");
+					 ngToast.create("Imagem Carregada com Sucesso");
 					 $scope.activeAuthor.photo = res.path.replace("public/","../");
 					 photo = res.path.replace("public/","../");
 				 }
@@ -459,7 +458,7 @@ adminApp.controller('AllCategoriesCtrl', function($scope, categoryList, Categori
 	};
 });
 
-adminApp.controller('AddAuthorCtrl', function($scope, Authors){
+adminApp.controller('AddAuthorCtrl', function($scope, Authors, ngToast){
 	$scope.author = {};
 	$scope.defaultPhoto = '../home/img/thumbnail.jpeg'
 
@@ -474,10 +473,10 @@ adminApp.controller('AddAuthorCtrl', function($scope, Authors){
 
 				 if(res.message != undefined)
 				 {
-					 alert(res.message);
+					 ngToast.create(res.message);
 				 }
 				 else {
-					 alert("Imagem Carregada com Sucesso");
+					 ngToast.create("Imagem Carregada com Sucesso");
 					 $scope.author.photo = res.path.replace("public/","../");
 					 photo = res.path.replace("public/","../");
 				 }
@@ -489,10 +488,10 @@ adminApp.controller('AddAuthorCtrl', function($scope, Authors){
 		Authors.add(newAuthor).then(function(res){
 			if(res.message != undefined)
 			{
-				alert(res.message);
+				ngToast.create(res.message);
 			}
 			else {
-				alert("Autor Adicionado");
+				ngToast.create("Autor Adicionado");
 				$scope.author = {};
 			}
 		});
@@ -500,6 +499,43 @@ adminApp.controller('AddAuthorCtrl', function($scope, Authors){
 
 });
 
+adminApp.controller('StatisticsCtrl', function($scope, Authors){
+
+
+});
+
+//IMAGE upload
+adminApp.controller('UploadImageModalInstance', function($scope, $modalInstance, Services, ngToast){
+
+            $scope.image = '/home/img/default.jpeg';
+
+            $scope.progress = 0;
+            $scope.files = [];
+
+						console.log($scope.files);
+            $scope.upload = function(file){
+								console.log(file);
+								var fd = new FormData();
+								//Take the first selected file
+								fd.append("uploadImageFile", file);
+
+								Services.imageUpload(fd).then(function(res,err){
+
+				 				 if(res.message != undefined)
+				 				 {
+				 					 ngToast.create(res.message);
+				 				 }
+				 				 else {
+				 					 ngToast.create("Imagem Carregada com Sucesso");
+									 $scope.image = res.path.replace("public/","../");
+				 				 }
+							 });
+ 					};
+
+            $scope.insert = function(){
+                $modalInstance.close($scope.image);
+            };
+        })
 
 // DIRECTIVES
 

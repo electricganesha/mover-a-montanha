@@ -1,5 +1,6 @@
 var adminApp = angular.module('mean-blog.admin', [
 	'ui.router',
+	'ui.bootstrap',
 	'btford.markdown',
 	'mean-blog.posts',
 	'mean-blog.authors',
@@ -10,9 +11,11 @@ var adminApp = angular.module('mean-blog.admin', [
 	'mean-blog.services',
 	'mean-blog.categories',
 	'mean-blog.subscribers',
+	'angulartics',
+	'ngToast'
 ]);
 
-adminApp.config(function($stateProvider, $urlRouterProvider){
+adminApp.config(function($stateProvider, $urlRouterProvider, $provide){
 
 	$urlRouterProvider.otherwise('/');
 
@@ -87,5 +90,44 @@ adminApp.config(function($stateProvider, $urlRouterProvider){
 			},
 			controller: 'AllCategoriesCtrl'
 		})
-		;
+		.state('statistics', {
+			url: '/statistics',
+			templateUrl: '/admin/templates/statistics.html',
+			resolve: {
+				postList: function(Posts){
+					return Posts.all().then(function(data){
+						return data;
+					});
+				}
+			},
+			controller: 'StatisticsCtrl'
+		});
+
+		$provide.decorator('taOptions', ['taRegisterTool', '$delegate', '$modal', function (taRegisterTool, taOptions, $uibModal) {
+                taRegisterTool('uploadImage', {
+                    iconclass: "fa fa-upload",
+                    action: function (deferred) {
+												var textAngular = this;
+                        $uibModal.open({
+                            controller: 'UploadImageModalInstance',
+														controllerAs: 'modal',
+                            templateUrl: '/admin/templates/imageUploadModal.html'
+                        }).result.then(
+                            function (result) {
+																console.log(result);
+																console.log(document);
+																textAngular.$editor().wrapSelection('insertImage', result);
+                                document.execCommand('insertImage', true, result);
+                                deferred.resolve();
+                            },
+                            function () {
+                                deferred.resolve();
+                            }
+                        );
+                        return false;
+                    }
+                });
+								taOptions.toolbar[3].splice(2,0,'uploadImage');
+                return taOptions;
+            }]);
 });
