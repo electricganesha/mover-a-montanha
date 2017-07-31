@@ -504,35 +504,156 @@ adminApp.controller('AddAuthorCtrl', function($scope, Authors, ngToast){
 
 adminApp.controller('StatisticsCtrl', function($scope, postList, Services){
 
-	Services.getPostCountStatistics(2016).then(function(data){
-		$scope.data=data;
-	});
+	//populate year options
+	var currentYear = new Date().getFullYear();
 
-	$scope.labels = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", 'Agosto','Setembro','Outubro','Novembro','Dezembro'];
-  $scope.series = ['Series A'];
-  $scope.onClick = function (points, evt) {
-    console.log(points, evt);
-  };
-  $scope.datasetOverride = [{ yAxisID: 'y-axis-1' }, { yAxisID: 'y-axis-2' }];
-	//$scope.colors = {colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']};
-  $scope.options = {
-    scales: {
-      yAxes: [
-        {
-          id: 'y-axis-1',
-          type: 'linear',
-          display: true,
-          position: 'left'
-        },
-        {
-          id: 'y-axis-2',
-          type: 'linear',
-          display: true,
-          position: 'right'
-        }
-      ]
-    }
-  };
+	$scope.availableOptions = [];
+	$scope.authorChecked = 'fa fa-square-o';
+	$scope.yearChecked = 'fa fa-square-o';
+	$scope.categoryChecked = 'fa fa-square-o';
+	$scope.selectedFilters = [{'filtro':'ano','selected':false},{'filtro':'autor','selected':false},{'filtro':'categoria','selected':false}];
+
+	for(var i=2016 ; i<=currentYear; i++)
+	{
+		$scope.availableOptions.push({id: i, name: i});
+	}
+
+		$scope.toggleFilter = function(value)
+		{
+			if(value=="ano" && $scope.yearChecked == "fa fa-square-o")
+			{
+				$scope.selectedFilters[0].selected = true;
+				$scope.yearChecked = 'fa fa-check-square-o';
+			}
+			else if(value=="ano" && $scope.yearChecked == "fa fa-check-square-o")
+			{
+				$scope.selectedFilters[0].selected = false;
+				$scope.yearChecked = 'fa fa-square-o';
+			}
+
+			if(value=="author" && $scope.authorChecked == "fa fa-square-o")
+			{
+				$scope.selectedFilters[1].selected = true;
+				$scope.authorChecked = 'fa fa-check-square-o';
+			}
+			else if(value=="author" && $scope.authorChecked == "fa fa-check-square-o")
+			{
+				$scope.selectedFilters[1].selected = false;
+				$scope.authorChecked = 'fa fa-square-o';
+			}
+
+			if(value=="category" && $scope.categoryChecked == "fa fa-square-o")
+			{
+				$scope.selectedFilters[2].selected = true;
+				$scope.categoryChecked = 'fa fa-check-square-o';
+			}
+			else if(value=="category" && $scope.categoryChecked == "fa fa-check-square-o")
+			{
+				$scope.selectedFilters[2].selected = false;
+				$scope.categoryChecked = 'fa fa-square-o';
+			}
+
+			console.log($scope.selectedFilters);
+		}
+
+	$scope.yearFilter = function(year)
+	{
+		$scope.options.title.text = 'Artigos por mês';
+		$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Mês';
+		$scope.labels = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", 'Agosto','Setembro','Outubro','Novembro','Dezembro'];
+		Services.getPostCountStatistics(year).then(function(data){
+			console.log(data);
+			$scope.data=data;
+		});
+	}
+
+	$scope.authorFilter = function()
+	{
+
+		$scope.options.title.text = 'Artigos por autor';
+		$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Autor';
+		Services.getPostAuthorCountStatistics().then(function(data){
+			var labels = [];
+			var counts = [];
+
+			for(var i=0; i<data.length; i++)
+			{
+				var name = data[i].name.split(" ");
+
+				var shortName = name[0][0] +". "+ name[name.length-1];
+
+				labels.push(shortName);
+				counts.push(data[i].count);
+			}
+
+			$scope.labels = labels;
+			$scope.data=counts;
+		});
+	}
+
+	$scope.categoryFilter = function()
+	{
+
+		$scope.options.title.text = 'Artigos por palavra-chave';
+		$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Palavra-Chave';
+		Services.getPostCategoryCountStatistics().then(function(data){
+			var labels = [];
+			var counts = [];
+
+			for(var i=0; i<data.length; i++)
+			{
+				labels.push(data[i].tag);
+				counts.push(data[i].count);
+			}
+
+			$scope.labels = labels;
+			$scope.data=counts;
+		});
+	}
+
+
+//$scope.colors = {colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']};
+
+$scope.options = {
+	responsive: true,
+	labelFontSize : '4',
+	title:{
+		display:true,
+		text:''
+	},
+	tooltips: {
+		mode: 'index',
+		intersect: false,
+	},
+	hover: {
+		mode: 'nearest',
+		intersect: true
+	},
+	scales: {
+		xAxes: [{
+			display: true,
+			labelMaxWidth: 20,
+			scaleLabel: {
+				display: true,
+				labelString: ''
+			}
+		}],
+		yAxes: [{
+			display: true,
+			scaleLabel: {
+				display: true,
+				labelString: 'Número de Artigos'
+			},
+			ticks: {
+				//min: 0,
+				//max: 100,
+
+				// forces step size to be 5 units
+				stepSize: 5
+			}
+		}]
+	}
+};
 
 });
 

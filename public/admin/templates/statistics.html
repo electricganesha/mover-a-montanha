@@ -2,21 +2,38 @@
 <div class='row full-height'>
     <!-- Sidebar -->
         <h3>Estat&iacute;sticas</h3>
-        <div class="col-sm-4">
+        <div class="col-sm-2">
     <div class="panel panel-default">
-        <div class="panel-heading" style="padding:3px;">
+        <!--<div class="panel-heading" style="padding:3px;">
             <button type="button" class="btn btn-default btn-sm" ng-disabled="!graphLoaded"
                     ng-click="reset()">
                 <span class="fa fa-refresh"> Reiniciar</span>
             </button>
-        </div>
+        </div>-->
         <div class="panel-body" style="height:400px;padding:3px;">
             <div class="list-group">
                 <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
                     <span class="fa fa-fw fa-list"></span>
-                    <span>Legenda</span>
+                    <span>Ano</span>
                     <span class="pull-right">
-                        <span ng-if="graphOptions.legend" class="fa fa-check-square-o"></span>
+                        <span ng-if="yearChecked" ng-class="yearChecked" class="fa fa-check-square-o" style="cursor:pointer;" ng-click="toggleFilter('ano')"></span>
+                    </span>
+                    <select ng-show="yearChecked == 'fa fa-check-square-o'" name="repeatSelect" id="repeatSelect" ng-model="selectedYear" ng-change="yearFilter(selectedYear)">
+                      <option ng-repeat="option in availableOptions" value="{{option.id}}">{{option.name}}</option>
+                    </select>
+                </a>
+                <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
+                    <span class="fa fa-fw fa-list"></span>
+                    <span>Autor</span>
+                    <span class="pull-right">
+                        <span ng-if="authorChecked" ng-class="authorChecked" style="cursor:pointer;" ng-click="toggleFilter('author')"></span>
+                    </span>
+                </a>
+                <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
+                    <span class="fa fa-fw fa-list"></span>
+                    <span>Palavra-Chave</span>
+                    <span class="pull-right">
+                        <span ng-if="categoryChecked" ng-class="categoryChecked" style="cursor:pointer;" ng-click="categoryFilter()"></span>
                     </span>
                 </a>
             </div>
@@ -24,7 +41,7 @@
     </div>
 </div>
 <div class="col-sm-8">
-  <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels"> chart-series="series"</canvas>
+  <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-options="options"> chart-series="series"</canvas>
     </div>
 </div>
 </div>

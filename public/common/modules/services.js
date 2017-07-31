@@ -49,5 +49,15 @@ servicesModule.service('Services', function($http){
 				return postCountArray.data;
 			});
 		},
+		getPostAuthorCountStatistics: function(){
+			return $http.get('/api/posts/authorcount/').then(function(postCountArray){
+				return postCountArray.data;
+			});
+		},
+		getPostCategoryCountStatistics: function(){
+			return $http.get('/api/posts/categorycount/').then(function(postCountArray){
+				return postCountArray.data;
+			});
+		},
 	};
 });

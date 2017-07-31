@@ -22,47 +22,169 @@ module.exports = function(apiRouter){
 	    });
 	});
 
-	// get all posts
+	// get number of posts in month by year
 	apiRouter.get('/posts/count/:year', function(req, res){
-
-		console.log("ANO");
-		console.log(req.params.year);
-
 
 		var dataToReturn = [];
 		var calcIsDone = false;
 
 		var daysInMonth = function(month,year) {
-    	return new Date(year, month, 0).getDate();
+			var days = new Date(year, month, 0).getDate();
+			return days;
 		}
-
 
 		var returnStuff = function() {
 			console.log(dataToReturn);
 			res.json(dataToReturn);
 		}
 
-		for(var i=0; i<12; i++)
-		{
-			var start = new Date(req.params.year, i, 1);
-			var end = new Date(req.params.year, i, daysInMonth(i,req.params.year));
+		Post.find().select('created_at')
+			.exec(function(err, posts){
+					if(err)
+					{
+						res.send(err);
+						console.log(err);
+					}
+					else
+					{
+						for(var i=0; i<=11; i++)
+						{
 
-			Post.count({created_at :{'$gte': start, '$lt': end}})
-		    .exec(function(err, posts){
-		        if(err)
-						{
-							res.send(err);
-							console.log(err);
-						}
-		        else
-						{
-							dataToReturn.push(posts);
+							console.log(i);
+							var month = i;
+							var year = req.params.year;
+							var day = daysInMonth(month+1,year);
+							var start = new Date(year, month, 1);
+							var end = new Date(year, month,day );
+
+							var counter = 0;
+
+							for(var j=0; j<posts.length; j++)
+							{
+								if(posts[j].created_at > start && posts[j].created_at < end)
+								{
+									counter++;
+								}
+							}
+
+							dataToReturn[i] = counter;
+
 							if(dataToReturn.length == 12)
 								returnStuff();
 						}
-		    });
+					}
+			});
+	});
 
-		}
+	// get number of posts in month by year
+	apiRouter.get('/posts/authorcount/', function(req, res){
+
+		Post.find().select('author').populate('author','name')
+			.exec(function(err, posts){
+					if(err)
+					{
+						res.send(err);
+						console.log(err);
+					}
+					else
+					{
+						var autores = [];
+						var autoresNomes = [];
+
+						var resultados = [];
+
+						for(var i=0; i<posts.length; i++)
+						{
+							if(autores.indexOf(posts[i].author.name) == -1)
+							{
+								autores.push(posts[i].author.name);
+								autoresNomes.push(posts[i].author.name);
+							}
+						}
+
+						var countAutores = [];
+
+						for(var i=0; i<autores.length; i++)
+						{
+							var autor = autores[i];
+							var countAutor = 0;
+							for(var j=0; j<posts.length; j++)
+							{
+								if(posts[j].author.name == autor)
+								{
+									countAutor++;
+								}
+							}
+							countAutores.push({'name':autor,'count':countAutor});
+						}
+
+						res.json(countAutores);
+
+				}
+			});
+	});
+
+	// get number of posts in month by year
+	apiRouter.get('/posts/categorycount/', function(req, res){
+
+		Post.find().select('categories').populate({path:'categories'})
+			.exec(function(err, posts){
+					if(err)
+					{
+						res.send(err);
+						console.log(err);
+					}
+					else
+					{
+						var categorias = [];
+						var categoriasNomes = [];
+
+						var resultados = [];
+
+						for(var i=0; i<posts.length; i++)
+						{
+							var postCategories = posts[i].categories;
+
+							for(var j=0; j<postCategories.length; j++)
+							{
+								if(categorias.indexOf(postCategories[j]._id) == -1)
+								{
+									categorias.push(postCategories[j]._id);
+									categoriasNomes.push(postCategories[j].tag);
+								}
+							}
+						}
+
+
+						var countCategorias = [];
+
+						for(var i=0; i<categorias.length; i++)
+						{
+							var categoria = categorias[i];
+							var categoriaNome = categoriasNomes[i];
+							var countCategoria = 0;
+							for(var j=0; j<posts.length; j++)
+							{
+								var post = posts[j];
+
+								for(var k=0; k<post.categories.length; k++)
+								{
+									var category = post.categories[k];
+									if(category._id == categoria)
+									{
+										countCategoria++;
+									}
+								}
+
+
+							}
+							countCategorias.push({'tag':categoriaNome,'count':countCategoria});
+						}
+
+						res.json(countCategorias);
+
+				}
+			});
 	});
 
 	// get all posts filtered
