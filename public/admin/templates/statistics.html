@@ -2,14 +2,8 @@
 <div class='row full-height'>
     <!-- Sidebar -->
         <h3>Estat&iacute;sticas</h3>
-        <div class="col-sm-2">
+        <div class="col-sm-4">
     <div class="panel panel-default">
-        <!--<div class="panel-heading" style="padding:3px;">
-            <button type="button" class="btn btn-default btn-sm" ng-disabled="!graphLoaded"
-                    ng-click="reset()">
-                <span class="fa fa-refresh"> Reiniciar</span>
-            </button>
-        </div>-->
         <div class="panel-body" style="height:400px;padding:3px;">
             <div class="list-group">
                 <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
@@ -18,9 +12,9 @@
                     <span class="pull-right">
                         <span ng-if="yearChecked" ng-class="yearChecked" class="fa fa-check-square-o" style="cursor:pointer;" ng-click="toggleFilter('ano')"></span>
                     </span>
-                    <select ng-show="yearChecked == 'fa fa-check-square-o'" name="repeatSelect" id="repeatSelect" ng-model="selectedYear" ng-change="yearFilter(selectedYear)">
-                      <option ng-repeat="option in availableOptions" value="{{option.id}}">{{option.name}}</option>
-                    </select>
+                    <div ng-show="yearChecked == 'fa fa-check-square-o'"  ng-repeat="year in availableYears" ng-animate="{show: 'fadeIn', hide:'fadeOut'}">
+                      <span ng-style="selectedYear == year.name && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="yearFilter(year.name)"  ng-model="year.name" style="margin-left:3vw; cursor:pointer;">{{year.name}}</span>
+                    </div>
                 </a>
                 <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
                     <span class="fa fa-fw fa-list"></span>
@@ -28,20 +22,26 @@
                     <span class="pull-right">
                         <span ng-if="authorChecked" ng-class="authorChecked" style="cursor:pointer;" ng-click="toggleFilter('author')"></span>
                     </span>
+                    <div ng-show="authorChecked == 'fa fa-check-square-o'"  ng-repeat="author in availableAuthors" ng-animate="{show: 'fadeIn', hide:'fadeOut'}">
+                      <span ng-style="selectedAuthor == author.name && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="authorFilter(author.name)"  ng-model="author.name" style="margin-left:3vw; cursor:pointer;">{{author.name}}</span>
+                    </div>
                 </a>
                 <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
                     <span class="fa fa-fw fa-list"></span>
                     <span>Palavra-Chave</span>
                     <span class="pull-right">
-                        <span ng-if="categoryChecked" ng-class="categoryChecked" style="cursor:pointer;" ng-click="categoryFilter()"></span>
+                        <span ng-if="categoryChecked" ng-class="categoryChecked" style="cursor:pointer;" ng-click="toggleFilter('category')"></span>
                     </span>
+                    <div ng-show="categoryChecked == 'fa fa-check-square-o'"  ng-repeat="category in availableCategories" ng-animate="{show: 'fadeIn', hide:'fadeOut'}">
+                      <span ng-style="selectedCategory == category.tag && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="categoryFilter(category.tag)"  ng-model="category.tag" style="margin-left:3vw; cursor:pointer;">{{category.tag}}</span>
+                    </div>
                 </a>
             </div>
         </div>
     </div>
 </div>
 <div class="col-sm-8">
-  <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-options="options"> chart-series="series"</canvas>
+  <canvas id="bar" class="chart chart-bar" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
     </div>
 </div>
 </div>

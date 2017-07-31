@@ -65,3 +65,13 @@ html, body, section, .full-height {
 textarea {
   resize: none;
 }
+
+.normalFilter
+{
+  text-decoration:none;
+}
+
+.selectedFilter
+{
+
+}

@@ -502,20 +502,43 @@ adminApp.controller('AddAuthorCtrl', function($scope, Authors, ngToast){
 
 });
 
-adminApp.controller('StatisticsCtrl', function($scope, postList, Services){
+adminApp.controller('StatisticsCtrl', function($scope, postList, Authors, Services, Categories){
 
 	//populate year options
 	var currentYear = new Date().getFullYear();
 
-	$scope.availableOptions = [];
+	$scope.availableYears = [];
+	$scope.availableAuthors = [];
+	$scope.availableCategories = [];
 	$scope.authorChecked = 'fa fa-square-o';
 	$scope.yearChecked = 'fa fa-square-o';
 	$scope.categoryChecked = 'fa fa-square-o';
-	$scope.selectedFilters = [{'filtro':'ano','selected':false},{'filtro':'autor','selected':false},{'filtro':'categoria','selected':false}];
+	$scope.selectedFilters = [{'filtro':'ano','selected':false,'valor':''},{'filtro':'autor','selected':false,'valor':''},{'filtro':'categoria','selected':false,'valor':''}];
+
+	$scope.selectedYear = '2016';
+	$scope.selectedAuthor = '';
+	$scope.selectedCategories = '';
 
 	for(var i=2016 ; i<=currentYear; i++)
 	{
-		$scope.availableOptions.push({id: i, name: i});
+		$scope.availableYears.push({id: i, name: i});
+	}
+
+	Authors.all().then(function(data){
+		$scope.availableAuthors=data;
+	});
+
+	Categories.all().then(function(data){
+		$scope.availableCategories=data;
+	});
+
+	$scope.refreshCharts = function()
+	{
+		if($scope.selectedFilters[0].selected == false && $scope.selectedFilters[1].selected == false && $scope.selectedFilters[2].selected == false)
+		{
+			$scope.labels = [];
+			$scope.data= [];
+		}
 	}
 
 		$scope.toggleFilter = function(value)
@@ -524,33 +547,39 @@ adminApp.controller('StatisticsCtrl', function($scope, postList, Services){
 			{
 				$scope.selectedFilters[0].selected = true;
 				$scope.yearChecked = 'fa fa-check-square-o';
+				$scope.yearFilter($scope.selectedYear);
 			}
 			else if(value=="ano" && $scope.yearChecked == "fa fa-check-square-o")
 			{
 				$scope.selectedFilters[0].selected = false;
 				$scope.yearChecked = 'fa fa-square-o';
+				$scope.refreshCharts();
 			}
 
 			if(value=="author" && $scope.authorChecked == "fa fa-square-o")
 			{
 				$scope.selectedFilters[1].selected = true;
 				$scope.authorChecked = 'fa fa-check-square-o';
+				$scope.authorFilter();
 			}
 			else if(value=="author" && $scope.authorChecked == "fa fa-check-square-o")
 			{
 				$scope.selectedFilters[1].selected = false;
 				$scope.authorChecked = 'fa fa-square-o';
+				$scope.refreshCharts();
 			}
 
 			if(value=="category" && $scope.categoryChecked == "fa fa-square-o")
 			{
 				$scope.selectedFilters[2].selected = true;
 				$scope.categoryChecked = 'fa fa-check-square-o';
+				$scope.categoryFilter();
 			}
 			else if(value=="category" && $scope.categoryChecked == "fa fa-check-square-o")
 			{
 				$scope.selectedFilters[2].selected = false;
 				$scope.categoryChecked = 'fa fa-square-o';
+				$scope.refreshCharts();
 			}
 
 			console.log($scope.selectedFilters);
@@ -558,18 +587,20 @@ adminApp.controller('StatisticsCtrl', function($scope, postList, Services){
 
 	$scope.yearFilter = function(year)
 	{
+		$scope.selectedYear = year;
+		$scope.selectedFilters[0].valor = year;
 		$scope.options.title.text = 'Artigos por mês';
 		$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Mês';
 		$scope.labels = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", 'Agosto','Setembro','Outubro','Novembro','Dezembro'];
 		Services.getPostCountStatistics(year).then(function(data){
-			console.log(data);
 			$scope.data=data;
 		});
 	}
 
-	$scope.authorFilter = function()
+	$scope.authorFilter = function(author)
 	{
-
+		$scope.selectedAuthor = author;
+		$scope.selectedFilters[1].valor = author;
 		$scope.options.title.text = 'Artigos por autor';
 		$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Autor';
 		Services.getPostAuthorCountStatistics().then(function(data){
@@ -591,9 +622,10 @@ adminApp.controller('StatisticsCtrl', function($scope, postList, Services){
 		});
 	}
 
-	$scope.categoryFilter = function()
+	$scope.categoryFilter = function(category)
 	{
-
+		$scope.selectedCategory = category;
+		$scope.selectedFilters[2].valor = category;
 		$scope.options.title.text = 'Artigos por palavra-chave';
 		$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Palavra-Chave';
 		Services.getPostCategoryCountStatistics().then(function(data){
@@ -610,7 +642,6 @@ adminApp.controller('StatisticsCtrl', function($scope, postList, Services){
 			$scope.data=counts;
 		});
 	}
-
 
 //$scope.colors = {colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']};
 
@@ -652,8 +683,11 @@ $scope.options = {
 				stepSize: 5
 			}
 		}]
-	}
+	},
+	colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
 };
+
+$scope.toggleFilter('ano');
 
 });
 
