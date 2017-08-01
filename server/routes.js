@@ -67,7 +67,7 @@ module.exports = function(app, passport){
 };
 
 function isAdmin(req, res, next){
-	if(req.isAuthenticated() && req.user.email === 'christian.marques@gmail.com'){
+	if(req.isAuthenticated() && (req.user.email === 'christian.marques@gmail.com' || req.user.email === 'ricardoadspinto@gmail.com')){
 		console.log('PASSPORT - ADMIN AUTENTICADO');
 		next();
 	} else {
