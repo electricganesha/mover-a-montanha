@@ -77,9 +77,40 @@ module.exports = function(apiRouter){
 	});
 
 	// get number of posts in month by year
-	apiRouter.get('/posts/authorcount/', function(req, res){
+	// uso : /posts/filters?date=032016&author=:id&category=:id
+	apiRouter.get('/posts/authorcount', function(req, res){
 
-		Post.find().select('author').populate('author','name')
+		var query = {};
+
+		var daysInMonth = function(month,year) {
+			var days = new Date(year, month, 0).getDate();
+			return days;
+		}
+
+		if(req.query)
+		{
+			if(req.query.author)
+			{
+				query.author = req.query.author;
+			}
+
+			if(req.query.category)
+			{
+				query.categories = req.query.category;
+			}
+
+			if(req.query.date)
+			{
+				var year = req.query.date;
+				var start = new Date(req.query.date, 1, 1);
+				var end = new Date(req.query.date-1, month,day );
+				query.created_at = req.query.date;
+			}
+		}
+
+		console.log(query);
+
+		Post.find(query).select('author').populate('author','name')
 			.exec(function(err, posts){
 					if(err)
 					{
@@ -125,6 +156,7 @@ module.exports = function(apiRouter){
 	});
 
 	// get number of posts in month by year
+	// uso : /posts/filters?date=032016&author=:id&category=:id
 	apiRouter.get('/posts/categorycount/', function(req, res){
 
 		Post.find().select('categories').populate({path:'categories'})
