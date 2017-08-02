@@ -1,7 +1,7 @@
-<div class='row' style="width:90%; margin: auto">
+<div class='row' style="width:90%; margin: auto; margin-top: -71px; padding-top: 64px;">
     <!-- Sidebar -->
     <div class='col-md-4' ng-init="selectedFilter = '-created_at'">
-        <div class="panel panel-default" style="height: 92vh;">
+        <div class="panel panel-default" style="height: 91vh;">
             <div class="panel-heading" style="height: 56px;">
                 <h3 style="width: 49%; float: left; margin-top: 6px;">Artigos Publicados</h3>
                 <div id="ordem" style="width: 49%; float: right; text-align: right; margin-top: 8px;">
@@ -11,12 +11,12 @@
                     <div class="glyphicon glyphicon-arrow-up" ng-style="selectedFilter == 'created_at' && {'color':'green'} || {'color':'black'}"  style="cursor:pointer;" ng-click="switchSelectedFilter('created_at')"></div>
                 </div>
             </div>
-            <div class="panel-body" style=" overflow:auto; height: 86vh;">
+            <div class="panel-body" style=" overflow:auto; height: 85vh;">
                 <ul class="list-group">
                     <li ng-show="!posts.length">N&atilde;o existe nenhum artigo publicado.</li>
                     <div ng-repeat='post in posts | orderBy:selectedFilter' style="margin-top:4vh;">
-                        <li style="cursor: pointer; border: none; padding: 0;" class="list-group-item" ng-class="{'active': (activePost === post)}" ng-click='setActive(post)'>
-                            <div ng-class="post.isDraft ? 'panel panel-success' : 'panel panel-danger'">
+                        <li style="cursor: pointer; border: none; padding: 0;" class="list-group-item" ng-click='setActive(post)'>
+                            <div class = "panel" ng-style="{ border: activePost == post ? 'solid 1px #87A6AC' : '' }" ng-class="{'panel-success' : post.isDraft, 'panel-danger' : !post.isDraft}">
                                 <div class="panel-heading">
                                     <h4 class="panel-title"><b>{{post.title}}</b></h4><h6>{{ post.author.name }}</h6>
                                 </div>
@@ -39,7 +39,7 @@
     </div>
     <!-- Page Content -->
     <div class='col-md-8' ng-show="activePost">
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="margin-bottom: 0;">
             <div class="panel-heading" style="height: 56px;">
                 <h3 contenteditable="true" style="display:inline-block; margin-top: 4px;" ng-model="activePost.title">{{activePost.title}}</h3>
                 <p style="display:inline-block;">&nbsp;&nbsp;por&nbsp;&nbsp;</p>
@@ -59,7 +59,7 @@
                 </tags-input>
                 <br>
                 </div>
-                <div id="pad" text-angular ng-model="activePost.body" style="height:80vh;"></div>
+                <div id="pad" text-angular ng-model="activePost.body" style="height:68vh;"></div>
             </div>
         </div>
     </div>

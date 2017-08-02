@@ -83,20 +83,12 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 
 	$scope.draftIt = function(post)
 	{
-		post.isDraft = !post.isDraft;
-		console.log("entrei");
-
-		Posts.update(post._id, post).then(function(res){
-			if(res.message != undefined)
-			{
-				if(res.message == "Post updated!")
-				res.message = "Artigo Actualizado!";
-				$scope.post = {};
-				$scope.posts = postList;
-				$scope.activePost = false;
-				//$scope.isActive('allPosts');
-			}
-		});
+		if(post.isDraft == true){
+			post.isDraft = false;
+		}else{
+			post.isDraft = true;
+		}
+		Posts.update(post._id, post).then(function(res){});
 	}
 
 	$scope.editPost = function(id,editedPost){
