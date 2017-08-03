@@ -19,8 +19,6 @@ var transporter = nodemailer.createTransport({
 
 module.exports = function(){
 
-  console.log("entrei yuppi");
-
   var subscribers = '';
 
   Subscribers.find()
@@ -44,8 +42,6 @@ module.exports = function(){
 
   Post.find({ created_at : { $lte: Date.now().toString() , $gte: yesterday.toString() } }).sort('-created_at')
   .exec(function(err, posts){
-    console.log('find posts');
-    console.log(subscribers);
 
     if(err)
     {

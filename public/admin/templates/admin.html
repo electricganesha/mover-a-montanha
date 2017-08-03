@@ -1,0 +1,26 @@
+<div class="container" style="width:80%;">
+  <div class='row full-height'>
+    <!-- Sidebar -->
+    <div class='col-sm-12' style="margin-bottom:4vh; overflow:auto; height:90vh;">
+      <h3>Administradores do Blog</h3>
+      <ul style="list-style-type: none;">
+        <li ng-show="!users.length">N&atilde;o existe nenhum administrador.</li>
+        <div ng-repeat='user in users | orderBy:"name"' style="margin-top:4vh;">
+          <li
+          ng-class="{'active': (activeUser === user)}"
+          ng-click='setActive(user)'>
+          <br>
+          <p ng-if="$scope.adminList" style="display:inline-block; border-bottom:1px solid black; width:100%; height:100%;">
+            <hr>
+            <btn ng-if="isUserAuthorized(user)" class="btn btn-success">Autorizado</btn><btn ng-if="!isUserAuthorized(user)" class="btn btn-danger">Não Autorizado</btn>
+            <img style="margin-top:4px; margin-left:12px;" ng-if="!isUserAuthorized(user) && user.email != currentUser.email" ng-click="" src="/home/img/icons/thumbsup.png" alt="Autorizar"><img ng-if="isUserAuthorized(user) && user.email != currentUser.email" style="margin-top:4px; margin-left:12px;" ng-click="" src="/home/img/icons/thumbsdown.png" alt="Autorizar">
+            <br>
+            <br>
+            <p ng-style="isUserAuthorized(user) && {'color':'green'} || {'color':'red'}" style="display:inline-block; margin-right:2vw;"> {{ user.email }}</p><div style="float:right; margin-left:4vw; display:inline-block; cursor:pointer;"><img ng-if="user.email != currentUser.email" style="margin-top:4px;" ng-click="removeUser( user )" src="/home/img/icons/delete.png"></div>
+          </p>
+        </li>
+      </div>
+    </ul>
+  </div>
+</div>
+</div>

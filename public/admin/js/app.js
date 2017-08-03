@@ -2,6 +2,7 @@ var adminApp = angular.module('mean-blog.admin', [
 	'ui.router',
 	'ui.bootstrap',
 	'btford.markdown',
+	'mean-blog.users',
 	'mean-blog.posts',
 	'mean-blog.authors',
 	'ngFileUpload',
@@ -102,6 +103,18 @@ adminApp.config(function($stateProvider, $urlRouterProvider, $provide){
 				}
 			},
 			controller: 'StatisticsCtrl'
+		})
+		.state('admin', {
+			url: '/admin',
+			templateUrl: '/admin/templates/admin.html',
+			resolve: {
+				userList: function(Users){
+					return Users.all().then(function(data){
+						return data;
+					});
+				}
+			},
+			controller: 'AdminCtrl'
 		});
 
 		$provide.decorator('taOptions', ['taRegisterTool', '$delegate', '$modal', function (taRegisterTool, taOptions, $uibModal) {

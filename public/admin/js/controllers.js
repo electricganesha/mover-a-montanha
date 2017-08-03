@@ -404,7 +404,31 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors, ngTo
 
 // SUBSCRIBERS
 
-adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subscribers){
+adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subscribers, Services){
+
+	$('input.timepicker').timepicker({
+		timeFormat: 'H:mm',
+		ampm: true       });
+
+	Services.getEmailHour().then(function(data){
+		$scope.currentEmailHour = data.hour;
+	});
+
+
+	$scope.updateEmailHour = function()
+	{
+		var hour = ''+$('input.timepicker')[0].value;
+		Services.postEmailHour(hour).then(function(res){
+			console.log(res);
+			if(res.message != undefined)
+			{
+					$scope.currentEmailHour = res.hour;
+			}
+			else {
+					$scope.currentEmailHour = data.hour;
+			}
+		});
+	}
 
 	$scope.updateSubscribers = function () {
 		Subscribers.all().then(function(data){
@@ -725,6 +749,45 @@ adminApp.controller('UploadImageModalInstance', function($scope, $modalInstance,
 	};
 })
 
+//ADMIN Controller
+adminApp.controller('AdminCtrl', function($scope, Users, Services){
+
+	Services.getAdministratorList().then(function(data){
+		$scope.adminList=data;
+	});
+
+	$scope.updateUsers = function () {
+		Users.all().then(function(data){
+			$scope.users=data;
+		});
+	};
+
+	$scope.isUserAuthorized = function(user)
+	{
+		for(var i=0; i<$scope.adminList.length; i++)
+		{
+			if(user.email == $scope.adminList[i].email)
+				return true;
+		}
+	}
+
+	$scope.users = $scope.updateUsers();
+
+	$scope.removeUser = function(user){
+		Users.remove(user._id).then(function(res){
+			if(res.message != undefined)
+			{
+				if(res.message == 'User deleted!')
+				$scope.updateUsers();
+			}
+			else {
+				$scope.updateUsers();
+			}
+		});
+	};
+
+});
+
 // DIRECTIVES
 
 adminApp.directive('contenteditable', [function() {
@@ -758,3 +821,13 @@ adminApp.directive('contenteditable', [function() {
 		}
 	};
 }]);
+
+adminApp.directive('jqtimepicker', function () {
+	return {
+    	restrict: 'A',
+    	require: 'ngModel',
+     	link: function (scope, element, attrs) {
+        	$(element).timepicker({});
+       	}
+     };
+});

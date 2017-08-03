@@ -4,12 +4,14 @@ var express = require('express'),
 	rootPath = path.normalize(__dirname + '/../'),
 	apiRouter = express.Router(),
 	router = express.Router();
+	fs = require('fs');
 
 module.exports = function(app, passport){
 	app.use('/api', apiRouter);
 	app.use('/', router);
 
 	// API routes
+	require('./api/users')(apiRouter);
 	require('./api/posts')(apiRouter);
 	require('./api/authors')(apiRouter);
 	require('./api/categories')(apiRouter);
@@ -34,6 +36,31 @@ module.exports = function(app, passport){
 		res.render('admin/dashboard', {user: req.user});
 	});
 
+	router.get('/admin/adminList',function(req, res)
+	{
+		res.json(returnAdministrators());
+	});
+
+	router.get('/admin/emailhour',function(req, res)
+	{
+		res.json(returnEmailHour());
+	});
+
+	router.post('/admin/emailhour',function(req, res)
+	{
+		var hour = req.body.hour;
+		var json = {'hour': req.body.hour}
+
+		var parsed = JSON.stringify(json);
+
+		fs.writeFile("emailhour.json", parsed, function(err) {
+    if(err) {
+        return console.log(err);
+    }
+		res.json({ message: 'Hora actualizada', hour: req.body.hour });
+		});
+	});
+
 	router.post('/register', function(req, res){
 
 		// passport-local-mongoose: Convenience method to register a new user instance with a given password. Checks if username is unique
@@ -53,13 +80,13 @@ module.exports = function(app, passport){
 	    });
 	});
 
-	router.post('/login', passport.authenticate('local'), function(req, res){
-		res.redirect('/admin/dashboard');
-	});
+	router.post('/login', passport.authenticate('local', { successRedirect: '/admin/dashboard',
+	failureRedirect: '/admin',
+	failureFlash: 'Utilizador ou palavra-passe inválidos' })
+);
 
 	app.use(function(req, res, next){
 		res.status(404);
-
 		res.render('404');
 		return;
 	});
@@ -67,11 +94,35 @@ module.exports = function(app, passport){
 };
 
 function isAdmin(req, res, next){
-	if(req.isAuthenticated() && (req.user.email === 'christian.marques@gmail.com' || req.user.email === 'ricardoadspinto@gmail.com')){
+
+	var administrators = returnAdministrators();
+	var isAuthorized = false;
+
+	for(var i=0; i<administrators.length; i++)
+	{
+		if(req.user.email == administrators[i].email)
+		{
+			isAuthorized = true;
+		}
+	}
+
+	if(req.isAuthenticated() && isAuthorized){
 		console.log('PASSPORT - ADMIN AUTENTICADO');
 		next();
 	} else {
 		console.log('TENTATIVA DE LOGIN SEM ADMIN');
-		res.redirect('/admin');
+		res.redirect('/');
 	}
+}
+
+function returnAdministrators()
+{
+	var myJsonReturn = require("../admins.json");
+	return myJsonReturn;
+}
+
+function returnEmailHour()
+{
+	var myJsonReturn = require("../emailhour.json");
+	return myJsonReturn;
 }

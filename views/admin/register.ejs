@@ -14,15 +14,23 @@
   <![endif]-->
 </head>
 <body>
+  <div class='row' style="margin:0px;">
+  <div style="background-image: url('/home/img/frontmontanhaoverlayed.jpg'); margin-bottom:2vh; background-position:center center; background-repeat: no-repeat; margin-top:-20px; height:35vh; width:100%;">
+    <div style="color:white; width:50%; margin:auto; text-align:center;">
+      <h1 style="padding-top:6vw; font-size:4vh;"> Mover a Montanha </h1>
+      <hr>
+      <h1 style="font-size:4vh;">Administra&ccedil;&atilde;o - Novo Administrador</h1>
+    </div>
+  </div>
+</div>
   <div class='container'>
     <div class='row'>
       <div class='col-sm-4 col-sm-offset-4 text-center'>
-        <h1>Registo de Novo Utilizador</h1>
-        <form <form method='post' action='/register'>
+        <form <form method='post' action='/register' style="margin-bottom:2vh;">
           <input type='text' placeholder='Email' name='email' ng-model='user.email' class='form-control'>
 
           <input type='password' placeholder='Password' name='password' ng-model='user.password' class='form-control'>
-          <input type='submit' class='btn btn-primary' value='Register'>
+          <input style="margin-top:2vh;" type='submit' class='btn btn-primary' value='Registar'>
         </form>
         <a href='/admin'>Entrar com uma conta existente.</a>
       </div>

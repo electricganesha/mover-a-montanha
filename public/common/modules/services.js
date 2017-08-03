@@ -19,13 +19,12 @@ servicesModule.service('Services', function($http){
 		{
 			$http.post('/api/contact-form', data).success(function(data, status, headers, config)
 			{
-				alert('ja ta');
+				console.log("Email Enviado");
 			}
 			);
 		},
 		imageUpload: function(fd)
 		{
-			console.log(fd);
 			return $http({
 				method: 'post',
 				url: '/api/imageUpload',
@@ -40,6 +39,32 @@ servicesModule.service('Services', function($http){
 				return res.data;
 			}).catch(function(err){
 				console.error('Ocorreu um erro ao carregar a imagem');
+				console.error(err);
+				return err;
+			});
+		},
+		getAdministratorList: function(){
+			return $http.get('/admin/adminList').then(function(thisData){
+				return thisData.data;
+			});
+		},
+		getEmailHour: function(){
+			return $http.get('/admin/emailhour').then(function(thisData){
+				return thisData.data;
+			});
+		},
+		postEmailHour: function(hour){
+			var body = {};
+			body.hour = hour;
+			return $http({
+				method: 'post',
+				url: '/admin/emailhour/',
+				data: body
+			}).then(function(res){
+				// return the new post
+				return res.data;
+			}).catch(function(err){
+				console.error('Ocorreu um erro ao actualizar a hora do email!');
 				console.error(err);
 				return err;
 			});

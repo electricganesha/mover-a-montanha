@@ -1,8 +1,9 @@
 <div class="container" style="width:80%;">
 <div class='row full-height'>
     <!-- Sidebar -->
-    <div class='col-sm-12' style="margin-bottom:4vh; overflow:auto; height:90vh;">
+    <div class='col-sm-8' style="margin-bottom:4vh; overflow:auto; height:90vh;">
         <h3>Lista de Subscritores</h3>
+  <hr>
         <ul style="list-style-type: none;">
             <li ng-show="!subscribers.length">N&atilde;o existe nenhum subscritor em base de dados.</li>
             <div ng-repeat='subscriber in subscribers | orderBy:"name"' style="margin-top:4vh;">
@@ -14,9 +15,20 @@
                   <p style="display:inline-block;"> {{ subscriber.email }}</p><div style="float:right; margin-left:4vw; display:inline-block; cursor:pointer;"><img style="margin-top:4px;" ng-click="removeSubscriber( subscriber )" src="/home/img/icons/delete.png"></div>
                 </p>
             </li>
-
             </div>
         </ul>
+
     </div>
+
+    <div class='col-sm-4' style="margin-top:5vh; overflow:auto; height:90vh;">
+      <div style="margin-left:2vw;">
+      <p><u>Hora de envio de e-mail automático:</u></p>
+      <input type="text" class="timepicker" ng-model="automaticEmailTime" ng-change="setEmailTime(automaticEmailTime)" placeholder=" Alterar hora">&nbsp;&nbsp;<btn class="btn btn-primary" ng-click="updateEmailHour()">Alterar</btn>
+      <br>
+      <br>
+      <p><u> Hora actual de envio : </u></p>
+      <span ng-model="currentEmailHour"><span style="color:red;"><b>{{ currentEmailHour | date:'H:mm' }}</b></span> de segunda a sexta.</span>
+    </div>
+  </div>
         </div>
 </div>

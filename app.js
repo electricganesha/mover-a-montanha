@@ -8,6 +8,7 @@ var passport = require('passport');
 var mongoose = require('mongoose');
 var methodOverride = require('method-override');
 var cors = require('cors');
+var flash = require('connect-flash');
 const CronJob = require('cron').CronJob;
 const mailingListJob = require('./server/mailinglist');
 
@@ -33,6 +34,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cors());
+app.use(flash());
 app.use(methodOverride());
 app.use(cookieParser());
 app.use(require('express-session')({
@@ -83,10 +85,15 @@ app.listen(envConfig.port, function(){
   console.log('Server listening on port ' + envConfig.port)
 });
 
+
+
 //CRON JOBS
+var emailHour = require("./emailhour.json");
+var hour = emailHour.hour.split(':');
+var crontime = "00 "+hour[1]+" "+hour[0]+" * * 0-6"; //todos os dias as 14:00 (segunda a domingo)
 var jobs = [
     new CronJob({
-        cronTime: "30 27 18 * * 0-6", //todos os dias as 14:00 (segunda a domingo)
+        cronTime: crontime,
         onTick: function() {
             mailingListJob();
         },
