@@ -1,50 +1,56 @@
-<div class="container" style="width:80%;">
+<div class="container" style="width:90%;">
 <div class='row full-height'>
     <!-- Sidebar -->
-    <div class='col-sm-4' style="border-right:1px solid black; margin-bottom:4vh; overflow:auto; height:90vh;">
-        <h3>Lista de Autores</h3>
-        <ul class="list-group">
+    <div class='col-sm-4'>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3>Lista de Autores</h3>
+        </div>
+        <div class="panel-body" style="overflow:auto; height:82vh;">
+          <ul class="list-group">
             <li ng-show="!authors.length">N&atilde;o existe nenhum autor em base de dados.</li>
-            <div ng-repeat='author in authors | orderBy:"name"' style="margin-top:4vh;">
-            <li
-                class="list-group-item"
-                ng-class="{'active': (activeAuthor === author)}"
-                ng-click='setActive(author)'>
-                <br>
-                <p style="display:inline-block;">
-                  <img style="display:inline-block; width:100px; height:100px; border-radius:50%; float:left;" src="{{ author.photo }}"></img>
-                  <h4 class="list-group-item-heading" style="display:inline-block; float:right; width:55%; margin-top:4.5vh; height:100%; font-size:14px; text-align:left; text-decoration:bold; font-size:18px;"  btf-markdown='author.name'></h4>
-                </p>
-            </li>
-            <div style="float:right; cursor:pointer;"><img style="margin-top:4px;" ng-click="removeAuthor( author )" src="/home/img/icons/delete.png"></div>
+            <div ng-repeat='author in authors | orderBy:"name"' style="margin-top:2vh;">
+              <li class="list-group-item" ng-class="{'active': (activeAuthor === author)}" ng-click='setActive(author)' style="height: 122px;">
+                  <img style="float: right; margin-top: 42px;" ng-click="removeAuthor( author )" src="/home/img/icons/delete.png">
+                  <p style="display:inline-block;">
+                    <img style="display:inline-block; width:100px; height:100px; border-radius:50%; float:left;" src="{{ author.photo }}"></img>
+                    <h4 class="list-group-item-heading" style="display:inline-block; float:right; width:55%; margin-top:4.5vh; font-size:14px; text-align:left; text-decoration:bold; font-size:18px;"  btf-markdown='author.name'></h4>
+                  </p>
+              </li>
             </div>
-        </ul>
+          </ul>
+        </div>
+      </div>
     </div>
-    <!-- /Sidebar -->
-    <!--<div class='col-sm-4' style="width:0.5px; height:90vh; border:0.5px solid black; padding:0px; position:absolute; margin-left:20.2vw;">-->
 
     <!-- Page Content -->
     <div class='col-sm-8' ng-show="activeAuthor">
-      <div style="float:left">
-        <h2 class="col-sm-6" contenteditable="true" ng-model="activeAuthor.name">{{activeAuthor.name}}</h2>
-        <div  class="col-sm-6">
-          <img style="width:100px; height:100px; float:right; margin-right:4vw; border-radius:50%;" class="post-thumbnail" src="{{ activeAuthor.photo ? activeAuthor.photo : defaultPhoto }}"/>
+      <div class="panel panel-default">
+        <div class="panel-heading" style="height: 123px;">
+          <div class="col-md-6">
+            <h2  contenteditable="true" ng-model="activeAuthor.name" style="margin-top: 33px;">{{activeAuthor.name}}</h2>
+          </div>
+          <div  class="col-md-4">
+            <img style="width:100px; height:100px; float:right; border-radius:50%;" class="post-thumbnail" src="{{ activeAuthor.photo ? activeAuthor.photo : defaultPhoto }}"/>
+            <br>
+            <div style=" width:8vw; margin:auto; width: 11vw; margin: auto; margin-top: 2vh; text-align:center;  color:#444;    border:1px solid #CCC;    background:#DDD;    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);    cursor:pointer; "
+            class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+              ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-change="upload(file)"
+              ngf-resize="{width: 100, height: 100}"> Escolher Fotografia </div>
+          </div>
+          <div  class="col-md-2">
+            <div class='btn btn-primary pull-right' style="margin: auto; margin-top: 35px;" ng-click='editAuthor(activeAuthor._id,activeAuthor)'>Editar Autor</div>
+          </div>
+        </div>
+        <div class="panel-body">
           <br>
-          <div style=" width:8vw; margin:auto; margin-top:2vh; text-align:center;  color:#444;    border:1px solid #CCC;    background:#DDD;    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);    cursor:pointer; "
-          class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-            ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-change="upload(file)"
-            ngf-resize="{width: 100, height: 100}"> Escolher Fotografia </div>
-        </div>
-        <br>
-        <div style="margin-top:2vh;" class="col-sm-12" id="pad" text-angular ng-model="activeAuthor.bio" style="height:80vh;"></div>
-      </div>
-      <div class="row" style="height:1vh;">
-        <div class="col-lg-12" >
-          <input style="margin:0.8vw;" type='text' placeholder='Escreva aqui uma frase que represente o autor...' ng-model='activeAuthor.quote' name='Author' class='form-control'>
+          <div class="col-lg-12" >
+            <input type='text' placeholder='Escreva aqui uma frase que represente o autor...' ng-model='activeAuthor.quote' name='Author' class='form-control'>
+          </div>
+          <br>
+          <div style="margin-top:2vh; height: 39vw;" class="col-sm-12" id="pad" text-angular ng-model="activeAuthor.bio" style="height:80vh;"></div>
         </div>
       </div>
-        <div class='btn btn-primary pull-right' style="position:absolute; top:-1.5vh; right:0px;" ng-click='editAuthor(activeAuthor._id,activeAuthor)'>Editar Autor</div>
     </div>
-        </div>
-</div>
+  </div>
 </div>
