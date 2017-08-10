@@ -22,9 +22,6 @@ envConfig = require('./server/env')[env];
 
 mongoose.connect(envConfig.db);
 
-// PASSPORT CONFIG
-require('./server/passport')(passport);
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

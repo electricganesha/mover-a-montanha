@@ -488,17 +488,26 @@ adminApp.controller('AddAuthorCtrl', function($scope, Authors, ngToast){
 		//Take the first selected file
 		fd.append("uploadImageFile", file);
 		Authors.upload(fd).then(function(res,err){
-			$scope.author.photo = res.path.replace("public/","../");
-			$scope.author.photo = res.path.replace("public/","../");
-
-			if(res.message != undefined)
+			if(res.path != undefined)
 			{
-				ngToast.create(res.message);
+				$scope.author.photo = res.path.replace("public/","../");
+				$scope.author.photo = res.path.replace("public/","../");
+
+				if(res.message != undefined)
+				{
+					ngToast.create(res.message);
+				}
+				else {
+					ngToast.create("Imagem Carregada com Sucesso");
+					$scope.author.photo = res.path.replace("public/","../");
+					photo = res.path.replace("public/","../");
+				}
 			}
 			else {
-				ngToast.create("Imagem Carregada com Sucesso");
-				$scope.author.photo = res.path.replace("public/","../");
-				photo = res.path.replace("public/","../");
+				ngToast.create({
+				  className: 'warning',
+				  content: 'Erro ao carregar a imagem.'
+				});
 			}
 		});
 	};
@@ -704,6 +713,7 @@ $scope.options = {
 	colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
 };
 
+console.log($scope.selectedFilters);
 $scope.toggleFilter('ano');
 
 });

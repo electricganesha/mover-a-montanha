@@ -206,7 +206,7 @@ nav {
     color: #ddd;
     font-weight: 400;
 
-    
+
 }
 
 #cssmenu ul ul li:last-child > a,
@@ -265,30 +265,30 @@ nav {
 
 @media screen and (max-width: 1015px) {
     #cssmenu > ul > li .link1{
-      width:58px; 
-      margin: auto; 
-      margin-top: 20px; 
+      width:58px;
+      margin: auto;
+      margin-top: 20px;
       margin-bottom: 20px;
     }
 
     #cssmenu > ul > li .link2{
-      width:43px; 
-      margin: auto; 
-      margin-top: 20px; 
+      width:43px;
+      margin: auto;
+      margin-top: 20px;
       margin-bottom: 20px;
     }
 
     #cssmenu > ul > li .link3{
-      width:63px; 
-      margin: auto; 
-      margin-top: 20px; 
+      width:63px;
+      margin: auto;
+      margin-top: 20px;
       margin-bottom: 20px;
     }
 
     #cssmenu > ul > li .link4{
-      width:73px; 
-      margin: auto; 
-      margin-top: 20px; 
+      width:73px;
+      margin: auto;
+      margin-top: 20px;
       margin-bottom: 20px;
     }
     .logo {
@@ -657,7 +657,7 @@ a.linkautor:hover > #ballazul p {
 
 #autorestitle{
   color: #3b3d40;
-  margin-top:60px; 
+  margin-top:60px;
   margin-bottom:36px;
   text-align:center;
   font-weight: 800;
@@ -686,47 +686,47 @@ a.linkautor:hover > #ballazul p {
 }
 
 #headerblueband{
-    position:absolute; 
-    left:59px; 
-    top:76px; 
-    background-color:#486af0; 
-    z-index:0; 
-    width:259px; 
+    position:absolute;
+    left:59px;
+    top:76px;
+    background-color:#486af0;
+    z-index:0;
+    width:259px;
     height:251px;
 }
 
 #aspa{
-    font-size:80px; 
+    font-size:80px;
     margin-left: -41px;
 }
 
 #maincat{
-    margin-bottom:2vh; 
-    background-color:#486af0; 
-    color:white; 
+    margin-bottom:2vh;
+    background-color:#486af0;
+    color:white;
     margin-bottom: 35px;
 }
 
 #maincatsemrecap{
-    margin-bottom:2vh; 
-    background-color:#486af0; 
-    color:white; 
+    margin-bottom:2vh;
+    background-color:#486af0;
+    color:white;
     margin-bottom: 35px;
 }
 
 #artigoAuthor{
-    z-index:1; 
-    color: #3b3d40; 
-    width:300px; 
-    position:absolute; 
-    top:260px; 
-    left:39px; 
+    z-index:1;
+    color: #3b3d40;
+    width:300px;
+    position:absolute;
+    top:260px;
+    left:39px;
     text-align: center
 }
 
 #articlefooterleft{
-    text-align: right; 
-    font-family: 'Raleway', sans-serif; 
+    text-align: right;
+    font-family: 'Raleway', sans-serif;
     letter-spacing:1px;
 }
 
@@ -745,7 +745,7 @@ a.linkautor:hover > #ballazul p {
 #articleautorname{
     margin-top:10px;
     font-weight: 800;
-    letter-spacing: 1px; 
+    letter-spacing: 1px;
     font-size: 11px;
     text-transform:uppercase;
 }
@@ -754,8 +754,8 @@ a.linkautor:hover > #ballazul p {
   width: 57%;
   margin: auto;
   font-family: caslonregular;
-  font-size: 19px; 
-  text-align:justify; 
+  font-size: 21px;
+  text-align:justify;
   margin-bottom:30px;
   min-height: 515px;
 }
@@ -770,9 +770,9 @@ iframe{
   width: 57%;
   margin: auto;
   margin-top:30px;
-  font-family: caslonregular; 
-  font-size: 19px;  
-  text-align:justify; 
+  font-family: caslonregular;
+  font-size: 21px;
+  text-align:justify;
 }
 
 #cabecalhoarticle{
@@ -783,18 +783,18 @@ iframe{
 #articlefooter{
     width: 57%;
     margin: auto;
-    font-size:12px; 
-    margin-top:50px; 
+    font-size:12px;
+    margin-top:50px;
     margin-bottom:4vh;
 }
 
 #recap{
-    text-align:justify; 
-    margin:auto; 
-    margin-bottom:100px; 
-    margin-top:100px; 
+    text-align:justify;
+    margin:auto;
+    margin-bottom:100px;
+    margin-top:100px;
     width:50%;
-    font-family: caslonitalic; 
+    font-family: caslonitalic;
     font-size: 26px;
     letter-spacing: 1px;
 }
@@ -806,28 +806,28 @@ iframe{
     right: 30px;
     bottom: 0;
     margin-bottom: 20px;
-    font-family: caslonregular; 
-    font-size: 17px;  
+    font-family: caslonregular;
+    font-size: 17px;
 }
 
 #categorias p{
-    margin: 0; 
+    margin: 0;
 }
 
 #categoriassemrecap{
     text-align: right;
     right: 30px;
     margin-bottom: 20px;
-    font-family: caslonregular; 
-    font-size: 17px;  
+    font-family: caslonregular;
+    font-size: 17px;
 }
 
 #categoriassemrecap p{
-    margin: 0; 
+    margin: 0;
 }
 
 #recap p{
-    margin: 0; 
+    margin: 0;
 }
 
 #artigoautor{
@@ -860,13 +860,13 @@ iframe{
 
 #bandaauthor{
     background-color:#486af0;
-    z-index:0; width:253px; 
-    height:315px; 
+    z-index:0; width:253px;
+    height:315px;
     margin: auto;
 }
 
 #listaAutores{
-    width:60%; 
+    width:60%;
     margin:auto;
 }
 
@@ -894,7 +894,7 @@ iframe{
 }
 
 #homebodyarticle{
-    font-family: caslonregular; 
+    font-family: caslonregular;
     color: white;
     margin-top:40px;
     font-size: 20px;
@@ -948,11 +948,11 @@ iframe{
     margin: auto;
 }
 
-.slick-prev, .slick-next { 
+.slick-prev, .slick-next {
     opacity: 0.4;
 }
 
-.slick-prev:before, .slick-next:before { 
+.slick-prev:before, .slick-next:before {
     color:#3b3d40 !important;
 }
 
@@ -963,11 +963,11 @@ iframe{
 }
 
 #artigostitle{
-    margin-bottom:20px; 
-    text-align:center; 
-    text-transform:uppercase; 
-    font-family: 'Raleway', sans-serif; 
-    font-weight: 800; 
+    margin-bottom:20px;
+    text-align:center;
+    text-transform:uppercase;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
     font-size:45px;
     clear: both;
     padding-top: 35px;
@@ -975,9 +975,9 @@ iframe{
 
 #artigossubtitle{
     /* width: 400px;  */
-    margin: auto; 
-    text-align:center; 
-    font-family: caslonregular; 
+    margin: auto;
+    text-align:center;
+    font-family: caslonregular;
     font-size:18px;
     margin-bottom: 100px;
 }
@@ -1019,7 +1019,7 @@ iframe{
     overflow:hidden;
 }
 
-.box:hover .move-in-to-place { 
+.box:hover .move-in-to-place {
     animation-name: fadeFromBottom;
         -webkit-animation-name: fadeFromBottom;
         animation-duration: 200ms;
@@ -1031,7 +1031,7 @@ iframe{
     bottom: 0;
     width:90%;
     height:100%;
-    opacity:1; 
+    opacity:1;
 }
 
 @keyframes fadeFromBottom  {
@@ -1060,8 +1060,8 @@ iframe{
 #recaprecentposts{
     margin:auto;
     width:85%;
-    font-family: caslonitalic; 
-    font-size: 13px;
+    font-family: caslonitalic;
+    font-size: 18px;
     letter-spacing: 1px;
 }
 
@@ -1093,13 +1093,13 @@ iframe{
 }
 
 #divrightcontact{
-    margin-top: 73px; 
-    height: 90px; 
+    margin-top: 73px;
+    height: 90px;
     background-color: #486af0;
 }
 
 #formcontacto{
-    width: 30%; 
+    width: 30%;
     margin: auto;
 }
 
@@ -1160,21 +1160,21 @@ iframe{
 /*------------------------- Author ----------------------------------*/
 
 #artigoAuthor{
-    z-index:1; 
-    color: #3b3d40; 
-    width:300px; 
-    position:absolute; 
-    top:260px; 
-    left:39px; 
+    z-index:1;
+    color: #3b3d40;
+    width:300px;
+    position:absolute;
+    top:260px;
+    left:39px;
     text-align: center
 }
 
 
 #infoAuthorBio{
-    width:300px; 
-    position:absolute; 
-    top:260px; 
-    left:127px; 
+    width:300px;
+    position:absolute;
+    top:260px;
+    left:127px;
     text-align: center
 }
 
@@ -1182,8 +1182,8 @@ iframe{
     padding-top: 50px;
   width: 65%;
   font-family: caslonregular;
-  font-size: 19px; 
-  text-align:justify; 
+  font-size: 19px;
+  text-align:justify;
   margin-bottom:30px;
   min-height: 515px;
   padding-left: 50px;
@@ -1219,34 +1219,34 @@ iframe{
 }
 
 #recapAuthor{
-    text-align:justify; 
-    margin:auto; 
-    margin-bottom:100px; 
-    margin-top:100px; 
+    text-align:justify;
+    margin:auto;
+    margin-bottom:100px;
+    margin-top:100px;
     width:50%;
-    font-family: caslonitalic; 
+    font-family: caslonitalic;
     font-size: 26px;
     letter-spacing: 1px;
 }
 
 #recapAuthorBioMobile{
-    background-color:#486af0; 
+    background-color:#486af0;
     color:white;
     display: none;
 }
 
 #recapAuthorBio{
-    background-color:#486af0; 
+    background-color:#486af0;
     color:white;
 }
 
 #headerbluebandauthor{
-    position:absolute; 
-    left:147px; 
-    top:76px; 
-    background-color:#486af0; 
-    z-index:0; 
-    width:259px; 
+    position:absolute;
+    left:147px;
+    top:76px;
+    background-color:#486af0;
+    z-index:0;
+    width:259px;
     height:251px;
 }
 
@@ -1259,7 +1259,7 @@ iframe{
     font-size: 40px;
     color: white;
     padding-top: 87px;
-    
+
 }
 
 #divArtigo{
@@ -1304,7 +1304,7 @@ iframe{
 }
 
 #filtertitle{
-  font-family: 'Raleway', sans-serif;  
+  font-family: 'Raleway', sans-serif;
   color: white;
   text-transform: uppercase;
 }

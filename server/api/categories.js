@@ -68,7 +68,6 @@ module.exports = function(apiRouter){
 				console.log(err);
 				 res.send(err);
 			}
-			console.log(res);
 			res.json({ message: 'Category deleted!' });
 		})
 	});

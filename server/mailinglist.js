@@ -55,7 +55,6 @@ module.exports = function(){
 
       var trimContentTo140Char = function(content)
     	{
-    		console.log(content);
     		var trimmedContent = content.substr(0, 140);
     		trimmedContent = trimmedContent + "...";
     		return trimmedContent;

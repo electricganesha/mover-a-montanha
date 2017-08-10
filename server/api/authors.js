@@ -26,10 +26,6 @@ apiRouter.get('/authors', function(req, res){
         else
             res.json(authors);
     });
-  /*Author.find({}, function(err, authors){
-    if (err) res.send(err);
-    res.json(authors);
-  }).populate('author');*/
 });
 
 // add an author

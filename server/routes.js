@@ -74,7 +74,6 @@ module.exports = function(app, passport){
 
 	        // log the user in after it is created
 	        passport.authenticate('local')(req, res, function(){
-	        	console.log('PASSPORT - AUTENTICADO');
 	        	res.redirect('/admin/dashboard');
 	        });
 	    });

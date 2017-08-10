@@ -34,7 +34,6 @@ module.exports = function(apiRouter){
 		}
 
 		var returnStuff = function() {
-			console.log(dataToReturn);
 			res.json(dataToReturn);
 		}
 
@@ -49,8 +48,6 @@ module.exports = function(apiRouter){
 					{
 						for(var i=0; i<=11; i++)
 						{
-
-							console.log(i);
 							var month = i;
 							var year = req.params.year;
 							var day = daysInMonth(month+1,year);
@@ -82,10 +79,7 @@ module.exports = function(apiRouter){
 
 		var query = {};
 
-		var daysInMonth = function(month,year) {
-			var days = new Date(year, month, 0).getDate();
-			return days;
-		}
+		console.log(req.query);
 
 		if(req.query)
 		{
@@ -102,13 +96,12 @@ module.exports = function(apiRouter){
 			if(req.query.date)
 			{
 				var year = req.query.date;
-				var start = new Date(req.query.date, 1, 1);
-				var end = new Date(req.query.date-1, month,day );
-				query.created_at = req.query.date;
+				var start = new Date(year, 11, 31);
+				var end = new Date(year, 0,31);
+
+				query.created_at = {'$lte': start, '$gte':end};
 			}
 		}
-
-		console.log(query);
 
 		Post.find(query).select('author').populate('author','name')
 			.exec(function(err, posts){
@@ -239,8 +232,6 @@ module.exports = function(apiRouter){
 			//transformar a data num formato mais simpatico
 			var parsedDate = month+"/"+daysInMonth(month,year)+"/"+year;
 
-			console.log(parsedDate);
-
 			var dateEnd = new Date(parsedDate);
 
 			var dateBegin = new Date(dateEnd);
@@ -258,8 +249,6 @@ module.exports = function(apiRouter){
 		{
 			query.categories = req.query.category;
 		}
-
-		console.log(query);
 
 		Post.find(query).sort('-created_at').populate('author').populate('categories')
 	    .exec(function(err, posts){
