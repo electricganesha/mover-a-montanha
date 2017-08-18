@@ -13,9 +13,17 @@ var adminApp = angular.module('mean-blog.admin', [
 	'mean-blog.categories',
 	'mean-blog.subscribers',
 	'angulartics',
+	'angulartics.google.analytics',
+	'ngAnalytics',
 	'ngToast',
 	'chart.js'
 ]);
+
+// inject ngAnalyticsService
+adminApp.run(['ngAnalyticsService', function (ngAnalyticsService) {
+    ngAnalyticsService.setClientId('622043874240-aaibdsh9aer7tq1imde72op5ge1am19e.apps.googleusercontent.com'); // e.g. xxxxxxxxxx-xxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com
+}]);
+
 
 adminApp.config(function($stateProvider, $urlRouterProvider, $provide){
 

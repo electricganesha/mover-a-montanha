@@ -402,170 +402,277 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 		timeFormat: 'H:mm',
 		ampm: true       });
 
-	Services.getEmailHour().then(function(data){
-		$scope.currentEmailHour = data.hour;
+		Services.getEmailHour().then(function(data){
+			$scope.currentEmailHour = data.hour;
+		});
+
+
+		$scope.updateEmailHour = function()
+		{
+			var hour = ''+$('input.timepicker')[0].value;
+			Services.postEmailHour(hour).then(function(res){
+				console.log(res);
+				if(res.message != undefined)
+				{
+					$scope.currentEmailHour = res.hour;
+				}
+				else {
+					$scope.currentEmailHour = data.hour;
+				}
+			});
+		}
+
+		$scope.updateSubscribers = function () {
+			Subscribers.all().then(function(data){
+				$scope.subscribers=data;
+			});
+		};
+
+		$scope.subscribers = $scope.updateSubscribers();
+		$scope.activeSubscriber = false;
+
+		$scope.setActive = function(subscriber){
+			$scope.activeSubscriber = subscriber;
+		}
+
+		$scope.removeSubscriber = function(subscriber){
+			Subscribers.remove(subscriber._id).then(function(res){
+				if(res.message != undefined)
+				{
+					if(res.message == 'Subscriber deleted!')
+					$scope.updateSubscribers();
+				}
+				else {
+					$scope.updateSubscribers();
+				}
+			});
+		};
 	});
 
+	adminApp.controller('AllCategoriesCtrl', function($scope, categoryList, Categories){
 
-	$scope.updateEmailHour = function()
-	{
-		var hour = ''+$('input.timepicker')[0].value;
-		Services.postEmailHour(hour).then(function(res){
-			console.log(res);
-			if(res.message != undefined)
-			{
-					$scope.currentEmailHour = res.hour;
-			}
-			else {
-					$scope.currentEmailHour = data.hour;
-			}
-		});
-	}
+		$scope.updateCategories = function () {
+			Categories.all().then(function(data){
+				$scope.categories=data;
+			});
+		};
 
-	$scope.updateSubscribers = function () {
-		Subscribers.all().then(function(data){
-			$scope.subscribers=data;
-		});
-	};
+		$scope.categories = $scope.updateCategories();
+		$scope.activeCategory = false;
 
-	$scope.subscribers = $scope.updateSubscribers();
-	$scope.activeSubscriber = false;
+		$scope.setActive = function(category){
+			$scope.activeCategory = category;
+		}
 
-	$scope.setActive = function(subscriber){
-		$scope.activeSubscriber = subscriber;
-	}
+		$scope.removeCategory = function(category){
+			Categories.remove(category._id).then(function(res){
+				if(res.message != undefined)
+				{
+					if(res.message == 'Category deleted!')
+					$scope.updateCategories();
+				}
+				else {
+					$scope.updateCategories();
+				}
+			});
+		};
+	});
 
-	$scope.removeSubscriber = function(subscriber){
-		Subscribers.remove(subscriber._id).then(function(res){
-			if(res.message != undefined)
-			{
-				if(res.message == 'Subscriber deleted!')
-				$scope.updateSubscribers();
-			}
-			else {
-				$scope.updateSubscribers();
-			}
-		});
-	};
-});
+	adminApp.controller('AddAuthorCtrl', function($scope, Authors, ngToast){
+		$scope.author = {};
+		$scope.defaultPhoto = '../home/img/thumbnail.jpeg'
 
-adminApp.controller('AllCategoriesCtrl', function($scope, categoryList, Categories){
+		// upload on file select or drop
+		$scope.upload = function (file) {
+			var fd = new FormData();
+			//Take the first selected file
+			fd.append("uploadImageFile", file);
+			Authors.upload(fd).then(function(res,err){
+				if(res.path != undefined)
+				{
+					$scope.author.photo = res.path.replace("public/","../");
+					$scope.author.photo = res.path.replace("public/","../");
 
-	$scope.updateCategories = function () {
-		Categories.all().then(function(data){
-			$scope.categories=data;
-		});
-	};
+					if(res.message != undefined)
+					{
+						ngToast.create(res.message);
+					}
+					else {
+						ngToast.create("Imagem Carregada com Sucesso");
+						$scope.author.photo = res.path.replace("public/","../");
+						photo = res.path.replace("public/","../");
+					}
+				}
+				else {
+					ngToast.create({
+						className: 'warning',
+						content: 'Erro ao carregar a imagem.'
+					});
+				}
+			});
+		};
 
-	$scope.categories = $scope.updateCategories();
-	$scope.activeCategory = false;
-
-	$scope.setActive = function(category){
-		$scope.activeCategory = category;
-	}
-
-	$scope.removeCategory = function(category){
-		Categories.remove(category._id).then(function(res){
-			if(res.message != undefined)
-			{
-				if(res.message == 'Category deleted!')
-				$scope.updateCategories();
-			}
-			else {
-				$scope.updateCategories();
-			}
-		});
-	};
-});
-
-adminApp.controller('AddAuthorCtrl', function($scope, Authors, ngToast){
-	$scope.author = {};
-	$scope.defaultPhoto = '../home/img/thumbnail.jpeg'
-
-	// upload on file select or drop
-	$scope.upload = function (file) {
-		var fd = new FormData();
-		//Take the first selected file
-		fd.append("uploadImageFile", file);
-		Authors.upload(fd).then(function(res,err){
-			if(res.path != undefined)
-			{
-				$scope.author.photo = res.path.replace("public/","../");
-				$scope.author.photo = res.path.replace("public/","../");
-
+		$scope.addAuthor = function(newAuthor){
+			$scope.author.photo = photo;
+			Authors.add(newAuthor).then(function(res){
 				if(res.message != undefined)
 				{
 					ngToast.create(res.message);
 				}
 				else {
-					ngToast.create("Imagem Carregada com Sucesso");
-					$scope.author.photo = res.path.replace("public/","../");
-					photo = res.path.replace("public/","../");
+					ngToast.create("Autor Adicionado");
+					$scope.author = {};
+				}
+			});
+		};
+
+	});
+
+	adminApp.controller('StatisticsCtrl', function($scope, postList, Authors, Services, Categories, $analytics){
+
+		//populate year options
+		var currentYear = new Date().getFullYear();
+
+		$scope.availableYears = [];
+		$scope.availableAuthors = [];
+		$scope.availableCategories = [];
+		$scope.authorChecked = 'fa fa-square-o';
+		$scope.yearChecked = 'fa fa-square-o';
+		$scope.categoryChecked = 'fa fa-square-o';
+		$scope.selectedFilters = [{'filtro':'ano','selected':false,'valor':''},{'filtro':'autor','selected':false,'valor':''},{'filtro':'categoria','selected':false,'valor':''}];
+
+		$scope.renderdirective = false;
+
+		$scope.selectedYear = '2016';
+		$scope.selectedAuthor = '';
+		$scope.selectedCategories = '';
+		//$scope.gaChartMain =	{};
+		$scope.gaChartMain = {
+			reportType: 'ga',
+			query: {
+				metrics: 'ga:sessions',
+				dimensions: 'ga:date',
+				'start-date': '30daysAgo',
+				'end-date': 'yesterday',
+				//ids: 'ga:XXXXXX' // put your viewID here or leave it empty if connected with a viewSelector
+			},
+			chart: {
+				container: 'chart-container-1', // id of the created DOM-element
+				type: 'LINE',
+				options: {
+					width: '100%'
 				}
 			}
-			else {
-				ngToast.create({
-				  className: 'warning',
-				  content: 'Erro ao carregar a imagem.'
-				});
-			}
-		});
-	};
+		};
 
-	$scope.addAuthor = function(newAuthor){
-		$scope.author.photo = photo;
-		Authors.add(newAuthor).then(function(res){
-			if(res.message != undefined)
-			{
-				ngToast.create(res.message);
-			}
-			else {
-				ngToast.create("Autor Adicionado");
-				$scope.author = {};
-			}
-		});
-	};
-
-});
-
-adminApp.controller('StatisticsCtrl', function($scope, postList, Authors, Services, Categories){
-
-	//populate year options
-	var currentYear = new Date().getFullYear();
-
-	$scope.availableYears = [];
-	$scope.availableAuthors = [];
-	$scope.availableCategories = [];
-	$scope.authorChecked = 'fa fa-square-o';
-	$scope.yearChecked = 'fa fa-square-o';
-	$scope.categoryChecked = 'fa fa-square-o';
-	$scope.selectedFilters = [{'filtro':'ano','selected':false,'valor':''},{'filtro':'autor','selected':false,'valor':''},{'filtro':'categoria','selected':false,'valor':''}];
-
-	$scope.selectedYear = '2016';
-	$scope.selectedAuthor = '';
-	$scope.selectedCategories = '';
-
-	for(var i=2016 ; i<=currentYear; i++)
-	{
-		$scope.availableYears.push({id: i, name: i});
-	}
-
-	Authors.all().then(function(data){
-		$scope.availableAuthors=data;
-	});
-
-	Categories.all().then(function(data){
-		$scope.availableCategories=data;
-	});
-
-	$scope.refreshCharts = function()
-	{
-		if($scope.selectedFilters[0].selected == false && $scope.selectedFilters[1].selected == false && $scope.selectedFilters[2].selected == false)
+		$scope.toggleChartFilter = function(value)
 		{
-			$scope.labels = [];
-			$scope.data= [];
+			console.log($analytics);
+			console.log($scope.gaChartMain.query);
+			console.log($scope.gaChartMain);
+
+			$scope.gaChartMain = {};
+
+			switch(value)
+			{
+				case('year'):
+					$scope.gaChartMain.query = {metrics: 'ga:sessions',dimensions: 'ga:date','start-date': '365daysAgo','end-date': 'yesterday'}
+				break;
+				case('month'):
+					$scope.gaChartMain.query = {metrics: 'ga:sessions',dimensions: 'ga:date','start-date': '30daysAgo','end-date': 'yesterday'}
+				break;
+				case('week'):
+					$scope.gaChartMain.query = {metrics: 'ga:sessions',dimensions: 'ga:date','start-date': '7daysAgo','end-date': 'yesterday'}
+				break;
+
+
+			}
+
+			console.log($scope);
+			var options = {
+			reportType: 'ga',
+			query: {
+				metrics: 'ga:sessions',
+				dimensions: 'ga:date',
+				'start-date': '30daysAgo',
+				'end-date': 'yesterday',
+				//ids: 'ga:XXXXXX' // put your viewID here or leave it empty if connected with a viewSelector
+			},
+			chart: {
+				container: 'chart-container-1', // id of the created DOM-element
+				type: 'LINE',
+				options: {
+					width: '100%'
+				}
+			}};
+			$scope.gaChartMain.execute();
 		}
-	}
+
+		/*$scope.gaChartMain = {
+			reportType: 'ga',
+			query: {
+				metrics: 'ga:sessions',
+				dimensions: 'ga:date',
+				'start-date': chartFilter,
+				'end-date': 'yesterday',
+				//ids: 'ga:XXXXXX' // put your viewID here or leave it empty if connected with a viewSelector
+			},
+			chart: {
+				container: 'chart-container-1', // id of the created DOM-element
+				type: 'LINE',
+				options: {
+					width: '100%'
+				}
+			}
+		};*/
+
+		$scope.gaChartTable = {
+			reportType: 'ga',
+			query: {
+				metrics: 'ga:sessions',
+				dimensions: 'ga:browser',
+				'sort': '-ga:sessions',
+      	'max-results': '6'
+				//ids: 'ga:XXXXXX' // put your viewID here or leave it empty if connected with a viewSelector
+			},
+			chart: {
+				container: 'chart-container-1', // id of the created DOM-element
+				type: 'TABLE',
+				options: {
+					width: '100%'
+				}
+			}
+		};
+
+		$scope.queries = [{
+			query: {
+				//ids: 'ga:xxxxxx',  // put your viewID here
+				metrics: 'ga:sessions',
+				dimensions: 'ga:city'
+			}
+		}];
+
+		for(var i=2016 ; i<=currentYear; i++)
+		{
+			$scope.availableYears.push({id: i, name: i});
+		}
+
+		Authors.all().then(function(data){
+			$scope.availableAuthors=data;
+		});
+
+		Categories.all().then(function(data){
+			$scope.availableCategories=data;
+		});
+
+		$scope.refreshCharts = function()
+		{
+			if($scope.selectedFilters[0].selected == false && $scope.selectedFilters[1].selected == false && $scope.selectedFilters[2].selected == false)
+			{
+				$scope.labels = [];
+				$scope.data= [];
+			}
+		}
 
 		$scope.toggleFilter = function(value)
 		{
@@ -611,225 +718,225 @@ adminApp.controller('StatisticsCtrl', function($scope, postList, Authors, Servic
 			console.log($scope.selectedFilters);
 		}
 
-	$scope.yearFilter = function(year)
-	{
-		$scope.selectedYear = year;
-		$scope.selectedFilters[0].valor = year;
-		$scope.options.title.text = 'Artigos por mês';
-		$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Mês';
-		$scope.labels = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", 'Agosto','Setembro','Outubro','Novembro','Dezembro'];
-		Services.getPostCountStatistics(year).then(function(data){
-			$scope.data=data;
-		});
-	}
+		$scope.yearFilter = function(year)
+		{
+			$scope.selectedYear = year;
+			$scope.selectedFilters[0].valor = year;
+			$scope.options.title.text = 'Artigos por mês';
+			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Mês';
+			$scope.labels = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", 'Agosto','Setembro','Outubro','Novembro','Dezembro'];
+			Services.getPostCountStatistics(year).then(function(data){
+				$scope.data=data;
+			});
+		}
 
-	$scope.authorFilter = function(author)
-	{
-		$scope.selectedAuthor = author;
-		$scope.selectedFilters[1].valor = author;
-		$scope.options.title.text = 'Artigos por autor';
-		$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Autor';
-		Services.getPostAuthorCountStatistics().then(function(data){
-			var labels = [];
-			var counts = [];
+		$scope.authorFilter = function(author)
+		{
+			$scope.selectedAuthor = author;
+			$scope.selectedFilters[1].valor = author;
+			$scope.options.title.text = 'Artigos por autor';
+			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Autor';
+			Services.getPostAuthorCountStatistics().then(function(data){
+				var labels = [];
+				var counts = [];
 
-			for(var i=0; i<data.length; i++)
-			{
-				var name = data[i].name.split(" ");
+				for(var i=0; i<data.length; i++)
+				{
+					var name = data[i].name.split(" ");
 
-				var shortName = name[0][0] +". "+ name[name.length-1];
+					var shortName = name[0][0] +". "+ name[name.length-1];
 
-				labels.push(shortName);
-				counts.push(data[i].count);
-			}
+					labels.push(shortName);
+					counts.push(data[i].count);
+				}
 
-			$scope.labels = labels;
-			$scope.data=counts;
-		});
-	}
+				$scope.labels = labels;
+				$scope.data=counts;
+			});
+		}
 
-	$scope.categoryFilter = function(category)
-	{
-		$scope.selectedCategory = category;
-		$scope.selectedFilters[2].valor = category;
-		$scope.options.title.text = 'Artigos por palavra-chave';
-		$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Palavra-Chave';
-		Services.getPostCategoryCountStatistics().then(function(data){
-			var labels = [];
-			var counts = [];
+		$scope.categoryFilter = function(category)
+		{
+			$scope.selectedCategory = category;
+			$scope.selectedFilters[2].valor = category;
+			$scope.options.title.text = 'Artigos por palavra-chave';
+			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Palavra-Chave';
+			Services.getPostCategoryCountStatistics().then(function(data){
+				var labels = [];
+				var counts = [];
 
-			for(var i=0; i<data.length; i++)
-			{
-				labels.push(data[i].tag);
-				counts.push(data[i].count);
-			}
+				for(var i=0; i<data.length; i++)
+				{
+					labels.push(data[i].tag);
+					counts.push(data[i].count);
+				}
 
-			$scope.labels = labels;
-			$scope.data=counts;
-		});
-	}
+				$scope.labels = labels;
+				$scope.data=counts;
+			});
+		}
 
-//$scope.colors = {colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']};
+		//$scope.colors = {colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']};
 
-$scope.options = {
-	responsive: true,
-	labelFontSize : '4',
-	title:{
-		display:true,
-		text:''
-	},
-	tooltips: {
-		mode: 'index',
-		intersect: false,
-	},
-	hover: {
-		mode: 'nearest',
-		intersect: true
-	},
-	scales: {
-		xAxes: [{
-			display: true,
-			labelMaxWidth: 20,
-			scaleLabel: {
-				display: true,
-				labelString: ''
-			}
-		}],
-		yAxes: [{
-			display: true,
-			scaleLabel: {
-				display: true,
-				labelString: 'Número de Artigos'
+		$scope.options = {
+			responsive: true,
+			labelFontSize : '4',
+			title:{
+				display:true,
+				text:''
 			},
-			ticks: {
-				//min: 0,
-				//max: 100,
+			tooltips: {
+				mode: 'index',
+				intersect: false,
+			},
+			hover: {
+				mode: 'nearest',
+				intersect: true
+			},
+			scales: {
+				xAxes: [{
+					display: true,
+					labelMaxWidth: 20,
+					scaleLabel: {
+						display: true,
+						labelString: ''
+					}
+				}],
+				yAxes: [{
+					display: true,
+					scaleLabel: {
+						display: true,
+						labelString: 'Número de Artigos'
+					},
+					ticks: {
+						//min: 0,
+						//max: 100,
 
-				// forces step size to be 5 units
-				stepSize: 5
-			}
-		}]
-	},
-	colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
-};
+						// forces step size to be 5 units
+						stepSize: 5
+					}
+				}]
+			},
+			colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
+		};
 
-console.log($scope.selectedFilters);
-$scope.toggleFilter('ano');
+		console.log($scope.selectedFilters);
+		$scope.toggleFilter('ano');
 
-});
-
-//IMAGE upload
-adminApp.controller('UploadImageModalInstance', function($scope, $modalInstance, Services, ngToast){
-
-	$scope.image = '/home/img/default.jpeg';
-
-	$scope.progress = 0;
-	$scope.files = [];
-
-	console.log($scope.files);
-	$scope.upload = function(file){
-		console.log(file);
-		var fd = new FormData();
-		//Take the first selected file
-		fd.append("uploadImageFile", file);
-
-		Services.imageUpload(fd).then(function(res,err){
-
-			if(res.message != undefined)
-			{
-				ngToast.create(res.message);
-			}
-			else {
-				ngToast.create("Imagem Carregada com Sucesso");
-				$scope.image = res.path.replace("public/","../");
-			}
-		});
-	};
-
-	$scope.insert = function(){
-		$modalInstance.close($scope.image);
-	};
-})
-
-//ADMIN Controller
-adminApp.controller('AdminCtrl', function($scope, Users, Services){
-
-	Services.getAdministratorList().then(function(data){
-		$scope.adminList=data;
 	});
 
-	$scope.updateUsers = function () {
-		Users.all().then(function(data){
-			$scope.users=data;
-		});
-	};
+	//IMAGE upload
+	adminApp.controller('UploadImageModalInstance', function($scope, $modalInstance, Services, ngToast){
 
-	$scope.isUserAuthorized = function(user)
-	{
-		for(var i=0; i<$scope.adminList.length; i++)
+		$scope.image = '/home/img/default.jpeg';
+
+		$scope.progress = 0;
+		$scope.files = [];
+
+		console.log($scope.files);
+		$scope.upload = function(file){
+			console.log(file);
+			var fd = new FormData();
+			//Take the first selected file
+			fd.append("uploadImageFile", file);
+
+			Services.imageUpload(fd).then(function(res,err){
+
+				if(res.message != undefined)
+				{
+					ngToast.create(res.message);
+				}
+				else {
+					ngToast.create("Imagem Carregada com Sucesso");
+					$scope.image = res.path.replace("public/","../");
+				}
+			});
+		};
+
+		$scope.insert = function(){
+			$modalInstance.close($scope.image);
+		};
+	})
+
+	//ADMIN Controller
+	adminApp.controller('AdminCtrl', function($scope, Users, Services){
+
+		Services.getAdministratorList().then(function(data){
+			$scope.adminList=data;
+		});
+
+		$scope.updateUsers = function () {
+			Users.all().then(function(data){
+				$scope.users=data;
+			});
+		};
+
+		$scope.isUserAuthorized = function(user)
 		{
-			if(user.email == $scope.adminList[i].email)
-				return true;
-		}
-	}
-
-	$scope.users = $scope.updateUsers();
-
-	$scope.removeUser = function(user){
-		Users.remove(user._id).then(function(res){
-			if(res.message != undefined)
+			for(var i=0; i<$scope.adminList.length; i++)
 			{
-				if(res.message == 'User deleted!')
-				$scope.updateUsers();
+				if(user.email == $scope.adminList[i].email)
+				return true;
 			}
-			else {
-				$scope.updateUsers();
-			}
-		});
-	};
-
-});
-
-// DIRECTIVES
-
-adminApp.directive('contenteditable', [function() {
-	return {
-		require: '?ngModel',
-		scope: {
-
-		},
-		link: function(scope, element, attrs, ctrl) {
-			// view -> model (when div gets blur update the view value of the model)
-			element.bind('blur', function() {
-				scope.$apply(function() {
-					ctrl.$setViewValue(element.html());
-				});
-			});
-
-			// model -> view
-			ctrl.$render = function() {
-				element.html(ctrl.$viewValue);
-			};
-
-			// load init value from DOM
-			ctrl.$render();
-
-			// remove the attached events to element when destroying the scope
-			scope.$on('$destroy', function() {
-				element.unbind('blur');
-				element.unbind('paste');
-				element.unbind('focus');
-			});
 		}
-	};
-}]);
 
-adminApp.directive('jqtimepicker', function () {
-	return {
-    	restrict: 'A',
-    	require: 'ngModel',
-     	link: function (scope, element, attrs) {
-        	$(element).timepicker({});
-       	}
-     };
-});
+		$scope.users = $scope.updateUsers();
+
+		$scope.removeUser = function(user){
+			Users.remove(user._id).then(function(res){
+				if(res.message != undefined)
+				{
+					if(res.message == 'User deleted!')
+					$scope.updateUsers();
+				}
+				else {
+					$scope.updateUsers();
+				}
+			});
+		};
+
+	});
+
+	// DIRECTIVES
+
+	adminApp.directive('contenteditable', [function() {
+		return {
+			require: '?ngModel',
+			scope: {
+
+			},
+			link: function(scope, element, attrs, ctrl) {
+				// view -> model (when div gets blur update the view value of the model)
+				element.bind('blur', function() {
+					scope.$apply(function() {
+						ctrl.$setViewValue(element.html());
+					});
+				});
+
+				// model -> view
+				ctrl.$render = function() {
+					element.html(ctrl.$viewValue);
+				};
+
+				// load init value from DOM
+				ctrl.$render();
+
+				// remove the attached events to element when destroying the scope
+				scope.$on('$destroy', function() {
+					element.unbind('blur');
+					element.unbind('paste');
+					element.unbind('focus');
+				});
+			}
+		};
+	}]);
+
+	adminApp.directive('jqtimepicker', function () {
+		return {
+			restrict: 'A',
+			require: 'ngModel',
+			link: function (scope, element, attrs) {
+				$(element).timepicker({});
+			}
+		};
+	});

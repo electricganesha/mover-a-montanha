@@ -5,6 +5,9 @@ var express = require('express'),
 	apiRouter = express.Router(),
 	router = express.Router();
 	fs = require('fs');
+	geoip = require('geoip-lite');
+
+var Stats = require('./models/stats');
 
 module.exports = function(app, passport){
 	app.use('/api', apiRouter);
@@ -17,9 +20,26 @@ module.exports = function(app, passport){
 	require('./api/categories')(apiRouter);
 	require('./api/subscribers')(apiRouter);
 	require('./api/services')(apiRouter);
+	require('./api/stats')(apiRouter);
 
 	// home route
 	router.get('/', function(req, res) {
+		// ADICIONAR ESTATISTICAS EXTERNAS
+		var remoteAddress = req.connection.remoteAddress.split(":");
+		if(remoteAddress[3] != null && remoteAddress[3] != '127.0.0.1')
+		{
+			var geo = geoip.lookup(remoteAddress);
+
+			var stat = new Stats();
+			stat.dateOfAccess = Date.now;
+			stat.userAgent = req.headers['user-agent'];
+			stat.userLocationCountry = geo.country;
+			stat.userLocationCity = geo.city;
+
+			console.log(stat);
+			stat.save();
+		}
+
 		res.render('index');
 	});
 

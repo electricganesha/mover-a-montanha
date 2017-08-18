@@ -146,7 +146,7 @@ $scope.trimContentTo100Char = function(content)
   }else{
     $scope.mostraQuote = true;
   }
-  
+
   $scope.authorPosts = Posts.author($scope.author._id).then(function(data){
     $scope.postsAuthor = data;
   });
@@ -224,7 +224,7 @@ $scope.trimContentTo100Char = function(content)
       {
         $scope.changedCategory = 'All';
       }
-      
+
 
       angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
 
@@ -362,7 +362,7 @@ $scope.trimContentTo100Char = function(content)
       for(i=0;i< $scope.categoriesArray.length; i++){
         if($scope.categoriesArray[i]._id == hasCategory){
           console.log($scope.categoriesArray[i]);
-          $scope.indiceC = i; 
+          $scope.indiceC = i;
           apllyFilter();
         }
       }
