@@ -69,20 +69,56 @@ servicesModule.service('Services', function($http){
 				return err;
 			});
 		},
-		getPostCountStatistics: function(year){
+		/*getPostCountStatistics: function(startDate,endDate){
 			return $http.get('/api/posts/count/'+year).then(function(postCountArray){
+				return postCountArray.data;
+			});
+		},*/
+		getPostCountStatistics: function(startDate,endDate){
+			return $http.get('/api/posts/count?startDate='+formatDate(startDate)+"&endDate="+formatDate(endDate)).then(function(postCountArray){
 				return postCountArray.data;
 			});
 		},
 		getVisitorCountStatistics: function(startDate,endDate){
-			return $http.get('/api/stats/visitors?'+startDate+"&"+endDate).then(function(visitorCount){
+			return $http.get('/api/stats/visitors?startDate='+formatDate(startDate)+"&endDate="+formatDate(endDate)).then(function(visitorCount){
+				console.log(visitorCount.data);
 				return visitorCount.data;
 			});
 		},
+		getPostCategoryCountStatistics: function(){
+      return $http.get('/api/posts/categorycount/').then(function(postCountArray){
+        return postCountArray.data;
+      });
+    },
 		getPostAuthorCountStatistics: function(){
 			return $http.get('/api/posts/authorcount/').then(function(postCountArray){
 				return postCountArray.data;
 			});
 		},
+		getSubscriberCountStatistics: function(startDate,endDate){
+			console.log(startDate);
+			console.log(endDate);
+			return $http.get('/api/subscribers/count?startDate='+formatDate(startDate)+"&endDate="+formatDate(endDate)).then(function(postCountArray){
+				return postCountArray.data;
+			});
+		}
 	};
 });
+
+var formatDate = function(date)
+{
+		var monthNames = [
+			"January", "February", "March",
+			"April", "May", "June", "July",
+			"August", "September", "October",
+			"November", "December"
+		];
+
+		date = new Date(date);
+
+		var day = date.getDate();
+		var monthIndex = date.getMonth();
+		var year = date.getFullYear();
+
+		return monthNames[monthIndex] + '-' + day + '-' + year;
+}

@@ -22,6 +22,43 @@ module.exports = function(apiRouter){
 	    });
 	});
 
+	// get number of posts in a given date
+  // uso : /posts/count?startDate=August-13-2017&endDate=August-18-2017
+	apiRouter.get('/posts/count', function(req, res){
+
+    var query = {};
+
+		console.log(req.query.startDate);
+		console.log(req.query.endDate);
+
+    if(req.query.startDate && req.query.endDate)
+    {
+      var startDateFormat = req.query.startDate.split('-');
+      var endDateFormat = req.query.endDate.split('-');
+
+      var start = new Date(startDateFormat[0]+" "+startDateFormat[1]+", "+startDateFormat[2]);
+      var end = new Date(endDateFormat[0]+" "+endDateFormat[1]+", "+endDateFormat[2]);
+
+      query.created_at = {'$lte': end, '$gte':start};
+    }
+
+		console.log(query);
+
+		Post.find(query).sort('created_at')//.count()
+	    .exec(function(err, stats){
+					console.log(stats);
+	        if(err)
+					{
+						res.send(err);
+						console.log(err);
+					}
+	        else
+					{
+						res.json(stats);
+					}
+	    });
+	});
+
 	// get number of posts in month by year
 	apiRouter.get('/posts/count/:year', function(req, res){
 

@@ -44,6 +44,9 @@ module.exports = function(apiRouter){
 
     var query = {};
 
+		console.log(req.query.startDate);
+		console.log(req.query.endDate);
+
     if(req.query.startDate && req.query.endDate)
     {
       var startDateFormat = req.query.startDate.split('-');
@@ -55,7 +58,7 @@ module.exports = function(apiRouter){
       query.dateOfAccess = {'$lte': end, '$gte':start};
     }
 
-		Stats.find(query).count()
+		Stats.find(query).sort('dateOfAccess')//.count()
 	    .exec(function(err, stats){
 	        if(err)
 					{

@@ -1,3 +1,64 @@
+var formatDateController = function(date)
+{
+	var monthNames = [
+		"Janeiro", "Fevereiro", "Março",
+		"Abril", "Maio", "Junho", "Julho",
+		"Agosto", "Setembro", "Outubro",
+		"Novembro", "Dezembro"
+	];
+
+	date = new Date(date);
+
+	var day = date.getDate();
+	var monthIndex = date.getMonth();
+	var year = date.getFullYear();
+
+	return day + ' ' + monthNames[monthIndex] + ' ' + year;
+}
+
+var formatMonthController = function (month)
+{
+	switch(month)
+	{
+		case(1):
+			return 'Janeiro';
+		break;
+		case(2):
+			return 'Fevereiro';
+		break;
+		case(3):
+			return 'Março';
+		break;
+		case(4):
+			return 'Abril';
+		break;
+		case(5):
+			return 'Maio';
+		break;
+		case(6):
+			return 'Junho';
+		break;
+		case(7):
+			return 'Julho';
+		break;
+		case(8):
+			return 'Agosto';
+		break;
+		case(9):
+			return 'Setembro';
+		break;
+		case(10):
+			return 'Outubro';
+		break;
+		case(11):
+			return 'Novembro';
+		break;
+		case(12):
+			return 'Dezembro';
+		break;
+	}
+}
+
 adminApp.controller('NavCtrl', function($scope, $state){
 	$scope.active = $state;
 	$scope.isActive = function(viewLocation){
@@ -533,129 +594,40 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 		//populate year options
 		var currentYear = new Date().getFullYear();
 
-		$scope.availableYears = [];
+		$scope.availableYears = ['Ano','Mês','Dia'];
 		$scope.availableAuthors = [];
 		$scope.availableCategories = [];
 		$scope.authorChecked = 'fa fa-square-o';
 		$scope.yearChecked = 'fa fa-square-o';
 		$scope.categoryChecked = 'fa fa-square-o';
-		$scope.selectedFilters = [{'filtro':'ano','selected':false,'valor':''},{'filtro':'autor','selected':false,'valor':''},{'filtro':'categoria','selected':false,'valor':''}];
+		$scope.visitorsChecked = 'fa fa-square-o';
+		$scope.subscribersChecked = 'fa fa-square-o';
+		$scope.dt = '';
+		$scope.labels = '';
+		$scope.counts = '';
+		$scope.yearFilterFilter = 'mes';
+		var dateUnformat = new Date();
+		$scope.dateFrom = dateUnformat.setDate(dateUnformat.getDate() - 365);
+		$scope.dateTo = Date.now();
+		$scope.canvasType = 'bar';
+		$scope.selectedFilters = [
+			{'filtro':'ano','selected':false,'valor':''},
+			{'filtro':'autor','selected':false,'valor':''},
+			{'filtro':'categoria','selected':false,'valor':''},
+			{'filtro':'visitantes','selected':false,'valor':''},
+			{'filtro':'subscritores','selected':false,'valor':''},
+		];
 
 		$scope.renderdirective = false;
 
 		$scope.selectedYear = '2016';
 		$scope.selectedAuthor = '';
 		$scope.selectedCategories = '';
-		//$scope.gaChartMain =	{};
-		$scope.gaChartMain = {
-			reportType: 'ga',
-			query: {
-				metrics: 'ga:sessions',
-				dimensions: 'ga:date',
-				'start-date': '30daysAgo',
-				'end-date': 'yesterday',
-				//ids: 'ga:XXXXXX' // put your viewID here or leave it empty if connected with a viewSelector
-			},
-			chart: {
-				container: 'chart-container-1', // id of the created DOM-element
-				type: 'LINE',
-				options: {
-					width: '100%'
-				}
-			}
-		};
 
-		$scope.toggleChartFilter = function(value)
-		{
-			console.log($analytics);
-			console.log($scope.gaChartMain.query);
-			console.log($scope.gaChartMain);
-
-			$scope.gaChartMain = {};
-
-			switch(value)
-			{
-				case('year'):
-					$scope.gaChartMain.query = {metrics: 'ga:sessions',dimensions: 'ga:date','start-date': '365daysAgo','end-date': 'yesterday'}
-				break;
-				case('month'):
-					$scope.gaChartMain.query = {metrics: 'ga:sessions',dimensions: 'ga:date','start-date': '30daysAgo','end-date': 'yesterday'}
-				break;
-				case('week'):
-					$scope.gaChartMain.query = {metrics: 'ga:sessions',dimensions: 'ga:date','start-date': '7daysAgo','end-date': 'yesterday'}
-				break;
-
-
-			}
-
-			console.log($scope);
-			var options = {
-			reportType: 'ga',
-			query: {
-				metrics: 'ga:sessions',
-				dimensions: 'ga:date',
-				'start-date': '30daysAgo',
-				'end-date': 'yesterday',
-				//ids: 'ga:XXXXXX' // put your viewID here or leave it empty if connected with a viewSelector
-			},
-			chart: {
-				container: 'chart-container-1', // id of the created DOM-element
-				type: 'LINE',
-				options: {
-					width: '100%'
-				}
-			}};
-			$scope.gaChartMain.execute();
-		}
-
-		/*$scope.gaChartMain = {
-			reportType: 'ga',
-			query: {
-				metrics: 'ga:sessions',
-				dimensions: 'ga:date',
-				'start-date': chartFilter,
-				'end-date': 'yesterday',
-				//ids: 'ga:XXXXXX' // put your viewID here or leave it empty if connected with a viewSelector
-			},
-			chart: {
-				container: 'chart-container-1', // id of the created DOM-element
-				type: 'LINE',
-				options: {
-					width: '100%'
-				}
-			}
-		};*/
-
-		$scope.gaChartTable = {
-			reportType: 'ga',
-			query: {
-				metrics: 'ga:sessions',
-				dimensions: 'ga:browser',
-				'sort': '-ga:sessions',
-      	'max-results': '6'
-				//ids: 'ga:XXXXXX' // put your viewID here or leave it empty if connected with a viewSelector
-			},
-			chart: {
-				container: 'chart-container-1', // id of the created DOM-element
-				type: 'TABLE',
-				options: {
-					width: '100%'
-				}
-			}
-		};
-
-		$scope.queries = [{
-			query: {
-				//ids: 'ga:xxxxxx',  // put your viewID here
-				metrics: 'ga:sessions',
-				dimensions: 'ga:city'
-			}
-		}];
-
-		for(var i=2016 ; i<=currentYear; i++)
+		/*for(var i=2016 ; i<=currentYear; i++)
 		{
 			$scope.availableYears.push({id: i, name: i});
-		}
+		}*/
 
 		Authors.all().then(function(data){
 			$scope.availableAuthors=data;
@@ -667,7 +639,7 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 
 		$scope.refreshCharts = function()
 		{
-			if($scope.selectedFilters[0].selected == false && $scope.selectedFilters[1].selected == false && $scope.selectedFilters[2].selected == false)
+			if($scope.selectedFilters[0].selected == false && $scope.selectedFilters[1].selected == false && $scope.selectedFilters[2].selected == false && $scope.selectedFilters[3].selected == false && $scope.selectedFilters[4].selected == false)
 			{
 				$scope.labels = [];
 				$scope.data= [];
@@ -676,6 +648,12 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 
 		$scope.toggleFilter = function(value)
 		{
+
+			$scope.yearChecked = 'fa fa-square-o';
+			$scope.authorChecked = 'fa fa-square-o';
+			$scope.categoryChecked = 'fa fa-square-o';
+			$scope.visitorsChecked = 'fa fa-square-o';
+
 			if(value=="ano" && $scope.yearChecked == "fa fa-square-o")
 			{
 				$scope.selectedFilters[0].selected = true;
@@ -715,19 +693,126 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 				$scope.refreshCharts();
 			}
 
-			console.log($scope.selectedFilters);
+			if(value=="visitors" && $scope.categoryChecked == "fa fa-square-o")
+			{
+				$scope.selectedFilters[3].selected = true;
+				$scope.visitorsChecked = 'fa fa-check-square-o';
+				$scope.visitorFilter();
+			}
+			else if(value=="visitors" && $scope.categoryChecked == "fa fa-check-square-o")
+			{
+				$scope.selectedFilters[3].selected = false;
+				$scope.visitorsChecked = 'fa fa-square-o';
+				$scope.refreshCharts();
+			}
+
+			if(value=="subscribers" && $scope.categoryChecked == "fa fa-square-o")
+			{
+				$scope.selectedFilters[4].selected = true;
+				$scope.subscribersChecked = 'fa fa-check-square-o';
+				$scope.subscriberFilter();
+			}
+			else if(value=="subscribers" && $scope.categoryChecked == "fa fa-check-square-o")
+			{
+				$scope.selectedFilters[4].selected = false;
+				$scope.subscribersChecked = 'fa fa-square-o';
+				$scope.refreshCharts();
+			}
 		}
 
-		$scope.yearFilter = function(year)
+		$scope.yearFilter = function()
 		{
-			$scope.selectedYear = year;
-			$scope.selectedFilters[0].valor = year;
-			$scope.options.title.text = 'Artigos por mês';
-			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Mês';
-			$scope.labels = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", 'Agosto','Setembro','Outubro','Novembro','Dezembro'];
-			Services.getPostCountStatistics(year).then(function(data){
-				$scope.data=data;
+			var total = 0;
+			$scope.options.title.text = 'Artigos por período de tempo';
+
+			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Período';
+			////$scope.canvasType = 'bar';
+			Services.getPostCountStatistics($scope.dateFrom,$scope.dateTo).then(function(data){
+
+				var labels = [];
+				var counts = [];
+
+				console.log(data);
+
+				for(var i=0; i<data.length;i++)
+				{
+					var date = new Date(data[i].created_at);
+
+					console.log($scope.yearFilterFilter);
+					switch($scope.yearFilterFilter){
+
+						case('ano'):
+							yearDate = date.getFullYear();
+							if(labels.indexOf(yearDate) > -1)
+							{
+								counts[labels.indexOf(yearDate)] = counts[labels.indexOf(yearDate)]+1;
+							}
+							else {
+								labels.push(yearDate);
+								counts.push(1);
+							}
+						break;
+						case('mes'):
+							monthDate = formatMonthController(date.getMonth()+1);
+
+							yearDate = date.getFullYear();
+
+							fullDate = monthDate + ", "+yearDate;
+
+							if(labels.indexOf(fullDate) > -1)
+							{
+								counts[labels.indexOf(fullDate)] = counts[labels.indexOf(fullDate)]+1;
+							}
+							else {
+								labels.push(fullDate);
+								counts.push(1);
+							}
+						break;
+						case('dia'):
+
+							if(labels.indexOf(formatDateController(date)) > -1)
+							{
+								counts[labels.indexOf(formatDateController(date))] = counts[labels.indexOf(formatDateController(date))]+1;
+							}
+							else {
+								labels.push(formatDateController(date));
+								counts.push(1);
+							}
+						break;
+					}
+
+					total += 1;
+					$scope.total = "Total de artigos publicados de "+formatDateController($scope.dateFrom)+" a "+formatDateController($scope.dateTo)+" : "+total;
+				}
+
+				console.log($scope.labels);
+				console.log($scope.counts);
+
+				$scope.labels = labels;
+				$scope.data = counts;
+
 			});
+
+
+		}
+
+		$scope.toggleYearFilter = function(filter)
+		{
+			console.log(filter);
+			switch(filter)
+			{
+				case('ano'):
+					$scope.yearFilterFilter = 'ano';
+				break;
+				case('mes'):
+					$scope.yearFilterFilter = 'mes';
+				break;
+				case('dia'):
+					$scope.yearFilterFilter = 'dia';
+				break;
+			}
+
+			$scope.yearFilter();
 		}
 
 		$scope.authorFilter = function(author)
@@ -736,6 +821,7 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 			$scope.selectedFilters[1].valor = author;
 			$scope.options.title.text = 'Artigos por autor';
 			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Autor';
+			$scope.canvasType = 'bar';
 			Services.getPostAuthorCountStatistics().then(function(data){
 				var labels = [];
 				var counts = [];
@@ -761,6 +847,7 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 			$scope.selectedFilters[2].valor = category;
 			$scope.options.title.text = 'Artigos por palavra-chave';
 			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Palavra-Chave';
+			$scope.canvasType = 'bar';
 			Services.getPostCategoryCountStatistics().then(function(data){
 				var labels = [];
 				var counts = [];
@@ -776,7 +863,73 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 			});
 		}
 
-		//$scope.colors = {colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']};
+		/*$scope.dateChange = function()
+		{
+			$scope.options.title.text = 'Visitantes entre as datas : '+ $scope.formatDate($scope.dateFrom)+ " e "+ $scope.formatDate($scope.dateTo);
+		}*/
+
+		$scope.visitorFilter = function(category)
+		{
+			$scope.selectedFilters[3].valor = '';
+			$scope.options.title.text = 'Visitantes entre as datas : '+ formatDateController($scope.dateFrom)+ " e "+ formatDateController($scope.dateTo);
+			$scope.options.scales.yAxes[0].scaleLabel.labelString = 'Número de Visitantes';
+			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Período';
+			$scope.canvasType = 'line';
+			Services.getVisitorCountStatistics($scope.dateFrom,$scope.dateTo).then(function(data){
+				var labels = [];
+				var counts = [];
+
+				console.log(data);
+
+				for(var i=0; i<data.length; i++)
+				{
+					var date = new Date(data[i].dateOfAccess);
+
+					if(labels.indexOf(date.toDateString()) > -1)
+					{
+						counts[labels.indexOf(date.toDateString())] = counts[labels.indexOf(date.toDateString())]+1;
+					}
+					else {
+						labels.push(date.toDateString());
+						counts.push(1);
+					}
+				}
+
+				$scope.labels = labels;
+				$scope.data=counts;
+			});
+		}
+
+		$scope.subscriberFilter = function(subscriber)
+		{
+			$scope.selectedFilters[4].valor = '';
+			$scope.options.title.text = 'Subscritores entre as datas : '+ formatDateController($scope.dateFrom)+ " e "+ formatDateController($scope.dateTo);
+			$scope.options.scales.yAxes[0].scaleLabel.labelString = 'Número de Subscritores';
+			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Período';
+			$scope.canvasType = 'line';
+			console.log("subscribers");
+			Services.getSubscriberCountStatistics($scope.dateFrom,$scope.dateTo).then(function(data){
+				var labels = [];
+				var counts = [];
+
+				for(var i=0; i<data.length; i++)
+				{
+					var date = new Date(data[i].dateOfSubscription);
+
+					if(labels.indexOf(formatDateController(date)) > -1)
+					{
+						counts[labels.indexOf(formatDateController(date))] = counts[labels.indexOf(formatDateController(date))]+1;
+					}
+					else {
+						labels.push(formatDateController(date));
+						counts.push(1);
+					}
+				}
+
+				$scope.labels = labels;
+				$scope.data=counts;
+			});
+		}
 
 		$scope.options = {
 			responsive: true,
@@ -820,9 +973,9 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 			colors : [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360']
 		};
 
-		console.log($scope.selectedFilters);
-		$scope.toggleFilter('ano');
+		$scope.colors = [ '#803690', '#00ADF9', '#DCDCDC', '#46BFBD', '#FDB45C', '#949FB1', '#4D5360'];
 
+		//$scope.toggleFilter('ano');
 	});
 
 	//IMAGE upload
