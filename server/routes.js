@@ -48,10 +48,6 @@ module.exports = function(app, passport){
 		res.render('admin/login');
 	});
 
-	router.get('/admin/register', function(req, res) {
-		res.render('admin/register');
-	});
-
 	router.get('/admin/dashboard', isAdmin, function(req, res){
 		res.render('admin/dashboard', {user: req.user});
 	});
@@ -85,17 +81,19 @@ module.exports = function(app, passport){
 
 		// passport-local-mongoose: Convenience method to register a new user instance with a given password. Checks if username is unique
 		User.register(new User({
-			email: req.body.email
+			email: req.body.email,
+			level: req.body.level,
 		}), req.body.password, function(err, user) {
 	        if (err) {
 	            console.error(err);
 	            return;
-	        }
-
+			}
+			//res.status(200);
+			res.json({ message: 'Utilizador Registado'});
 	        // log the user in after it is created
-	        passport.authenticate('local')(req, res, function(){
+	        /* passport.authenticate('local')(req, res, function(){
 	        	res.redirect('/admin/dashboard');
-	        });
+	        }); */
 	    });
 	});
 
@@ -114,30 +112,14 @@ module.exports = function(app, passport){
 
 function isAdmin(req, res, next){
 
-	var administrators = returnAdministrators();
-	var isAuthorized = false;
 
-	for(var i=0; i<administrators.length; i++)
-	{
-		if(req.user.email == administrators[i].email)
-		{
-			isAuthorized = true;
-		}
-	}
-
-	if(req.isAuthenticated() && isAuthorized){
+	if(req.isAuthenticated()){
 		console.log('PASSPORT - ADMIN AUTENTICADO');
 		next();
 	} else {
 		console.log('TENTATIVA DE LOGIN SEM ADMIN');
 		res.redirect('/');
 	}
-}
-
-function returnAdministrators()
-{
-	var myJsonReturn = require("../admins.json");
-	return myJsonReturn;
 }
 
 function returnEmailHour()

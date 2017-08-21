@@ -859,7 +859,7 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 	})
 
 	//ADMIN Controller
-	adminApp.controller('AdminCtrl', function($scope, Users, Services){
+	adminApp.controller('AdminCtrl', function($scope, Users, Services, ngToast){
 
 		Services.getAdministratorList().then(function(data){
 			$scope.adminList=data;
@@ -871,15 +871,6 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 			});
 		};
 
-		$scope.isUserAuthorized = function(user)
-		{
-			for(var i=0; i<$scope.adminList.length; i++)
-			{
-				if(user.email == $scope.adminList[i].email)
-				return true;
-			}
-		}
-
 		$scope.users = $scope.updateUsers();
 
 		$scope.removeUser = function(user){
@@ -890,6 +881,22 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 					$scope.updateUsers();
 				}
 				else {
+					$scope.updateUsers();
+				}
+			});
+		};
+
+		$scope.registerUser = function(user){
+	
+			Services.registerUser(user).then(function(res){
+				if(res.message != undefined)
+				{
+					ngToast.create(res.message);
+					$scope.updateUsers();
+				}
+				else {
+					ngToast.create('Utilizador Registado');
+					$scope.user = {};
 					$scope.updateUsers();
 				}
 			});

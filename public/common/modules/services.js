@@ -84,5 +84,24 @@ servicesModule.service('Services', function($http){
 				return postCountArray.data;
 			});
 		},
+		registerUser: function(user){
+			var body = {};
+			body.email = user.email;
+			body.level = user.level;
+			body.password = user.password;
+			return $http({
+				method: 'post',
+				url: '/register',
+				data: body
+			}).then(function(res){
+				// return the new post
+				console.log(res);
+				return res.data;
+			}).catch(function(err){
+				console.error('Ocorreu um erro ao registar o utilizador!');
+				console.error(err);
+				return err;
+			});
+		},
 	};
 });
