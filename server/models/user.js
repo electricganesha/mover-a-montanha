@@ -5,7 +5,8 @@ var User = new mongoose.Schema({
 	email: {
 		type: String,
 		required: '{PATH} is required!'
-	}
+	},
+	level: {type: Number}
 });
 
 // Passport-Local-Mongoose will add a username,
