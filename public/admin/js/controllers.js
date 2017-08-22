@@ -602,6 +602,7 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 		$scope.categoryChecked = 'fa fa-square-o';
 		$scope.visitorsChecked = 'fa fa-square-o';
 		$scope.subscribersChecked = 'fa fa-square-o';
+		$scope.timeMetricsChecked = 'fa fa-square-o';
 		$scope.dt = '';
 		$scope.labels = '';
 		$scope.counts = '';
@@ -610,24 +611,12 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 		$scope.dateFrom = dateUnformat.setDate(dateUnformat.getDate() - 365);
 		$scope.dateTo = Date.now();
 		$scope.canvasType = 'bar';
-		$scope.selectedFilters = [
-			{'filtro':'ano','selected':false,'valor':''},
-			{'filtro':'autor','selected':false,'valor':''},
-			{'filtro':'categoria','selected':false,'valor':''},
-			{'filtro':'visitantes','selected':false,'valor':''},
-			{'filtro':'subscritores','selected':false,'valor':''},
-		];
 
 		$scope.renderdirective = false;
 
 		$scope.selectedYear = '2016';
 		$scope.selectedAuthor = '';
 		$scope.selectedCategories = '';
-
-		/*for(var i=2016 ; i<=currentYear; i++)
-		{
-			$scope.availableYears.push({id: i, name: i});
-		}*/
 
 		Authors.all().then(function(data){
 			$scope.availableAuthors=data;
@@ -639,11 +628,8 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 
 		$scope.refreshCharts = function()
 		{
-			if($scope.selectedFilters[0].selected == false && $scope.selectedFilters[1].selected == false && $scope.selectedFilters[2].selected == false && $scope.selectedFilters[3].selected == false && $scope.selectedFilters[4].selected == false)
-			{
 				$scope.labels = [];
 				$scope.data= [];
-			}
 		}
 
 		$scope.toggleFilter = function(value)
@@ -653,69 +639,72 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 			$scope.authorChecked = 'fa fa-square-o';
 			$scope.categoryChecked = 'fa fa-square-o';
 			$scope.visitorsChecked = 'fa fa-square-o';
+			$scope.subscribersChecked = 'fa fa-square-o';
+			$scope.timeMetricsChecked = 'fa fa-square-o';
 
 			if(value=="ano" && $scope.yearChecked == "fa fa-square-o")
 			{
-				$scope.selectedFilters[0].selected = true;
 				$scope.yearChecked = 'fa fa-check-square-o';
 				$scope.yearFilter($scope.selectedYear);
 			}
 			else if(value=="ano" && $scope.yearChecked == "fa fa-check-square-o")
 			{
-				$scope.selectedFilters[0].selected = false;
 				$scope.yearChecked = 'fa fa-square-o';
 				$scope.refreshCharts();
 			}
 
 			if(value=="author" && $scope.authorChecked == "fa fa-square-o")
 			{
-				$scope.selectedFilters[1].selected = true;
 				$scope.authorChecked = 'fa fa-check-square-o';
 				$scope.authorFilter();
 			}
 			else if(value=="author" && $scope.authorChecked == "fa fa-check-square-o")
 			{
-				$scope.selectedFilters[1].selected = false;
 				$scope.authorChecked = 'fa fa-square-o';
 				$scope.refreshCharts();
 			}
 
 			if(value=="category" && $scope.categoryChecked == "fa fa-square-o")
 			{
-				$scope.selectedFilters[2].selected = true;
 				$scope.categoryChecked = 'fa fa-check-square-o';
 				$scope.categoryFilter();
 			}
 			else if(value=="category" && $scope.categoryChecked == "fa fa-check-square-o")
 			{
-				$scope.selectedFilters[2].selected = false;
 				$scope.categoryChecked = 'fa fa-square-o';
 				$scope.refreshCharts();
 			}
 
 			if(value=="visitors" && $scope.categoryChecked == "fa fa-square-o")
 			{
-				$scope.selectedFilters[3].selected = true;
 				$scope.visitorsChecked = 'fa fa-check-square-o';
 				$scope.visitorFilter();
 			}
 			else if(value=="visitors" && $scope.categoryChecked == "fa fa-check-square-o")
 			{
-				$scope.selectedFilters[3].selected = false;
 				$scope.visitorsChecked = 'fa fa-square-o';
 				$scope.refreshCharts();
 			}
 
 			if(value=="subscribers" && $scope.categoryChecked == "fa fa-square-o")
 			{
-				$scope.selectedFilters[4].selected = true;
 				$scope.subscribersChecked = 'fa fa-check-square-o';
 				$scope.subscriberFilter();
 			}
 			else if(value=="subscribers" && $scope.categoryChecked == "fa fa-check-square-o")
 			{
-				$scope.selectedFilters[4].selected = false;
 				$scope.subscribersChecked = 'fa fa-square-o';
+				$scope.refreshCharts();
+			}
+
+			if(value=="time" && $scope.categoryChecked == "fa fa-square-o")
+			{
+				$scope.timeMetricsChecked = 'fa fa-check-square-o';
+				$scope.timeFilter();
+			}
+			else if(value=="time" && $scope.categoryChecked == "fa fa-check-square-o")
+			{
+				$scope.timeMetricsChecked = 'fa fa-square-o';
 				$scope.refreshCharts();
 			}
 		}
@@ -726,19 +715,15 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 			$scope.options.title.text = 'Artigos por período de tempo';
 
 			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Período';
-			////$scope.canvasType = 'bar';
 			Services.getPostCountStatistics($scope.dateFrom,$scope.dateTo).then(function(data){
 
 				var labels = [];
 				var counts = [];
 
-				console.log(data);
-
 				for(var i=0; i<data.length;i++)
 				{
 					var date = new Date(data[i].created_at);
 
-					console.log($scope.yearFilterFilter);
 					switch($scope.yearFilterFilter){
 
 						case('ano'):
@@ -785,9 +770,6 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 					$scope.total = "Total de artigos publicados de "+formatDateController($scope.dateFrom)+" a "+formatDateController($scope.dateTo)+" : "+total;
 				}
 
-				console.log($scope.labels);
-				console.log($scope.counts);
-
 				$scope.labels = labels;
 				$scope.data = counts;
 
@@ -798,7 +780,6 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 
 		$scope.toggleYearFilter = function(filter)
 		{
-			console.log(filter);
 			switch(filter)
 			{
 				case('ano'):
@@ -817,8 +798,8 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 
 		$scope.authorFilter = function(author)
 		{
+			var total = 0;
 			$scope.selectedAuthor = author;
-			$scope.selectedFilters[1].valor = author;
 			$scope.options.title.text = 'Artigos por autor';
 			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Autor';
 			$scope.canvasType = 'bar';
@@ -834,17 +815,19 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 
 					labels.push(shortName);
 					counts.push(data[i].count);
+					total += data[i].count;
 				}
 
 				$scope.labels = labels;
 				$scope.data=counts;
+				$scope.total = "Total de artigos publicados de "+formatDateController($scope.dateFrom)+" a "+formatDateController($scope.dateTo)+" : "+total;
 			});
 		}
 
 		$scope.categoryFilter = function(category)
 		{
+			var total = 0;
 			$scope.selectedCategory = category;
-			$scope.selectedFilters[2].valor = category;
 			$scope.options.title.text = 'Artigos por palavra-chave';
 			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Palavra-Chave';
 			$scope.canvasType = 'bar';
@@ -856,21 +839,18 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 				{
 					labels.push(data[i].tag);
 					counts.push(data[i].count);
+					total+= data[i].count;
 				}
 
 				$scope.labels = labels;
 				$scope.data=counts;
+
+				$scope.total = "";
 			});
 		}
 
-		/*$scope.dateChange = function()
-		{
-			$scope.options.title.text = 'Visitantes entre as datas : '+ $scope.formatDate($scope.dateFrom)+ " e "+ $scope.formatDate($scope.dateTo);
-		}*/
-
 		$scope.visitorFilter = function(category)
 		{
-			$scope.selectedFilters[3].valor = '';
 			$scope.options.title.text = 'Visitantes entre as datas : '+ formatDateController($scope.dateFrom)+ " e "+ formatDateController($scope.dateTo);
 			$scope.options.scales.yAxes[0].scaleLabel.labelString = 'Número de Visitantes';
 			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Período';
@@ -878,8 +858,7 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 			Services.getVisitorCountStatistics($scope.dateFrom,$scope.dateTo).then(function(data){
 				var labels = [];
 				var counts = [];
-
-				console.log(data);
+				var total = 0;
 
 				for(var i=0; i<data.length; i++)
 				{
@@ -892,25 +871,26 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 					else {
 						labels.push(date.toDateString());
 						counts.push(1);
+						total++;
 					}
 				}
 
 				$scope.labels = labels;
 				$scope.data=counts;
+				$scope.total = "Total de visitantes no intervalo de datas de "+formatDateController($scope.dateFrom)+" a "+formatDateController($scope.dateTo)+" : "+total;
 			});
 		}
 
 		$scope.subscriberFilter = function(subscriber)
 		{
-			$scope.selectedFilters[4].valor = '';
 			$scope.options.title.text = 'Subscritores entre as datas : '+ formatDateController($scope.dateFrom)+ " e "+ formatDateController($scope.dateTo);
 			$scope.options.scales.yAxes[0].scaleLabel.labelString = 'Número de Subscritores';
 			$scope.options.scales.xAxes[0].scaleLabel.labelString = 'Período';
 			$scope.canvasType = 'line';
-			console.log("subscribers");
 			Services.getSubscriberCountStatistics($scope.dateFrom,$scope.dateTo).then(function(data){
 				var labels = [];
 				var counts = [];
+				var total = 0;
 
 				for(var i=0; i<data.length; i++)
 				{
@@ -923,12 +903,66 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 					else {
 						labels.push(formatDateController(date));
 						counts.push(1);
+						total++;
 					}
 				}
 
 				$scope.labels = labels;
 				$scope.data=counts;
+
+				$scope.total = "Total de subscritores no intervalo de datas de "+formatDateController($scope.dateFrom)+" a "+formatDateController($scope.dateTo)+" : "+total;
 			});
+		}
+
+		$scope.timeFilter = function(time)
+		{
+			$scope.options.title.text = 'Subscritores entre as datas : '+ formatDateController($scope.dateFrom)+ " e "+ formatDateController($scope.dateTo);
+			$scope.labels = [];
+			$scope.data=[];
+			$scope.temporalMetrics = true;
+			$scope.timeMetrics = '';
+
+			Services.getPostsTimeMetrics().then(function(data){
+				$scope.postsTimeMetrics = data;
+			});
+
+			Services.getVisitorsTimeMetrics().then(function(data){
+				$scope.visitorsTimeMetrics = data;
+			});
+
+			$scope.convertDateToPT = function(dateToConvert)
+			{
+				var date = new Date(dateToConvert);
+			  return moment(date, "D_M_YYYY").locale('pt-br').format('LL');
+			}
+
+			$scope.dayOfWeek = function(day)
+			{
+				switch(day)
+				{
+					case(0):
+						return 'Domingo';
+					break;
+					case(1):
+						return 'Segunda-Feira';
+					break;
+					case(2):
+						return 'Terça-Feira';
+					break;
+					case(3):
+						return 'Quarta-Feira';
+					break;
+					case(4):
+						return 'Quinta-Feira';
+					break;
+					case(5):
+						return 'Sexta-Feira';
+					break;
+					case(6):
+						return 'Sábado';
+					break;
+				}
+			}
 		}
 
 		$scope.options = {
@@ -1040,7 +1074,7 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 		};
 
 		$scope.registerUser = function(user){
-	
+
 			Services.registerUser(user).then(function(res){
 				if(res.message != undefined)
 				{

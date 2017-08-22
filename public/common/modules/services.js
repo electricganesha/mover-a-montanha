@@ -69,11 +69,6 @@ servicesModule.service('Services', function($http){
 				return err;
 			});
 		},
-		/*getPostCountStatistics: function(startDate,endDate){
-			return $http.get('/api/posts/count/'+year).then(function(postCountArray){
-				return postCountArray.data;
-			});
-		},*/
 		getPostCountStatistics: function(startDate,endDate){
 			return $http.get('/api/posts/count?startDate='+formatDate(startDate)+"&endDate="+formatDate(endDate)).then(function(postCountArray){
 				return postCountArray.data;
@@ -81,7 +76,6 @@ servicesModule.service('Services', function($http){
 		},
 		getVisitorCountStatistics: function(startDate,endDate){
 			return $http.get('/api/stats/visitors?startDate='+formatDate(startDate)+"&endDate="+formatDate(endDate)).then(function(visitorCount){
-				console.log(visitorCount.data);
 				return visitorCount.data;
 			});
 		},
@@ -115,9 +109,17 @@ servicesModule.service('Services', function($http){
 			});
 		},
 		getSubscriberCountStatistics: function(startDate,endDate){
-			console.log(startDate);
-			console.log(endDate);
 			return $http.get('/api/subscribers/count?startDate='+formatDate(startDate)+"&endDate="+formatDate(endDate)).then(function(postCountArray){
+				return postCountArray.data;
+			});
+		},
+		getPostsTimeMetrics: function(){
+			return $http.get('/api/posts/timemetrics').then(function(postCountArray){
+				return postCountArray.data;
+			});
+		},
+		getVisitorsTimeMetrics: function(){
+			return $http.get('/api/stats/visitors/timemetrics').then(function(postCountArray){
 				return postCountArray.data;
 			});
 		}

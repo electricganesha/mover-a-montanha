@@ -28,9 +28,6 @@ module.exports = function(apiRouter){
 
     var query = {};
 
-		console.log(req.query.startDate);
-		console.log(req.query.endDate);
-
     if(req.query.startDate && req.query.endDate)
     {
       var startDateFormat = req.query.startDate.split('-');
@@ -41,8 +38,6 @@ module.exports = function(apiRouter){
 
       query.created_at = {'$lte': end, '$gte':start};
     }
-
-		console.log(query);
 
 		Post.find(query).sort('created_at')//.count()
 	    .exec(function(err, stats){
@@ -57,6 +52,117 @@ module.exports = function(apiRouter){
 						res.json(stats);
 					}
 	    });
+	});
+
+	// get all posts time metrics statistics
+	apiRouter.get('/posts/timemetrics', function(req, res){
+
+		Post.find().sort('-created_at')
+			.exec(function(err, posts){
+					if(err)
+					{
+						res.send(err);
+						console.log(err);
+					}
+					else
+					{
+						var averageHours = [];
+						var countsHours = [];
+
+						var averageDay = [];
+						var countsDay = [];
+
+						var averageFullDate = [];
+						var countFullDate = [];
+
+						for(var i=0; i<posts.length; i++)
+						{
+							var date = new Date(posts[i].created_at);
+							var hour = date.getHours();
+							var day = date.getDay();
+							var fullDateNoTime = new Date(date.getFullYear(),date.getMonth(),date.getDate()).toString();
+
+							if(averageHours.indexOf(hour) > -1)
+							{
+								countsHours[averageHours.indexOf(hour)] = countsHours[averageHours.indexOf(hour)]+1;
+							}
+							else {
+								averageHours.push(hour);
+								countsHours.push(1);
+							}
+
+							if(averageDay.indexOf(day) > -1)
+							{
+								countsDay[averageDay.indexOf(day)] = countsDay[averageDay.indexOf(day)]+1;
+							}
+							else {
+								averageDay.push(day);
+								countsDay.push(1);
+							}
+
+							if(averageFullDate.indexOf(fullDateNoTime) > -1)
+							{
+								countFullDate[averageFullDate.indexOf(fullDateNoTime)] = countFullDate[averageFullDate.indexOf(fullDateNoTime)]+1;
+							}
+							else {
+								averageFullDate.push(fullDateNoTime);
+								countFullDate.push(1);
+							}
+						}
+
+						var maxNrHours = 0;
+						var maxNrDay = 0;
+						var maxNrFullDate = 0;
+
+						var timeMetrics = {};
+						timeMetrics.hour = {};
+						timeMetrics.day = {};
+						timeMetrics.fulldate = {};
+
+						for(var i=0; i<countsHours.length; i++)
+						{
+							if(maxNrHours < countsHours[i])
+								maxNrHours = countsHours[i];
+						}
+
+						for(var i=0; i<countsHours.length; i++)
+						{
+							if(countsHours[i] == maxNrHours)
+								timeMetrics.hour[i] = averageHours[i];
+						}
+
+						for(var i=0; i<countsDay.length; i++)
+						{
+							if(maxNrDay < countsDay[i])
+							{
+								maxNrDay = countsDay[i];
+							}
+						}
+
+						for(var i=0; i<countsDay.length; i++)
+						{
+							if(countsDay[i] == maxNrDay)
+								timeMetrics.day[i] = averageDay[i];
+						}
+
+						for(var i=0; i<countFullDate.length; i++)
+						{
+							if(maxNrFullDate < countFullDate[i])
+							{
+								maxNrFullDate = countFullDate[i];
+							}
+						}
+
+						for(var i=0; i<countFullDate.length; i++)
+						{
+							if(countFullDate[i] == maxNrFullDate)
+								timeMetrics.fulldate[i] = averageFullDate[i];
+						}
+
+						res.json(timeMetrics);
+					}
+
+			});
 	});
 
 	// get number of posts in month by year
