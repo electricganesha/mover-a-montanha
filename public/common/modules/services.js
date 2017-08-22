@@ -69,8 +69,14 @@ servicesModule.service('Services', function($http){
 				return err;
 			});
 		},
+<<<<<<< Updated upstream
 		getPostCountStatistics: function(startDate,endDate){
 			return $http.get('/api/posts/count?startDate='+formatDate(startDate)+"&endDate="+formatDate(endDate)).then(function(postCountArray){
+=======
+
+		getPostCountStatistics: function(year){
+			return $http.get('/api/posts/count/'+year).then(function(postCountArray){
+>>>>>>> Stashed changes
 				return postCountArray.data;
 			});
 		},
@@ -94,6 +100,7 @@ servicesModule.service('Services', function($http){
 			body.email = user.email;
 			body.level = user.level;
 			body.password = user.password;
+			body.author = user.author;
 			return $http({
 				method: 'post',
 				url: '/register',

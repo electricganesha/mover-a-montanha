@@ -67,7 +67,7 @@ adminApp.controller('NavCtrl', function($scope, $state){
 	};
 });
 
-adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, authorList, Authors, Categories, ngToast){
+adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, authorList, Authors, Categories, ngToast, Users){
 
 	$scope.updatePosts = function () {
 		Posts.all().then(function(data){
@@ -193,6 +193,14 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 	$scope.selectAuthor = function(author){
 		$scope.activePost.author = author;
 	};
+
+	if($scope.currentUser.author != "" && $scope.currentUser.author != undefined)
+		{
+			Authors.one($scope.currentUser.author).then(function(data){
+				$scope.currentUserName = data.name;
+			});
+		}
+	
 
 	$scope.trimContentTo140Char = function(content)
 	{
@@ -391,7 +399,6 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 });
 
 // AUTHORS
-
 adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors, ngToast){
 
 	$scope.updateAuthors = function () {
@@ -1046,10 +1053,14 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 	})
 
 	//ADMIN Controller
-	adminApp.controller('AdminCtrl', function($scope, Users, Services, ngToast){
+	adminApp.controller('AdminCtrl', function($scope, Authors, Users, Services, ngToast){
 
 		Services.getAdministratorList().then(function(data){
 			$scope.adminList=data;
+		});
+
+		Authors.all().then(function(data){
+			$scope.authorsAvailable=data;
 		});
 
 		$scope.updateUsers = function () {

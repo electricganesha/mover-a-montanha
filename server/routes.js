@@ -83,6 +83,7 @@ module.exports = function(app, passport){
 		User.register(new User({
 			email: req.body.email,
 			level: req.body.level,
+			author: req.body.author,
 		}), req.body.password, function(err, user) {
 	        if (err) {
 	            console.error(err);
