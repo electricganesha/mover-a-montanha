@@ -22,8 +22,8 @@
               <h5>Data de Publicação: (&aacute;s 17h00)</h5>
               <datepicker ng-model="post.programmed_to_post" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
               </div>
-              <div style="width:100%;">
-              <div class='btn pull-right' ng-class="{'btn-success' : post.isAuto, 'btn-danger' : !post.isAuto}" style="float:left !important; margin:0px; margin-left:1.6vw; cursor:pointer; margin-top:-1vh; margin-bottom:1vh;" ng-click="changePubMode(post)">
+              <div style="width: 288px; float: right;">
+              <div class='btn pull-right' ng-class="{'btn-success' : post.isAuto, 'btn-danger' : !post.isAuto}" style="float:left !important; margin:0px; cursor:pointer; margin-top:-1vh; margin-bottom:1vh;" ng-click="changePubMode(post)">
                 <img style="display:inline-block; margin-right:14px;" ng-show="post.isAuto"  ng-src="/home/img/icons/auto.png" alt="Auto Publicação">
                 <p ng-show="post.isAuto" style="display:inline-block; text-align:center; margin: 0px;">Agendar Pub.</p>
                 <img style="display:inline-block; margin-right:14px;" ng-show="!post.isAuto"  ng-src="/home/img/icons/manual.png" alt="Publicação Manual">
