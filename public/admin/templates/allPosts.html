@@ -29,9 +29,11 @@
                   <h6 style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Ultima Actualização :</b> {{post.updated_at | date :  "MMM d, y - HH:mm" }}</h6>
                   <h6 ng-show="post.isAuto" style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Programado para Publicação :</b> {{post.programmed_to_post | date :  "MMM d, y - HH:mm" }}</h6>
                   <h6 ng-show="!post.isAuto" style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Não Programado / Publicação Manual</b></h6>
+                  <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-click="removePost( post._id )" src="/home/img/icons/delete.png" alt="Apagar Artigo"></div>
+                  <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="post.isAuto" ng-click="changePubMode(post)" ng-src="/home/img/icons/auto.png" alt="Rascunho"></div>
+                  <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="!post.isAuto" ng-click="changePubMode(post)" ng-src="/home/img/icons/manual.png" alt="Rascunho"></div>
                   <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="post.isDraft" ng-click="draftIt(post)" ng-src="/home/img/icons/public.png" alt="Rascunho"></div>
                   <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="!post.isDraft" ng-click="draftIt(post)" ng-src="/home/img/icons/private.png" alt="Rascunho"></div>
-                  <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-click="removePost( post._id )" src="/home/img/icons/delete.png" alt="Apagar Artigo"></div>
                 </div>
               </div>
             </li>
@@ -54,17 +56,38 @@
       <div class='btn btn-primary' style="display:inline-block; float: right;" ng-click='editPost(activePost._id,activePost)'>Editar Artigo</div>
     </div>
     <div class="panel-body">
-      <div>
-        <textarea placeholder='Resumo do Artigo' ng-model='activePost.recap' name='title' class='form-control'></textarea>
+      <div class="col-sm-4" style="float:right; margin:0px; margin-top:-1vh;">
+        <h5>Data de Publicação: (&aacute;s 17h00)</h5>
+        <datepicker ng-model="activePost.programmed_to_post" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
       </div>
-      <br>
-      <div>
-        <tags-input on-tag-removed="removeTag($tag)" ng-if="tagsLoaded" track-by-expr="$index" replace-spaces-with-dashes="false" ng-model="tags" tag-class="{even: $index % 2 == 0, odd: $index % 2 != 0}">
-          <auto-complete source="loadTags($query)" track-by-expr="$index" load-on-focus="true" match-class="{even: $index % 2 == 0, odd: $index % 2 != 0}"></auto-complete>
-        </tags-input>
+      <div class="col-sm-8">
+        <div style="margin-top:3vh;">
+          <textarea placeholder='Resumo do Artigo' ng-model='activePost.recap' name='title' class='form-control'></textarea>
+        </div>
         <br>
+        <div>
+          <tags-input on-tag-removed="removeTag($tag)" ng-if="tagsLoaded" track-by-expr="$index" replace-spaces-with-dashes="false" ng-model="tags" tag-class="{even: $index % 2 == 0, odd: $index % 2 != 0}">
+            <auto-complete source="loadTags($query)" track-by-expr="$index" load-on-focus="true" match-class="{even: $index % 2 == 0, odd: $index % 2 != 0}"></auto-complete>
+          </tags-input>
+        </div>
+        <div style="width:50%; float:right; margin-top:2vh;">
+          <div class='btn pull-right' ng-class="{'btn-success' : activePost.isAuto, 'btn-danger' : !activePost.isAuto}" style="float:left !important; margin:0px; margin-left:1.6vw; cursor:pointer; margin-top:-1vh; margin-bottom:1vh;" ng-click="changePubMode(activePost)">
+            <img style="display:inline-block; margin-right:14px;" ng-show="activePost.isAuto"  ng-src="/home/img/icons/auto.png" alt="Auto Publicação">
+            <p ng-show="activePost.isAuto" style="display:inline-block; text-align:center; margin: 0px;">Agendar Pub.</p>
+            <img style="display:inline-block; margin-right:14px;" ng-show="!activePost.isAuto"  ng-src="/home/img/icons/manual.png" alt="Publicação Manual">
+            <p ng-show="!activePost.isAuto" style="display:inline-block; text-align:center; margin: 0px;">Pub. Manual</p>
+          </div>
+          <div class='btn pull-right' ng-class="{'btn-success' : activePost.isDraft, 'btn-danger' : !activePost.isDraft}" style="float:right !important; cursor:pointer; margin-top:-1vh; margin-bottom:1vh;" ng-click="draftIt(activePost)">
+            <img style="display:inline-block; margin-right:14px;" ng-show="activePost.isDraft"  ng-src="/home/img/icons/public.png" alt="Rascunho">
+            <p ng-show="activePost.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Artigo Visivel</p>
+            <img style="display:inline-block; margin-right:14px;" ng-show="!activePost.isDraft"  ng-src="/home/img/icons/private.png" alt="Rascunho">
+            <p ng-show="!activePost.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Rascunho</p>
+          </div>
+        </div>
       </div>
-      <div id="pad" text-angular ng-model="activePost.body" style="height:68vh;"></div>
+      <div class="col-sm-12">
+        <div id="pad" text-angular ng-model="activePost.body" style="height:68vh;"></div>
+      </div>
     </div>
   </div>
 </div>
