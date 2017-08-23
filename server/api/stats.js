@@ -72,6 +72,26 @@ module.exports = function(apiRouter){
 	    });
 	});
 
+	// get total number of visitors
+	apiRouter.get('/stats/visitors/countAll', function(req, res){
+
+    var query = {};
+
+		Stats.find().sort('dateOfAccess').count()
+	    .exec(function(err, stats){
+					console.log(stats);
+	        if(err)
+					{
+						res.send(err);
+						console.log(err);
+					}
+	        else
+					{
+						res.json(stats);
+					}
+	    });
+	});
+
 	// get all posts time metrics statistics
 	apiRouter.get('/stats/visitors/timemetrics', function(req, res){
 

@@ -4,13 +4,15 @@ var CronJob = require('cron').CronJob;
 var nodemailer = require('nodemailer');
 var Post = require('./models/post');
 var Subscribers = require('./models/subscriber');
+var MailConfig = require('./models/mailconfig');
 
 var nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true, // secure:true for port 465, secure:false for port 587
+  service: 'Gmail',
+  //host: 'smtp.gmail.com',
+  //port: 465,
+  //secure: true, // secure:true for port 465, secure:false for port 587
   auth: {
     user: 'christianmarques@pushvfx.com',
     pass: 'Pushvfx_1409'
@@ -35,7 +37,25 @@ module.exports = function(){
 
   });
 
+  var mailConfig = '';
 
+  MailConfig.find()
+  .exec(function(err, result){
+    if(err)
+    {
+      return err;
+      console.log(err);
+    }
+    else
+    {
+      mailConfig = result[0];
+      transporter.options.service = mailConfig.service;
+      transporter.options.host = mailConfig.host;
+      transporter.options.port = mailConfig.port;
+      transporter.options.auth.user = mailConfig.mail;
+      transporter.options.auth.pass = mailConfig.password;
+    }
+  });
 
   var yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
@@ -74,7 +94,7 @@ module.exports = function(){
       {
         var subscriber = subscribers[i];
 
-        body = '<html><head><title></title></head><body><p style="text-align: center;"><img alt="" src="http://il5.picdn.net/shutterstock/videos/4796915/thumb/1.jpg"/></p><p><strong>Novos Artigos do blog Mover-A-Montanha</strong>,</p><p><strong><a href="http://www.moveramontanha.com">www.moveramontanha.com</a></strong></p>'+
+        body = mailConfig.body+
         digest
         +'<p><strong>Este email foi enviado de forma autom&aacute;tica atrav&eacute;s do nosso servidor de email.</strong></p><p>&nbsp;</p><p>Se n&atilde;o deseja receber esta newsletter, por favor <a href="http://localhost:3004/api/unsubscribe/'+subscriber._id+'">remova a sua subscri&ccedil;&atilde;o aqui.</a></p>';
 
@@ -84,7 +104,7 @@ module.exports = function(){
             {
               from: 'info@moveramontanha.com',
               to: subscriber.email,
-              subject: 'Mover-A-Montanha : Novos Artigos - '+ dataFormatada,
+              subject: mailConfig.subject +" "+ dataFormatada,
               html: body
             }
           );

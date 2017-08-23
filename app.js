@@ -11,6 +11,7 @@ var cors = require('cors');
 var flash = require('connect-flash');
 const CronJob = require('cron').CronJob;
 const mailingListJob = require('./server/mailinglist');
+var MailConfig = require('./server/models/mailconfig');
 
 require('./server/passport')(passport);   // this file is defined below
 
@@ -35,9 +36,9 @@ app.use(flash());
 app.use(methodOverride());
 app.use(cookieParser());
 app.use(require('express-session')({
-    secret: 'moveramontanha28062017',
-    resave: false,
-    saveUninitialized: false
+  secret: 'moveramontanha28062017',
+  resave: false,
+  saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -48,9 +49,9 @@ require('./server/routes')(app, passport);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 /// error handlers
@@ -58,23 +59,23 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', {
-            message: err.message,
-            error: err
-        });
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
     });
+  });
 }
 
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
+  res.status(err.status || 500);
+  res.render('error', {
+    message: err.message,
+    error: {}
+  });
 });
 
 // Start server
@@ -82,25 +83,38 @@ app.listen(envConfig.port, function(){
   console.log('Server listening on port ' + envConfig.port)
 });
 
-
-
 //CRON JOBS
-var emailHour = require("./emailhour.json");
-var hour = emailHour.hour.split(':');
-var crontime = "00 "+hour[1]+" "+hour[0]+" * * 0-6"; //todos os dias as 14:00 (segunda a domingo)
-var jobs = [
-    new CronJob({
+var mailConfig = '';
+
+MailConfig.find()
+.exec(function(err, result){
+  if(err)
+  {
+    return err;
+    console.log(err);
+  }
+  else
+  {
+    mailConfig = result[0];
+
+    //CRON JOBS
+    var hour = mailConfig.emailHour.split(':');
+    var crontime = "00 "+hour[1]+" "+hour[0]+" * * 0-6"; //todos os dias as 14:00 (segunda a domingo)
+    var jobs = [
+      new CronJob({
         cronTime: crontime,
         onTick: function() {
-            mailingListJob();
+          mailingListJob();
         },
         start: false, //don't start immediately
         timeZone: 'Europe/Lisbon'
-    })
-];
+      })
+    ];
 
-jobs.forEach(function(job) {
-    job.start(); //start the jobs
+    jobs.forEach(function(job) {
+      job.start(); //start the jobs
+    });
+  }
 });
 
 module.exports = app;

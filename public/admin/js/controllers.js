@@ -21,40 +21,40 @@ var formatMonthController = function (month)
 	switch(month)
 	{
 		case(1):
-			return 'Janeiro';
+		return 'Janeiro';
 		break;
 		case(2):
-			return 'Fevereiro';
+		return 'Fevereiro';
 		break;
 		case(3):
-			return 'Março';
+		return 'Março';
 		break;
 		case(4):
-			return 'Abril';
+		return 'Abril';
 		break;
 		case(5):
-			return 'Maio';
+		return 'Maio';
 		break;
 		case(6):
-			return 'Junho';
+		return 'Junho';
 		break;
 		case(7):
-			return 'Julho';
+		return 'Julho';
 		break;
 		case(8):
-			return 'Agosto';
+		return 'Agosto';
 		break;
 		case(9):
-			return 'Setembro';
+		return 'Setembro';
 		break;
 		case(10):
-			return 'Outubro';
+		return 'Outubro';
 		break;
 		case(11):
-			return 'Novembro';
+		return 'Novembro';
 		break;
 		case(12):
-			return 'Dezembro';
+		return 'Dezembro';
 		break;
 	}
 }
@@ -464,7 +464,7 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors, ngTo
 
 // SUBSCRIBERS
 
-adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subscribers, Services){
+adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subscribers, Services, mailConfig, MailConfig){
 
 	$('input.timepicker').timepicker({
 		timeFormat: 'H:mm',
@@ -475,19 +475,20 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 		});
 
 
+		$scope.mailConfig = mailConfig;
+		console.log(mailConfig);
+		console.log(mailConfig[0].emailHour);
+		$scope.emailHour = mailConfig[0].emailHour;
+
+		$scope.saveConfig = function(updatedMailConfig)
+		{
+			MailConfig.update(mailConfig[0]._id, updatedMailConfig).then(function(res){});
+		}
+
 		$scope.updateEmailHour = function()
 		{
-			var hour = ''+$('input.timepicker')[0].value;
-			Services.postEmailHour(hour).then(function(res){
-				console.log(res);
-				if(res.message != undefined)
-				{
-					$scope.currentEmailHour = res.hour;
-				}
-				else {
-					$scope.currentEmailHour = data.hour;
-				}
-			});
+			var hour = $('#timepicker')[0].value;
+			$scope.mailConfig[0].emailHour = hour;
 		}
 
 		$scope.updateSubscribers = function () {
@@ -618,6 +619,7 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 		$scope.dateFrom = dateUnformat.setDate(dateUnformat.getDate() - 365);
 		$scope.dateTo = Date.now();
 		$scope.canvasType = 'bar';
+		$scope.total = "";
 
 		$scope.renderdirective = false;
 
@@ -635,8 +637,8 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 
 		$scope.refreshCharts = function()
 		{
-				$scope.labels = [];
-				$scope.data= [];
+			$scope.labels = [];
+			$scope.data= [];
 		}
 
 		$scope.toggleFilter = function(value)
@@ -734,42 +736,42 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 					switch($scope.yearFilterFilter){
 
 						case('ano'):
-							yearDate = date.getFullYear();
-							if(labels.indexOf(yearDate) > -1)
-							{
-								counts[labels.indexOf(yearDate)] = counts[labels.indexOf(yearDate)]+1;
-							}
-							else {
-								labels.push(yearDate);
-								counts.push(1);
-							}
+						yearDate = date.getFullYear();
+						if(labels.indexOf(yearDate) > -1)
+						{
+							counts[labels.indexOf(yearDate)] = counts[labels.indexOf(yearDate)]+1;
+						}
+						else {
+							labels.push(yearDate);
+							counts.push(1);
+						}
 						break;
 						case('mes'):
-							monthDate = formatMonthController(date.getMonth()+1);
+						monthDate = formatMonthController(date.getMonth()+1);
 
-							yearDate = date.getFullYear();
+						yearDate = date.getFullYear();
 
-							fullDate = monthDate + ", "+yearDate;
+						fullDate = monthDate + ", "+yearDate;
 
-							if(labels.indexOf(fullDate) > -1)
-							{
-								counts[labels.indexOf(fullDate)] = counts[labels.indexOf(fullDate)]+1;
-							}
-							else {
-								labels.push(fullDate);
-								counts.push(1);
-							}
+						if(labels.indexOf(fullDate) > -1)
+						{
+							counts[labels.indexOf(fullDate)] = counts[labels.indexOf(fullDate)]+1;
+						}
+						else {
+							labels.push(fullDate);
+							counts.push(1);
+						}
 						break;
 						case('dia'):
 
-							if(labels.indexOf(formatDateController(date)) > -1)
-							{
-								counts[labels.indexOf(formatDateController(date))] = counts[labels.indexOf(formatDateController(date))]+1;
-							}
-							else {
-								labels.push(formatDateController(date));
-								counts.push(1);
-							}
+						if(labels.indexOf(formatDateController(date)) > -1)
+						{
+							counts[labels.indexOf(formatDateController(date))] = counts[labels.indexOf(formatDateController(date))]+1;
+						}
+						else {
+							labels.push(formatDateController(date));
+							counts.push(1);
+						}
 						break;
 					}
 
@@ -790,13 +792,13 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 			switch(filter)
 			{
 				case('ano'):
-					$scope.yearFilterFilter = 'ano';
+				$scope.yearFilterFilter = 'ano';
 				break;
 				case('mes'):
-					$scope.yearFilterFilter = 'mes';
+				$scope.yearFilterFilter = 'mes';
 				break;
 				case('dia'):
-					$scope.yearFilterFilter = 'dia';
+				$scope.yearFilterFilter = 'dia';
 				break;
 			}
 
@@ -923,11 +925,16 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 
 		$scope.timeFilter = function(time)
 		{
-			$scope.options.title.text = 'Subscritores entre as datas : '+ formatDateController($scope.dateFrom)+ " e "+ formatDateController($scope.dateTo);
+			$scope.options.title.text = '';
+			$scope.total = "";
 			$scope.labels = [];
 			$scope.data=[];
 			$scope.temporalMetrics = true;
 			$scope.timeMetrics = '';
+
+			var extensedDate = ""+moment(Date.now()).locale('en').format('LL');
+			extensedDate = extensedDate.split(',').join("");
+			extensedDate = extensedDate.split(' ').join("-");
 
 			Services.getPostsTimeMetrics().then(function(data){
 				$scope.postsTimeMetrics = data;
@@ -937,10 +944,26 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 				$scope.visitorsTimeMetrics = data;
 			});
 
+			Services.getSubscribersTimeMetrics().then(function(data){
+				$scope.subscribersTimeMetrics = data;
+			});
+
+			Services.getPostCountAll().then(function(data){
+				$scope.totalPosts = data;
+			});
+
+			Services.getSubscriberCountAll().then(function(data){
+				$scope.totalSubscribers = data;
+			});
+
+			Services.getVisitorCountAll().then(function(data){
+				$scope.totalVisitors = data;
+			});
+
 			$scope.convertDateToPT = function(dateToConvert)
 			{
 				var date = new Date(dateToConvert);
-			  return moment(date, "D_M_YYYY").locale('pt-br').format('LL');
+				return moment(date, "D_M_YYYY").locale('pt-br').format('LL');
 			}
 
 			$scope.dayOfWeek = function(day)
@@ -948,25 +971,25 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 				switch(day)
 				{
 					case(0):
-						return 'Domingo';
+					return 'Domingo';
 					break;
 					case(1):
-						return 'Segunda-Feira';
+					return 'Segunda-Feira';
 					break;
 					case(2):
-						return 'Terça-Feira';
+					return 'Terça-Feira';
 					break;
 					case(3):
-						return 'Quarta-Feira';
+					return 'Quarta-Feira';
 					break;
 					case(4):
-						return 'Quinta-Feira';
+					return 'Quinta-Feira';
 					break;
 					case(5):
-						return 'Sexta-Feira';
+					return 'Sexta-Feira';
 					break;
 					case(6):
-						return 'Sábado';
+					return 'Sábado';
 					break;
 				}
 			}
