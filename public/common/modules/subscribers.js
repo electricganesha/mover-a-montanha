@@ -53,6 +53,20 @@ subscribersModule.service('Subscribers', function($http){
 				console.error(err);
 				return err;
 			});
+		},
+		email: function(newSubscriber){
+			return $http({
+				method: 'post',
+				url: '/api/newSubscriberEmail',
+				data: newSubscriber
+			}).then(function(res){
+				// return the new subscriber
+				return res.data;
+			}).catch(function(err){
+				console.error('Ocorreu um erro ao enviar o email!');
+				console.error(err);
+				return err;
+			});
 		}
 	};
 });

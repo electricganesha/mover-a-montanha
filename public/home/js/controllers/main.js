@@ -455,6 +455,9 @@ $scope.trimContentTo100Char = function(content)
     Subscribers.add(subscriber).then(function(data){
         $scope.email = '';
     });
+    Subscribers.email(subscriber).then(function(data){
+        $scope.email = '';
+    });
   }
 })
 .controller('SidenavCtrl', function ($scope, $log) {

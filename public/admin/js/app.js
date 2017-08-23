@@ -12,6 +12,7 @@ var adminApp = angular.module('mean-blog.admin', [
 	'mean-blog.services',
 	'mean-blog.categories',
 	'mean-blog.subscribers',
+	'mean-blog.mailconfig',
 	'angulartics',
 	'angulartics.google.analytics',
 	'ngAnalytics',
@@ -77,6 +78,11 @@ adminApp.config(function($stateProvider, $urlRouterProvider, $provide){
 			resolve: {
 				subscriberList: function(Subscribers){
 					return Subscribers.all().then(function(data){
+						return data;
+					});
+				},
+				mailConfig: function(MailConfig){
+					return MailConfig.all().then(function(data){
 						return data;
 					});
 				}

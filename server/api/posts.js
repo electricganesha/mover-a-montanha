@@ -22,11 +22,34 @@ module.exports = function(apiRouter){
 	    });
 	});
 
+	// get total number of posts
+	apiRouter.get('/posts/countAll', function(req, res){
+
+    var query = {};
+
+		Post.find().sort('created_at').count()
+	    .exec(function(err, stats){
+					console.log(stats);
+	        if(err)
+					{
+						res.send(err);
+						console.log(err);
+					}
+	        else
+					{
+						res.json(stats);
+					}
+	    });
+	});
+
 	// get number of posts in a given date
   // uso : /posts/count?startDate=August-13-2017&endDate=August-18-2017
 	apiRouter.get('/posts/count', function(req, res){
 
     var query = {};
+
+		console.log(req.query.startDate);
+		console.log(req.query.endDate);
 
     if(req.query.startDate && req.query.endDate)
     {
@@ -38,6 +61,8 @@ module.exports = function(apiRouter){
 
       query.created_at = {'$lte': end, '$gte':start};
     }
+
+		console.log(query);
 
 		Post.find(query).sort('created_at')//.count()
 	    .exec(function(err, stats){
@@ -115,9 +140,9 @@ module.exports = function(apiRouter){
 						var maxNrFullDate = 0;
 
 						var timeMetrics = {};
-						timeMetrics.hour = {};
-						timeMetrics.day = {};
-						timeMetrics.fulldate = {};
+						timeMetrics.hour = [];
+						timeMetrics.day = [];
+						timeMetrics.fulldate = [];
 
 						for(var i=0; i<countsHours.length; i++)
 						{
@@ -128,7 +153,7 @@ module.exports = function(apiRouter){
 						for(var i=0; i<countsHours.length; i++)
 						{
 							if(countsHours[i] == maxNrHours)
-								timeMetrics.hour[i] = averageHours[i];
+								timeMetrics.hour.push(averageHours[i]);
 						}
 
 						for(var i=0; i<countsDay.length; i++)
@@ -142,7 +167,7 @@ module.exports = function(apiRouter){
 						for(var i=0; i<countsDay.length; i++)
 						{
 							if(countsDay[i] == maxNrDay)
-								timeMetrics.day[i] = averageDay[i];
+								timeMetrics.day.push(averageDay[i]);
 						}
 
 						for(var i=0; i<countFullDate.length; i++)
@@ -156,7 +181,7 @@ module.exports = function(apiRouter){
 						for(var i=0; i<countFullDate.length; i++)
 						{
 							if(countFullDate[i] == maxNrFullDate)
-								timeMetrics.fulldate[i] = averageFullDate[i];
+								timeMetrics.fulldate.push(averageFullDate[i]);
 						}
 
 						res.json(timeMetrics);

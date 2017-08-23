@@ -1,7 +1,7 @@
 <div class="container" style="width:80%;">
 <div class='row full-height'>
     <!-- Sidebar -->
-    <div class='col-sm-8' style="margin-bottom:4vh; overflow:auto; height:90vh;">
+    <div class='col-sm-4' style="margin-bottom:4vh; overflow:auto; height:90vh;">
         <h3>Lista de Subscritores</h3>
   <hr>
         <ul style="list-style-type: none;">
@@ -20,15 +20,33 @@
 
     </div>
 
-    <div class='col-sm-4' style="margin-top:5vh; overflow:auto; height:90vh;">
+    <div class='col-sm-8' style="margin-top:5vh; overflow:auto; height:90vh;">
       <div style="margin-left:2vw;">
-      <p><u>Hora de envio de e-mail automático:</u></p>
-      <input type="text" class="timepicker" ng-model="automaticEmailTime" ng-change="setEmailTime(automaticEmailTime)" placeholder=" Alterar hora">&nbsp;&nbsp;<btn class="btn btn-primary" ng-click="updateEmailHour()">Alterar</btn>
-      <br>
-      <br>
-      <p><u> Hora actual de envio : </u></p>
-      <span ng-model="currentEmailHour"><span style="color:red;"><b>{{ currentEmailHour | date:'H:mm' }}</b></span> de segunda a sexta.</span>
+      <h4>Configura&ccedil;&otilde;es de E-Mail Autom&aacute;tico</h4>
+      <form ng-submit='saveConfig(mailConfig)'>
+        <button type="submit" class='btn btn-primary pull-right' style="display: inline-block; margin-top:-5vh;" >Guardar Configura&ccedil;ao</button>
+        <hr>
+        <p><b> E-Mail:</b><input class='form-control' ng-model="mailConfig[0].mail" type="text" value="{{ mailConfig[0].mail }}"></input></p>
+        <p><b> Servi&ccedil;o:</b><input class='form-control' ng-model="mailConfig[0].service" type="text" value="{{ mailConfig[0].service }}"></input></p>
+        <p><b> Servidor:</b><input class='form-control' ng-model="mailConfig[0].host" type="text" value="{{ mailConfig[0].host }}"></input></p>
+        <p><b> Porta:</b><input class='form-control' ng-model="mailConfig[0].port" type="text" value="{{ mailConfig[0].port }}"></input></p>
+        <p><b> Password:</b><input class='form-control' ng-model="mailConfig[0].password" type="password" value="{{ mailConfig[0].password }}"></input></p>
+        <div>
+        <p><u>Hora de envio de e-mail automático:</u></p>
+        <input style="margin-bottom:1vh;" id="timepicker" type="text" class="timepicker" ng-model="mailConfig[0].emailHour" placeholder=" Alterar hora"></input>
+        <div ng-click="updateEmailHour()" class="btn btn-primary"> Alterar Hora </div>
+        <p><u> Hora actual de envio : </u></p>
+        <span ng-show="mailConfig[0].emailHour" ng-model="mailConfig[0].emailHour">
+        <span>Todos os dias &aacute;s&nbsp;</span>
+        <span style="color:red;"><b>{{ mailConfig[0].emailHour | date:'H:mm' }}</b></span>
+        </div>
+        <div style="margin-bottom:4vh;">
+        <hr>
+        <p> <b> Assunto:</b><input class='form-control' ng-model="mailConfig[0].subject" type="text" value="{{ mailConfig[0].subject }}"></input></p>
+        <p> <b> Cabe&ccedil;alho:</b><div id="pad" text-angular ng-model="mailConfig[0].header" placeholder='Escreva o seu artigo aqui...'></div></p>
+        <hr>
+        </div>
+      </form>
     </div>
   </div>
-        </div>
 </div>
