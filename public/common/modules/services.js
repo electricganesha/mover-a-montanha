@@ -71,7 +71,6 @@ servicesModule.service('Services', function($http){
 		},
 		getPostCountStatistics: function(startDate,endDate){
 			return $http.get('/api/posts/count?startDate='+formatDate(startDate)+"&endDate="+formatDate(endDate)).then(function(postCountArray){
-				return postCountArray.data;
 			});
 		},
 		getPostCountAll: function(){
@@ -104,6 +103,7 @@ servicesModule.service('Services', function($http){
 			body.email = user.email;
 			body.level = user.level;
 			body.password = user.password;
+			body.author = user.author;
 			return $http({
 				method: 'post',
 				url: '/register',

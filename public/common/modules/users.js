@@ -8,7 +8,9 @@ usersModule.service('Users', function($http){
 			});
 		},
 		one: function(id){
+			console.log(id);
 			return $http.get('/api/users/'+id).then(function(user){
+				console.log(user.data);
 				return user.data;
 			});
 		},

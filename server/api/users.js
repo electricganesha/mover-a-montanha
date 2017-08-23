@@ -18,6 +18,7 @@ apiRouter.get('/users', function(req, res){
 
 // get a single user
 apiRouter.get('/users/:id', function(req, res){
+  console.log(req.params.id);
   User.findById(req.params.id, function(err, user){
     if (err) res.send(err);
     res.json(user);

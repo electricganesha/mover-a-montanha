@@ -6,7 +6,8 @@ var User = new mongoose.Schema({
 		type: String,
 		required: '{PATH} is required!'
 	},
-	level: {type: Number}
+	level: {type: Number},
+	author: {type: mongoose.Schema.Types.ObjectId, ref: 'Author'}
 });
 
 // Passport-Local-Mongoose will add a username,
