@@ -1,137 +1,136 @@
-<div class="container" style="width:80%;">
-  <div class='row'>
-    <h3>Estat&iacute;sticas</h3>
-    <div ng-if="total != ''" class="row" style="padding:0px; margin:0px;">
-      <div class="col-sm-12" style="border:1px solid lightgrey; border-radius:2%; padding:10px; margin:15px;">
-        <p><b>{{ total }}</b></p>
+<div class="container" style="width:90%;">
+  <div class="panel panel-default" style="margin-bottom: 0;">
+      <div class="panel-heading" style="height: 56px;">
+          <h4 style="display: inline-block;">Estat&iacute;sticas</h4>
       </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="panel panel-default">
-        <div class="panel-body" style="height:400px;padding:3px;">
-          <div class="list-group">
-            <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
-              <span class="fa fa-fw fa-list"></span>
-              <span>Artigos por data</span>
-              <span class="pull-right">
-                <span ng-if="yearChecked" ng-class="yearChecked" class="fa fa-check-square-o" style="cursor:pointer;" ng-click="toggleFilter('ano')"></span>
-              </span>
-              <div ng-show="yearChecked == 'fa fa-check-square-o'" ng-animate="{show: 'fadeIn', hide:'fadeOut'}" style="margin-top:15px;">
-                <p style="display:inline;"><b> Filtro : </b></p>
-                <span ng-style="yearFilterFilter == 'ano' && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="toggleYearFilter('ano')"  ng-model="year.name" style="margin-left:3vw; cursor:pointer;">Ano</span>
-                <span ng-style="yearFilterFilter == 'mes' && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="toggleYearFilter('mes')"  ng-model="year.name" style="margin-left:3vw; cursor:pointer;">Mês</span>
-                <span ng-style="yearFilterFilter == 'dia' && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="toggleYearFilter('dia')"  ng-model="year.name" style="margin-left:3vw; cursor:pointer;">Dia</span>
-              </div>
-              <div ng-show="yearChecked == 'fa fa-check-square-o'" style="width:10%;">
-                <br>
-                <p> De : </p>
-                <datepicker ng-change="toggleFilter('ano')" ng-model="dateFrom" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
-                <p> A : </p>
-                <datepicker ng-change="toggleFilter('ano')" ng-model="dateTo" min-date="minDate" show-weeks="true" class=" well well-sm"></datepicker>
-                <br>
-              </div>
-            </a>
-            <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
-              <span class="fa fa-fw fa-list"></span>
-              <span>Autor</span>
-              <span class="pull-right">
-                <span ng-if="authorChecked" ng-class="authorChecked" style="cursor:pointer;" ng-click="toggleFilter('author')"></span>
-              </span>
-              <div ng-show="authorChecked == 'fa fa-check-square-o'"  ng-repeat="author in availableAuthors" ng-animate="{show: 'fadeIn', hide:'fadeOut'}">
-                <span ng-style="selectedAuthor == author.name && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="authorFilter(author.name)"  ng-model="author.name" style="margin-left:3vw; cursor:pointer;">{{author.name}}</span>
-              </div>
-            </a>
-            <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
-              <span class="fa fa-fw fa-list"></span>
-              <span>Palavra-Chave</span>
-              <span class="pull-right">
-                <span ng-if="categoryChecked" ng-class="categoryChecked" style="cursor:pointer;" ng-click="toggleFilter('category')"></span>
-              </span>
-              <div ng-show="categoryChecked == 'fa fa-check-square-o'"  ng-repeat="category in availableCategories" ng-animate="{show: 'fadeIn', hide:'fadeOut'}">
-                <span ng-style="selectedCategory == category.tag && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="categoryFilter(category.tag)"  ng-model="category.tag" style="margin-left:3vw; cursor:pointer;">{{category.tag}}</span>
-              </div>
-            </a>
-            <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
-              <span class="fa fa-fw fa-list"></span>
-              <span>Visitantes</span>
-              <span class="pull-right">
-                <span ng-if="visitorsChecked" ng-class="visitorsChecked" class="fa fa-check-square-o" style="cursor:pointer;" ng-click="toggleFilter('visitors')"></span>
-              </span>
-              <div ng-show="visitorsChecked == 'fa fa-check-square-o'" style="width:10%;">
-                <br>
-                <p> De : </p>
-                <datepicker ng-change="toggleFilter('visitors')" ng-model="dateFrom" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
-                <p> A : </p>
-                <datepicker ng-change="toggleFilter('visitors')" ng-model="dateTo" min-date="minDate" show-weeks="true" class=" well well-sm"></datepicker>
-                <br>
-              </div>
-            </a>
-            <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
-              <span class="fa fa-fw fa-list"></span>
-              <span>Subscritores</span>
-              <span class="pull-right">
-                <span ng-if="subscribersChecked" ng-class="subscribersChecked" class="fa fa-check-square-o" style="cursor:pointer;" ng-click="toggleFilter('subscribers')"></span>
-              </span>
-              <div ng-show="subscribersChecked == 'fa fa-check-square-o'" style="width:10%;">
-                <br>
-                <p> De : </p>
-                <datepicker ng-change="toggleFilter('subscribers')" ng-model="dateFrom" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
-                <p> A : </p>
-                <datepicker ng-change="toggleFilter('subscribers')" ng-model="dateTo" min-date="minDate" show-weeks="true" class=" well well-sm"></datepicker>
-                <br>
-              </div>
-            </a>
-            <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
-              <span class="fa fa-fw fa-list"></span>
-              <span>M&eacute;tricas Temporais</span>
-              <span class="pull-right">
-                <span ng-if="timeMetricsChecked" ng-class="timeMetricsChecked" class="fa fa-check-square-o" style="cursor:pointer;" ng-click="toggleFilter('time')"></span>
-              </span>
-            </a>
+      <div class="panel-body" style=" overflow:auto; height: 85vh;">
+        <div class="col-sm-12"ng-show="total" ng-if="total != ''" style="padding:0px; margin:0px;">
+          <div  style="border:1px solid lightgrey; border-radius:2%; padding:10px; margin:15px;">
+            <p><b>{{ total }}</b></p>
           </div>
         </div>
+        <div class="col-sm-4">
+            <div class="list-group">
+              <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
+                <span class="fa fa-fw fa-list"></span>
+                <span>Artigos por data</span>
+                <span class="pull-right">
+                  <span ng-if="yearChecked" ng-class="yearChecked" class="fa fa-check-square-o" style="cursor:pointer;" ng-click="toggleFilter('ano')"></span>
+                </span>
+                <div ng-show="yearChecked == 'fa fa-check-square-o'" ng-animate="{show: 'fadeIn', hide:'fadeOut'}" style="margin-top:15px;">
+                  <p style="display:inline;"><b> Filtro : </b></p>
+                  <span ng-style="yearFilterFilter == 'ano' && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="toggleYearFilter('ano')"  ng-model="year.name" style="margin-left:3vw; cursor:pointer;">Ano</span>
+                  <span ng-style="yearFilterFilter == 'mes' && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="toggleYearFilter('mes')"  ng-model="year.name" style="margin-left:3vw; cursor:pointer;">Mês</span>
+                  <span ng-style="yearFilterFilter == 'dia' && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="toggleYearFilter('dia')"  ng-model="year.name" style="margin-left:3vw; cursor:pointer;">Dia</span>
+                </div>
+                <div ng-show="yearChecked == 'fa fa-check-square-o'" style="width:10%;">
+                  <br>
+                  <p> De : </p>
+                  <datepicker ng-change="toggleFilter('ano')" ng-model="dateFrom" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                  <p> A : </p>
+                  <datepicker ng-change="toggleFilter('ano')" ng-model="dateTo" min-date="minDate" show-weeks="true" class=" well well-sm"></datepicker>
+                  <br>
+                </div>
+              </a>
+              <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
+                <span class="fa fa-fw fa-list"></span>
+                <span>Autor</span>
+                <span class="pull-right">
+                  <span ng-if="authorChecked" ng-class="authorChecked" style="cursor:pointer;" ng-click="toggleFilter('author')"></span>
+                </span>
+                <div ng-show="authorChecked == 'fa fa-check-square-o'"  ng-repeat="author in availableAuthors" ng-animate="{show: 'fadeIn', hide:'fadeOut'}">
+                  <span ng-style="selectedAuthor == author.name && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="authorFilter(author.name)"  ng-model="author.name" style="margin-left:3vw; cursor:pointer;">{{author.name}}</span>
+                </div>
+              </a>
+              <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
+                <span class="fa fa-fw fa-list"></span>
+                <span>Palavra-Chave</span>
+                <span class="pull-right">
+                  <span ng-if="categoryChecked" ng-class="categoryChecked" style="cursor:pointer;" ng-click="toggleFilter('category')"></span>
+                </span>
+                <div ng-show="categoryChecked == 'fa fa-check-square-o'"  ng-repeat="category in availableCategories" ng-animate="{show: 'fadeIn', hide:'fadeOut'}">
+                  <span ng-style="selectedCategory == category.tag && {'font-weight':'bold'} || {'font-weight':'normal'}" ng-click="categoryFilter(category.tag)"  ng-model="category.tag" style="margin-left:3vw; cursor:pointer;">{{category.tag}}</span>
+                </div>
+              </a>
+              <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
+                <span class="fa fa-fw fa-list"></span>
+                <span>Visitantes</span>
+                <span class="pull-right">
+                  <span ng-if="visitorsChecked" ng-class="visitorsChecked" class="fa fa-check-square-o" style="cursor:pointer;" ng-click="toggleFilter('visitors')"></span>
+                </span>
+                <div ng-show="visitorsChecked == 'fa fa-check-square-o'" style="width:10%;">
+                  <br>
+                  <p> De : </p>
+                  <datepicker ng-change="toggleFilter('visitors')" ng-model="dateFrom" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                  <p> A : </p>
+                  <datepicker ng-change="toggleFilter('visitors')" ng-model="dateTo" min-date="minDate" show-weeks="true" class=" well well-sm"></datepicker>
+                  <br>
+                </div>
+              </a>
+              <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
+                <span class="fa fa-fw fa-list"></span>
+                <span>Subscritores</span>
+                <span class="pull-right">
+                  <span ng-if="subscribersChecked" ng-class="subscribersChecked" class="fa fa-check-square-o" style="cursor:pointer;" ng-click="toggleFilter('subscribers')"></span>
+                </span>
+                <div ng-show="subscribersChecked == 'fa fa-check-square-o'" style="width:10%;">
+                  <br>
+                  <p> De : </p>
+                  <datepicker ng-change="toggleFilter('subscribers')" ng-model="dateFrom" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                  <p> A : </p>
+                  <datepicker ng-change="toggleFilter('subscribers')" ng-model="dateTo" min-date="minDate" show-weeks="true" class=" well well-sm"></datepicker>
+                  <br>
+                </div>
+              </a>
+              <a role="presentation" class="list-group-item" ng-click="toggleLegend()">
+                <span class="fa fa-fw fa-list"></span>
+                <span>M&eacute;tricas Temporais</span>
+                <span class="pull-right">
+                  <span ng-if="timeMetricsChecked" ng-class="timeMetricsChecked" class="fa fa-check-square-o" style="cursor:pointer;" ng-click="toggleFilter('time')"></span>
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="col-sm-8">
+            <canvas ng-show="timeMetricsChecked != 'fa fa-check-square-o'" ng-if="canvasType == 'bar'" id="chartCanvas" class="chart chart-bar" chart-colors="colors" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
+            <canvas ng-show="timeMetricsChecked != 'fa fa-check-square-o'" ng-if="canvasType == 'line'" id="chartCanvas" class="chart chart-line" chart-colors="colors" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
+            <div class="col-sm-6" ng-show="timeMetricsChecked == 'fa fa-check-square-o' && temporalMetrics" style="width:49%; border:1px solid lightgrey; border-radius:2%; padding:20px; float:left;">
+              <h3>Publicações: </h3>
+              <hr>
+              <p> <b> Hora(s) com mais publica&ccedil;&otilde;es : </b> </p>
+              <p style="margin-left:15px;" ng-repeat="hour in postsTimeMetrics.hour">
+                {{ hour }}:00
+              </p>
+              <hr>
+              <p> <b> Dia(s) da semana com mais publica&ccedil;&otilde;s : </b> </p>
+              <p style="margin-left:15px;" ng-repeat="day in postsTimeMetrics.day">
+                {{ dayOfWeek(day) }}
+              </p>
+              <hr>
+              <p> <b> Dia(s) com mais publica&ccedil;&otilde;es (Geral) : </b> </p>
+              <p style="margin-left:15px;" ng-repeat="date in postsTimeMetrics.fulldate">
+                {{ convertDateToPT(date) }}
+              </p>
+            </div>
+            <div class="col-sm-6" ng-show="timeMetricsChecked == 'fa fa-check-square-o' && temporalMetrics" style="width:49%; border:1px solid lightgrey; border-radius:2%; padding:20px; float:right;">
+              <h3>Visitantes: </h3>
+              <hr>
+              <p> <b> Hora(s) de maior aflu&ecirc;ncia : </b> </p>
+              <p style="margin-left:15px;" ng-repeat="hour in visitorsTimeMetrics.hour">
+                {{ hour }}:00
+              </p>
+              <hr>
+              <p> <b> Dia(s) da semana com maior aflu&ecirc;ncia : </b> </p>
+              <p style="margin-left:15px;" ng-repeat="day in visitorsTimeMetrics.day">
+                {{ dayOfWeek(day) }}
+              </p>
+              <hr>
+              <p> <b> Dia(s) com mais visitas (Geral) : </b> </p>
+              <p style="margin-left:15px;" ng-repeat="date in visitorsTimeMetrics.fulldate">
+                {{ convertDateToPT(date) }}
+              </p>
+            </div>
+          </div>
       </div>
-    </div>
-    <div class="col-sm-8">
-
-      <canvas ng-show="timeMetricsChecked != 'fa fa-check-square-o'" ng-if="canvasType == 'bar'" id="chartCanvas" class="chart chart-bar" chart-colors="colors" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
-      <canvas ng-show="timeMetricsChecked != 'fa fa-check-square-o'" ng-if="canvasType == 'line'" id="chartCanvas" class="chart chart-line" chart-colors="colors" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
-      <div class="col-sm-6" ng-show="timeMetricsChecked == 'fa fa-check-square-o' && temporalMetrics" style="width:49%; border:1px solid lightgrey; border-radius:2%; padding:20px; float:left;">
-        <h3>Publicações: </h3>
-        <hr>
-        <p> <b> Hora(s) com mais publica&ccedil;&otilde;es : </b> </p>
-        <p style="margin-left:15px;" ng-repeat="hour in postsTimeMetrics.hour">
-          {{ hour }}:00
-        </p>
-        <hr>
-        <p> <b> Dia(s) da semana com mais publica&ccedil;&otilde;s : </b> </p>
-        <p style="margin-left:15px;" ng-repeat="day in postsTimeMetrics.day">
-          {{ dayOfWeek(day) }}
-        </p>
-        <hr>
-        <p> <b> Dia(s) com mais publica&ccedil;&otilde;es (Geral) : </b> </p>
-        <p style="margin-left:15px;" ng-repeat="date in postsTimeMetrics.fulldate">
-          {{ convertDateToPT(date) }}
-        </p>
-      </div>
-      <div class="col-sm-6" ng-show="timeMetricsChecked == 'fa fa-check-square-o' && temporalMetrics" style="width:49%; border:1px solid lightgrey; border-radius:2%; padding:20px; float:right;">
-        <h3>Visitantes: </h3>
-        <hr>
-        <p> <b> Hora(s) de maior aflu&ecirc;ncia : </b> </p>
-        <p style="margin-left:15px;" ng-repeat="hour in visitorsTimeMetrics.hour">
-          {{ hour }}:00
-        </p>
-        <hr>
-        <p> <b> Dia(s) da semana com maior aflu&ecirc;ncia : </b> </p>
-        <p style="margin-left:15px;" ng-repeat="day in visitorsTimeMetrics.day">
-          {{ dayOfWeek(day) }}
-        </p>
-        <hr>
-        <p> <b> Dia(s) com mais visitas (Geral) : </b> </p>
-        <p style="margin-left:15px;" ng-repeat="date in visitorsTimeMetrics.fulldate">
-          {{ convertDateToPT(date) }}
-        </p>
-      </div>
-    </div>
   </div>
 </div>
