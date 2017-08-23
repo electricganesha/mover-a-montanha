@@ -27,12 +27,14 @@ module.exports = function(app, passport){
 	router.get('/', function(req, res) {
 		// ADICIONAR ESTATISTICAS EXTERNAS
 		var remoteAddress = req.connection.remoteAddress.split(":");
+		console.log(remoteAddress);
 		if(remoteAddress[3] != null && remoteAddress[3] != '127.0.0.1')
 		{
 			var geo = geoip.lookup(remoteAddress);
-
+			console.log(geo);
 			var stat = new Stats();
 			stat.dateOfAccess = Date.now;
+			stat.userIp = remoteAddress[3];
 			stat.userAgent = req.headers['user-agent'];
 			stat.userLocationCountry = geo.country;
 			stat.userLocationCity = geo.city;
@@ -40,7 +42,6 @@ module.exports = function(app, passport){
 			console.log(stat);
 			stat.save();
 		}
-
 		res.render('index');
 	});
 

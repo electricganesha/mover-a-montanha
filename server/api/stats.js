@@ -27,6 +27,7 @@ module.exports = function(apiRouter){
 			var stat = new Stats();
 			stat.dateOfAccess = req.body.dateOfAccess;
 			stat.userAgent = req.body.userAgent;
+			stat.userIp = req.body.userIp;
 			stat.userLocationCountry = req.body.userLocationCountry;
 			stat.userLocationCity = req.body.userLocationCity;
 
@@ -43,9 +44,6 @@ module.exports = function(apiRouter){
 	apiRouter.get('/stats/visitors', function(req, res){
 
     var query = {};
-
-		console.log(req.query.startDate);
-		console.log(req.query.endDate);
 
     if(req.query.startDate && req.query.endDate)
     {
