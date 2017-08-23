@@ -6,17 +6,18 @@
           <h4 style="display: inline-block;">Novo Artigo</h4><div class='btn btn-primary pull-right' style="display: inline-block;" ng-click='addPost(post)'>Publicar Artigo</div>
         </div>
         <div class="panel-body">
-          <div class='col-sm-6'>
+          <br>
+          <div class='col-sm-6' style="padding-left: 0; padding-right: 0;">
             <div class="col-sm-12">
-              <div class="col-sm-7" style="padding:0px; margin:0px;">
+              <div class="col-sm-6" style="padding-right: 0;">
                 <input style="margin-bottom:2vh;" type='text' placeholder='T&iacute;tulo' ng-model='post.title' name='title' class='form-control'></input>
                 <select name="authorSelect" class="form-control" style="display:inline-block;" id="authorSelect" ng-model="selectedAuthor" ng-change="selectAuthor(selectedAuthor)"
                 data-ng-options="author as author.name for author in authors">
                 <option value="">Escolha o autor</option> <!-- not selected / blank option -->
               </select>
-              <input type='text' style="height:15vh; margin-top:2vh; margin-bottom:2vh;" placeholder='Resumo do Artigo' ng-model='post.recap' name='title' class='form-control'>
+              <input type='text' style="height:17vh; margin-top:2vh; margin-bottom:2vh;" placeholder='Resumo do Artigo' ng-model='post.recap' name='title' class='form-control'>
             </div>
-            <div class="col-sm-5" style=" padding:0px; margin:0px; float:right;">
+            <div class="col-sm-6">
               <div style="float:right; margin:0px; margin-top:-1vh;">
               <h5>Data de Publicação: (&aacute;s 17h00)</h5>
               <datepicker ng-model="post.programmed_to_post" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
@@ -37,7 +38,7 @@
             </div>
             </div>
           </div>
-          <div class="col-sm-12">
+          <div class="col-sm-12" style="padding-right: 30px; padding-left: 30px;">
             <tags-input style="border-radius:5px;" replace-spaces-with-dashes="false" ng-model="tags" tag-class="{even: $index % 2 == 0, odd: $index % 2 != 0}" placeholder="Escolha as Palavras-Chave">
               <auto-complete source="loadTags($query)" load-on-focus="true" match-class="{even: $index % 2 == 0, odd: $index % 2 != 0}"></auto-complete>
             </tags-input>
