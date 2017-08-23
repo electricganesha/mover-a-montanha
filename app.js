@@ -119,7 +119,7 @@ MailConfig.find()
 });
 
 //CRON JOBS - PUBLICACOES
-var crontimePub = "* * * * * *"; //todos os dias as 14:00 (segunda a domingo)
+var crontimePub = "00 */5 * * * *"; //a cada 5 minutos
 var jobsPub = [
   new CronJob({
     cronTime: crontimePub,

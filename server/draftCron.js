@@ -31,9 +31,14 @@ module.exports = function(){
         {
           posts[i].isDraft = true;
           posts[i].isAuto = false;
+
+          posts[i].save(function(err){
+    				if(err) res.send(err);
+
+    				console.log('post updated');
+    			})
         }
       }
-
     }
   });
 };

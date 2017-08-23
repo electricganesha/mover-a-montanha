@@ -134,10 +134,14 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 
 		for(var i=0; i< $scope.authors.length; i++)
 		{
-			if($scope.authors[i]._id == post.author._id)
+			if(post.author)
 			{
-				authorIndex = i;
+				if($scope.authors[i]._id == post.author._id)
+				{
+					authorIndex = i;
+				}
 			}
+
 		}
 		$scope.selectedAuthor = $scope.authors[authorIndex];
 	}
