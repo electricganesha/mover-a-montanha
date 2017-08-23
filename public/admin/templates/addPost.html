@@ -19,7 +19,7 @@
             </div>
             <div class="col-sm-6">
               <div style="float:right; margin:0px; margin-top:-1vh;">
-              <h5>Data de Publicação: (&aacute;s 17h00)</h5>
+              <h5>Data de Publicação:<input style="margin-bottom:1vh;" id="timepicker" type="text" class="timepicker" ng-change="updateEmailHour()" ng-model="hour" placeholder="Alterar hora"></input></h5>
               <datepicker ng-model="post.programmed_to_post" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
               </div>
               <div style="width: 288px; float: right;">

@@ -317,6 +317,7 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 	$scope.post.isDraft = false;
 	var tagsIndex = [];
 	var idsTags = [];
+	$scope.hour = '';
 
 	Categories.all().then(function(data){
 		tagsIndex = data;
@@ -388,6 +389,12 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 		post.isDraft = !post.isDraft;
 	}
 
+	$scope.updateEmailHour = function(post)
+	{
+		var hour = $('#timepicker')[0].value;
+		$scope.hour = hour;
+	}
+
 	$scope.changePubMode = function(post)
 	{
 		post.isAuto = !post.isAuto;
@@ -396,7 +403,9 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 	$scope.addPost = function(newPost){
 
 		newPost.tags = idsTags;
-		newPost.programmed_to_post = newPost.programmed_to_post.setHours(newPost.programmed_to_post.getHours()+18);
+		var timeConv = $scope.hour.split(':');
+		newPost.programmed_to_post.setHours(parseInt(timeConv[0])+1);
+		newPost.programmed_to_post.setMinutes(parseInt(timeConv[1]));
 
 		Posts.add(newPost).then(function(res){
 			if(res.message != undefined)

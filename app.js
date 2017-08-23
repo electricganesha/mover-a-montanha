@@ -11,6 +11,7 @@ var cors = require('cors');
 var flash = require('connect-flash');
 const CronJob = require('cron').CronJob;
 const mailingListJob = require('./server/mailinglist');
+const draftCron = require('./server/draftCron');
 var MailConfig = require('./server/models/mailconfig');
 
 require('./server/passport')(passport);   // this file is defined below
@@ -97,7 +98,7 @@ MailConfig.find()
   {
     mailConfig = result[0];
 
-    //CRON JOBS
+    //CRON JOBS EMAIL
     var hour = mailConfig.emailHour.split(':');
     var crontime = "00 "+hour[1]+" "+hour[0]+" * * 0-6"; //todos os dias as 14:00 (segunda a domingo)
     var jobs = [
@@ -115,6 +116,23 @@ MailConfig.find()
       job.start(); //start the jobs
     });
   }
+});
+
+//CRON JOBS - PUBLICACOES
+var crontimePub = "* * * * * *"; //todos os dias as 14:00 (segunda a domingo)
+var jobsPub = [
+  new CronJob({
+    cronTime: crontimePub,
+    onTick: function() {
+      draftCron();
+    },
+    start: false, //don't start immediately
+    timeZone: 'Europe/Lisbon'
+  })
+];
+
+jobsPub.forEach(function(job) {
+  job.start(); //start the jobs
 });
 
 module.exports = app;
