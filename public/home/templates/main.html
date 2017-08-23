@@ -20,7 +20,7 @@
     </div>
     <div class="col-md-12 col-lg-12" style="background-color:#2E71F2; color:white; text-align:center;">
       <br>
-      <p style="color: white; font-family: 'Raleway', sans-serif; text-transform: uppercase; padding-top:15px; font-size: 19px; 67%">Os nossos Autores</p>
+      <p style="color: white; font-family: 'Raleway', sans-serif; text-transform: uppercase; padding-top:15px; font-size: 19px">Os nossos Autores</p>
       <div id="listaAutores">
         <p ng-repeat="author in authors" ng-if="$index < authors.length - 1" style="display: inline-block;"><a id="authorlink" href="/author/{{author._id}}">{{ author.name }}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
         <p ng-repeat="author in authors" ng-if="$index == authors.length - 1" style="display: inline-block;"><a id="authorlink" href="/author/{{author._id}}">{{ author.name }}</a></p>

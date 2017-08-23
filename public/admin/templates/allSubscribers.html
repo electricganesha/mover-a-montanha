@@ -16,8 +16,22 @@
                 </p>
             </li>
             </div>
-        </ul>
-
+            <div class='col-md-4'>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 style="display: inline-block;">Hora de envio de e-mail automático</h4>
+                    </div>
+                    <div class="panel-body" style="text-align: center;">
+                        <input type="text" class="timepicker form-control" ng-model="automaticEmailTime" ng-change="setEmailTime(automaticEmailTime)" placeholder=" Alterar hora">
+                        <br>
+                        <btn class="btn btn-primary" ng-click="updateEmailHour()">Alterar</btn>
+                        <br>
+                        <br>
+                        <p><u> Hora actual de envio</u>: <span ng-model="currentEmailHour"><span style="color:red;"><b>{{ currentEmailHour | date:'H:mm'}}</b></span> de segunda a sexta.</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class='col-sm-8' style="margin-top:5vh; overflow:auto; height:90vh;">
