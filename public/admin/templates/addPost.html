@@ -6,42 +6,55 @@
           <h4 style="display: inline-block;">Novo Artigo</h4><div class='btn btn-primary pull-right' style="display: inline-block;" ng-click='addPost(post)'>Publicar Artigo</div>
         </div>
         <div class="panel-body">
-          <div class='col-md-6'>
-            <input type='text' placeholder='T&iacute;tulo' ng-model='post.title' name='title' class='form-control'>
-            <div style="margin-top:1vw; margin-bottom:1vw; float:left; padding: 0" class='col-md-12'>
-              <select name="authorSelect" class="form-control" style="width: 45%; display:inline-block;" id="authorSelect" ng-model="selectedAuthor" ng-change="selectAuthor(selectedAuthor)"
-              data-ng-options="author as author.name for author in authors">
+          <div class='col-sm-6'>
+            <div class="col-sm-12">
+              <div class="col-sm-7" style="padding:0px; margin:0px;">
+                <input style="margin-bottom:2vh;" type='text' placeholder='T&iacute;tulo' ng-model='post.title' name='title' class='form-control'></input>
+                <select name="authorSelect" class="form-control" style="display:inline-block;" id="authorSelect" ng-model="selectedAuthor" ng-change="selectAuthor(selectedAuthor)"
+                data-ng-options="author as author.name for author in authors">
                 <option value="">Escolha o autor</option> <!-- not selected / blank option -->
               </select>
-              <div style="float:right;" style="display: inline-block;">
-                <div class='btn pull-right' ng-class="{'btn-success' : post.isDraft, 'btn-danger' : !post.isDraft}" style="float:right; cursor:pointer;" ng-click="draftIt(post)">
-                  <img style="display:inline-block; margin-right:14px;" ng-show="post.isDraft"  ng-src="/home/img/icons/public.png" alt="Rascunho">
-                  <p ng-show="post.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Artigo Visivel</p>
-                  <img style="display:inline-block; margin-right:14px;" ng-show="!post.isDraft"  ng-src="/home/img/icons/private.png" alt="Rascunho">
-                  <p ng-show="!post.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Rascunho</p>
-                </div>
+              <input type='text' style="height:15vh; margin-top:2vh; margin-bottom:2vh;" placeholder='Resumo do Artigo' ng-model='post.recap' name='title' class='form-control'>
+            </div>
+            <div class="col-sm-5" style=" padding:0px; margin:0px; float:right;">
+              <div style="float:right; margin:0px; margin-top:-1vh;">
+              <h5>Data de Publicação: (&aacute;s 17h00)</h5>
+              <datepicker ng-model="post.programmed_to_post" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+              </div>
+              <div style="width:100%;">
+              <div class='btn pull-right' ng-class="{'btn-success' : post.isAuto, 'btn-danger' : !post.isAuto}" style="float:left !important; margin:0px; margin-left:1.6vw; cursor:pointer; margin-top:-1vh; margin-bottom:1vh;" ng-click="changePubMode(post)">
+                <img style="display:inline-block; margin-right:14px;" ng-show="post.isAuto"  ng-src="/home/img/icons/auto.png" alt="Auto Publicação">
+                <p ng-show="post.isAuto" style="display:inline-block; text-align:center; margin: 0px;">Agendar Pub.</p>
+                <img style="display:inline-block; margin-right:14px;" ng-show="!post.isAuto"  ng-src="/home/img/icons/manual.png" alt="Publicação Manual">
+                <p ng-show="!post.isAuto" style="display:inline-block; text-align:center; margin: 0px;">Pub. Manual</p>
+              </div>
+              <div class='btn pull-right' ng-class="{'btn-success' : post.isDraft, 'btn-danger' : !post.isDraft}" style="float:right !important; cursor:pointer; margin-top:-1vh; margin-bottom:1vh;" ng-click="draftIt(post)">
+                <img style="display:inline-block; margin-right:14px;" ng-show="post.isDraft"  ng-src="/home/img/icons/public.png" alt="Rascunho">
+                <p ng-show="post.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Artigo Visivel</p>
+                <img style="display:inline-block; margin-right:14px;" ng-show="!post.isDraft"  ng-src="/home/img/icons/private.png" alt="Rascunho">
+                <p ng-show="!post.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Rascunho</p>
               </div>
             </div>
-            <br>
-            <input type='text' style="height:8vh;" placeholder='Resumo do Artigo' ng-model='post.recap' name='title' class='form-control'>
-            <br>
+            </div>
+          </div>
+          <div class="col-sm-12">
             <tags-input style="border-radius:5px;" replace-spaces-with-dashes="false" ng-model="tags" tag-class="{even: $index % 2 == 0, odd: $index % 2 != 0}" placeholder="Escolha as Palavras-Chave">
               <auto-complete source="loadTags($query)" load-on-focus="true" match-class="{even: $index % 2 == 0, odd: $index % 2 != 0}"></auto-complete>
             </tags-input>
             <br>
             <div id="pad" style="height: 30vw;" text-angular ng-model="post.body" placeholder='Escreva o seu artigo aqui...'></div>
           </div>
-          <div class='col-md-6'>
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h4> Pré-Visualização</h4>
-              </div>
-              <div class="panel-body" style="height: 41vw; overflow: auto;"> 
-                <div class="row">
-                  <div class="col-md-12 full-height" id="markdown" style="padding-bottom:4vh; border:none;">
-                    <div><h2 style="display:inline-block;" ng-if="post.title">{{post.title}}</h2><h2 style="display:inline-block;" ng-if="!post.title">Sem T&iacute;tulo</h2> por <h4 style="display:inline-block;" ng-if="selectedAuthor.name">{{selectedAuthor.name}}</h4><h4 style="display:inline-block;" ng-if="!selectedAuthor.name">Autor Desconhecido</h4></div>
-                    <div btf-markdown='post.body'></div>
-                  </div>
+        </div>
+        <div class='col-md-6'>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4> Pré-Visualização</h4>
+            </div>
+            <div class="panel-body" style="height: 41vw; overflow: auto;">
+              <div class="row">
+                <div class="col-md-12 full-height" id="markdown" style="padding-bottom:4vh; border:none;">
+                  <div><h2 style="display:inline-block;" ng-if="post.title">{{post.title}}</h2><h2 style="display:inline-block;" ng-if="!post.title">Sem T&iacute;tulo</h2> por <h4 style="display:inline-block;" ng-if="selectedAuthor.name">{{selectedAuthor.name}}</h4><h4 style="display:inline-block;" ng-if="!selectedAuthor.name">Autor Desconhecido</h4></div>
+                  <div btf-markdown='post.body'></div>
                 </div>
               </div>
             </div>
@@ -50,4 +63,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

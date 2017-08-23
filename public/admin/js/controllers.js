@@ -152,6 +152,16 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 		Posts.update(post._id, post).then(function(res){});
 	}
 
+	$scope.changePubMode = function(post)
+	{
+		if(post.isAuto == true){
+			post.isAuto = false;
+		}else{
+			post.isAuto = true;
+		}
+		Posts.update(post._id, post).then(function(res){});
+	}
+
 	$scope.editPost = function(id,editedPost){
 
 		Posts.update(id,editedPost).then(function(res){
@@ -200,7 +210,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 				$scope.currentUserName = data.name;
 			});
 		}
-	
+
 
 	$scope.trimContentTo140Char = function(content)
 	{
@@ -378,9 +388,15 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 		post.isDraft = !post.isDraft;
 	}
 
+	$scope.changePubMode = function(post)
+	{
+		post.isAuto = !post.isAuto;
+	}
+
 	$scope.addPost = function(newPost){
 
 		newPost.tags = idsTags;
+		newPost.programmed_to_post = newPost.programmed_to_post.setHours(newPost.programmed_to_post.getHours()+18);
 
 		Posts.add(newPost).then(function(res){
 			if(res.message != undefined)

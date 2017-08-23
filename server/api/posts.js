@@ -476,7 +476,9 @@ module.exports = function(apiRouter){
 		post.title = req.body.title;
 		post.author = req.body.author;
 		post.body = req.body.body;
+		post.programmed_to_post = req.body.programmed_to_post;
 		post.isDraft = req.body.isDraft;
+		post.isAuto = req.body.isAuto;
 		post.recap = req.body.recap;
 		post.categories = req.body.tags;
 
@@ -503,7 +505,9 @@ module.exports = function(apiRouter){
 
 			post.title = req.body.title;
 			post.body = req.body.body;
+			post.programmed_to_post = req.body.programmed_to_post;
 			post.isDraft = req.body.isDraft;
+			post.isAuto = req.body.isAuto;
 			post.author = req.body.author;
 			post.recap = req.body.recap;
 			post.categories = req.body.tags;
