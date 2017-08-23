@@ -69,18 +69,11 @@ servicesModule.service('Services', function($http){
 				return err;
 			});
 		},
-<<<<<<< Updated upstream
 		getPostCountStatistics: function(startDate,endDate){
 			return $http.get('/api/posts/count?startDate='+formatDate(startDate)+"&endDate="+formatDate(endDate)).then(function(postCountArray){
-=======
-
-		getPostCountStatistics: function(year){
-			return $http.get('/api/posts/count/'+year).then(function(postCountArray){
->>>>>>> Stashed changes
-				return postCountArray.data;
 			});
 		},
-		getVisitorCountStatistics: function(startDate,endDate){
+				getVisitorCountStatistics: function(startDate,endDate){
 			return $http.get('/api/stats/visitors?startDate='+formatDate(startDate)+"&endDate="+formatDate(endDate)).then(function(visitorCount){
 				return visitorCount.data;
 			});
