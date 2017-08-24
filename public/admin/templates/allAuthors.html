@@ -1,6 +1,7 @@
 <div class="container" style="width:90%;">
-<div class='row full-height'>
+  <div class='row full-height'>
     <!-- Sidebar -->
+    {{ showAuthorEditionDiv }}
     <div class='col-sm-4'>
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -11,11 +12,11 @@
             <li ng-show="!authors.length">N&atilde;o existe nenhum autor em base de dados.</li>
             <div ng-repeat='author in authors | orderBy:"name"' style="margin-top:2vh;">
               <li class="list-group-item" ng-class="{'active': (activeAuthor === author)}" ng-click='setActive(author)' style="height: 122px;">
-                  <img style="float: right; margin-top: 42px;" ng-click="removeAuthor( author )" src="/home/img/icons/delete.png">
-                  <p style="display:inline-block;">
-                    <img style="display:inline-block; width:100px; height:100px; border-radius:50%; float:left;" src="{{ author.photo }}"></img>
-                    <h4 class="list-group-item-heading" style="display:inline-block; float:right; width:55%; margin-top:4.5vh; font-size:14px; text-align:left; text-decoration:bold; font-size:18px;"  btf-markdown='author.name'></h4>
-                  </p>
+                <img style="float: right; margin-top: 42px; cursor:pointer;" ng-click="removeAuthor( author ); $event.stopPropagation();" src="/home/img/icons/delete.png">
+                <p style="display:inline-block;">
+                  <img style="display:inline-block; width:100px; height:100px; border-radius:50%; float:left;" src="{{ author.photo }}"></img>
+                  <h4 class="list-group-item-heading" style="display:inline-block; float:right; width:55%; margin-top:4.5vh; font-size:14px; text-align:left; text-decoration:bold; font-size:18px;"  btf-markdown='author.name'></h4>
+                </p>
               </li>
             </div>
           </ul>
@@ -24,7 +25,7 @@
     </div>
 
     <!-- Page Content -->
-    <div class='col-sm-8' ng-show="activeAuthor">
+    <div class='col-sm-8' ng-show="activeAuthor && showAuthorEditionDiv">
       <div class="panel panel-default">
         <div class="panel-heading" style="height: 123px;">
           <div class="col-md-6">
@@ -35,8 +36,8 @@
             <br>
             <div style=" width:8vw; margin:auto; width: 11vw; margin: auto; margin-top: 2vh; text-align:center;  color:#444;    border:1px solid #CCC;    background:#DDD;    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);    cursor:pointer; "
             class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-              ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-change="upload(file)"
-              ngf-resize="{width: 100, height: 100}"> Escolher Fotografia </div>
+            ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" ngf-change="upload(file)"
+            ngf-resize="{width: 100, height: 100}"> Escolher Fotografia </div>
           </div>
           <div  class="col-md-2">
             <div class='btn btn-primary pull-right' style="margin: auto; margin-top: 35px;" ng-click='editAuthor(activeAuthor._id,activeAuthor)'>Editar Autor</div>

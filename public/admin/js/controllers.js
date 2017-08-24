@@ -446,10 +446,10 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors, ngTo
 
 	$scope.authors = $scope.updateAuthors();
 	$scope.activeAuthor = false;
-	$scope.showEditionDiv = false;
+	$scope.showAuthorEditionDiv = false;
 
 	$scope.setActive = function(author){
-		$scope.showEditionDiv = true;
+		$scope.showAuthorEditionDiv = true;
 		$scope.activeAuthor = author;
 	}
 
@@ -465,6 +465,7 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors, ngTo
 	};
 
 	$scope.removeAuthor = function(author){
+		$scope.showAuthorEditionDiv = false;
 		Authors.remove(author._id).then(function(res){
 			if(res.message != undefined)
 			{
