@@ -1,8 +1,6 @@
 <!-- Main Content -->
 <div class="row" style="margin:0">
   <div id="headerimghome" style="width:100%;">
-  </div>
-  <div style="width:100%;">
     <div class="col-sm-12 col-md-4 col-lg-3" style="text-align: center;">
       <div id="bandaauthor">
         <a href="/author/{{firstPost.author._id}}" style="text-decoration: none;">
@@ -35,7 +33,7 @@
   <div id="slideposts">
     <div class="slick-container">
       <slick settings="slickConfig">
-        <a style="text-decoration: none; color:#3b3d40; outline: none;" ng-href="/article/{{post._id}}" ng-repeat="post in activePosts track by $index" ng-if="post.author.name != 'Outros' && post.isDraft">
+        <a style="text-decoration: none; color:#3b3d40; outline: none;" ng-href="/article/{{post._id}}" ng-repeat="post in activePosts track by $index" ng-if="post.author.name != 'Outros'">
           <div class="slick-item box" style="text-align: center; outline: 0;">
             <div class="stay-in-place">
               <img class="autorfotoarticle" ng-src="{{post.author.photo}}" style="margin: auto;"></img>
