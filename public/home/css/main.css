@@ -893,6 +893,14 @@ iframe{
     font-size: 37px;
 }
 
+#iconviddiv{
+    padding-top: 39px;
+}
+
+#iconvid{
+    margin: auto;
+}
+
 #homebodyarticle{
     font-family: caslonregular;
     color: #3b3d40;

@@ -126,9 +126,17 @@ $scope.convertDateToPT = function(date)
 
 $scope.trimContentTo100Char = function(content)
 {
-  var trimmedContent = content.body.substr(0, 100);
-  trimmedContent = trimmedContent + "...";
-  return trimmedContent;
+  if(content.body.includes("ta-insert-video")){
+    var trimmedContent = "<div id=\"iconviddiv\"><img id=\"iconvid\" src=\"/home/img/playbutton.png\"></div>";
+    return trimmedContent;
+  }if(content.body.includes("<img")){
+    var trimmedContent = "<div id=\"iconviddiv\"><img id=\"iconvid\" src=\"/home/img/picture.png\"></div>";
+    return trimmedContent;
+  }else{
+    var trimmedContent = content.body.substr(0, 100);
+    trimmedContent = trimmedContent + "...";
+    return trimmedContent;
+  }
 }
 
 })
