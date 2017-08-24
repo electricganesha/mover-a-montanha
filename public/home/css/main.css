@@ -875,7 +875,7 @@ iframe{
   background-repeat:no-repeat;
   background-size:cover;
   background-position:center;
-  min-height: 621px;
+  min-height: 150px;
 }
 
 #autornamearticle{
@@ -888,14 +888,14 @@ iframe{
 
 #hometitlearticle{
     font-family: 'Raleway', sans-serif;
-    color: white;
+    color: #3b3d40;
     margin-top:40px;
     font-size: 37px;
 }
 
 #homebodyarticle{
     font-family: caslonregular;
-    color: white;
+    color: #3b3d40;
     margin-top:40px;
     font-size: 20px;
     text-align: justify;
