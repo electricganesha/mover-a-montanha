@@ -1,11 +1,12 @@
 var express = require('express'),
-	path = require('path'),
-	User = require('./models/user'),
-	rootPath = path.normalize(__dirname + '/../'),
-	apiRouter = express.Router(),
-	router = express.Router();
-	fs = require('fs');
-	geoip = require('geoip-lite');
+path = require('path'),
+User = require('./models/user'),
+rootPath = path.normalize(__dirname + '/../'),
+apiRouter = express.Router(),
+router = express.Router();
+fs = require('fs');
+geoip = require('geoip-lite');
+http = require('http');
 
 var Stats = require('./models/stats');
 
@@ -30,19 +31,29 @@ module.exports = function(app, passport){
 		console.log(remoteAddress);
 		if(remoteAddress[3] != null && remoteAddress[3] != '127.0.0.1')
 		{
-			var geo = geoip.lookup(remoteAddress);
-			console.log(geo);
-			var stat = new Stats();
-			stat.dateOfAccess = Date.now;
-			stat.userIp = remoteAddress[3];
-			stat.userAgent = req.headers['user-agent'];
-			stat.userLocationCountry = geo.country;
-			stat.userLocationCity = geo.city;
+			return http.get('http://ipinfo.io/'+remoteAddress[3]+'/geo', function(response) {
+        // Continuously update stream with data
+        var body = '';
+        response.on('data', function(d) {
+            body += d;
+        });
+        response.on('end', function() {
 
-			console.log(stat);
-			stat.save();
+					body = JSON.parse(body);
+
+					var stat = new Stats();
+					stat.dateOfAccess = new Date();
+					stat.userIp = remoteAddress[3];
+					stat.userAgent = req.headers['user-agent'];
+					stat.userLocationCountry = body.country;
+					stat.userLocationCity = body.city;
+					stat.save(function(err, stat){
+		  			if(err) res.send(err);
+		  			res.render('index');
+		  		});
+        });
+    });
 		}
-		res.render('index');
 	});
 
 	// admin route
@@ -72,10 +83,10 @@ module.exports = function(app, passport){
 		var parsed = JSON.stringify(json);
 
 		fs.writeFile("emailhour.json", parsed, function(err) {
-    if(err) {
-        return console.log(err);
-    }
-		res.json({ message: 'Hora actualizada', hour: req.body.hour });
+			if(err) {
+				return console.log(err);
+			}
+			res.json({ message: 'Hora actualizada', hour: req.body.hour });
 		});
 	});
 
@@ -87,29 +98,29 @@ module.exports = function(app, passport){
 			level: req.body.level,
 			author: req.body.author,
 		}), req.body.password, function(err, user) {
-	        if (err) {
-	            console.error(err);
-	            return;
+			if (err) {
+				console.error(err);
+				return;
 			}
 			//res.status(200);
 			res.json({ message: 'Utilizador Registado'});
-	        // log the user in after it is created
-	        /* passport.authenticate('local')(req, res, function(){
-	        	res.redirect('/admin/dashboard');
-	        }); */
-	    });
+			// log the user in after it is created
+			/* passport.authenticate('local')(req, res, function(){
+			res.redirect('/admin/dashboard');
+		}); */
 	});
+});
 
-	router.post('/login', passport.authenticate('local', { successRedirect: '/admin/dashboard',
-	failureRedirect: '/admin',
-	failureFlash: 'Utilizador ou palavra-passe inválidos' })
+router.post('/login', passport.authenticate('local', { successRedirect: '/admin/dashboard',
+failureRedirect: '/admin',
+failureFlash: 'Utilizador ou palavra-passe inválidos' })
 );
 
-	app.use(function(req, res, next){
-		res.status(404);
-		res.render('404');
-		return;
-	});
+app.use(function(req, res, next){
+	res.status(404);
+	res.render('404');
+	return;
+});
 
 };
 
