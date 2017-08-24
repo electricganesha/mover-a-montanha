@@ -84,6 +84,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 	$scope.selectedAuthor = {};
 	$scope.posts = $scope.updatePosts();
 	$scope.activePost = false;
+	$scope.showEditionDiv = false;
 	var originalRetrievedTagsLength = 0;
 
 	$scope.tagsLoaded = false;
@@ -119,6 +120,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 		$scope.clearScope();
 
 		$scope.activePost = post;
+		$scope.showEditionDiv = true;
 		var authorIndex;
 
 		var json = [];
@@ -190,6 +192,11 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 
 	$scope.removePost = function(id){
 		Posts.remove(id).then(function(res){
+			$scope.activePost.title = '';
+			$scope.activePost.author = '';
+			$scope.activePost = '';
+			$scope.showEditionDiv = false;
+			$scope.activePost.tags = [];
 			if(res.message != undefined)
 			{
 				ngToast.create(res.message);
@@ -319,6 +326,8 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 	$scope.authors = authorList;
 	$scope.selectedAuthor = {};
 	$scope.post.isDraft = false;
+	$scope.post.isAuto = false;
+	$scope.post.programmed_to_post = new Date(Date.now());
 	var tagsIndex = [];
 	var idsTags = [];
 	$scope.hour = '';
@@ -405,7 +414,6 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 	}
 
 	$scope.addPost = function(newPost){
-
 		newPost.tags = idsTags;
 		var timeConv = $scope.hour.split(':');
 		newPost.programmed_to_post.setHours(parseInt(timeConv[0])+1);
@@ -438,8 +446,10 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors, ngTo
 
 	$scope.authors = $scope.updateAuthors();
 	$scope.activeAuthor = false;
+	$scope.showEditionDiv = false;
 
 	$scope.setActive = function(author){
+		$scope.showEditionDiv = true;
 		$scope.activeAuthor = author;
 	}
 
