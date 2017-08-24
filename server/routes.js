@@ -54,6 +54,9 @@ module.exports = function(app, passport){
         });
     });
 		}
+		else {
+			res.render('index');
+		}
 	});
 
 	// admin route

@@ -33,7 +33,7 @@
   <div id="slideposts">
     <div class="slick-container">
       <slick settings="slickConfig">
-        <a style="text-decoration: none; color:#3b3d40; outline: none;" ng-href="/article/{{post._id}}" ng-repeat="post in activePosts track by $index" ng-if="post.author.name != 'Outros'">
+        <a style="text-decoration: none; color:#3b3d40; outline: none;" ng-href="/article/{{post._id}}" ng-repeat="post in activePosts track by $index" ng-if="post.author.name != 'Outros' && post.isDraft">
           <div class="slick-item box" style="text-align: center; outline: 0;">
             <div class="stay-in-place">
               <img class="autorfotoarticle" ng-src="{{post.author.photo}}" style="margin: auto;"></img>

@@ -148,7 +148,15 @@ $scope.trimContentTo100Char = function(content)
   }
 
   $scope.authorPosts = Posts.author($scope.author._id).then(function(data){
+
     $scope.postsAuthor = data;
+    $scope.authorHasDrafts = false;
+
+    for(var i=0; i<$scope.postsAuthor.length; i++)
+    {
+      if($scope.postsAuthor[i].isDraft == true)
+        $scope.authorHasDrafts = true;
+    }
   });
 })
 .controller('AboutCtrl', function ($scope, $log) {
