@@ -123,6 +123,8 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 		$scope.showEditionDiv = true;
 		var authorIndex;
 
+		$scope.manageTags();
+
 		var json = [];
 		for(var i=0; i<post.categories.length; i++)
 		{
@@ -170,6 +172,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 
 	$scope.editPost = function(id,editedPost){
 
+		editedPost.tags = idsTags;
 		Posts.update(id,editedPost).then(function(res){
 			if(res.message != undefined)
 			{
@@ -183,10 +186,11 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 				$scope.activePost = false;
 				$scope.activePost.tags = [];
 				$scope.tags = [];
+				$scope.updatePosts();
 			}
 			// create a simple toast:
 
-			$window.location.reload();
+			$scope.showEditionDiv = false;
 		});
 	};
 
@@ -271,7 +275,11 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 	}
 
 	$scope.$watch('tags.length', function(value) {
+		$scope.manageTags(value);
+	});
 
+	$scope.manageTags = function(value)
+	{
 		if($scope.tags.length != originalRetrievedTagsLength)
 		{
 			// ver se as novas tags ja existem
@@ -317,9 +325,9 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 				}
 			}
 		}
-
-	});
+	}
 });
+
 
 adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categories, ngToast){
 	$scope.post = {};
@@ -334,21 +342,27 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 
 	Categories.all().then(function(data){
 		tagsIndex = data;
+		$scope.tags = [
+			{ text: 'Política' },
+			{ text: 'Portugal' },
+			{ text: 'Europa' }
+		];
+
+		idsTags = ['596755fa5e0882799220c6a8','596755fe5e0882799220c6a9','596756015e0882799220c6aa']
 	});
 
 
-	$scope.tags = [
-		{ text: 'Política' },
-		{ text: 'Portugal' },
-		{ text: 'Europa' }
-	];
 
 	$scope.loadTags = function(query) {
 		return Categories.returnJSON();
 	};
 
 	$scope.$watch('tags.length', function(value) {
+		$scope.tagsManager(value);
+	});
 
+	$scope.tagsManager = function(value)
+	{
 		// ver se as novas tags ja existem
 		var jaExiste = false;
 		for(var i=0 ; i < tagsIndex.length; i++)
@@ -367,10 +381,6 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 				tagsIndex[value-1] = data;
 			});
 		}
-		else
-		{
-		}
-
 
 		// popular as tags no post
 		if(tagsIndex)
@@ -386,12 +396,10 @@ adminApp.controller('AddPostCtrl', function($scope, Posts, authorList, Categorie
 					}
 
 				}
-
 				$scope.post.tags = idsTags;
-
 			}
 		}
-	});
+	}
 
 	$scope.selectAuthor = function(author){
 		$scope.post.author = author;
@@ -516,8 +524,6 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 
 
 		$scope.mailConfig = mailConfig;
-		console.log(mailConfig);
-		console.log(mailConfig[0].emailHour);
 		$scope.emailHour = mailConfig[0].emailHour;
 
 		$scope.saveConfig = function(updatedMailConfig)
@@ -1090,9 +1096,7 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 		$scope.progress = 0;
 		$scope.files = [];
 
-		console.log($scope.files);
 		$scope.upload = function(file){
-			console.log(file);
 			var fd = new FormData();
 			//Take the first selected file
 			fd.append("uploadImageFile", file);

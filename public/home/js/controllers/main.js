@@ -377,7 +377,6 @@ $scope.trimContentTo100Char = function(content)
       $scope.changedCategory = hasCategory;
       for(i=0;i< $scope.categoriesArray.length; i++){
         if($scope.categoriesArray[i]._id == hasCategory){
-          console.log($scope.categoriesArray[i]);
           $scope.indiceC = i;
           apllyFilter();
         }
@@ -475,7 +474,6 @@ $scope.trimContentTo100Char = function(content)
     var subscriber = { email:'' };
     subscriber.email = $scope.email;
     Subscribers.add(subscriber).then(function(data){
-        console.log(data.code);
         if(!data.code)
         {
           Subscribers.email(subscriber).then(function(data){
