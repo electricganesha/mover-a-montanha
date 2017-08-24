@@ -12,11 +12,11 @@
             <p id="seguirinfo">Receba notificações esporádicas sobre esta plataforma</p>
         </div>
         <div id="formulario" class="col-xs-12 col-md-12" ng-controller="FooterCtrl">
-            <form>
-                <input id="textboxsubscribe" ng-model="email" type="text" placeholder="Email" required>
+            <form ng-submit="subscribe()">
+                <input id="textboxsubscribe" ng-model="email" type="email" placeholder="Email" required>
                 <br>
                 <br>
-                <input id="buttonsubscribe" ng-click="subscribe()" type="submit" value="subscrever">
+                <input id="buttonsubscribe" type="submit" value="subscrever">
             </form>
         </div>
     </div>

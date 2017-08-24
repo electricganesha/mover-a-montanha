@@ -431,8 +431,8 @@ $scope.trimContentTo100Char = function(content)
   document.body.scrollTop = document.documentElement.scrollTop = 0;
 
   $scope.contactName = '';
-  $scope.contactMail = '';
-  $scope.contactBody = '<html>	<head><title></title></head><body><p style="text-align: center;"><img alt="" src="http://il5.picdn.net/shutterstock/videos/4796915/thumb/1.jpg"/></p><p><strong>Caro Administrador de Mover-A-Montanha</strong>,</p><p><strong>Foi efectuado um contacto com proveni&ecirc;ncia na p&aacute;gina de contacto de <a href="http://www.moveramontanha.com">www.moveramontanha.com</a></strong></p><p><strong>A mensagem enviada foi a seguinte:</strong></p><p>&nbsp;</p>';
+  $scope.contactEmail = '';
+  $scope.contactBody = '<html><head><title></title></head><body><p style="text-align: center;"><img src="http://localhost:3004/uploads/images/1503419697227.jpg"/></img></p><p><strong>Caro Administrador de Mover-A-Montanha</strong>,</p><p><strong>Foi efectuado um contacto com proveni&ecirc;ncia na p&aacute;gina de contacto de <a href="http://www.moveramontanha.com">www.moveramontanha.com</a></strong></p><p><strong>A mensagem enviada foi a seguinte:</strong></p><p>&nbsp;</p>';
   $scope.contactMessage = '';
 
 
@@ -441,10 +441,16 @@ $scope.trimContentTo100Char = function(content)
     var data = ({
       contactName: $scope.contactName,
       contactEmail: $scope.contactEmail,
-      contactMessage: $scope.contactBody +'<p>&quot;<i>' + $scope.contactMessage + '</p></i>&quot;<br><p><strong>Este e-mail &eacute; gerado automaticamente atrav&eacute;s do servidor da p&aacute;gina.</strong></p></body></html>'
+      contactMessage: $scope.contactBody +'<p>&quot;<i>' + $scope.contactMessage + '&quot;</p></i><br><p><strong>Este e-mail &eacute; gerado automaticamente atrav&eacute;s do servidor da p&aacute;gina.</strong></p></body></html>'
     });
 
+    alert('Email enviado! Obrigado pelo seu contacto!');
+    $scope.contactName = '';
+    $scope.contactEmail = '';
+    $scope.contactMessage = '';
+
     Services.sendEmail(data);
+
   }
 
 })
@@ -461,11 +467,19 @@ $scope.trimContentTo100Char = function(content)
     var subscriber = { email:'' };
     subscriber.email = $scope.email;
     Subscribers.add(subscriber).then(function(data){
-        $scope.email = '';
+        console.log(data.code);
+        if(!data.code)
+        {
+          Subscribers.email(subscriber).then(function(data){
+              alert('Obrigado por subscrever ao blog Mover-A-Montanha!');
+          });
+        }
+        else if(data.code == '11000')
+        {
+          alert('Este e-mail já se encontra na nossa base-de-dados.');
+        }
     });
-    Subscribers.email(subscriber).then(function(data){
-        $scope.email = '';
-    });
+
   }
 })
 .controller('SidenavCtrl', function ($scope, $log) {
