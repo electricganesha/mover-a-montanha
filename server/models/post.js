@@ -19,4 +19,6 @@ postSchema.pre('save', function(next){
   next();
 });
 
+postSchema.index({ "title": 'text', "body": 'text', "author.name": 'text', "recap": 'text', "categories.tag": 'text' });
+
 module.exports = mongoose.model('Post', postSchema);

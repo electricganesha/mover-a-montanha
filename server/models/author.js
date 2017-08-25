@@ -11,4 +11,6 @@ authorSchema.pre('save', function(next){
   next();
 });
 
+authorSchema.index({ name: 'text', bio: 'text', quote: 'text'});
+
 module.exports = mongoose.model('Author', authorSchema);

@@ -8,4 +8,6 @@ categorySchema.pre('save', function(next){
   next();
 });
 
+categorySchema.index({ tag: 'text'});
+
 module.exports = mongoose.model('Category', categorySchema);

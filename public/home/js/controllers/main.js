@@ -205,6 +205,28 @@ $scope.trimContentTo100Char = function(content)
     $scope.changedAuthor = 'All';
     $scope.changedCategory = 'All';
 
+    $scope.searchFilters = function()
+    {
+      angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
+
+      $timeout(function() {
+        if($scope.searchTerms != '')
+        {
+          Posts.search($scope.searchTerms).then(function(data){
+              $scope.allP=data;
+          });
+        }
+        else
+        {
+          Posts.filter('All','All','All').then(function(data){
+              $scope.allP=data;
+          });
+        }
+      }, 400);
+      $timeout(function() {
+        angular.element(document.querySelector(".divAllArtigos")).removeClass("animate-flicker");
+      }, 600);
+    }
 
     $scope.convertDateToPT = function(date)
     {

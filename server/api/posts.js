@@ -42,14 +42,28 @@ module.exports = function(apiRouter){
 	    });
 	});
 
+	// get total number of posts
+	apiRouter.get('/posts/search', function(req, res){
+
+		var query = {};
+
+		Post.find(
+	        { $text : { $search : req.headers.search } },
+	        { score : { $meta: "textScore" } }
+	    )
+	    .sort({ score : { $meta : 'textScore' } })
+			.populate('author').populate('categories')
+	    .exec(function(err, results) {
+	        // callback
+					res.json(results);
+	    });
+	});
+
 	// get number of posts in a given date
   // uso : /posts/count?startDate=August-13-2017&endDate=August-18-2017
 	apiRouter.get('/posts/count', function(req, res){
 
     var query = {};
-
-		console.log(req.query.startDate);
-		console.log(req.query.endDate);
 
     if(req.query.startDate && req.query.endDate)
     {

@@ -75,6 +75,21 @@ postsModule.service('Posts', function($http){
 				console.error(err);
 				return err;
 			});
+		},
+		search: function(searchTerms){
+			return $http({
+				method: 'get',
+				url: '/api/posts/search',
+				headers: {
+					'search':searchTerms
+				}
+			}).then(function(res){
+				return res.data;
+			}).catch(function(err){
+				console.error('Ocorreu um erro com a filtragem indicada');
+				console.error(err);
+				return err;
+			});
 		}
 	};
 });
