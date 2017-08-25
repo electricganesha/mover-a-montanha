@@ -65,6 +65,11 @@ adminApp.config(function($stateProvider, $urlRouterProvider, $provide){
 		},
 		controller: 'AddPostCtrl'
 	})
+	.state('changepass', {
+		url: '/changepass',
+		templateUrl: '/admin/templates/changepass.html',
+		controller: 'ChangePassCtrl'
+	})
 	.state('allAuthors', {
 		url: '/allAuthors',
 		templateUrl: '/admin/templates/allAuthors.html',

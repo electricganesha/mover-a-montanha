@@ -119,6 +119,14 @@ failureRedirect: '/admin',
 failureFlash: 'Utilizador ou palavra-passe inválidos' })
 );
 
+router.post('/logout', function(req, res){
+	req.session.destroy();
+	req.logout();
+	res.redirect('/admin');	
+});
+
+
+
 app.use(function(req, res, next){
 	res.status(404);
 	res.render('404');

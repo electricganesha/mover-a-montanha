@@ -8,7 +8,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Mover A Montanha - Administração |</a>
+        <a class="navbar-brand" href="#">Mover A Montanha - Administração </a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -22,7 +22,15 @@
           <li ng-show = "currentUser.level == 1 " ng-class="{ active: isActive('admin') }"><a ui-sref="admin">Administradores</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href>{{currentUser.email}}</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{currentUser.email}} <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a ui-sref="changepass">Alterar Password</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="/admin">Logout</a></li>
+            </ul>
+          </li>
+          <li></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>

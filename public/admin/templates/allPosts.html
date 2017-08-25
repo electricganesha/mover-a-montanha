@@ -30,7 +30,7 @@
           </div>
         </div>
       </div>
-      <div class="panel-body" style=" overflow:auto; height: 85vh;">
+      <div class="panel-body" style=" overflow:auto; height: 75vh;">
         <ul class="list-group">
           <li ng-show="!posts.length">N&atilde;o existe nenhum artigo publicado.</li>
           <div ng-repeat='post in posts | orderBy:selectedFilter' style="margin-top:4vh;">
@@ -47,7 +47,7 @@
                   <h6 style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Ultima Actualização :</b> {{post.updated_at | date :  "MMM d, y - HH:mm" }}</h6>
                   <h6 ng-show="post.isAuto" style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Programado para Publicação :</b> {{post.programmed_to_post | date :  "MMM d, y - HH:mm" }}</h6>
                   <h6 ng-show="!post.isAuto" style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Não Programado / Publicação Manual</b></h6>
-                  <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-click="removePost( post._id ); $event.stopPropagation();" src="/home/img/icons/delete.png" alt="Apagar Artigo"></div>
+                  <div style="float:right; cursor:pointer;"><img style="margin-top:4px;" ng-click="removePost( post._id ); $event.stopPropagation();" src="/home/img/icons/delete.png" alt="Apagar Artigo"></div>
                   <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="post.isAuto" ng-click="changePubMode(post); $event.stopPropagation();" ng-src="/home/img/icons/auto.png" alt="Rascunho"></div>
                   <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="!post.isAuto" ng-click="changePubMode(post); $event.stopPropagation();" ng-src="/home/img/icons/manual.png" alt="Rascunho"></div>
                   <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="post.isDraft" ng-click="draftIt(post); $event.stopPropagation();" ng-src="/home/img/icons/public.png" alt="Rascunho"></div>
@@ -64,10 +64,9 @@
   <div class='col-md-8' ng-show="activePost && showEditionDiv">
     <form ng-submit="editPost(activePost._id,activePost)">
       <div class="panel panel-default" style="margin-bottom: 0;">
-        <div class="panel-heading" style="height:80px;">
+        <div class="panel-heading" style="height:57px;">
           <div class="row" style="margin:0px;">
-            <div>
-              <div class="col-sm-10">
+            <div class="col-sm-10">
                 <h3 contenteditable="true" style="display:inline-block; margin-top: 4px;" ng-model="activePost.title">{{activePost.title}}</h3>
                 <p style="display:inline-block;">&nbsp;&nbsp;por&nbsp;&nbsp;</p>
                 <select ng-show="currentUser.author == undefined" class="form-control" style="display:inline-block; width:30%;" name="authorSelect" id="authorSelect" ng-model="selectedAuthor" ng-change="selectAuthor(selectedAuthor)"
@@ -82,11 +81,11 @@
         </div>
         <div class="panel-body" style="margin-top:1.5vh;">
           <div class="col-sm-4" style="float:right; margin:0px;">
-            <h5>Data de Publicação: {{ activePost.programmed_to_post | date :  "MMM d, y - HH:mm"}}</h5>
+            <h5 style="margin-top:0px;">Data de Publicação: {{ activePost.programmed_to_post | date :  "MMM d, y - HH:mm"}}</h5>
             <datepicker ng-model="activePost.programmed_to_post" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
           </div>
           <div class="col-sm-8">
-            <div style="margin-top:3vh;">
+            <div>
               <textarea placeholder='Resumo do Artigo' ng-model='activePost.recap' name='title' class='form-control'></textarea>
             </div>
             <br>
@@ -110,9 +109,9 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-sm-12">
-          <div id="pad" text-angular ng-model="activePost.body" style="height:68vh;"></div>
+          <div class="col-sm-12">
+            <div id="pad" text-angular ng-model="activePost.body" style="height:54vh;"></div>
+          </div>
         </div>
       </div>
     </div>
