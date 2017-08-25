@@ -67,13 +67,19 @@ adminApp.controller('NavCtrl', function($scope, $state){
 	};
 });
 
-adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, authorList, Authors, Categories, ngToast, Users){
+adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, authorList, categoryList, Authors, Categories, ngToast, Users){
 
 	$scope.updatePosts = function () {
 		Posts.all().then(function(data){
 			$scope.posts=data;
 		});
 	};
+
+	var applyFilter = function (){
+		Posts.filter($scope.changedDate,$scope.changedAuthor,$scope.changedCategory).then(function(data){
+			$scope.posts=data;
+		});
+	}
 
 	$scope.selectedFilter = 'descend';
 
@@ -88,6 +94,138 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 	var originalRetrievedTagsLength = 0;
 
 	$scope.tagsLoaded = false;
+
+	/*-------- Categories -------*/
+	$scope.categoriesArray = [];
+	$scope.categoriesArray.push({tag:"Todas", _id:"Todas"});
+	for(var i=0; i<categoryList.length; i++){
+		$scope.categoriesArray.push(categoryList[i]);
+	}
+	$scope.allC = $scope.categoriesArray;
+
+	/*-------- Authors -------*/
+	var authorsArray = [];
+	authorsArray.push({name:"Todos", _id:"Todos"});
+	for(var i=0; i<authorList.length; i++){
+		authorsArray.push(authorList[i]);
+	}
+	$scope.allA = authorsArray;
+
+	$scope.formattedDate = '';
+
+	$scope.changedDate = 'All';
+	$scope.changedAuthor = 'All';
+	$scope.changedCategory = 'All';
+
+	$scope.convertDateToPT = function(date)
+	{
+		var date = new Date(date);
+		return moment(date, "D_M_YYYY").locale('pt-br').format('LLL');
+	}
+
+	var formatMonthExtended = function(month)
+	{
+		switch(month)
+		{
+			case('01'):
+			return 'Janeiro';
+			break;
+			case('02'):
+			return 'Fevereiro';
+			break;
+			case('03'):
+			return 'Mar&ccedil;o';
+			break;
+			case('04'):
+			return 'Abril';
+			break;
+			case('05'):
+			return 'Maio';
+			break;
+			case('06'):
+			return 'Junho';
+			break;
+			case('07'):
+			return 'Julho';
+			break;
+			case('08'):
+			return 'Agosto';
+			break;
+			case('09'):
+			return 'Setembro';
+			break;
+			case('10'):
+			return 'Outubro';
+			break;
+			case('11'):
+			return 'Novembro';
+			break;
+			case('12'):
+			return 'Dezembro';
+			break;
+		}
+	}
+
+	var formatMonthNumeric = function(month)
+	{
+		switch(month)
+		{
+			case('Janeiro'):
+			return '01';
+			break;
+			case('Fevereiro'):
+			return '02';
+			break;
+			case('Mar&ccedil;o'):
+			return '03';
+			break;
+			case('Abril'):
+			return '04';
+			break;
+			case('Maio'):
+			return '05';
+			break;
+			case('Junho'):
+			return '06';
+			break;
+			case('Julho'):
+			return '07';
+			break;
+			case('Agosto'):
+			return '08';
+			break;
+			case('Setembro'):
+			return '09';
+			break;
+			case('Outubro'):
+			return '10';
+			break;
+			case('Novembro'):
+			return '11';
+			break;
+			case('Dezembro'):
+			return '12';
+			break;
+		}
+	}
+
+	var getMonthList = function()
+	{
+		var dates = [];
+		dates.push("Todos");
+
+		for(var i=0; i<postList.length; i++)
+		{
+			var post = postList[i];
+
+			var date = formatMonthExtended(post.created_at[5]+post.created_at[6])+" de "+post.created_at[0]+post.created_at[1]+post.created_at[2]+post.created_at[3];
+
+			if(dates.indexOf(date) == -1)
+			dates.push(date);
+		}
+		return dates;
+	}
+	$scope.monthList = getMonthList();
 
 	Categories.all().then(function(data){
 		tagsIndex = data;
@@ -220,11 +358,11 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 	};
 
 	if($scope.currentUser.author != "" && $scope.currentUser.author != undefined)
-		{
-			Authors.one($scope.currentUser.author).then(function(data){
-				$scope.currentUserName = data.name;
-			});
-		}
+	{
+		Authors.one($scope.currentUser.author).then(function(data){
+			$scope.currentUserName = data.name;
+		});
+	}
 
 
 	$scope.trimContentTo140Char = function(content)
@@ -325,6 +463,48 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 				}
 			}
 		}
+	}
+
+	$scope.changedCategories = function(value)
+	{
+		if(value != 'Todas')
+		{
+			$scope.changedCategory = value;
+		}
+		else
+		{
+			$scope.changedCategory = 'All';
+		}
+
+		applyFilter();
+	}
+
+	$scope.changedAuthors = function(value)
+	{
+		if(value != 'Todos')
+		{
+			$scope.changedAuthor = value;
+		}
+		else
+		{
+			$scope.changedAuthor = 'All';
+		}
+		applyFilter();
+	}
+
+	$scope.changeMonthDropDown = function(value)
+	{
+		if(value != 'Todos')
+		{
+			var month = value.split(" ");
+			var monthFormatted = formatMonthNumeric(month[0]);
+			$scope.changedDate = monthFormatted+month[2];
+		}
+		else
+		{
+			$scope.changedDate = 'All';
+		}
+		applyFilter();
 	}
 });
 

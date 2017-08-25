@@ -2,13 +2,32 @@
   <!-- Sidebar -->
   <div class='col-md-4' ng-init="selectedFilter = '-created_at'">
     <div class="panel panel-default" style="height: 91vh;">
-      <div class="panel-heading" style="height: 56px;">
-        <h3 style="width: 49%; float: left; margin-top: 6px;">Artigos Publicados</h3>
-        <div id="ordem" style="width: 49%; float: right; text-align: right; margin-top: 8px;">
-          <div style="display:inline-block;" ng-if="selectedFilter == 'created_at'">&nbsp;&nbsp;Ordem Crescente</div>
-          <div style="display:inline-block;" ng-if="selectedFilter == '-created_at'">&nbsp;&nbsp;Ordem Decrescente</div>
-          <div class="glyphicon glyphicon-arrow-down" ng-style="selectedFilter == '-created_at' && {'color':'green'} || {'color':'black'}" style="cursor:pointer;" ng-click="switchSelectedFilter('-created_at')"></div>
-          <div class="glyphicon glyphicon-arrow-up" ng-style="selectedFilter == 'created_at' && {'color':'green'} || {'color':'black'}"  style="cursor:pointer;" ng-click="switchSelectedFilter('created_at')"></div>
+      <div class="panel-heading">
+        <div class="row" style="margin:0px; border-bottom:1px solid black; margin-bottom:1vh;">
+          <h3 style="width: 49%; float: left; margin-top: 6px;">Artigos Publicados</h3>
+          <div id="ordem" style="width: 49%; float: right; text-align: right; margin-top: 8px;">
+            <div style="display:inline-block;" ng-if="selectedFilter == 'created_at'">&nbsp;&nbsp;Ordem Crescente</div>
+            <div style="display:inline-block;" ng-if="selectedFilter == '-created_at'">&nbsp;&nbsp;Ordem Decrescente</div>
+            <div class="glyphicon glyphicon-arrow-down" ng-style="selectedFilter == '-created_at' && {'color':'green'} || {'color':'black'}" style="cursor:pointer;" ng-click="switchSelectedFilter('-created_at')"></div>
+            <div class="glyphicon glyphicon-arrow-up" ng-style="selectedFilter == 'created_at' && {'color':'green'} || {'color':'black'}"  style="cursor:pointer;" ng-click="switchSelectedFilter('created_at')"></div>
+          </div>
+        </div>
+        <div class="row" style="margin:0px;">
+          <div class="col-md-4" style="text-align:center;">
+            <p style="text-align:center;" id="filtertitle">Palavras-Chave</p>
+            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px; text-align:center;" class="form-control" ng-model="categoriesSelected" ng-change="changedCategories(categoriesSelected._id)" ng-init="categoriesSelected = allC[0]" data-ng-options="category.tag for category in allC">
+            </select>
+          </div>
+          <div class="col-md-4" style="text-align:center;">
+            <p style="text-align:center;" id="filtertitle">Autores</p>
+            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px; text-align:center;" class="form-control" ng-model="authorsSelected" ng-change="changedAuthors(authorsSelected._id)" ng-init="authorsSelected = allA[0]" data-ng-options="author.name for author in allA">
+            </select>
+          </div>
+          <div class="col-md-4" style="text-align:center;">
+            <p style="text-align:center;" id="filtertitle">Data de Publicação</p>
+            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px; text-align:center;" class="form-control" ng-model="dateSelected" ng-change="changeMonthDropDown(dateSelected)" ng-init="dateSelected = monthList[0]" data-ng-options="month as month for month in monthList">
+            </select>
+          </div>
         </div>
       </div>
       <div class="panel-body" style=" overflow:auto; height: 85vh;">
