@@ -4,36 +4,36 @@
 </div>
 <div id="divfilter" class="col-md-12" style="background-color:#486af0; padding-bottom: 43px;">
     <div class="col-md-12" style="margin:auto;">
-      <div class="col-md-3">
-      </div>
-    <div class="col-md-2" style="text-align:center; margin-top: 40px;">
-        <p id="filtertitle">Palavras-Chave</p>
-        <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px;" class="form-control" ng-model="categoriesSelected" ng-change="changedCategories(categoriesSelected._id)" ng-init="categoriesSelected = allC[indiceC]" data-ng-options="category.tag for category in allC">
-        </select>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-2" style="text-align:center; margin-top: 40px;">
+            <p id="filtertitle">Palavras-Chave</p>
+            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px;" class="form-control" ng-model="categoriesSelected" ng-change="changedCategories(categoriesSelected._id)" ng-init="categoriesSelected = allC[indiceC]" data-ng-options="category.tag for category in allC">
+            </select>
+        </div>
+        <div class="col-md-2" style="text-align:center; margin-top: 40px;">
+            <p id="filtertitle">Autores</p>
+            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px;" class="form-control" ng-model="authorsSelected" ng-change="changedAuthors(authorsSelected._id)" ng-init="authorsSelected = allA[0]" data-ng-options="author.name for author in allA">
+            </select>
+        </div>
+        <div class="col-md-2" style="text-align:center; margin-top: 40px;">
+            <p id="filtertitle">Data de Publicação</p>
+            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px;" class="form-control" ng-model="dateSelected" ng-change="changeMonthDropDown(dateSelected)" ng-init="dateSelected = monthList[0]" data-ng-options="month as month for month in monthList">
+            </select>
+        </div>
+        <div class="col-md-3">
+        </div>
     </div>
-    <div class="col-md-2" style="text-align:center; margin-top: 40px;">
-        <p id="filtertitle">Autores</p>
-        <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px;" class="form-control" ng-model="authorsSelected" ng-change="changedAuthors(authorsSelected._id)" ng-init="authorsSelected = allA[0]" data-ng-options="author.name for author in allA">
-        </select>
+    <div class="col-md-12">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6" style="text-align:center;margin-top: 40px; ">
+            <p id="filtertitle">Pesquisa</p>
+            <input ng-model="searchTerms" class="form-control" type="text" ng-keydown="$event.keyCode === 13 && searchFilters()" ng-change="searchFilters()" style="width:100%; float:left; text-align:left; display:inline;"></input>
+        </div>
+        <div class="col-md-3">
+        </div>
     </div>
-    <div class="col-md-2" style="text-align:center; margin-top: 40px;">
-        <p id="filtertitle">Data de Publicação</p>
-        <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px;" class="form-control" ng-model="dateSelected" ng-change="changeMonthDropDown(dateSelected)" ng-init="dateSelected = monthList[0]" data-ng-options="month as month for month in monthList">
-        </select>
-    </div>
-    <div class="col-md-3">
-    </div>
-  </div>
-  <div class="col-md-12">
-  <div class="col-md-3">
-  </div>
-    <div class="col-md-6" style="text-align:center;margin-top: 40px; ">
-        <input ng-model="searchTerms" class="form-control" type="text" ng-keydown="$event.keyCode === 13 && searchFilters()" style="width:87%; float:left; text-align:left; display:inline;"></input>
-        <button class="btn btn-default" style="margin-left:1vw; text-align:center; display:inline; float:right;" ng-click="searchFilters()">Pesquisar</button>
-    </div>
-    <div class="col-md-3">
-    </div>
-  </div>
 </div>
 <div class="col-md-12 divAllArtigos">
     <a id="linkallposts" href="/article/{{post._id}}" ng-repeat="post in allP" ng-if="post.isDraft">
