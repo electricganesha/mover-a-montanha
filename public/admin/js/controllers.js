@@ -1393,17 +1393,19 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 		};
 	});
 
-	adminApp.controller('ChangePassCtrl', function($scope, $modalInstance, Services, ngToast){
-		/* Services.registerUser(user).then(function(res){
-			if(res.message != undefined)
-			{
-				ngToast.create(res.message);
-				$scope.updateUsers();
-			}
-			else {
-				ngToast.create('Utilizador Registado');
-				$scope.user = {};
-				$scope.updateUsers();
-			}
-		}); */
+	adminApp.controller('ChangePassCtrl', function($scope, Services, ngToast){
+
+		$scope.changePwd = function(newPwd)
+		{
+			Services.changePwd(newPwd,$scope.currentUser._id).then(function(res){
+				if(res.message != undefined)
+				{
+					ngToast.create(res.message);
+				}
+				else {
+					ngToast.create('Password Alterada com sucesso');
+					$scope.newPwd = "";
+				}
+			});
+		}
 	});

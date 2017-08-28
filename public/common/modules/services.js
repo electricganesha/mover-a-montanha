@@ -143,6 +143,24 @@ servicesModule.service('Services', function($http){
 			return $http.get('/api/subscribers/timemetrics').then(function(postCountArray){
 				return postCountArray.data;
 			});
+		},
+		changePwd: function(pwd,user){
+			var body = {};
+			body.pwd = pwd;
+			body.user = user;
+			return $http({
+				method: 'post',
+				url: '/changePwd',
+				data: body
+			}).then(function(res){
+				// return the new post
+				console.log(res);
+				return res.data;
+			}).catch(function(err){
+				console.error('Ocorreu um erro ao alterar a password!');
+				console.error(err);
+				return err;
+			});
 		}
 	};
 });

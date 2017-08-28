@@ -122,10 +122,24 @@ failureFlash: 'Utilizador ou palavra-passe inválidos' })
 router.post('/logout', function(req, res){
 	req.session.destroy();
 	req.logout();
-	res.redirect('/admin');	
+	res.redirect('/admin');
 });
 
+router.post('/changePwd', function(req, res){
+	User.findById(req.body.user).then(function(sanitizedUser){
+    if (sanitizedUser){
+        sanitizedUser.setPassword(req.body.pwd, function(){
+            sanitizedUser.save();
+            res.status(200).json({message: 'Password alterada com sucesso'});
+        });
+    } else {
+        res.status(500).json({message: 'Este utilizador nao existe.'});
+    }
+},function(err){
+    console.error(err);
+})
 
+});
 
 app.use(function(req, res, next){
 	res.status(404);
