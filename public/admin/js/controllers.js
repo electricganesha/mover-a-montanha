@@ -134,7 +134,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 			return 'Fevereiro';
 			break;
 			case('03'):
-			return 'Mar&ccedil;o';
+			return 'Março';
 			break;
 			case('04'):
 			return 'Abril';
@@ -176,7 +176,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 			case('Fevereiro'):
 			return '02';
 			break;
-			case('Mar&ccedil;o'):
+			case('Março'):
 			return '03';
 			break;
 			case('Abril'):
