@@ -2,7 +2,7 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
 
   document.body.scrollTop = document.documentElement.scrollTop = 0;
   $scope.initMenu = function () {
-      (function($) {
+    (function($) {
       var isLargeWindow;
       $(document).ready(function(){
         if($(this).width() > 1015){
@@ -51,38 +51,38 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
     slidesToShow: 4,
     slidesToScroll: 1,
     responsive: [
-    {
-      breakpoint: 1350,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 1
+      {
+        breakpoint: 1350,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 1150,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
       }
-    },
-    {
-      breakpoint: 1150,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 1
-      }
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1
-      }
-    }
-    // You can unslick at a given breakpoint now by adding:
-    // settings: "unslick"
-    // instead of a settings object
-  ]
+      // You can unslick at a given breakpoint now by adding:
+      // settings: "unslick"
+      // instead of a settings object
+    ]
   };
 
   $scope.posts = postList;
@@ -91,53 +91,53 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
   $scope.authors = authorList;
   $scope.activePosts = [];
 
-    for(var i=0 ; i < $scope.posts.length; i++)
+  for(var i=0 ; i < $scope.posts.length; i++)
+  {
+    if($scope.posts[i].isDraft == true)
     {
-      if($scope.posts[i].isDraft == true)
-        {
-          $scope.firstPost = $scope.posts[i];
+      $scope.firstPost = $scope.posts[i];
 
-          if($scope.firstPost.body.indexOf("ta-insert-video") > -1)
-          {
-            $scope.temVideo = true;
-          }
-          else
-          {
-            $scope.temVideo = false;
-          }
-          break;
-        }
+      if($scope.firstPost.body.indexOf("ta-insert-video") > -1)
+      {
+        $scope.temVideo = true;
+      }
+      else
+      {
+        $scope.temVideo = false;
+      }
+      break;
     }
-
-    for(var i=1 ; i < $scope.posts.length; i++)
-    {
-      if($scope.posts[i].isDraft == true)
-        {
-          $scope.activePosts[i-1] = $scope.posts[i];
-        }
-    }
-
-
-$scope.convertDateToPT = function(date)
-{
-  var date = new Date(date);
-  return moment(date, "D_M_YYYY").locale('pt-br').format('LLL');
-}
-
-$scope.trimContentTo100Char = function(content)
-{
-  if(content.body.includes("ta-insert-video")){
-    var trimmedContent = "<div id=\"iconviddiv\"><img id=\"iconvid\" src=\"/home/img/playbutton.png\"></div>";
-    return trimmedContent;
-  }if(content.body.includes("<img")){
-    var trimmedContent = "<div id=\"iconviddiv\"><img id=\"iconvid\" src=\"/home/img/picture.png\"></div>";
-    return trimmedContent;
-  }else{
-    var trimmedContent = content.body.substr(0, 100);
-    trimmedContent = trimmedContent + "...";
-    return trimmedContent;
   }
-}
+
+  for(var i=1 ; i < $scope.posts.length; i++)
+  {
+    if($scope.posts[i].isDraft == true)
+    {
+      $scope.activePosts[i-1] = $scope.posts[i];
+    }
+  }
+
+
+  $scope.convertDateToPT = function(date)
+  {
+    var date = new Date(date);
+    return moment(date, "D_M_YYYY").locale('pt-br').format('LLL');
+  }
+
+  $scope.trimContentTo100Char = function(content)
+  {
+    if(content.body.includes("ta-insert-video")){
+      var trimmedContent = "<div id=\"iconviddiv\"><img id=\"iconvid\" src=\"/home/img/playbutton.png\"></div>";
+      return trimmedContent;
+    }if(content.body.includes("<img")){
+      var trimmedContent = "<div id=\"iconviddiv\"><img id=\"iconvid\" src=\"/home/img/picture.png\"></div>";
+      return trimmedContent;
+    }else{
+      var trimmedContent = content.body.substr(0, 100);
+      trimmedContent = trimmedContent + "...";
+      return trimmedContent;
+    }
+  }
 
 })
 .controller('AuthorsCtrl', function ($scope, $log, authorList) {
@@ -145,7 +145,7 @@ $scope.trimContentTo100Char = function(content)
   document.body.scrollTop = document.documentElement.scrollTop = 0;
 })
 .controller('AuthorCtrl', function ($scope, $log, author, Posts) {
-	document.body.scrollTop = document.documentElement.scrollTop = 0;
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
   $scope.author = author;
   $scope.mostraQuote = false;
 
@@ -163,7 +163,7 @@ $scope.trimContentTo100Char = function(content)
     for(var i=0; i<$scope.postsAuthor.length; i++)
     {
       if($scope.postsAuthor[i].isDraft == true)
-        $scope.authorHasDrafts = true;
+      $scope.authorHasDrafts = true;
     }
   });
 })
@@ -171,242 +171,242 @@ $scope.trimContentTo100Char = function(content)
   document.body.scrollTop = document.documentElement.scrollTop = 0;
 })
 .controller('ArticlesCtrl', function ($scope, $log, allPosts, allCategories, allAuthors, Posts, $timeout, hasCategory) {
-    var apllyFilter = function (){
-      Posts.filter($scope.changedDate,$scope.changedAuthor,$scope.changedCategory).then(function(data){
+  var apllyFilter = function (){
+    Posts.filter($scope.changedDate,$scope.changedAuthor,$scope.changedCategory).then(function(data){
+      $scope.allP=data;
+    });
+    $timeout(function() {
+      angular.element(document.querySelector(".divAllArtigos")).removeClass("animate-flicker");
+    }, 600);
+  }
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
+  $scope.allP = allPosts;
+  $scope.indiceC = 0;
+
+  /*-------- Categories -------*/
+  $scope.categoriesArray = [];
+  $scope.categoriesArray.push({tag:"Todos", _id:"Todos"});
+  for(var i=0; i<allCategories.length; i++){
+    $scope.categoriesArray.push(allCategories[i]);
+  }
+  $scope.allC = $scope.categoriesArray;
+
+  /*-------- Authors -------*/
+  var authorsArray = [];
+  authorsArray.push({name:"Todos", _id:"Todos"});
+  for(var i=0; i<allAuthors.length; i++){
+    authorsArray.push(allAuthors[i]);
+  }
+  $scope.allA = authorsArray;
+
+  $scope.formattedDate = '';
+
+  $scope.changedDate = 'All';
+  $scope.changedAuthor = 'All';
+  $scope.changedCategory = 'All';
+
+  $scope.searchFilters = function()
+  {
+    angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
+
+    $timeout(function() {
+      if($scope.searchTerms != '')
+      {
+        Posts.search($scope.searchTerms).then(function(data){
           $scope.allP=data;
-      });
-      $timeout(function() {
-        angular.element(document.querySelector(".divAllArtigos")).removeClass("animate-flicker");
-      }, 600);
-    }
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
-    $scope.allP = allPosts;
-    $scope.indiceC = 0;
-
-    /*-------- Categories -------*/
-    $scope.categoriesArray = [];
-    $scope.categoriesArray.push({tag:"Todos", _id:"Todos"});
-    for(var i=0; i<allCategories.length; i++){
-      $scope.categoriesArray.push(allCategories[i]);
-    }
-    $scope.allC = $scope.categoriesArray;
-
-    /*-------- Authors -------*/
-    var authorsArray = [];
-    authorsArray.push({name:"Todos", _id:"Todos"});
-    for(var i=0; i<allAuthors.length; i++){
-      authorsArray.push(allAuthors[i]);
-    }
-    $scope.allA = authorsArray;
-
-    $scope.formattedDate = '';
-
-    $scope.changedDate = 'All';
-    $scope.changedAuthor = 'All';
-    $scope.changedCategory = 'All';
-
-    $scope.searchFilters = function()
-    {
-      angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
-
-      $timeout(function() {
-        if($scope.searchTerms != '')
-        {
-          Posts.search($scope.searchTerms).then(function(data){
-              $scope.allP=data;
-          });
-        }
-        else
-        {
-          Posts.filter('All','All','All').then(function(data){
-              $scope.allP=data;
-          });
-        }
-      }, 400);
-      $timeout(function() {
-        angular.element(document.querySelector(".divAllArtigos")).removeClass("animate-flicker");
-      }, 600);
-    }
-
-    $scope.convertDateToPT = function(date)
-    {
-      var date = new Date(date);
-      return moment(date, "D_M_YYYY").locale('pt-br').format('LLL');
-    }
-
-    var getMonthList = function()
-    {
-      var dates = [];
-      dates.push("Todos");
-
-      for(var i=0; i<allPosts.length; i++)
-      {
-        var post = allPosts[i];
-
-        var date = formatMonthExtended(post.created_at[5]+post.created_at[6])+" de "+post.created_at[0]+post.created_at[1]+post.created_at[2]+post.created_at[3];
-
-        if(dates.indexOf(date) == -1)
-          dates.push(date);
-      }
-      return dates;
-    }
-
-
-    $scope.changedCategories = function(value)
-    {
-      if(value != 'Todos')
-      {
-        $scope.changedCategory = value;
+        });
       }
       else
       {
-        $scope.changedCategory = 'All';
+        Posts.filter('All','All','All').then(function(data){
+          $scope.allP=data;
+        });
       }
+    }, 400);
+    $timeout(function() {
+      angular.element(document.querySelector(".divAllArtigos")).removeClass("animate-flicker");
+    }, 600);
+  }
+
+  $scope.convertDateToPT = function(date)
+  {
+    var date = new Date(date);
+    return moment(date, "D_M_YYYY").locale('pt-br').format('LLL');
+  }
+
+  var getMonthList = function()
+  {
+    var dates = [];
+    dates.push("Todos");
+
+    for(var i=0; i<allPosts.length; i++)
+    {
+      var post = allPosts[i];
+
+      var date = formatMonthExtended(post.created_at[5]+post.created_at[6])+" de "+post.created_at[0]+post.created_at[1]+post.created_at[2]+post.created_at[3];
+
+      if(dates.indexOf(date) == -1)
+      dates.push(date);
+    }
+    return dates;
+  }
 
 
-      angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
+  $scope.changedCategories = function(value)
+  {
+    if(value != 'Todos')
+    {
+      $scope.changedCategory = value;
+    }
+    else
+    {
+      $scope.changedCategory = 'All';
+    }
 
-      $timeout(function() {
+
+    angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
+
+    $timeout(function() {
+      apllyFilter();
+    }, 400);
+  }
+
+  $scope.changedAuthors = function(value)
+  {
+    if(value != 'Todos')
+    {
+      $scope.changedAuthor = value;
+    }
+    else
+    {
+      $scope.changedAuthor = 'All';
+    }
+
+    angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
+
+    $timeout(function() {
+      apllyFilter();
+    }, 400);
+  }
+
+  $scope.changeMonthDropDown = function(value)
+  {
+    if(value != 'Todos')
+    {
+      var month = value.split(" ");
+      var monthFormatted = formatMonthNumeric(month[0]);
+      $scope.changedDate = monthFormatted+month[2];
+    }
+    else
+    {
+      $scope.changedDate = 'All';
+    }
+
+    angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
+
+    $timeout(function() {
+      apllyFilter();
+    }, 400);
+  }
+
+  var formatMonthExtended = function(month)
+  {
+    switch(month)
+    {
+      case('01'):
+      return 'Janeiro';
+      break;
+      case('02'):
+      return 'Fevereiro';
+      break;
+      case('03'):
+      return 'Mar&ccedil;o';
+      break;
+      case('04'):
+      return 'Abril';
+      break;
+      case('05'):
+      return 'Maio';
+      break;
+      case('06'):
+      return 'Junho';
+      break;
+      case('07'):
+      return 'Julho';
+      break;
+      case('08'):
+      return 'Agosto';
+      break;
+      case('09'):
+      return 'Setembro';
+      break;
+      case('10'):
+      return 'Outubro';
+      break;
+      case('11'):
+      return 'Novembro';
+      break;
+      case('12'):
+      return 'Dezembro';
+      break;
+    }
+  }
+
+  var formatMonthNumeric = function(month)
+  {
+    switch(month)
+    {
+      case('Janeiro'):
+      return '01';
+      break;
+      case('Fevereiro'):
+      return '02';
+      break;
+      case('Mar&ccedil;o'):
+      return '03';
+      break;
+      case('Abril'):
+      return '04';
+      break;
+      case('Maio'):
+      return '05';
+      break;
+      case('Junho'):
+      return '06';
+      break;
+      case('Julho'):
+      return '07';
+      break;
+      case('Agosto'):
+      return '08';
+      break;
+      case('Setembro'):
+      return '09';
+      break;
+      case('Outubro'):
+      return '10';
+      break;
+      case('Novembro'):
+      return '11';
+      break;
+      case('Dezembro'):
+      return '12';
+      break;
+    }
+  }
+
+  if(hasCategory){
+    $scope.changedCategory = hasCategory;
+    for(i=0;i< $scope.categoriesArray.length; i++){
+      if($scope.categoriesArray[i]._id == hasCategory){
+        $scope.indiceC = i;
         apllyFilter();
-      }, 400);
-    }
-
-    $scope.changedAuthors = function(value)
-    {
-      if(value != 'Todos')
-      {
-        $scope.changedAuthor = value;
-      }
-      else
-      {
-        $scope.changedAuthor = 'All';
-      }
-
-      angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
-
-      $timeout(function() {
-        apllyFilter();
-      }, 400);
-    }
-
-    $scope.changeMonthDropDown = function(value)
-    {
-      if(value != 'Todos')
-      {
-        var month = value.split(" ");
-        var monthFormatted = formatMonthNumeric(month[0]);
-        $scope.changedDate = monthFormatted+month[2];
-      }
-      else
-      {
-        $scope.changedDate = 'All';
-      }
-
-      angular.element(document.querySelector(".divAllArtigos")).addClass("animate-flicker");
-
-      $timeout(function() {
-        apllyFilter();
-      }, 400);
-    }
-
-    var formatMonthExtended = function(month)
-    {
-      switch(month)
-      {
-        case('01'):
-          return 'Janeiro';
-        break;
-        case('02'):
-          return 'Fevereiro';
-        break;
-        case('03'):
-          return 'Mar&ccedil;o';
-        break;
-        case('04'):
-          return 'Abril';
-        break;
-        case('05'):
-          return 'Maio';
-        break;
-        case('06'):
-          return 'Junho';
-        break;
-        case('07'):
-          return 'Julho';
-        break;
-        case('08'):
-          return 'Agosto';
-        break;
-        case('09'):
-          return 'Setembro';
-        break;
-        case('10'):
-          return 'Outubro';
-        break;
-        case('11'):
-          return 'Novembro';
-        break;
-        case('12'):
-          return 'Dezembro';
-        break;
       }
     }
-
-    var formatMonthNumeric = function(month)
-    {
-      switch(month)
-      {
-        case('Janeiro'):
-          return '01';
-        break;
-        case('Fevereiro'):
-          return '02';
-        break;
-        case('Mar&ccedil;o'):
-          return '03';
-        break;
-        case('Abril'):
-          return '04';
-        break;
-        case('Maio'):
-          return '05';
-        break;
-        case('Junho'):
-          return '06';
-        break;
-        case('Julho'):
-          return '07';
-        break;
-        case('Agosto'):
-          return '08';
-        break;
-        case('Setembro'):
-          return '09';
-        break;
-        case('Outubro'):
-          return '10';
-        break;
-        case('Novembro'):
-          return '11';
-        break;
-        case('Dezembro'):
-          return '12';
-        break;
-      }
-    }
-
-    if(hasCategory){
-      $scope.changedCategory = hasCategory;
-      for(i=0;i< $scope.categoriesArray.length; i++){
-        if($scope.categoriesArray[i]._id == hasCategory){
-          $scope.indiceC = i;
-          apllyFilter();
-        }
-      }
-    }
-    $scope.monthList = getMonthList();
+  }
+  $scope.monthList = getMonthList();
 })
-.controller('ArticleCtrl', function ($scope, $log, article, Posts) {
+.controller('ArticleCtrl', function ($scope, $log, article, Posts, ngMeta) {
   document.body.scrollTop = document.documentElement.scrollTop = 0;
   $scope.post = article;
   var meioartigo = article.body.length/2;
@@ -416,6 +416,23 @@ $scope.trimContentTo100Char = function(content)
 
   $scope.mostraRecap = false;
   $scope.mostraRecapSoCat = false;
+
+
+  ngMeta.init();
+  ngMeta.setTitle(article.title);
+  ngMeta.setTag('author', 'Mover-A-Montanha');
+  ngMeta.setTag('image', 'http://165.227.159.6:3000/home/img/moveramontanha_share.png');
+  ngMeta.setTag('description',article.recap);
+  ngMeta.setDefaultTag('author', 'Mover-A-Montanha');
+  //default titleSuffix
+  /*ngMeta.setTitle('Eluvium'); //Title = Eluvium | Playlist
+  //Clear the default titleSuffix
+  ngMeta.setTitle('Eluvium',''); //Title = Eluvium
+
+  ngMeta.setTag('author', 'Matthew Cooper');
+  ngMeta.setTag('image', 'http://placeholder.com/abc.jpg');
+
+  ngMeta.setDefaultTag('author', 'Default author');*/
 
   if($scope.post.recap == '' || $scope.post.recap == undefined){
     $scope.mostraRecap = false;
@@ -446,7 +463,7 @@ $scope.trimContentTo100Char = function(content)
     $scope.post2TemVideo = false;
   }
 
-	$scope.authorPosts = Posts.author($scope.post.author._id).then(function(data){
+  $scope.authorPosts = Posts.author($scope.post.author._id).then(function(data){
     $scope.postsAuthor = data;
   });
 
@@ -496,16 +513,16 @@ $scope.trimContentTo100Char = function(content)
     var subscriber = { email:'' };
     subscriber.email = $scope.email;
     Subscribers.add(subscriber).then(function(data){
-        if(!data.code)
-        {
-          Subscribers.email(subscriber).then(function(data){
-              alert('Obrigado por subscrever ao blog Mover-A-Montanha!');
-          });
-        }
-        else if(data.code == '11000')
-        {
-          alert('Este e-mail já se encontra na nossa base-de-dados.');
-        }
+      if(!data.code)
+      {
+        Subscribers.email(subscriber).then(function(data){
+          alert('Obrigado por subscrever ao blog Mover-A-Montanha!');
+        });
+      }
+      else if(data.code == '11000')
+      {
+        alert('Este e-mail já se encontra na nossa base-de-dados.');
+      }
     });
 
   }

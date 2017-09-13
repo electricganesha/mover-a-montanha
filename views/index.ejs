@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
 
-  <title>Mover a Montanha</title>
-  <meta name="description" content="Mover a montanha é um desafio da cidadania, um imperativo de consciência e uma forma de participar na vida do país e dos seus problemas. Isentos tanto quanto possível, responsáveis pela palavra dita e escrita sempre, como fio condutor o amor por Portugal.">
-  <meta name="author" content="PUSHVFX">
-  <meta property="og:image" content="http://165.227.159.6:3000/home/img/moveramontanha_share.png">
+  <title ng-bind="ngMeta.title"></title>
+  <meta name="description" content="{{ngMeta['description']}}">
+  <meta name="author" content="{{ngMeta['author']}}">
+  <meta property="og:image" content="{{ngMeta['image']}}">
   <link href="https://fonts.googleapis.com/css?family=Raleway:700,800" rel="stylesheet">
   <!-- Mobile First -->
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
@@ -52,6 +52,7 @@
   <script src='../modules/textangular/textAngular-rangy.min.js'></script>
   <script src='../modules/textangular/textAngular-sanitize.min.js'></script>
   <script src='../modules/textangular/textAngular.min.js'></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-meta/1.0.2/ngMeta.min.js"></script>
 
   <script src="../modules/ng-toast/ngToast.js"></script>
 

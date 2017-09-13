@@ -9,7 +9,8 @@ var app = angular.module('mean-blog.home', [
 	'720kb.socialshare',
 	'mean-blog.subscribers',
 	'slickCarousel',
-	'textAngular'
+	'textAngular',
+	'ngMeta'
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
@@ -18,6 +19,12 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 		.state('home', {
 			url: "/",
 			templateUrl: "/home/templates/main.html",
+			data: {
+	      meta: {
+	        'title': 'Home page',
+	        'description': 'This is the description shown in Google search results'
+	    	}
+			},
 			resolve: {
 				postList: function($stateParams, Posts){
 
@@ -76,6 +83,12 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 		url: "/about",
 		templateUrl: "/home/templates/about.html",
 		controller: 'AboutCtrl',
+		data: {
+      meta: {
+        'title': 'Home page',
+        'description': 'This is the description shown in Google search results'
+    	}
+		}
 	})
 	.state('authors', {
 		url: "/authors",
@@ -130,6 +143,12 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 	.state('article', {
 		url: "/article/:id",
 		templateUrl: "/home/templates/article.html",
+		data: {
+      meta: {
+        'title': 'Home page',
+        'description': 'This is the description shown in Google search results'
+    	}
+		},
 		resolve: {
 			article: function($stateParams, Posts){
 				return Posts.one($stateParams.id).then(function(data){
