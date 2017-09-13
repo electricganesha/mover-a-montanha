@@ -13,7 +13,7 @@
   <div id="artigoautorbio" >
     <p style="text-transform: uppercase;"> Artigos deste autor </p>
     <br>
-    <a href="/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor" ng-if="postsAuthor.length > 0 && otherPost.isDraft">
+    <a href="/#!/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor" ng-if="postsAuthor.length > 0 && otherPost.isDraft">
       <p style="width: 85%; margin: auto auto 10px;">{{ otherPost.title }}</p>
     </a>
     <p ng-if="postsAuthor.length <= 0 || !authorHasDrafts">Sem artigos</p>
@@ -30,7 +30,7 @@
 <div id="artigoautorbiomobile" >
   <p style="text-transform: uppercase;"> Artigos deste autor </p>
   <br>
-  <a href="/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor" ng-if="postsAuthor.length > 0 && otherPost.isDraft">
+  <a href="/#!/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor" ng-if="postsAuthor.length > 0 && otherPost.isDraft">
     <p>{{ otherPost.title }}</p>
   </a>
   <p ng-if="postsAuthor.length <= 0 || !authorHasDrafts">Sem artigos</p>

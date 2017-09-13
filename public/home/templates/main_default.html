@@ -3,7 +3,7 @@
   <div id="headerimghome" style="width:100%;">
     <div class="col-sm-12 col-md-4 col-lg-3" style="text-align: center;">
       <div id="bandaauthor">
-        <a href="/author/{{firstPost.author._id}}" style="text-decoration: none;">
+        <a href="/#!/author/{{firstPost.author._id}}" style="text-decoration: none;">
           <img id="autorfotoarticle" style="margin:auto; margin-top: 76px;" src="{{ firstPost.author.photo  }}"></img>
           <br>
           <p id="autornamearticle">{{ firstPost.author.name}}</p>
@@ -16,14 +16,14 @@
       <div id="homebodyarticle" ta-bind ng-model="firstPost.body" ng-if="temVideo"></div>
     </div>
     <div id="gradient" class="col-md-12 col-lg-12">
-          <a href="/article/{{firstPost._id}}" style="position: absolute; left: 0; right: 0;"><div id="buttonseemore">Ler Mais</div></a>
+          <a href="/#!/article/{{firstPost._id}}" style="position: absolute; left: 0; right: 0;"><div id="buttonseemore">Ler Mais</div></a>
     </div>
     <div class="col-md-12 col-lg-12" style="background-color:#2E71F2; color:white; text-align:center;">
       <br>
       <p style="color: white; font-family: 'Raleway', sans-serif; text-transform: uppercase; padding-top:15px; font-size: 19px">Os nossos Autores</p>
       <div id="listaAutores">
-        <p ng-repeat="author in authors" ng-if="$index < authors.length - 1" style="display: inline-block;"><a id="authorlink" href="/author/{{author._id}}">{{ author.name }}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
-        <p ng-repeat="author in authors" ng-if="$index == authors.length - 1" style="display: inline-block;"><a id="authorlink" href="/author/{{author._id}}">{{ author.name }}</a></p>
+        <p ng-repeat="author in authors" ng-if="$index < authors.length - 1" style="display: inline-block;"><a id="authorlink" href="/#!/author/{{author._id}}">{{ author.name }}</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</p>
+        <p ng-repeat="author in authors" ng-if="$index == authors.length - 1" style="display: inline-block;"><a id="authorlink" href="/#!/author/{{author._id}}">{{ author.name }}</a></p>
       </div>
       <br>
     </div>
@@ -33,7 +33,7 @@
   <div id="slideposts">
     <div class="slick-container">
       <slick settings="slickConfig">
-        <a style="text-decoration: none; color:#3b3d40; outline: none;" ng-href="/article/{{post._id}}" ng-repeat="post in activePosts track by $index" ng-if="post.author.name != 'Outros'">
+        <a style="text-decoration: none; color:#3b3d40; outline: none;" ng-href="/#!/article/{{post._id}}" ng-repeat="post in activePosts track by $index" ng-if="post.author.name != 'Outros'">
           <div class="slick-item box" style="text-align: center; outline: 0;">
             <div class="stay-in-place">
               <img class="autorfotoarticle" ng-src="{{post.author.photo}}" style="margin: auto;"></img>
