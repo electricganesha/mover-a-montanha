@@ -692,7 +692,7 @@ adminApp.controller('AllAuthorsCtrl', function($scope, authorList, Authors, ngTo
 
 // SUBSCRIBERS
 
-adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subscribers, Services, mailConfig, MailConfig){
+adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, ngToast, Subscribers, Services, mailConfig, MailConfig){
 
 	$('input.timepicker').timepicker({
 		timeFormat: 'H:mm',
@@ -708,7 +708,16 @@ adminApp.controller('AllSubscribersCtrl', function($scope, subscriberList, Subsc
 
 		$scope.saveConfig = function(updatedMailConfig)
 		{
-			MailConfig.update(mailConfig[0]._id, updatedMailConfig).then(function(res){});
+			MailConfig.update(mailConfig[0]._id, updatedMailConfig).then(function(res)
+			{
+				if(res.message != undefined)
+				{
+					ngToast.create(res.message);
+				}
+				else {
+					ngToast.create("Configura&ccedil;&atilde;o Alterada com Sucesso");
+				}
+			});
 		}
 
 		$scope.updateEmailHour = function()

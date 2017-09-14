@@ -58,7 +58,7 @@ module.exports = function(apiRouter){
 
 			mailConfig.save(function(err,newMailConfig){
 				if(err) res.send(err);
-				res.json({ message: 'Mail Config updated!' });
+				res.json({ message: 'Configura&ccedil;&atilde;o Guardada com Sucesso!' });
 			})
 		});
 	});

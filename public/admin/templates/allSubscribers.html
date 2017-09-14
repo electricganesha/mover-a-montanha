@@ -37,8 +37,7 @@
                             <p><b> Password:</b><input class='form-control' ng-model="mailConfig[0].password" type="password" value="{{ mailConfig[0].password }}"></input></p>
                             <div>
                             <p><u>Hora de envio de e-mail automático:</u></p>
-                            <input style="margin-bottom:1vh;" id="timepicker" type="text" class="timepicker" ng-model="mailConfig[0].emailHour" placeholder=" Alterar hora"></input>
-                            <div ng-click="updateEmailHour()" class="btn btn-primary"> Alterar Hora </div>
+                            <input style="margin-bottom:1vh;" id="timepicker" type="text" class="timepicker" ng-change="updateEmailHour()" ng-model="mailConfig[0].emailHour" placeholder=" Alterar hora"></input>
                             <p><u> Hora actual de envio : </u></p>
                             <span ng-show="mailConfig[0].emailHour" ng-model="mailConfig[0].emailHour">
                             <span>Todos os dias &aacute;s&nbsp;</span>
