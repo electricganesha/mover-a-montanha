@@ -1,5 +1,4 @@
 //CRON JOB PARA ENVIAR EMAIL COM NEWSLETTER
-
 var CronJob = require('cron').CronJob;
 var nodemailer = require('nodemailer');
 var Post = require('./models/post');
@@ -78,7 +77,10 @@ module.exports = function(){
       {
         var post = posts[i];
 
-        digest += '<a href="http://165.227.159.6/article/'+post._id+'"><h3 style="display:inline;">'+ post.title +'</h3><h4 style="display:inline;>por '+post.author.name+'</h4></a><p><i>&#8220;'+post.recap+'&#8221;</i></p><br>'
+        var postDate = new Date(post.created_at);
+        var postDateFormatted = postDate.getUTCDate() + "/" + postDate.getUTCMonth() + "/" + postDate.getUTCFullYear();
+
+        digest += '<hr><br><br><div style="text-align:center"><a href="http://165.227.159.6/!#/article/'+post._id+'"><h3 style="display:inline;">'+ post.title +'</h3></a><p><h5 style="display:inline">por '+post.author.name+'</h5><h6 style="display:inline"> a '+postDateFormatted+'</h6><p>&#8220;<i>'+post.recap+'</i>&#8221;</p><br>';
       }
 
       var data = new Date();
@@ -90,7 +92,7 @@ module.exports = function(){
 
         body = mailConfig.header+
         digest
-        +'<p><strong>Este email foi enviado de forma autom&aacute;tica atrav&eacute;s do nosso servidor de email.</strong></p><p>&nbsp;</p><p>Se n&atilde;o deseja receber esta newsletter, por favor <a href="http://localhost:3004/api/unsubscribe/'+subscriber._id+'">remova a sua subscri&ccedil;&atilde;o aqui.</a></p>';
+        +'<div style="text-align:center; padding:70px; background-image:url(http://165.227.159.6/home/img/footerimg.jpg); color:white;"><p><strong>Este email foi enviado de forma autom&aacute;tica atrav&eacute;s do nosso servidor de email.</strong></p><p>&nbsp;</p><p>Se n&atilde;o deseja receber esta newsletter, por favor <a style="color:white" href="http://165.227.159.6/api/unsubscribe/'+subscriber._id+'">remova a sua subscri&ccedil;&atilde;o aqui.</a></p><div></body>';
 
         if(posts.length > 0)
         {

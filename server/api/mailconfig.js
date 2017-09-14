@@ -1,4 +1,5 @@
 var MailConfig = require('../models/mailconfig');
+var cron = require('../../cronJobs');
 
 // Subscriber API
 module.exports = function(apiRouter){
@@ -58,6 +59,7 @@ module.exports = function(apiRouter){
 
 			mailConfig.save(function(err,newMailConfig){
 				if(err) res.send(err);
+				cron.mailerCronJob();
 				res.json({ message: 'Configura&ccedil;&atilde;o Guardada com Sucesso!' });
 			})
 		});
@@ -69,7 +71,6 @@ module.exports = function(apiRouter){
 			_id: req.params.id
 		}, function(err, mailconfig){
 			if(err) res.send(err);
-
 			res.json({ message: 'Mail Config deleted!' });
 		})
 	});
