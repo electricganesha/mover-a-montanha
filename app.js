@@ -81,7 +81,7 @@ app.listen(envConfig.port, function(){
   console.log('Server listening on port ' + envConfig.port)
 });
 
-cron.mailerCronJob();
 cron.autoPubCronJob();
+cron.mailerCronJob();
 
 module.exports = app;

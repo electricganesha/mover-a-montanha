@@ -43,10 +43,12 @@ var exports = module.exports = {};
       }
     });
   };
+
   exports.autoPubCronJob = function()
   {
     //CRON JOBS - PUBLICACOES
-    var crontimePub = "00 */5 * * * *"; //a cada 5 minutos
+    var crontimePub = "*/5 * * * *"; //a cada 5 minutos
+    console.log("AUTO PUBLICACAO PROGRAMADA PARA: " +crontimePub);
     var jobsPub = [
       new CronJob({
         cronTime: crontimePub,

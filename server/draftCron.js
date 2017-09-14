@@ -27,11 +27,11 @@ module.exports = function(){
           posts[i].isDraft = true;
           posts[i].isAuto = false;
 
-          posts[i].save(function(err){
-    				if(err) res.send(err);
+          console.log('PUBLICADO ARTIGO '+posts[i].title+" programado para publicação em "+posts[i].programmed_to_post);
 
-    				console.log('post updated');
-    			})
+          posts[i].save(function(err){
+            if(err) res.send(err);
+          })
         }
       }
     }
