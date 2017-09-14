@@ -97,14 +97,16 @@ MailConfig.find()
   else
   {
     mailConfig = result[0];
-
+    //console.log(mailConfig);
     //CRON JOBS EMAIL
     var hour = mailConfig.emailHour.split(':');
-    var crontime = "00 "+hour[1]+" "+hour[0]+" * * 0-6"; //todos os dias as 14:00 (segunda a domingo)
+    var crontime = hour[1]+" "+hour[0]+" * * 0-6"; //todos os dias as 14:00 (segunda a domingo)
+    console.log(crontime);
     var jobs = [
       new CronJob({
         cronTime: crontime,
         onTick: function() {
+          console.log("A ENVIAR EMAILS AUTOMATICOS");
           mailingListJob();
         },
         start: false, //don't start immediately

@@ -21,6 +21,8 @@ var transporter = nodemailer.createTransport({
 
 module.exports = function(){
 
+  console.log("A iniciar processo de emails");
+
   var subscribers = '';
 
   Subscribers.find()
@@ -60,7 +62,7 @@ module.exports = function(){
   var yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
 
-  Post.find({ created_at : { $lte: Date.now().toString() , $gte: yesterday.toString() } }).sort('-created_at')
+  Post.find({ created_at : { $lte: Date.now().toString() , $gte: yesterday.toString() } }).sort('-created_at').populate('author')
   .exec(function(err, posts){
 
     if(err)
@@ -69,22 +71,14 @@ module.exports = function(){
     }
     else
     {
-
       var body = '';
       var digest = '';
-
-      var trimContentTo140Char = function(content)
-    	{
-    		var trimmedContent = content.substr(0, 140);
-    		trimmedContent = trimmedContent + "...";
-    		return trimmedContent;
-    	}
 
       for(var i=0; i<posts.length; i++)
       {
         var post = posts[i];
 
-        digest += '<a href="http://localhost:3004/article/'+post._id+'"><h3>'+ post.title +'</h3><h4>por '+post.author+'</h4></a><p>'+trimContentTo140Char(post.body)+'</p><br>'
+        digest += '<a href="http://165.227.159.6/article/'+post._id+'"><h3 style="display:inline;">'+ post.title +'</h3><h4 style="display:inline;>por '+post.author.name+'</h4></a><p><i>&#8220;'+post.recap+'&#8221;</i></p><br>'
       }
 
       var data = new Date();
@@ -94,7 +88,7 @@ module.exports = function(){
       {
         var subscriber = subscribers[i];
 
-        body = mailConfig.body+
+        body = mailConfig.header+
         digest
         +'<p><strong>Este email foi enviado de forma autom&aacute;tica atrav&eacute;s do nosso servidor de email.</strong></p><p>&nbsp;</p><p>Se n&atilde;o deseja receber esta newsletter, por favor <a href="http://localhost:3004/api/unsubscribe/'+subscriber._id+'">remova a sua subscri&ccedil;&atilde;o aqui.</a></p>';
 
