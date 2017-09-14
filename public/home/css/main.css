@@ -24,6 +24,7 @@
   border: none;
   margin: 0;
   float: none;
+  font-size:14px !important;
 }
 
 #menu-link:after{
@@ -69,7 +70,7 @@ header {
 
 nav {
     position: relative;
-    width: 980px;
+    width: 88%;
     margin: 0 auto;
 }
 
