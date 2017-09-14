@@ -1,4 +1,4 @@
-var authorsModule = angular.module('mean-blog.authors', []);
+var authorsModule = angular.module('moveramontanha.authors', []);
 
 authorsModule.service('Authors', function($http){
 

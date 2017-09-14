@@ -1,4 +1,4 @@
-var subscribersModule = angular.module('mean-blog.subscribers', []);
+var subscribersModule = angular.module('moveramontanha.subscribers', []);
 
 subscribersModule.service('Subscribers', function($http){
 

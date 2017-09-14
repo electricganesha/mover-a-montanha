@@ -1,4 +1,4 @@
-var usersModule = angular.module('mean-blog.users', []);
+var usersModule = angular.module('moveramontanha.users', []);
 
 usersModule.service('Users', function($http){
 	return {

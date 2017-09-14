@@ -1,4 +1,4 @@
-var postsModule = angular.module('mean-blog.posts', []);
+var postsModule = angular.module('moveramontanha.posts', []);
 
 postsModule.service('Posts', function($http){
 

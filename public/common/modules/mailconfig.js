@@ -1,4 +1,4 @@
-var mailConfigModule = angular.module('mean-blog.mailconfig', []);
+var mailConfigModule = angular.module('moveramontanha.mailconfig', []);
 
 mailConfigModule.service('MailConfig', function($http){
 

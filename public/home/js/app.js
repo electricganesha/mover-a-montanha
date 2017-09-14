@@ -1,13 +1,13 @@
-var app = angular.module('mean-blog.home', [
+var app = angular.module('moveramontanha.home', [
 	'ui.router',
 	'ngSanitize',
 	'btford.markdown',
-	'mean-blog.posts',
-	'mean-blog.authors',
-	'mean-blog.services',
-	'mean-blog.categories',
+	'moveramontanha.posts',
+	'moveramontanha.authors',
+	'moveramontanha.services',
+	'moveramontanha.categories',
 	'720kb.socialshare',
-	'mean-blog.subscribers',
+	'moveramontanha.subscribers',
 	'slickCarousel',
 	'textAngular',
 	'ngMeta'

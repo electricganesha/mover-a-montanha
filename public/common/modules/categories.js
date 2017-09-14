@@ -1,4 +1,4 @@
-var categoriesModule = angular.module('mean-blog.categories', []);
+var categoriesModule = angular.module('moveramontanha.categories', []);
 
 categoriesModule.service('Categories', function($http){
 
