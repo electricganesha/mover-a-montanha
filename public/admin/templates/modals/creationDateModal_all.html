@@ -1,0 +1,16 @@
+<div class="modal-content" style="padding:1vw;">
+  <div style="display:inline-block; width:100%;">
+    <div class="col-md-12" style="text-align:center;">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-8">
+        <h1>Data de Cria&ccedil;&atilde;o</h1>
+        <h5 style="margin-top:0px;  margin-top:2vh;">{{ activePost.created_at | date :  "MMM d, y - HH:mm"}}</h5>
+        <input style="margin-bottom:1vh; text-align:center;" id="timepicker" type="text" class="timepicker" ng-change="updateEmailHour(creationHour)" ng-model="creationHour" placeholder=" Alterar hora"></input>
+        <datepicker style="text-align:center; margin:auto; margin-bottom:4vh;" ng-click="closeModal()" ng-model="activePost.created_at" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+      </div>
+      <div class="col-md-2">
+      </div>
+    </div>
+  </div>
+</div>

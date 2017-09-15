@@ -486,15 +486,20 @@ module.exports = function(apiRouter){
 	// add a post
 	apiRouter.post('/posts', function(req, res){
 
+		console.log(req.body);
+
 		var post = new Post();
 		post.title = req.body.title;
 		post.author = req.body.author;
 		post.body = req.body.body;
+		post.created_at = req.body.created_at;
 		post.programmed_to_post = req.body.programmed_to_post;
 		post.isDraft = req.body.isDraft;
 		post.isAuto = req.body.isAuto;
 		post.recap = req.body.recap;
 		post.categories = req.body.tags;
+
+		console.log(post);
 
 		post.save(function(err, post){
 			if(err) res.send(err);
@@ -519,6 +524,7 @@ module.exports = function(apiRouter){
 
 			post.title = req.body.title;
 			post.body = req.body.body;
+			post.created_at = req.body.created_at;
 			post.programmed_to_post = req.body.programmed_to_post;
 			post.isDraft = req.body.isDraft;
 			post.isAuto = req.body.isAuto;
