@@ -406,7 +406,7 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
   }
   $scope.monthList = getMonthList();
 })
-.controller('ArticleCtrl', function ($scope, $log, article, Posts, ngMeta) {
+.controller('ArticleCtrl', function ($scope, $log, article, Posts) {
   document.body.scrollTop = document.documentElement.scrollTop = 0;
   $scope.post = article;
   var meioartigo = article.body.length/2;

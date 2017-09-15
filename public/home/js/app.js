@@ -9,8 +9,8 @@ var app = angular.module('moveramontanha.home', [
 	'720kb.socialshare',
 	'moveramontanha.subscribers',
 	'slickCarousel',
-	'textAngular',
-	'ngMeta'
+	'textAngular'
+	//'ngMeta'
 ]);
 
 app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
