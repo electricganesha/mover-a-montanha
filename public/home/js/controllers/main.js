@@ -418,21 +418,12 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
   $scope.mostraRecapSoCat = false;
 
 
-  ngMeta.init();
+  /*ngMeta.init();
   ngMeta.setTitle(article.title);
   ngMeta.setTag('author', 'Mover-A-Montanha');
   ngMeta.setTag('image', 'http://165.227.159.6:3000/home/img/moveramontanha_share.png');
   ngMeta.setTag('description',article.recap);
-  ngMeta.setDefaultTag('author', 'Mover-A-Montanha');
-  //default titleSuffix
-  /*ngMeta.setTitle('Eluvium'); //Title = Eluvium | Playlist
-  //Clear the default titleSuffix
-  ngMeta.setTitle('Eluvium',''); //Title = Eluvium
-
-  ngMeta.setTag('author', 'Matthew Cooper');
-  ngMeta.setTag('image', 'http://placeholder.com/abc.jpg');
-
-  ngMeta.setDefaultTag('author', 'Default author');*/
+  ngMeta.setDefaultTag('author', 'Mover-A-Montanha');*/
 
   if($scope.post.recap == '' || $scope.post.recap == undefined){
     $scope.mostraRecap = false;
