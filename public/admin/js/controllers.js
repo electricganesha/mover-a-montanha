@@ -295,6 +295,12 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 		}else{
 			post.isDraft = true;
 		}
+
+		if(post.isDraft)
+			post.isAuto = false;
+		else
+			post.isAuto = true;
+
 		Posts.update(post._id, post).then(function(res){});
 	}
 
@@ -305,6 +311,12 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 		}else{
 			post.isAuto = true;
 		}
+
+		if(post.isAuto)
+			post.isDraft = false;
+		else
+			post.isDraft = true;
+
 		Posts.update(post._id, post).then(function(res){});
 	}
 
@@ -650,11 +662,19 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 			$scope.draftIt = function(post)
 			{
 				post.isDraft = !post.isDraft;
+				if(post.isDraft)
+					post.isAuto = false;
+				else
+					post.isAuto = true;
 			}
 
 			$scope.changePubMode = function(post)
 			{
 				post.isAuto = !post.isAuto;
+				if(post.isAuto)
+					post.isDraft = false;
+				else
+					post.isDraft = true;
 			}
 
 			$scope.addPost = function(newPost){
