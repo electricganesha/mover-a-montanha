@@ -1,50 +1,66 @@
-app.controller('MainCtrl', function ($scope, $log, postList, authorList, category, author, Services) {
-
-  document.body.scrollTop = document.documentElement.scrollTop = 0;
-  $scope.initMenu = function () {
-    (function($) {
-      var isLargeWindow;
-      $(document).ready(function(){
-        if($(this).width() > 1015){
-          isLargeWindow = true;
-        }else{
-          isLargeWindow = false;
-        }
-        $("#cssmenu").menumaker({
-          format: "multitoggle"
-        });
-      });
-      $.fn.menumaker = function(options) {
-        var cssmenu = $(this), settings = $.extend({
-          format: "dropdown",
-          sticky: false
-        }, options);
-        return this.each(function() {
-          $(this).find(".button").on('click', function(){
-            $(this).toggleClass('menu-opened');
-            var mainmenu = $(this).next('ul');
-            if (mainmenu.hasClass('open')) {
-              mainmenu.slideToggle().removeClass('open');
-            } else {
-              mainmenu.slideToggle().addClass('open');
-              if (settings.format === "dropdown") {
-                mainmenu.find('ul').show();
-              }
-            }
-          }),
-          $("#cssmenu ul").on("click", "li", function () {
-            if (!isLargeWindow){
-              var mainmenu = $("#cssmenu").next('ul');
-              $("#cssmenu ").find(".button").removeClass('menu-opened');
-              $("#cssmenu ul").slideToggle().removeClass('open');
-            }
+app.factory('initMenu', function(){
+  return {
+      init: function () {
+        (function($) {
+          $(window).scroll(function() {
+            var addRemClass = $(window).scrollTop() > 300 ? 'addClass' : 'removeClass';
+            $("header")[addRemClass]('muda');
+          });
+        })(jQuery);
+      (function($) {
+        $('.button').off('click');
+        $("#cssmenu ul li").off('click');
+        var isLargeWindow;
+        $(document).ready(function(){
+          if($(this).width() > 1015){
+            isLargeWindow = true;
+          }else{
+            isLargeWindow = false;
+          }
+          $("#cssmenu").menumaker({
+            format: "multitoggle"
           });
         });
-      };
-    })(jQuery);
-  };
+        $.fn.menumaker = function(options) {
+          var cssmenu = $(this), settings = $.extend({
+            format: "dropdown",
+            sticky: false
+          }, options);
+          return this.each(function() {
+            $(this).find(".button").on('click', function(){
+              console.log("clickei");
+              var mainmenu = $(this).next('ul');
+              console.log(mainmenu);
+              $(this).toggleClass('menu-opened');
+              if (mainmenu.hasClass('open')) {
+                mainmenu.slideToggle().removeClass('open');
+                console.log("entrei remove class");
+              } else {
+                console.log("entrei add class");
+                mainmenu.slideToggle().addClass('open');
+                if (settings.format === "dropdown") {
+                  mainmenu.find('ul').show();
+                }
+              }
+            }),
+            $("#cssmenu ul li").on("click", function () {
+              if (!isLargeWindow){
+                $("#cssmenu").find(".button").removeClass('menu-opened');
+                $("#cssmenu ul").slideToggle().removeClass('open');
+              }
+            });
+          });
+        };
+      })(jQuery);
+    }
+  }
+});
 
-  $scope.initMenu();
+app.controller('MainCtrl', function ($scope, $log, postList, authorList, category, author, Services, initMenu) {
+
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
+  
+  initMenu.init();
 
   $scope.slickConfig = {
     infinite: true,
@@ -140,12 +156,14 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
   }
 
 })
-.controller('AuthorsCtrl', function ($scope, $log, authorList) {
+.controller('AuthorsCtrl', function ($scope, $log, authorList, initMenu) {
   $scope.authors = authorList;
   document.body.scrollTop = document.documentElement.scrollTop = 0;
+  initMenu.init();
 })
-.controller('AuthorCtrl', function ($scope, $log, author, Posts) {
+.controller('AuthorCtrl', function ($scope, $log, author, Posts, initMenu) {
   document.body.scrollTop = document.documentElement.scrollTop = 0;
+  initMenu.init();
   $scope.author = author;
   $scope.mostraQuote = false;
 
@@ -167,10 +185,11 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
     }
   });
 })
-.controller('AboutCtrl', function ($scope, $log) {
+.controller('AboutCtrl', function ($scope, $log, initMenu) {
   document.body.scrollTop = document.documentElement.scrollTop = 0;
+  initMenu.init();
 })
-.controller('ArticlesCtrl', function ($scope, $log, allPosts, allCategories, allAuthors, Posts, $timeout, hasCategory) {
+.controller('ArticlesCtrl', function ($scope, $log, allPosts, allCategories, allAuthors, Posts, $timeout, hasCategory, initMenu) {
   var apllyFilter = function (){
     Posts.filter($scope.changedDate,$scope.changedAuthor,$scope.changedCategory).then(function(data){
       $scope.allP=data;
@@ -180,6 +199,7 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
     }, 600);
   }
   document.body.scrollTop = document.documentElement.scrollTop = 0;
+  initMenu.init();
   $scope.allP = allPosts;
   $scope.indiceC = 0;
 
@@ -406,8 +426,9 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
   }
   $scope.monthList = getMonthList();
 })
-.controller('ArticleCtrl', function ($scope, $log, article, Posts) {
+.controller('ArticleCtrl', function ($scope, $log, article, Posts, initMenu) {
   document.body.scrollTop = document.documentElement.scrollTop = 0;
+  initMenu.init();
   $scope.post = article;
   var meioartigo = article.body.length/2;
   var brDoMeio = article.body.indexOf("<br/>", meioartigo);
@@ -464,8 +485,9 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
     return moment(date, "D_M_YYYY").locale('pt-br').format('LLL');
   }
 })
-.controller('ContactCtrl', function ($scope, $log, Services) {
+.controller('ContactCtrl', function ($scope, $log, Services, initMenu) {
   document.body.scrollTop = document.documentElement.scrollTop = 0;
+  initMenu.init();
 
   $scope.contactName = '';
   $scope.contactEmail = '';
