@@ -8,13 +8,13 @@ var MailConfig = require('./models/mailconfig');
 var nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
-  service: 'Gmail',
-  //host: 'smtp.gmail.com',
-  //port: 465,
-  //secure: true, // secure:true for port 465, secure:false for port 587
+  //service: 'Gmail',
+  host: 'mail.gandi.net',
+  port: 995,
+  secure: true, // secure:true for port 465, secure:false for port 587
   auth: {
-    user: 'christianmarques@pushvfx.com',
-    pass: 'Pushvfx_1409'
+    user: 'geral@moveramontanha.pt',
+    pass: 'MoverAMontanha#2209'
   }
 });
 
