@@ -438,11 +438,11 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
   $scope.mostraRecap = false;
   $scope.mostraRecapSoCat = false;
 
-
+  //NG META se necessario
   /*ngMeta.init();
   ngMeta.setTitle(article.title);
   ngMeta.setTag('author', 'Mover-A-Montanha');
-  ngMeta.setTag('image', 'http://165.227.159.6:3000/home/img/moveramontanha_share.png');
+  ngMeta.setTag('image', 'http://moveramontanha.pt/home/img/moveramontanha_share.png');
   ngMeta.setTag('description',article.recap);
   ngMeta.setDefaultTag('author', 'Mover-A-Montanha');*/
 
@@ -491,7 +491,7 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
 
   $scope.contactName = '';
   $scope.contactEmail = '';
-  $scope.contactBody = '<html><head><title></title></head><body><p style="text-align: center;"><img src="http://localhost:3004/uploads/images/1503419697227.jpg"/></img></p><p><strong>Caro Administrador de Mover-A-Montanha</strong>,</p><p><strong>Foi efectuado um contacto com proveni&ecirc;ncia na p&aacute;gina de contacto de <a href="http://www.moveramontanha.com">www.moveramontanha.com</a></strong></p><p><strong>A mensagem enviada foi a seguinte:</strong></p><p>&nbsp;</p>';
+  $scope.contactBody = '<html><head><title></title></head><body><p style="text-align: center;"><img src="http://www.moveramontanha.pt/uploads/images/1503419697227.jpg"/></img></p><p><strong>Caro Administrador de Mover-A-Montanha</strong>,</p><p><strong>Foi efectuado um contacto com proveni&ecirc;ncia na p&aacute;gina de contacto de <a href="http://www.moveramontanha.com">www.moveramontanha.com</a></strong></p><p><strong>A mensagem enviada foi a seguinte:</strong></p><p>&nbsp;</p>';
   $scope.contactMessage = '';
 
 
