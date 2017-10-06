@@ -218,6 +218,8 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, postList, Posts, a
 		{
 			var post = postList[i];
 
+			console.log(postList.length);
+
 			console.log(post.created_at);
 
 			var date = formatMonthExtended(post.created_at[5]+post.created_at[6])+" de "+post.created_at[0]+post.created_at[1]+post.created_at[2]+post.created_at[3];
