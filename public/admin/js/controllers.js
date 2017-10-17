@@ -539,7 +539,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 					$scope.updateEmailHour = function(creationHour)
 					{
-						if(creationHour != "")
+						if(creationHour != "" && creationHour.length == 4 && creationHour.indexOf(':') !== -1)
 						{
 							var hourSplit = creationHour.split(':');
 							$scope.activePost.created_at.setHours(parseInt(hourSplit[0]));
@@ -570,9 +570,10 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 						$scope.updateEmailHour = function(autoPubHour)
 						{
-							if(autoPubHour != "")
+							if(autoPubHour != "" && autoPubHour.length == 5 && autoPubHour.indexOf(':') !== -1)
 							{
 								var hourSplit = autoPubHour.split(':');
+
 								$scope.activePost.programmed_to_post.setHours(parseInt(hourSplit[0]));
 								$scope.activePost.programmed_to_post.setMinutes(parseInt(hourSplit[1]));
 							}
@@ -715,9 +716,10 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 							$scope.updateEmailHour = function(creationHour)
 							{
-								if(creationHour != "")
+								if(creationHour != "" && creationHour.length == 5 && creationHour.indexOf(':') !== -1)
 								{
 									var hourSplit = creationHour.split(':');
+
 									$scope.post.created_at.setHours(parseInt(hourSplit[0]));
 									$scope.post.created_at.setMinutes(parseInt(hourSplit[1]));
 								}
@@ -746,9 +748,10 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 								$scope.updateEmailHour = function(autoPubHour)
 								{
-									if(autoPubHour != "")
+									if(autoPubHour != "" && autoPubHour.length == 5 && autoPubHour.indexOf(':') !== -1)
 									{
 										var hourSplit = autoPubHour.split(':');
+
 										$scope.post.programmed_to_post.setHours(parseInt(hourSplit[0]));
 										$scope.post.programmed_to_post.setMinutes(parseInt(hourSplit[1]));
 									}
