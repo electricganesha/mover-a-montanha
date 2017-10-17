@@ -323,25 +323,62 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 	$scope.editPost = function(id,editedPost){
 
 		editedPost.tags = idsTags;
-		Posts.update(id,editedPost).then(function(res){
-			if(res.message != undefined)
-			{
-				if(res.message == "Post updated!")
-				res.message = "Artigo Actualizado!";
-				ngToast.create(res.message);
-				$scope.title = '';
-				$scope.author = '';
-				$scope.post = {};
-				$scope.posts = postList;
-				$scope.activePost = false;
-				$scope.activePost.tags = [];
-				$scope.tags = [];
-				$scope.updatePosts();
-			}
-			// create a simple toast:
 
-			$scope.showEditionDiv = false;
-		});
+		var isPostOK = true;
+
+		if(editedPost.title == undefined)
+		{
+			ngToast.warning('O artigo deve ter um titulo');
+			isPostOK = false;
+		}
+
+		if(editedPost.created_at == '')
+		{
+			editedPost.created_at = Date.now();
+		}
+
+		if(editedPost.body == undefined)
+		{
+			ngToast.warning('O artigo deve ter um corpo');
+			isPostOK = false;
+		}
+
+		if(editedPost.author == undefined)
+		{
+			ngToast.warning('O artigo deve ter um autor');
+			isPostOK = false;
+		}
+
+		if(isPostOK)
+		{
+			Posts.update(id,editedPost).then(function(res){
+				if(res.message != undefined)
+					{
+						if(res.message == "Post updated!")
+						res.message = "Artigo Actualizado!";
+						ngToast.create(res.message);
+						$scope.title = '';
+						$scope.author = '';
+						$scope.post = {};
+						$scope.posts = postList;
+						$scope.activePost = false;
+						$scope.activePost.tags = [];
+						$scope.tags = [];
+						$scope.updatePosts();
+					}
+					// create a simple toast:
+
+					$scope.showEditionDiv = false;
+				});
+		}
+		else
+		{
+			ngToast.danger('O artigo nao pode ser publicado');
+			ngToast.danger('Resolva os erros e tente de novo');
+		}
+
+
+
 	};
 
 	$scope.removePost = function(id){
@@ -539,7 +576,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 					$scope.updateEmailHour = function(creationHour)
 					{
-						if(creationHour != "")
+						if(creationHour != "" && creationHour.length == 4 && creationHour.indexOf(':') !== -1)
 						{
 							var hourSplit = creationHour.split(':');
 							$scope.activePost.created_at.setHours(parseInt(hourSplit[0]));
@@ -570,9 +607,10 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 						$scope.updateEmailHour = function(autoPubHour)
 						{
-							if(autoPubHour != "")
+							if(autoPubHour != "" && autoPubHour.length == 5 && autoPubHour.indexOf(':') !== -1)
 							{
 								var hourSplit = autoPubHour.split(':');
+
 								$scope.activePost.programmed_to_post.setHours(parseInt(hourSplit[0]));
 								$scope.activePost.programmed_to_post.setMinutes(parseInt(hourSplit[1]));
 							}
@@ -680,19 +718,51 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 			$scope.addPost = function(newPost){
 				newPost.tags = idsTags;
 
-				console.log(newPost);
+				var isPostOK = true;
 
-				Posts.add(newPost).then(function(res){
-					if(res.message != undefined)
-					{
-						ngToast.create(res.message);
-					}
-					else {
-						ngToast.create('Artigo Publicado');
-						$scope.post = {};
-						$scope.isActive('allPosts');
-					}
-				});
+				if(newPost.title == undefined)
+				{
+					ngToast.warning('O artigo deve ter um titulo');
+					isPostOK = false;
+				}
+
+				if(newPost.created_at == '')
+				{
+					newPost.created_at = Date.now();
+				}
+
+				if(newPost.body == undefined)
+				{
+					ngToast.warning('O artigo deve ter um corpo');
+					isPostOK = false;
+				}
+
+				if(newPost.author == undefined)
+				{
+					ngToast.warning('O artigo deve ter um autor');
+					isPostOK = false;
+				}
+
+				if(isPostOK)
+				{
+					Posts.add(newPost).then(function(res){
+						if(res.message != undefined)
+						{
+							ngToast.create(res.message);
+						}
+						else {
+							ngToast.create('Artigo Publicado');
+							$scope.post = {};
+							$scope.isActive('allPosts');
+						}
+					});
+				}
+				else
+				{
+					ngToast.danger('O artigo nao pode ser publicado');
+					ngToast.danger('Resolva os erros e tente de novo');
+				}
+
 			};
 
 			$scope.creationDateModal = function()
@@ -715,9 +785,10 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 							$scope.updateEmailHour = function(creationHour)
 							{
-								if(creationHour != "")
+								if(creationHour != "" && creationHour.length == 5 && creationHour.indexOf(':') !== -1)
 								{
 									var hourSplit = creationHour.split(':');
+
 									$scope.post.created_at.setHours(parseInt(hourSplit[0]));
 									$scope.post.created_at.setMinutes(parseInt(hourSplit[1]));
 								}
@@ -746,9 +817,10 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 								$scope.updateEmailHour = function(autoPubHour)
 								{
-									if(autoPubHour != "")
+									if(autoPubHour != "" && autoPubHour.length == 5 && autoPubHour.indexOf(':') !== -1)
 									{
 										var hourSplit = autoPubHour.split(':');
+
 										$scope.post.programmed_to_post.setHours(parseInt(hourSplit[0]));
 										$scope.post.programmed_to_post.setMinutes(parseInt(hourSplit[1]));
 									}
