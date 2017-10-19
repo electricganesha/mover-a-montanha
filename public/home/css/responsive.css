@@ -35,7 +35,7 @@
         line-height: 43px;
         font-size: 7px;
     }
-  
+
     #textboxsubscribe{
         width: 85%;
     }
@@ -68,7 +68,7 @@
 
     #titleartigos{
        font-size: 19px;
-       width: 90%; 
+       width: 90%;
     }
 
     #nomeData{
@@ -151,8 +151,8 @@
 
     #categoriassemrecap{
         right: 20px;
-        font-size: 15px; 
-        margin-bottom: 0px; 
+        font-size: 15px;
+        margin-bottom: 0px;
         padding-bottom: 15px;
     }
 
@@ -270,7 +270,7 @@
         line-height: 43px;
         font-size: 9px;;
     }
-  
+
     #textboxsubscribe{
         width: 50%;
     }
@@ -303,7 +303,7 @@
 
     #titleartigos{
        font-size: 21px;
-       width: 90%; 
+       width: 90%;
     }
 
     #nomeData{
@@ -393,8 +393,8 @@
 
     #categoriassemrecap{
         right: 20px;
-        font-size: 15px; 
-        margin-bottom: 0px; 
+        font-size: 15px;
+        margin-bottom: 0px;
         padding-bottom: 15px;
     }
 
@@ -512,7 +512,7 @@
         line-height: 43px;
         font-size: 9px;;
     }
-  
+
     #textboxsubscribe{
         width: 50%;
     }
@@ -545,7 +545,7 @@
 
     #titleartigos{
        font-size: 21px;
-       width: 90%; 
+       width: 90%;
     }
 
     #nomeData{
@@ -629,8 +629,8 @@
 
     #categoriassemrecap{
         right: 20px;
-        font-size: 15px; 
-        margin-bottom: 0px; 
+        font-size: 15px;
+        margin-bottom: 0px;
         padding-bottom: 15px;
     }
 
@@ -708,6 +708,12 @@
         font-size: 18px;
     }
 
+    .republicImg
+    {
+      margin-top:10px;
+      height:50px;
+    }
+
 }
 
 
@@ -715,8 +721,9 @@
 
     #linksmenu{
         margin-right:auto;
+        width:55%;
     }
-    
+
     /*----------- Artigo -----------*/
 
     #cabecalhoarticle{

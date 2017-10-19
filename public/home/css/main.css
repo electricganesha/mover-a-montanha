@@ -14,6 +14,10 @@
     src: url(/fonts/CaslonProRegular.ttf);
 }
 
+select{
+    text-align-last:center;
+    direction: ltr;
+}
 /*------------------------- Cabeçalho ----------------------------------*/
 
 
@@ -28,7 +32,7 @@
 }
 
 #linksmenu{
-    float:right; 
+    float:right;
     margin-right:12%;
 }
 
@@ -501,6 +505,11 @@ nav {
     #cssmenu > ul > li.has-sub > ul > li.active > a,
     #cssmenu > ul ul > li.has-sub > ul > li.active > a {
         border-top: none
+    }
+
+    .republicImg
+    {
+      display:none !important;
     }
 }
 
@@ -1349,4 +1358,11 @@ iframe{
    -moz-animation: flickerAnimation 0.8s forwards;
    -o-animation: flickerAnimation 0.8s forwards;
     animation: flickerAnimation 0.8s forwards;
+}
+
+.republicImg
+{
+  margin-top:10px;
+  float:right;
+  height:50px;
 }

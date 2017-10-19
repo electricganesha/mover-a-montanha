@@ -64,6 +64,11 @@ module.exports = function(app, passport){
 		res.render('admin/login');
 	});
 
+	// pwdrecover route
+	router.get('/admin/pwdrecover', function(req, res) {
+		res.render('admin/pwdrecover');
+	});
+
 	router.get('/admin/dashboard', isAdmin, function(req, res){
 		res.render('admin/dashboard', {user: req.user});
 	});

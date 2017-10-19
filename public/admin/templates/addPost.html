@@ -8,7 +8,7 @@
           </div>
           <div class="panel-body">
             <br>
-            <div class='col-sm-6' style="padding-left: 0; padding-right: 0;">
+            <div class='col-sm-8' style="padding-left: 0; padding-right: 0;">
               <div class="col-sm-12">
                 <div class="col-sm-6" style="padding-right: 0;">
                   <input style="margin-bottom:2vh;" type='text' placeholder='T&iacute;tulo' ng-model='post.title' name='title' class='form-control'></input>
@@ -16,7 +16,7 @@
                   data-ng-options="author as author.name for author in authors">
                   <option value="">Escolha o autor</option> <!-- not selected / blank option -->
                 </select>
-                <input type='text' style="height:17vh; margin-top:2vh; margin-bottom:2vh;" placeholder='Resumo do Artigo' ng-model='post.recap' name='title' class='form-control'>
+                <textarea style="height:17vh; margin-top:2vh; margin-bottom:2vh;" placeholder='Resumo do Artigo' ng-model='post.recap' name='title' class='form-control'></textarea>
               </div>
               <div class="col-sm-6">
                 <div style="min-height:26vh;">
@@ -37,18 +37,22 @@
                     <datepicker ng-model="post.programmed_to_post" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
                   </div>
                 </div>
-                <div style="width: 288px; margin:auto;">
-                  <div class='btn pull-right' ng-class="{'btn-success' : post.isAuto, 'btn-danger' : !post.isAuto}" style="float:left !important; margin:0px; cursor:pointer; margin-top:-1vh; margin-bottom:1vh;" ng-click="changePubMode(post)">
-                    <img style="display:inline-block; margin-right:14px;" ng-show="post.isAuto"  ng-src="/home/img/icons/auto.png" alt="Auto Publicação">
-                    <p ng-show="post.isAuto" style="display:inline-block; text-align:center; margin: 0px;">Agendar Pub.</p>
-                    <img style="display:inline-block; margin-right:14px;" ng-show="!post.isAuto"  ng-src="/home/img/icons/manual.png" alt="Publicação Manual">
-                    <p ng-show="!post.isAuto" style="display:inline-block; text-align:center; margin: 0px;">Pub. Manual</p>
+                <div class="col-md-12">
+                  <div class="col-md-6 text-center">
+                    <div class='btn' ng-class="{'btn-success' : post.isAuto, 'btn-danger' : !post.isAuto}" style="cursor:pointer;" ng-click="changePubMode(post)">
+                      <img style="display:inline-block; margin-right:14px;" ng-show="post.isAuto"  ng-src="/home/img/icons/auto.png" alt="Auto Publicação">
+                      <p ng-show="post.isAuto" style="display:inline-block; text-align:center; margin: 0px;">Agendar Pub.</p>
+                      <img style="display:inline-block; margin-right:14px;" ng-show="!post.isAuto"  ng-src="/home/img/icons/manual.png" alt="Publicação Manual">
+                      <p ng-show="!post.isAuto" style="display:inline-block; text-align:center; margin: 0px;">Pub. Manual</p>
+                    </div>
                   </div>
-                  <div class='btn pull-right' ng-class="{'btn-success' : post.isDraft, 'btn-danger' : !post.isDraft}" style="float:right !important; cursor:pointer; margin-top:-1vh; margin-bottom:1vh;" ng-click="draftIt(post)">
-                    <img style="display:inline-block; margin-right:14px;" ng-show="post.isDraft"  ng-src="/home/img/icons/public.png" alt="Rascunho">
-                    <p ng-show="post.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Artigo Visivel</p>
-                    <img style="display:inline-block; margin-right:14px;" ng-show="!post.isDraft"  ng-src="/home/img/icons/private.png" alt="Rascunho">
-                    <p ng-show="!post.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Rascunho</p>
+                  <div class="col-md-6 text-center">
+                    <div class='btn' ng-class="{'btn-success' : post.isDraft, 'btn-danger' : !post.isDraft}" style="cursor:pointer;" ng-click="draftIt(post)">
+                      <img style="display:inline-block; margin-right:14px;" ng-show="post.isDraft"  ng-src="/home/img/icons/public.png" alt="Rascunho">
+                      <p ng-show="post.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Artigo Visivel</p>
+                      <img style="display:inline-block; margin-right:14px;" ng-show="!post.isDraft"  ng-src="/home/img/icons/private.png" alt="Rascunho">
+                      <p ng-show="!post.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Rascunho</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -61,7 +65,7 @@
               <div id="pad" style="height: 30vw;" text-angular ng-model="post.body" placeholder='Escreva o seu artigo aqui...'></div>
             </div>
           </div>
-          <div class='col-md-6'>
+          <div class='col-md-4'>
             <div class="panel panel-default">
               <div class="panel-heading">
                 <h4> Pré-Visualização</h4>

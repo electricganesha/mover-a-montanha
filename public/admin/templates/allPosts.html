@@ -81,32 +81,32 @@
       </div>
       <div class="panel-body" style="margin-top:1.5vh;">
         <div class="col-sm-4" style="float:right; margin:0px;">
-          <div class="col-md-12">
-            <div class="col-md-6" style="cursor:pointer;">
+          <div class="col-md-12 text-center">
+            <div class="col-md-6 text-center" style="cursor:pointer;">
               <img style="width:80%;" ng-init="creationImage = '/home/img/icons/date_creation.png'" src="{{creationImage}}" ng-click="creationDateModal()" ng-mouseover="creationImage = '/home/img/icons/date_creation_hover.png'" ng-mouseout="creationImage = '/home/img/icons/date_creation.png'">
-              <p style="text-align:left; font-size:12px;">{{ activePost.created_at | date :  "MMM d, y - HH:mm" }}</p>
+              <p style="text-align:center; font-size:12px;">{{ activePost.created_at | date :  "MMM d, y - HH:mm" }}</p>
             </div>
-            <div class="col-md-6" style="cursor:pointer;">
+            <div class="col-md-6 text-center" style="cursor:pointer;">
               <img style="width:80%;" ng-init="autoImage = '/home/img/icons/date_auto.png'" src="{{autoImage}}" ng-disable="!activePost.isAuto" ng-click="autoPublicationModal()" ng-mouseover="autoImage = '/home/img/icons/date_auto_hover.png'" ng-mouseout="autoImage = '/home/img/icons/date_auto.png'">
-              <p ng-show="activePost.isAuto" style="text-align:left; font-size:12px;">{{ activePost.programmed_to_post | date :  "MMM d, y - HH:mm" }}</p>
-              <p ng-show="activePost.isAuto && activePost.programmed_to_post==null" style="text-align:left; font-size:10px;">Por favor escolha uma data e hora para publica&ccedil;&atilde;o</p>
-              <p ng-show="!activePost.isAuto" style="text-align:left; font-size:12px;">N&atilde;o Programado</p>
+              <p ng-show="activePost.isAuto" style="text-align:center; font-size:12px;">{{ activePost.programmed_to_post | date :  "MMM d, y - HH:mm" }}</p>
+              <p ng-show="activePost.isAuto && activePost.programmed_to_post==null" style="text-align:center; font-size:10px;">Por favor escolha uma data e hora para publica&ccedil;&atilde;o</p>
+              <p ng-show="!activePost.isAuto" style="text-align:center; font-size:12px;">N&atilde;o Programado</p>
             </div>
           </div>
           <div class="col-md-12">
-            <div class="col-md-6">
-              <div class='btn pull-right' ng-class="{'btn-success' : activePost.isAuto, 'btn-danger' : !activePost.isAuto}" style="margin:0px; margin-left:1.6vw; cursor:pointer; margin-top:1vh; margin-bottom:1vh;" ng-click="changePubMode(activePost)">
-                <img style="display:inline-block; margin-right:14px;" ng-show="activePost.isAuto"  ng-src="/home/img/icons/auto.png" alt="Auto Publicação">
+            <div class="col-md-6 text-center">
+              <div class='btn' ng-class="{'btn-success' : activePost.isAuto, 'btn-danger' : !activePost.isAuto}" style="cursor:pointer;" ng-click="changePubMode(activePost)">
+                <img style="display:inline-block;" ng-show="activePost.isAuto"  ng-src="/home/img/icons/auto.png" alt="Auto Publicação">
                 <p ng-show="activePost.isAuto" style="display:inline-block; text-align:center; margin: 0px;">Agendar Pub.</p>
-                <img style="display:inline-block; margin-right:14px;" ng-show="!activePost.isAuto"  ng-src="/home/img/icons/manual.png" alt="Publicação Manual">
+                <img style="display:inline-block;" ng-show="!activePost.isAuto"  ng-src="/home/img/icons/manual.png" alt="Publicação Manual">
                 <p ng-show="!activePost.isAuto" style="display:inline-block; text-align:center; margin: 0px;">Pub. Manual</p>
               </div>
             </div>
-            <div class="col-md-6">
-              <div class='btn pull-right' ng-class="{'btn-success' : activePost.isDraft, 'btn-danger' : !activePost.isDraft}" style="cursor:pointer; margin-top:1vh; margin-bottom:1vh;" ng-click="draftIt(activePost)">
-                <img style="display:inline-block; margin-right:14px;" ng-show="activePost.isDraft"  ng-src="/home/img/icons/public.png" alt="Rascunho">
+            <div class="col-md-6 text-center">
+              <div class='btn' ng-class="{'btn-success' : activePost.isDraft, 'btn-danger' : !activePost.isDraft}" style="cursor:pointer;" ng-click="draftIt(activePost)">
+                <img style="display:inline-block;" ng-show="activePost.isDraft"  ng-src="/home/img/icons/public.png" alt="Rascunho">
                 <p ng-show="activePost.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Artigo Visivel</p>
-                <img style="display:inline-block; margin-right:14px;" ng-show="!activePost.isDraft"  ng-src="/home/img/icons/private.png" alt="Rascunho">
+                <img style="display:inline-block;" ng-show="!activePost.isDraft"  ng-src="/home/img/icons/private.png" alt="Rascunho">
                 <p ng-show="!activePost.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Rascunho</p>
               </div>
             </div>
@@ -114,7 +114,7 @@
         </div>
           <div class="col-sm-8">
             <div>
-              <textarea placeholder='Resumo do Artigo' ng-model='activePost.recap' name='title' class='form-control'></textarea>
+              <textarea placeholder='Resumo do Artigo' style="height:17vh;" ng-model='activePost.recap' name='title' class='form-control'></textarea>
             </div>
             <br>
             <div>
