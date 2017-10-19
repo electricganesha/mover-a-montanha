@@ -8,17 +8,17 @@
         </div>
         <div class="col-md-2" style="text-align:center; margin-top: 40px;">
             <p id="filtertitle">Palavras-Chave</p>
-            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px;" class="form-control" ng-model="categoriesSelected" ng-change="changedCategories(categoriesSelected._id)" ng-init="categoriesSelected = allC[indiceC]" data-ng-options="category.tag for category in allC">
+            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px; text-align:center;" class="form-control" ng-model="categoriesSelected" ng-change="changedCategories(categoriesSelected._id)" ng-init="categoriesSelected = allC[indiceC]" data-ng-options="category.tag for category in allC">
             </select>
         </div>
         <div class="col-md-2" style="text-align:center; margin-top: 40px;">
             <p id="filtertitle">Autores</p>
-            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px;" class="form-control" ng-model="authorsSelected" ng-change="changedAuthors(authorsSelected._id)" ng-init="authorsSelected = allA[0]" data-ng-options="author.name for author in allA">
+            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px; text-align:center;" class="form-control" ng-model="authorsSelected" ng-change="changedAuthors(authorsSelected._id)" ng-init="authorsSelected = allA[0]" data-ng-options="author.name for author in allA">
             </select>
         </div>
         <div class="col-md-2" style="text-align:center; margin-top: 40px;">
             <p id="filtertitle">Data de Publicação</p>
-            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px;" class="form-control" ng-model="dateSelected" ng-change="changeMonthDropDown(dateSelected)" ng-init="dateSelected = monthList[0]" data-ng-options="month as month for month in monthList">
+            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px; text-align:center;" class="form-control" ng-model="dateSelected" ng-change="changeMonthDropDown(dateSelected)" ng-init="dateSelected = monthList[0]" data-ng-options="month as month for month in monthList">
             </select>
         </div>
         <div class="col-md-3">
