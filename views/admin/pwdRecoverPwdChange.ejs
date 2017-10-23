@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Mover a Montanha - Admin</title>
+  <meta name="description" content="politica blog">
+  <meta name="author" content="PUSHVFX">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel='stylesheet' href='/admin/css/main.css'>
+
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class='row' style="margin:0px;">
+    <div style="background-image: url('/home/img/frontmontanhaoverlayed.jpg'); background-position:center center; background-repeat: no-repeat; margin-top:-20px; height:35vh; width:100%;">
+      <div style="color:white; width:50%; margin:auto; text-align:center;">
+        <h1 style="padding-top:6vw; font-size:4vh;"> Mover a Montanha </h1>
+        <hr>
+        <h1 style="font-size:4vh;">Recupera&ccedil;&atilde;o de Palavra-Passe</h1>
+      </div>
+    </div>
+  </div>
+  <div class='container'>
+    <div class='row' style="text-align:center;">
+      <br>
+      <br>
+      <h4> Por favor introduza a nova Palavra-Passe </h4>
+      <div class='col-sm-4 col-sm-offset-4 text-center' style="margin-top:2vh;">
+        <form id="pwdChangeForm" method='post' action='/api/pwdchangesystem'>
+          <input style="text-align:center;" type='text' placeholder='Introduza aqui o seu email.' name='email' ng-model='email' class='form-control' required>
+          <p></p>
+          <input style="text-align:center;" type='password' placeholder='Nova Palavra-Passe' name='newpassword' id="newpassword" ng-model='newPassword' class='form-control' required>
+          <p></p>
+          <input style="text-align:center;" type='password' placeholder='Confirme a Palavra-Passe' id="confirmpassword" name='confirmpassword' ng-model='confirmPassword' class='form-control' required>
+          <input type="hidden" name="token" value="">
+          <br>
+          <br>
+          <input type='submit' id="button" class='btn btn-primary' onclick="validateForm()" value='Alterar Palavra-Passe'>
+        </form>
+        <br>
+        <br>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+var link = window.location.href;
+var params = link.split('/');
+var token = params[params.length-1];
+
+$("#button").prop('disabled', true);
+
+document.forms['pwdChangeForm'].elements["token"].value = token;
+
+$('#button').click(function(){
+  console.log($('#pwdChangeForm').valid());
+});
+
+$('#pwdChangeForm').on("keyup change paste", function() {
+  validateForm();
+  //console.log($('#pwdChangeForm').valid());
+  if($('#pwdChangeForm').valid())
+  {
+    $("#button").prop('disabled', false);
+  }
+  else {
+    $("#button").prop('disabled', true);
+  }
+});
+
+var validateForm = function()
+{
+  $.extend($.validator.messages, {
+    required: "Campo de preenchimento obrigat&oacute;rio.",
+    remote: "Por favor, corrija este campo.",
+    email: "Por favor, introduza um endere&ccedil;o eletr&oacute;nico v&aacute;lido.",
+    url: "Por favor, introduza um URL v&aacute;lido.",
+    date: "Por favor, introduza uma data v&aacute;lida.",
+    dateISO: "Por favor, introduza uma data v&aacute;lida (ISO).",
+    number: "Por favor, introduza um n&uacute;mero v&aacute;lido.",
+    digits: "Por favor, introduza apenas d&iacute;gitos.",
+    creditcard: "Por favor, introduza um n&uacute;mero de cart&atilde;o de cr&eacute;dito v&aacute;lido.",
+    equalTo: "As palavras-passe inseridas n&atilde;o s&atilde;o semelhantes, por favor verifique.",
+    extension: "Por favor, introduza um ficheiro com uma extens&atilde;o v&aacute;lida.",
+    maxlength: $.validator.format( "Por favor, n&atilde;o introduza mais do que {0} caracteres." ),
+    minlength: $.validator.format( "Por favor, introduza pelo menos {0} caracteres." ),
+    rangelength: $.validator.format( "Por favor, introduza entre {0} e {1} caracteres." ),
+    range: $.validator.format( "Por favor, introduza um valor entre {0} e {1}." ),
+    max: $.validator.format( "Por favor, introduza um valor menor ou igual a {0}." ),
+    min: $.validator.format( "Por favor, introduza um valor maior ou igual a {0}." ),
+    nifES: "Por favor, introduza um NIF v&aacute;lido.",
+    nieES: "Por favor, introduza um NIE v&aacute;lido.",
+    cifES: "Por favor, introduza um CIF v&aacute;lido."
+  });
+
+  jQuery('#pwdChangeForm').validate({
+    lang: 'pt',
+    rules : {
+      newpassword : {
+        minlength : 5
+      },
+      confirmpassword : {
+        minlength : 5,
+        equalTo : "#newpassword"
+      }
+    }
+  });
+}
+</script>
+</html>
