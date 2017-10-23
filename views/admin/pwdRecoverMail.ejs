@@ -20,25 +20,27 @@
       <div style="color:white; width:50%; margin:auto; text-align:center;">
         <h1 style="padding-top:6vw; font-size:4vh;"> Mover a Montanha </h1>
         <hr>
-        <h1 style="font-size:4vh;">Administra&ccedil;&atilde;o</h1>
+        <h1 style="font-size:4vh;">Recupera&ccedil;&atilde;o de Palavra-Passe</h1>
       </div>
     </div>
   </div>
   <div class='container'>
-    <div class='row'>
-      <div class='col-sm-4 col-sm-offset-4 text-center' style="margin-top:5vh;">
-        <form method='post' action='/login'>
-          <input type='text' placeholder='Email' name='email' ng-model='user.email' class='form-control'>
-          <p></p>
-          <input type='password' placeholder='Password' name='password' ng-model='user.password' class='form-control'>
+    <div class='row' style="text-align:center;">
+      <br>
+      <br>
+      <h4> Por favor indique o <u>email</u> associado &agrave; sua conta, para podermos enviar-lhe uma mensagem com o link de recupera&ccedil;&atilde;o </h4>
+      <div class='col-sm-4 col-sm-offset-4 text-center' style="margin-top:2vh;">
+        <form method='post' action='/api/pwdRecoverMail'>
+          <input style="text-align:center;"type='text' placeholder='Introduza aqui o seu email.' name='email' ng-model='email' class='form-control'>
           <br>
-          <input type='submit' class='btn btn-primary' value='Entrar'>
+          <br>
+          <input type='submit' class='btn btn-primary' value='Recuperar Palavra-Passe'>
         </form>
         <br>
         <br>
+        <!--<a href='/admin/register'>Register a new account</a>-->
       </div>
     </div>
   </div>
-  <a style=" position:absolute; bottom:20px; right:40px;" href="/admin/pwdrecover">Esqueci-me da Palavra-Passe</a>
 </body>
 </html>
