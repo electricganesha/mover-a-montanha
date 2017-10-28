@@ -52,13 +52,18 @@
                     </div>
                   </div>
                   <div class="col-sm-12" style="padding:0px;">
-                    <h6 ng-show="post.isAuto" style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Programado para Publicação :</b> {{post.programmed_to_post | date :  "MMM d, y - HH:mm" }}</h6>
-                    <h6 ng-show="!post.isAuto" style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Não Programado / Publicação Manual</b></h6>
-                    <div style="float:right; cursor:pointer;"><img style="margin-top:4px;" ng-click="removePost( post._id ); $event.stopPropagation();" src="/home/img/icons/delete.png" alt="Apagar Artigo"></div>
-                    <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="post.isAuto" ng-click="changePubMode(post); $event.stopPropagation();" ng-src="/home/img/icons/auto.png" alt="Rascunho"></div>
-                    <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="!post.isAuto" ng-click="changePubMode(post); $event.stopPropagation();" ng-src="/home/img/icons/manual.png" alt="Rascunho"></div>
-                    <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="post.isDraft" ng-click="draftIt(post); $event.stopPropagation();" ng-src="/home/img/icons/public.png" alt="Rascunho"></div>
-                    <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="!post.isDraft" ng-click="draftIt(post); $event.stopPropagation();" ng-src="/home/img/icons/private.png" alt="Rascunho"></div>
+                    <div class="col-sm-8" style="padding:0px;">
+                      <h6 ng-show="post.isAuto" style="margin: 0; margin-top: 7px; width: 70%; float: left;"><b>Programado para Publicação :</b> {{post.programmed_to_post | date :  "MMM d, y - HH:mm" }}</h6>
+                      <h6 ng-show="!post.isAuto" style="margin: 0; margin-top: 7px; width: 70%; float: left;"><b>Não Programado / Publicação Manual</b></h6>
+                    </div>
+                    <div class="col-sm-4" style="padding:0px;">
+                      <div style="cursor:pointer; display:inline-block; float:right; margin-left:10px;"><img ng-click="removePost( post._id ); $event.stopPropagation();" src="/home/img/icons/delete.png" alt="Apagar Artigo"></div>
+                      <div style="cursor:pointer; display:inline-block; float:right; margin-left:10px;"><img ng-if="post.isAuto" ng-click="changePubMode(post); $event.stopPropagation();" ng-src="/home/img/icons/auto.png" alt="Rascunho"></div>
+                      <div style="cursor:pointer; display:inline-block; float:right; margin-left:10px;"><img ng-if="!post.isAuto" ng-click="changePubMode(post); $event.stopPropagation();" ng-src="/home/img/icons/manual.png" alt="Rascunho"></div>
+                      <div style="cursor:pointer; display:inline-block; float:right; margin-left:10px;"><img ng-if="post.isDraft" ng-click="draftIt(post); $event.stopPropagation();" ng-src="/home/img/icons/public.png" alt="Rascunho"></div>
+                      <div style="cursor:pointer; display:inline-block; float:right; margin-left:10px;"><img ng-if="!post.isDraft" ng-click="draftIt(post); $event.stopPropagation();" ng-src="/home/img/icons/private.png" alt="Rascunho"></div>
+                      <div style="cursor:pointer; display:inline-block; float:right; "><img ng-if="post.isHighlight" ng-src="/home/img/icons/featured.png" alt="Rascunho"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -117,6 +122,18 @@
                 <img style="display:inline-block;" ng-show="!activePost.isDraft"  ng-src="/home/img/icons/private.png" alt="Rascunho">
                 <p ng-show="!activePost.isDraft" style="display:inline-block; text-align:center; margin: 0px;">Rascunho</p>
               </div>
+            </div>
+          </div>
+          <div class="col-sm-12" style="padding:0px; margin-top:15px;">
+            <div class="col-sm-7">
+            </div>
+            <div class="col-sm-1" style="padding:0px;">
+              <input type="checkbox" class="form-control" ng-model="activePost.isHighlight" style="display:inline-block; margin:0px; float:right; height:20px; padding:0px;"></input>
+            </div>
+            <div class="col-sm-3" style="padding:0px;">
+              <p style="padding:0px; display:inline-block; float:right;">&Eacute; Destaque?</p>
+            </div>
+            <div class="col-sm-1">
             </div>
           </div>
         </div>

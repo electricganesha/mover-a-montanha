@@ -10,7 +10,8 @@ var postSchema = new mongoose.Schema({
 	isDraft: { type: Boolean, default: true},
 	isAuto: { type: Boolean, default: true}, //se o post deve ser publicado automaticamente segundo a agenda ou nao
 	recap: { type:String},
-	categories: [{ type:mongoose.Schema.ObjectId, ref:'Category'}]
+	categories: [{ type:mongoose.Schema.ObjectId, ref:'Category'}],
+	isHighlight: { type:Boolean, default:false}
 });
 
 postSchema.pre('save', function(next){

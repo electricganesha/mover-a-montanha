@@ -18,6 +18,11 @@ postsModule.service('Posts', function($http){
 				return postList.data;
 			});
 		},
+		highlights: function(id){
+			return $http.get('/api/posts/highlights').then(function(postList){
+				return postList.data;
+			});
+		},
 		one: function(id){
 			return $http.get('/api/posts/'+id).then(function(post){
 				return post.data;

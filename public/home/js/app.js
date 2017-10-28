@@ -162,6 +162,18 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 		url: "/contact",
 		templateUrl: "/home/templates/contact.html",
 		controller: 'ContactCtrl',
+	}).
+	state('highlights', {
+		url: "/highlights",
+		templateUrl: "/home/templates/highlights.html",
+		resolve:{
+			allPosts: function($stateParams, Posts){
+				return Posts.highlights().then(function(data){
+					return data;
+				});
+			}
+		},
+		controller: 'HighLightsCtrl',
 	});
 
 	//Remover o trailing # do url

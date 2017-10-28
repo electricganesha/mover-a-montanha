@@ -22,6 +22,24 @@ module.exports = function(apiRouter){
 		});
 	});
 
+	// get all highlighted posts
+	apiRouter.get('/posts/highlights', function(req, res){
+
+		Post.find({isHighlight:true}).sort('-created_at').populate('author').populate('categories')
+		.exec(function(err, posts){
+			if(err)
+			{
+				res.send(err);
+				console.log(err);
+			}
+			else
+			{
+				res.json(posts);
+			}
+
+		});
+	});
+
 	// get total number of posts
 	apiRouter.get('/posts/countAll', function(req, res){
 
@@ -509,6 +527,7 @@ module.exports = function(apiRouter){
 		post.isAuto = req.body.isAuto;
 		post.recap = req.body.recap;
 		post.categories = req.body.tags;
+		post.isHighlight = req.body.isHighlight;
 
 		console.log(post);
 
@@ -542,6 +561,7 @@ module.exports = function(apiRouter){
 			post.author = req.body.author;
 			post.recap = req.body.recap;
 			post.categories = req.body.tags;
+			post.isHighlight = req.body.isHighlight;
 
 			post.save(function(err){
 				if(err) res.send(err);

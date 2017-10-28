@@ -1,0 +1,19 @@
+<!-- Main Content -->
+<div id="headerimgcontact" class="col-md-12">
+    <p id="tituloartigos">DESTAQUES</p>
+</div>
+<div class="col-md-12 divAllArtigos">
+    <a id="linkallposts" href="/#!/article/{{post._id}}" ng-repeat="post in allP" ng-if="post.isDraft">
+        <div ng-if="$index < allP.length -1" id="divArtigo" >
+            <p id="titleartigos">{{post.title}}</p>
+            <p id="nomeData">{{post.author.name}}, {{ convertDateToPT(post.created_at) }}</p>
+        </div>
+        <div ng-if="$index == allP.length -1" id="divArtigo" style="margin-bottom: 40px;" >
+            <p id="titleartigos">{{post.title}}</p>
+            <p id="nomeData">{{post.author.name}}, {{ convertDateToPT(post.created_at) }}</p>
+        </div>
+    </a>
+    <div ng-if="allP.length <= 0" >
+        <p id="warningpost">Não existem artigos correspondentes ao filtro selecionado</p>
+    </div>
+</div>
