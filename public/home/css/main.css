@@ -113,8 +113,8 @@ nav {
 }
 
 #cssmenu {
-    background: #3b3d40;
-}
+    background: rgba(1,1,1,0);
+  }
 
 #cssmenu > ul > li {
     float: left
@@ -878,6 +878,7 @@ iframe{
     z-index:0; width:253px;
     height:315px;
     margin: auto;
+    margin-top:-150px;
 }
 
 #listaAutores{
@@ -928,7 +929,7 @@ iframe{
 }
 
 #gradient{
-    height: 319px;
+    height: 270px;
     background: url("../img/frontmontanhatransparency.png");
     background-repeat:no-repeat;
     background-position:bottom center;

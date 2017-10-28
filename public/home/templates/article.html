@@ -19,7 +19,7 @@
       <p style="text-transform: uppercase;"> Artigos deste autor </p>
       <br>
       <a href="/#!/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor" ng-if="post._id != otherPost._id">
-        <p>{{ otherPost.title }}</p>
+        <p style="margin:5px; margin-bottom:10px;">{{ otherPost.title }}</p>
       </a>
     </div>
     <div id="post1" btf-markdown='post1' ng-if="!post1TemVideo"></div>
