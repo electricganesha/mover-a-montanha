@@ -15,17 +15,17 @@
         <div class="row" style="margin:0px;">
           <div class="col-md-4" style="text-align:center;">
             <p style="text-align:center;" id="filtertitle">Palavras-Chave</p>
-            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px; text-align:center;" class="form-control" ng-model="categoriesSelected" ng-change="changedCategories(categoriesSelected._id)" ng-init="categoriesSelected = allC[0]" data-ng-options="category.tag for category in allC">
+            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px; text-align-last:center;" class="form-control" ng-model="categoriesSelected" ng-change="changedCategories(categoriesSelected._id)" ng-init="categoriesSelected = allC[0]" data-ng-options="category.tag for category in allC">
             </select>
           </div>
           <div class="col-md-4" style="text-align:center;">
             <p style="text-align:center;" id="filtertitle">Autores</p>
-            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px; text-align:center;" class="form-control" ng-model="authorsSelected" ng-change="changedAuthors(authorsSelected._id)" ng-init="authorsSelected = allA[0]" data-ng-options="author.name for author in allA">
+            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px; text-align-last:center;" class="form-control" ng-model="authorsSelected" ng-change="changedAuthors(authorsSelected._id)" ng-init="authorsSelected = allA[0]" data-ng-options="author.name for author in allA">
             </select>
           </div>
           <div class="col-md-4" style="text-align:center;">
             <p style="text-align:center;" id="filtertitle">Data</p>
-            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px; text-align:center;" class="form-control" ng-model="dateSelected" ng-change="changeMonthDropDown(dateSelected)" ng-init="dateSelected = monthList[0]" data-ng-options="month as month for month in monthList">
+            <select style="font-family: caslonregular; padding: 8px 12px; font-size: 16px; text-align-last:center;" class="form-control" ng-model="dateSelected" ng-change="changeMonthDropDown(dateSelected)" ng-init="dateSelected = monthList[0]" data-ng-options="month as month for month in monthList">
             </select>
           </div>
         </div>
@@ -33,25 +33,33 @@
       <div class="panel-body" style=" overflow:auto; height: 75vh;">
         <ul class="list-group">
           <li ng-show="!posts.length">N&atilde;o existe nenhum artigo publicado.</li>
-          <div ng-repeat='post in posts | orderBy:selectedFilter' style="margin-top:4vh;">
+          <div ng-repeat='post in posts | orderBy:selectedFilter' style="margin-top:1vh; border-bottom:1px solid darkgrey;">
             <li ng-show="post.author._id == currentUser.author || currentUser.author == undefined" style="cursor: pointer; border: none; padding: 0;" class="list-group-item" ng-click='setActive(post)'>
-              <div class = "panel" ng-style="{ border: activePost == post ? 'solid 1px #87A6AC' : '' }" ng-class="{'panel-success' : post.isDraft, 'panel-danger' : !post.isDraft}">
-                <div class="panel-heading">
+              <div class = "panel" style="margin-bottom:5px;" ng-style="{ border: activePost == post ? 'solid 1px #87A6AC' : '' }" ng-class="{'panel-success' : post.isDraft, 'panel-danger' : !post.isDraft}">
+                <div class="panel-heading" style="padding-top:0px; padding-bottom:0px;">
                   <h4 class="panel-title"><b>{{post.title}}</b></h4><h6>{{ post.author.name }}</h6>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" style="padding-top:0px; padding-bottom:0px;">
                   <div class="list-group-item-text" btf-markdown='trimContentTo140Char(post)'></div>
                 </div>
-                <div class="panel-footer" ng-style="post.isAuto && {'height':'80px'} || {'height':'80px'}">
-                  <h6 style="margin: 0; margin-top: 3px; width: 80%; float: left;"><b>Criado a :</b> {{post.created_at | date :  "MMM d, y - HH:mm" }} </h6>
-                  <h6 style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Ultima Actualização :</b> {{post.updated_at | date :  "MMM d, y - HH:mm" }}</h6>
-                  <h6 ng-show="post.isAuto" style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Programado para Publicação :</b> {{post.programmed_to_post | date :  "MMM d, y - HH:mm" }}</h6>
-                  <h6 ng-show="!post.isAuto" style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Não Programado / Publicação Manual</b></h6>
-                  <div style="float:right; cursor:pointer;"><img style="margin-top:4px;" ng-click="removePost( post._id ); $event.stopPropagation();" src="/home/img/icons/delete.png" alt="Apagar Artigo"></div>
-                  <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="post.isAuto" ng-click="changePubMode(post); $event.stopPropagation();" ng-src="/home/img/icons/auto.png" alt="Rascunho"></div>
-                  <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="!post.isAuto" ng-click="changePubMode(post); $event.stopPropagation();" ng-src="/home/img/icons/manual.png" alt="Rascunho"></div>
-                  <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="post.isDraft" ng-click="draftIt(post); $event.stopPropagation();" ng-src="/home/img/icons/public.png" alt="Rascunho"></div>
-                  <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="!post.isDraft" ng-click="draftIt(post); $event.stopPropagation();" ng-src="/home/img/icons/private.png" alt="Rascunho"></div>
+                <div class="panel-footer" style="padding-top:2px; padding-bottom:0px;" ng-style="post.isAuto && {'height':'40px'} || {'height':'40px'}">
+                  <div class="col-sm-12" style="padding:0px;">
+                    <div class="col-sm-6" style="padding:0px;">
+                      <h6 style="margin: 0px;"><b>Criado a :</b> {{post.created_at | date :  "MMM d, y - HH:mm" }} </h6>
+                    </div>
+                    <div class="col-sm-6" style="padding:0px;">
+                      <h6 style="margin: 0px; float:right;"><b>Actualizado a :</b> {{post.updated_at | date :  "MMM d, y - HH:mm" }}</h6>
+                    </div>
+                  </div>
+                  <div class="col-sm-12" style="padding:0px;">
+                    <h6 ng-show="post.isAuto" style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Programado para Publicação :</b> {{post.programmed_to_post | date :  "MMM d, y - HH:mm" }}</h6>
+                    <h6 ng-show="!post.isAuto" style="margin: 0; margin-top: 7px; width: 80%; float: left;"><b>Não Programado / Publicação Manual</b></h6>
+                    <div style="float:right; cursor:pointer;"><img style="margin-top:4px;" ng-click="removePost( post._id ); $event.stopPropagation();" src="/home/img/icons/delete.png" alt="Apagar Artigo"></div>
+                    <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="post.isAuto" ng-click="changePubMode(post); $event.stopPropagation();" ng-src="/home/img/icons/auto.png" alt="Rascunho"></div>
+                    <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="!post.isAuto" ng-click="changePubMode(post); $event.stopPropagation();" ng-src="/home/img/icons/manual.png" alt="Rascunho"></div>
+                    <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="post.isDraft" ng-click="draftIt(post); $event.stopPropagation();" ng-src="/home/img/icons/public.png" alt="Rascunho"></div>
+                    <div style="float:right; cursor:pointer;"><img style="margin-top:4px; margin-right:12px;" ng-if="!post.isDraft" ng-click="draftIt(post); $event.stopPropagation();" ng-src="/home/img/icons/private.png" alt="Rascunho"></div>
+                  </div>
                 </div>
               </div>
             </li>
@@ -112,23 +120,23 @@
             </div>
           </div>
         </div>
-          <div class="col-sm-8">
-            <div>
-              <textarea placeholder='Resumo do Artigo' style="height:17vh;" ng-model='activePost.recap' name='title' class='form-control'></textarea>
-            </div>
-            <br>
-            <div>
-              <tags-input on-tag-removed="removeTag($tag)" ng-if="tagsLoaded" track-by-expr="$index" replace-spaces-with-dashes="false" ng-model="tags" tag-class="{even: $index % 2 == 0, odd: $index % 2 != 0}">
-                <auto-complete source="loadTags($query)" track-by-expr="$index" load-on-focus="true" match-class="{even: $index % 2 == 0, odd: $index % 2 != 0}"></auto-complete>
-              </tags-input>
-            </div>
+        <div class="col-sm-8">
+          <div>
+            <textarea placeholder='Resumo do Artigo' style="height:17vh;" ng-model='activePost.recap' name='title' class='form-control'></textarea>
+          </div>
+          <br>
+          <div>
+            <tags-input on-tag-removed="removeTag($tag)" ng-if="tagsLoaded" track-by-expr="$index" replace-spaces-with-dashes="false" ng-model="tags" tag-class="{even: $index % 2 == 0, odd: $index % 2 != 0}">
+              <auto-complete source="loadTags($query)" track-by-expr="$index" load-on-focus="true" match-class="{even: $index % 2 == 0, odd: $index % 2 != 0}"></auto-complete>
+            </tags-input>
           </div>
         </div>
-        <div class="col-sm-12">
-          <div id="pad" text-angular ng-model="activePost.body" style="height:54vh;"></div>
-        </div>
+      </div>
+      <div class="col-sm-12">
+        <div id="pad" text-angular ng-model="activePost.body" style="height:54vh;"></div>
       </div>
     </div>
   </div>
+</div>
 </div>
 </div>

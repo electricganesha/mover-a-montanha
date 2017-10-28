@@ -6,16 +6,20 @@
         <div class="panel-heading">
           <h3>Lista de Autores</h3>
         </div>
-        <div class="panel-body" style="overflow:auto; height:82vh;">
+        <div class="panel-body" style="overflow:auto;">
           <ul class="list-group">
             <li ng-show="!authors.length">N&atilde;o existe nenhum autor em base de dados.</li>
-            <div ng-repeat='author in authors | orderBy:"name"' style="margin-top:2vh;">
-              <li class="list-group-item" ng-class="{'active': (activeAuthor === author)}" ng-click='setActive(author)' style="height: 122px;">
-                <img style="float: right; margin-top: 42px; cursor:pointer;" ng-click="removeAuthor( author ); $event.stopPropagation();" src="/home/img/icons/delete.png">
-                <p style="display:inline-block;">
-                  <img style="display:inline-block; width:100px; height:100px; border-radius:50%; float:left;" src="{{ author.photo }}"></img>
-                  <h4 class="list-group-item-heading" style="display:inline-block; float:right; width:55%; margin-top:4.5vh; font-size:14px; text-align:left; text-decoration:bold; font-size:18px;"  btf-markdown='author.name'></h4>
-                </p>
+            <div class="col-sm-12" ng-repeat='author in authors | orderBy:"name"' style="margin-top:1vh; border-radius:5%;" ng-style="{ border: activeAuthor == author ? 'solid 1px #87A6AC' : '' , backgroundColor: activeAuthor == author ? '#17618C' : ''}">
+              <li class="list-group-item" ng-click='setActive(author)' style="height:70px;">
+                <div class="col-sm-2">
+                  <img class="img-responsive" style="border-radius:50%;" src="{{ author.photo }}"></img>
+                </div>
+                <div class="col-sm-8" style="padding:0px;">
+                  <h4 style="font-size:14px; text-align:center; text-decoration:bold; font-size:18px; margin-top:15px;"  btf-markdown='author.name'></h4>
+                </div>
+                <div class="col-sm-2" style="padding:0px;">
+                  <img class="btn btn-default" style="cursor:pointer; margin-top:10px;" ng-click="removeAuthor( author ); $event.stopPropagation();" src="/home/img/icons/delete.png">
+                </div>
               </li>
             </div>
           </ul>
