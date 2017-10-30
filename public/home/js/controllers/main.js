@@ -59,7 +59,7 @@ app.factory('initMenu', function(){
 app.controller('MainCtrl', function ($scope, $log, postList, authorList, category, author, Services, initMenu) {
 
   document.body.scrollTop = document.documentElement.scrollTop = 0;
-  
+
   initMenu.init();
 
   $scope.slickConfig = {
@@ -475,7 +475,7 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
     $scope.post2TemVideo = false;
   }
 
-  $scope.authorPosts = Posts.author($scope.post.author._id).then(function(data){
+  $scope.authorPosts = Posts.author($scope.post.author.initMenu_id).then(function(data){
     $scope.postsAuthor = data;
   });
 
@@ -510,6 +510,17 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
 
     Services.sendEmail(data);
 
+  }
+
+})
+.controller('HighLightsCtrl', function ($scope, $log, allPosts, Services, initMenu) {
+
+  $scope.allP = allPosts;
+
+  $scope.convertDateToPT = function(date)
+  {
+    var date = new Date(date);
+    return moment(date, "D_M_YYYY").locale('pt-br').format('LLL');
   }
 
 })

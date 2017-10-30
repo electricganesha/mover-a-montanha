@@ -28,7 +28,7 @@ select{
   border: none;
   margin: 0;
   float: none;
-  font-size:14px !important;
+  font-size:0.9vw !important;
 }
 
 #linksmenu{
@@ -113,8 +113,8 @@ nav {
 }
 
 #cssmenu {
-    background: #3b3d40;
-}
+    background: rgba(1,1,1,0);
+  }
 
 #cssmenu > ul > li {
     float: left
@@ -878,6 +878,7 @@ iframe{
     z-index:0; width:253px;
     height:315px;
     margin: auto;
+    margin-top:-150px;
 }
 
 #listaAutores{
@@ -928,7 +929,7 @@ iframe{
 }
 
 #gradient{
-    height: 319px;
+    height: 270px;
     background: url("../img/frontmontanhatransparency.png");
     background-repeat:no-repeat;
     background-position:bottom center;
@@ -1362,7 +1363,9 @@ iframe{
 
 .republicImg
 {
+  position:fixed;
   margin-top:10px;
-  float:right;
-  height:50px;
+  width:5.5vw;
+  right:1vw;
+  top:5px;
 }

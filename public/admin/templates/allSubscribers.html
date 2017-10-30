@@ -1,58 +1,61 @@
-<div class="container" style="width:90%;">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4 style="display: inline-block;">Subscritores</h4>
-        </div>
-        <div class="panel-body">
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 style="display: inline-block;">Lista de Subscritores</h4>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-12" ng-repeat='subscriber in subscribers | orderBy:"name"' style="margin-top:2vh;">
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                        <p style="display:inline-block; width:100%; height:100%;">
-                                        <p style="display:inline-block;"> {{ subscriber.email }}</p><div style="float:right; margin-left:4vw; display:inline-block; cursor:pointer;"><img style="margin-top:4px;" ng-click="removeSubscriber( subscriber )" src="/home/img/icons/delete.png"></div>
-                                        </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4 style="display: inline-block;">Configura&ccedil;&otilde;es de E-Mail Autom&aacute;tico</h4>
-                    </div>
-                    <div class="panel-body">
-                        <form ng-submit='saveConfig(mailConfig)'>
-                            <button type="submit" class='btn btn-primary pull-right' style="display: inline-block; margin-top:-6.7vh;" >Guardar Configura&ccedil;ao</button>
-                            <p><b> E-Mail:</b><input class='form-control' ng-model="mailConfig[0].mail" type="text" value="{{ mailConfig[0].mail }}"></input></p>
-                            <p><b> Servi&ccedil;o:</b><input class='form-control' ng-model="mailConfig[0].service" type="text" value="{{ mailConfig[0].service }}"></input></p>
-                            <p><b> Servidor:</b><input class='form-control' ng-model="mailConfig[0].host" type="text" value="{{ mailConfig[0].host }}"></input></p>
-                            <p><b> Porta:</b><input class='form-control' ng-model="mailConfig[0].port" type="text" value="{{ mailConfig[0].port }}"></input></p>
-                            <p><b> Password:</b><input class='form-control' ng-model="mailConfig[0].password" type="password" value="{{ mailConfig[0].password }}"></input></p>
-                            <div>
-                            <p><u>Hora de envio de e-mail automático:</u></p>
-                            <input style="margin-bottom:1vh;" id="timepicker" type="text" class="timepicker" ng-change="updateEmailHour()" ng-model="mailConfig[0].emailHour" placeholder=" Alterar hora"></input>
-                            <p><u> Hora actual de envio : </u></p>
-                            <span ng-show="mailConfig[0].emailHour" ng-model="mailConfig[0].emailHour">
-                            <span>Todos os dias &aacute;s&nbsp;</span>
-                            <span style="color:red;"><b>{{ mailConfig[0].emailHour | date:'H:mm' }}</b></span>
-                            </div>
-                            <div style="margin-bottom:4vh;">
-                            <hr>
-                            <p> <b> Assunto:</b><input class='form-control' ng-model="mailConfig[0].subject" type="text" value="{{ mailConfig[0].subject }}"></input></p>
-                            <p> <b> Cabe&ccedil;alho:</b><div id="pad" text-angular ng-model="mailConfig[0].header" placeholder='Escreva o seu artigo aqui...'></div></p>
-                            <hr>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="container" id="adminHeader">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 style="display: inline-block;">Subscritores</h4>
     </div>
-</div>
+    <div class="panel-body">
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 style="display: inline-block;">Lista de Subscritores</h4>
+          </div>
+          <div class="panel-body" style="padding-top:0px;">
+            <div class="col-md-12" ng-repeat='subscriber in subscribers | orderBy:"name"' style="margin-top:1vh;">
+              <div class="panel panel-default">
+                <div class="panel-body col-sm-12" style="padding:0px; border:1px solid darkgrey; border-radius:5%;">
+                  <div class="col-sm-6" style="padding:0px;">
+                    <p style="margin:4px; margin-left:10px; display:inline-block; font-size:16px;"> {{ subscriber.email }}</p>
+                  </div>
+                  <div class="col-sm-6" style="padding:0px;">
+                    <div style="float:right; display:inline-block; cursor:pointer;"><img class="btn btn-default" ng-click="removeSubscriber( subscriber )" src="/home/img/icons/delete.png"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 style="display: inline-block;">Configura&ccedil;&otilde;es de E-Mail Autom&aacute;tico</h4>
+          </div>
+          <div class="panel-body">
+            <form ng-submit='saveConfig(mailConfig)'>
+              <button type="submit" class='btn btn-primary pull-right' style="display: inline-block; margin-top:-6.7vh;" >Guardar Configura&ccedil;ao</button>
+              <p><b> E-Mail:</b><input class='form-control' ng-model="mailConfig[0].mail" type="text" value="{{ mailConfig[0].mail }}"></input></p>
+              <p><b> Servi&ccedil;o:</b><input class='form-control' ng-model="mailConfig[0].service" type="text" value="{{ mailConfig[0].service }}"></input></p>
+              <p><b> Servidor:</b><input class='form-control' ng-model="mailConfig[0].host" type="text" value="{{ mailConfig[0].host }}"></input></p>
+              <p><b> Porta:</b><input class='form-control' ng-model="mailConfig[0].port" type="text" value="{{ mailConfig[0].port }}"></input></p>
+              <p><b> Password:</b><input class='form-control' ng-model="mailConfig[0].password" type="password" value="{{ mailConfig[0].password }}"></input></p>
+              <div>
+                <p><u>Hora de envio de e-mail automático:</u></p>
+                <input style="margin-bottom:1vh;" id="timepicker" type="text" class="timepicker" ng-change="updateEmailHour()" ng-model="mailConfig[0].emailHour" placeholder=" Alterar hora"></input>
+                <p><u> Hora actual de envio : </u></p>
+                <span ng-show="mailConfig[0].emailHour" ng-model="mailConfig[0].emailHour">
+                  <span>Todos os dias &aacute;s&nbsp;</span>
+                  <span style="color:red;"><b>{{ mailConfig[0].emailHour | date:'H:mm' }}</b></span>
+                </div>
+                <div style="margin-bottom:4vh;">
+                  <hr>
+                  <p> <b> Assunto:</b><input class='form-control' ng-model="mailConfig[0].subject" type="text" value="{{ mailConfig[0].subject }}"></input></p>
+                  <p> <b> Cabe&ccedil;alho:</b><div id="pad" text-angular ng-model="mailConfig[0].header" placeholder='Escreva o seu artigo aqui...'></div></p>
+                  <hr>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

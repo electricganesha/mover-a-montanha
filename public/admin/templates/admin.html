@@ -1,4 +1,4 @@
-<div class="container" style="width:90%;">
+<div class="container" id="adminHeader">
   <div class='row full-height'>
     <div class="col-md-6">
       <div class="panel panel-default">
@@ -11,18 +11,20 @@
               <br>
               <div ng-repeat='user in users | orderBy:"name"'>
                 <li class ="clist-group-item">
-                  <div class="col-md-12">
-                    <div class="col-md-3">
-                      <span class="label label-success" ng-show="user.level == 3">Autor</span>
-                      <span class="label label-danger" ng-show="user.level == 1">Super Administrador</span>
-                      <span class="label label-warning" ng-show="user.level == 2" >Administrador</span>
+                  <div class="col-md-12" style="border:1px solid darkgrey; padding:0px;">
+                    <div class="col-md-3" style="padding:0px;">
+                      <div style="margin-top:3px; margin-left:10px;">
+                        <span class="label label-success" ng-show="user.level == 3">Autor</span>
+                        <span class="label label-danger" ng-show="user.level == 1">Super Administrador</span>
+                        <span class="label label-warning" ng-show="user.level == 2" >Administrador</span>
+                      </div>
                     </div>
-                    <div class="col-md-7">
-                      <p style="display:inline-block; margin-right:2vw;"> {{ user.email }}</p>
+                    <div class="col-md-7" style="padding:0px;">
+                      <p style="margin:4px; margin-left:10px; display:inline-block; font-size:16px;"> {{ user.email }}</p>
                     </div>
-                    <div class="col-md-2">
-                      <div style="float:right; margin-left:4vw; display:inline-block; cursor:pointer;">
-                        <img ng-if="user.email != currentUser.email" style="margin-top:4px;" ng-click="removeUser( user )" src="/home/img/icons/delete.png">
+                    <div class="col-md-2" style="padding:0px;">
+                      <div style="float:right; display:inline-block; cursor:pointer;">
+                        <img class="btn btn-default" ng-if="user.email != currentUser.email" ng-click="removeUser( user )" src="/home/img/icons/delete.png">
                       </div>
                     </div>
                   </div>

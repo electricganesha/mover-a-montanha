@@ -4,6 +4,10 @@
         margin-right:auto;
     }
 
+    #menu-link{
+      font-size:14px !important;
+    }
+
     /*----------- Home -----------*/
 
     #hometitlearticle {
@@ -21,7 +25,7 @@
     }
 
     #bandaauthor{
-        margin-top: -5px;
+        margin-top: -150px;
     }
 
     /*----------- Footer -----------*/
@@ -237,6 +241,10 @@
 
     #linksmenu{
         margin-right:auto;
+    }
+
+    #menu-link{
+      font-size:14px !important;
     }
 
     /*----------- Home -----------*/
@@ -481,6 +489,10 @@
         margin-right:auto;
     }
 
+    #menu-link{
+      font-size:14px !important;
+    }
+
     /*----------- Home -----------*/
 
     #hometitlearticle {
@@ -722,6 +734,10 @@
     #linksmenu{
         margin-right:auto;
         width:55%;
+    }
+
+    #menu-link{
+      font-size:14px !important;
     }
 
     /*----------- Artigo -----------*/
