@@ -1,17 +1,20 @@
-<div class="container" style="width:50%;">
+<div class="container" id="adminHeader" style="width:40%;">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4 style="display: inline-block;">Mudar Password</h4>
+      <h4 style="display: inline-block;">Alterar Palavra-Passe</h4>
     </div>
-    <form ng-submit="changePwd(newPwd)">
+    <form ng-submit="changePwd(newPwd, confirmPwd)">
       <div class="panel-body">
-        <div class='col-md-12'>
-          <div class='col-md-9'>
-            <input type='password' placeholder='Nova Password' ng-model='newPwd' name='newPwd' class='form-control'>
+        <div class='col-sm-12'>
+          <div class='col-sm-12'>
+            <input type='password' placeholder='Nova Palavra-Passe' ng-model='newPwd' name='newPwd' class='form-control'>
           </div>
-          <div class='col-md-3'>
-            <button class='btn btn-primary pull-right' style="display: inline-block;" type="submit">Alterar Password</button>
+          <div class='col-sm-12' style="margin-top:5px;">
+            <input type='password' placeholder='Confirme Nova Palavra-Passe' ng-model='confirmPwd' name='confirmPwd' class='form-control'>
           </div>
+        </div>
+        <div class="col-sm-12" style="margin-top:10px;">
+            <button class='btn btn-primary' style="float:right;" type="submit">Alterar Palavra-Passe</button>
         </div>
       </div>
     </form>

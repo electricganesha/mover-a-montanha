@@ -1,4 +1,4 @@
-<div class="container" style="width:90%;">
+<div class="container" id="adminHeader">
   <div class='row full-height'>
     <!-- Sidebar -->
     <div class='col-sm-12'>
@@ -11,15 +11,17 @@
             <p>N&atilde;o existe nenhuma categoria em base de dados.</p>
           </div>
           <div ng-show="categories.length">
-            <div class="col-md-2" ng-repeat='category in categories | orderBy:"name"' style="margin-top:1vh;">
+            <div class="col-sm-3" ng-repeat='category in categories | orderBy:"name"' style="margin-top:1vh;">
               <div class="panel panel-default">
                 <div class="panel-body col-sm-12" style="border:1px solid darkgrey; border-radius:5%; padding:0px;">
-                  <div class="col-sm-10" style="padding:0px;">
-                    <p style="margin:4px; margin-left:10px; display:inline-block; font-size:16px;"> {{ category.tag }}</p>
-                  </div>
-                  <div class="col-sm-2" style="padding:0px;">
-                    <div style="float:right; display:inline-block; cursor:pointer;">
-                      <img class="btn btn-default" ng-click="removeCategory( category )" src="/home/img/icons/delete.png">
+                  <div class="col-sm-12" style="padding:0px;">
+                    <div class="col-sm-10" style="padding:0px;">
+                      <p style="margin:10px; font-size:0.85vw;"> {{ category.tag }}</p>
+                    </div>
+                    <div class="col-sm-2" style="padding:0px;">
+                      <div style="float:right; display:inline-block; cursor:pointer;">
+                        <img class="btn btn-default" ng-click="removeCategory( category )" src="/home/img/icons/delete.png">
+                      </div>
                     </div>
                   </div>
                 </div>

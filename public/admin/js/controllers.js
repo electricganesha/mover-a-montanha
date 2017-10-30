@@ -297,9 +297,9 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 		}
 
 		if(post.isDraft)
-			post.isAuto = false;
+		post.isAuto = false;
 		else
-			post.isAuto = true;
+		post.isAuto = true;
 
 		Posts.update(post._id, post).then(function(res){});
 	}
@@ -313,9 +313,9 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 		}
 
 		if(post.isAuto)
-			post.isDraft = false;
+		post.isDraft = false;
 		else
-			post.isDraft = true;
+		post.isDraft = true;
 
 		Posts.update(post._id, post).then(function(res){});
 	}
@@ -353,23 +353,23 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 		{
 			Posts.update(id,editedPost).then(function(res){
 				if(res.message != undefined)
-					{
-						if(res.message == "Post updated!")
-						res.message = "Artigo Actualizado!";
-						ngToast.create(res.message);
-						$scope.title = '';
-						$scope.author = '';
-						$scope.post = {};
-						$scope.posts = postList;
-						$scope.activePost = false;
-						$scope.activePost.tags = [];
-						$scope.tags = [];
-						$scope.updatePosts();
-					}
-					// create a simple toast:
+				{
+					if(res.message == "Post updated!")
+					res.message = "Artigo Actualizado!";
+					ngToast.create(res.message);
+					$scope.title = '';
+					$scope.author = '';
+					$scope.post = {};
+					$scope.posts = postList;
+					$scope.activePost = false;
+					$scope.activePost.tags = [];
+					$scope.tags = [];
+					$scope.updatePosts();
+				}
+				// create a simple toast:
 
-					$scope.showEditionDiv = false;
-				});
+				$scope.showEditionDiv = false;
+			});
 		}
 		else
 		{
@@ -633,6 +633,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 			$scope.creationHour = '';
 			$scope.autoPubHour = '';
 			$scope.post.created_at = new Date(Date.now());
+			$scope.post.isDraft = true;
 
 			Categories.all().then(function(data){
 				tagsIndex = data;
@@ -701,18 +702,18 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 			{
 				post.isDraft = !post.isDraft;
 				if(post.isDraft)
-					post.isAuto = false;
+				post.isAuto = false;
 				else
-					post.isAuto = true;
+				post.isAuto = true;
 			}
 
 			$scope.changePubMode = function(post)
 			{
 				post.isAuto = !post.isAuto;
 				if(post.isAuto)
-					post.isDraft = false;
+				post.isDraft = false;
 				else
-					post.isDraft = true;
+				post.isDraft = true;
 			}
 
 			$scope.addPost = function(newPost){
@@ -1612,17 +1613,27 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 					adminApp.controller('ChangePassCtrl', function($scope, Services, ngToast){
 
-						$scope.changePwd = function(newPwd)
+						$scope.changePwd = function(newPwd, confirmPwd)
 						{
-							Services.changePwd(newPwd,$scope.currentUser._id).then(function(res){
-								if(res.message != undefined)
-								{
-									ngToast.create(res.message);
-								}
-								else {
-									ngToast.create('Password Alterada com sucesso');
-									$scope.newPwd = "";
-								}
-							});
+
+							if(newPwd == confirmPwd)
+							{
+								Services.changePwd(newPwd,$scope.currentUser._id).then(function(res){
+									if(res.message != undefined)
+									{
+										ngToast.create(res.message);
+									}
+									else {
+										ngToast.create('Palavra-passe Alterada com sucesso');
+										$scope.newPwd = "";
+										$scope.confirmPwd = "";
+									}
+								});
+							}
+							else {
+								ngToast.danger('As palavras-passe não correspondem!');
+								$scope.newPwd = "";
+								$scope.confirmPwd = "";
+							}
 						}
 					});

@@ -1,10 +1,25 @@
-<div class="container" style="width:90%;">
+<div class="container" id="adminHeader">
   <div class="row full-height">
     <div class='col-md-12'>
       <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading" style="min-height:60px;">
           <form ng-submit="addPost(post)">
-            <h4 style="display: inline-block;">Novo Artigo</h4><button class='btn btn-primary pull-right' style="display: inline-block;" type="submit">Publicar Artigo</button>
+            <div class="col-sm-12">
+              <div class="col-sm-6">
+                <div class="col-sm-2" style="padding:0px;">
+                  <h4 style="display: inline-block;">Novo Artigo</h4>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="col-sm-2" style="float:right;">
+                  <button class='btn btn-primary pull-right' style="display: inline-block;" type="submit">Publicar Artigo</button>
+                </div>
+                <div class="col-sm-4" style="padding:0px; float:right; margin-top:10px;">
+                  <p style="padding:0px; float:right; margin-right:20px;">&Eacute; Destaque?</p>
+                  <input type="checkbox" class="form-control" ng-model="post.isHighlight" style="float:right; margin:0px; max-height:20px; max-width:20%; padding:0px;"></input>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="panel-body">
             <br>
@@ -20,25 +35,18 @@
                 <div class="col-sm-12" style="padding:0px; margin-top:10px;">
                   <div class="col-sm-9">
                   </div>
-                  <div class="col-sm-1" style="padding:0px;">
-                    <input type="checkbox" class="form-control" ng-model="post.isHighlight" style="display:inline-block; margin:0px; float:right; height:20px; padding:0px;"></input>
-                  </div>
-                  <div class="col-sm-2" style="padding:0px;">
-                    <p style="padding:0px; display:inline-block; float:right;">&Eacute; Destaque?</p>
-                  </div>
+
                 </div>
               </div>
-              <div class="col-sm-6">
-                <div style="min-height:26vh;">
-                  <div class="col-md-12">
-                    <div class="col-md-6" style="cursor:pointer;">
-                      <img style="width:100%;" ng-init="creationImage = '/home/img/icons/date_creation.png'" src="{{creationImage}}" ng-click="creationDateModal()" ng-mouseover="creationImage = '/home/img/icons/date_creation_hover.png'" ng-mouseout="creationImage = '/home/img/icons/date_creation.png'">
-                      <p style="text-align:center;">{{ post.created_at | date :  "MMM d, y - HH:mm" }}</p>
-                    </div>
-                    <div class="col-md-6" style="cursor:pointer;">
-                      <img style="width:100%" ng-init="autoImage = '/home/img/icons/date_auto.png'" src="{{ autoImage }}" ng-click="autoPublicationModal()" ng-mouseover="autoImage = '/home/img/icons/date_auto_hover.png'" ng-mouseout="autoImage = '/home/img/icons/date_auto.png'">
-                      <p style="text-align:center;">{{ post.programmed_to_post | date :  "MMM d, y - HH:mm" }}</p>
-                    </div>
+              <div class="col-sm-6 text-center">
+                <div class="col-sm-12 text-center">
+                  <div class="col-sm-6 text-center" style="cursor:pointer;">
+                    <img class="img-responsive" style="max-width:80%; display:inline;" ng-init="creationImage = '/home/img/icons/date_creation.png'" src="{{creationImage}}" ng-click="creationDateModal()" ng-mouseover="creationImage = '/home/img/icons/date_creation_hover.png'" ng-mouseout="creationImage = '/home/img/icons/date_creation.png'">
+                    <p style="text-align:center;">{{ post.created_at | date :  "MMM d, y - HH:mm" }}</p>
+                  </div>
+                  <div class="col-sm-6 text-center" style="cursor:pointer;">
+                    <img class="img-responsive" style="max-width:80%; display:inline;" ng-init="autoImage = '/home/img/icons/date_auto.png'" src="{{ autoImage }}" ng-click="autoPublicationModal()" ng-mouseover="autoImage = '/home/img/icons/date_auto_hover.png'" ng-mouseout="autoImage = '/home/img/icons/date_auto.png'">
+                    <p style="text-align:center;">{{ post.programmed_to_post | date :  "MMM d, y - HH:mm" }}</p>
                   </div>
                 </div>
                 <div style="float:right; margin:0px; margin-top:-1vh; display:none;">
@@ -47,8 +55,8 @@
                     <datepicker ng-model="post.programmed_to_post" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
                   </div>
                 </div>
-                <div class="col-md-12">
-                  <div class="col-md-6 text-center">
+                <div class="col-sm-12 text-center">
+                  <div class="col-sm-6 text-center">
                     <div class='btn' ng-class="{'btn-success' : post.isAuto, 'btn-danger' : !post.isAuto}" style="cursor:pointer;" ng-click="changePubMode(post)">
                       <img style="display:inline-block; margin-right:14px;" ng-show="post.isAuto"  ng-src="/home/img/icons/auto.png" alt="Auto Publicação">
                       <p ng-show="post.isAuto" style="display:inline-block; text-align:center; margin: 0px;">Agendar Pub.</p>

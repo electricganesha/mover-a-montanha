@@ -77,3 +77,10 @@ textarea {
 #parent:hover #hover-content {
     display:block;
 }
+
+#adminHeader
+{
+  width:90%;
+  margin: auto;
+  padding-top: 2vw;
+}
