@@ -18,7 +18,7 @@
     <div id="artigoautor">
       <p style="text-transform: uppercase;"> Artigos deste autor </p>
       <br>
-      <a href="/#!/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor" ng-if="post._id != otherPost._id">
+      <a href="/#!/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor | orderBy: '-created_at'" ng-if="post._id != otherPost._id">
         <p style="margin:5px; margin-bottom:10px;">{{ otherPost.title }}</p>
       </a>
     </div>
