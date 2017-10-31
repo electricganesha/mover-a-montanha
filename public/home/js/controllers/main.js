@@ -475,7 +475,7 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
     $scope.post2TemVideo = false;
   }
 
-  $scope.authorPosts = Posts.author($scope.post.author.initMenu_id).then(function(data){
+  $scope.authorPosts = Posts.author($scope.post.author._id).then(function(data){
     $scope.postsAuthor = data;
   });
 

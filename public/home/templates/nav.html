@@ -9,7 +9,7 @@
         <li ng-class="{ active: isActive('highlights') }"><a id="menu-link" class="link4" ui-sref="highlights">Destaques</a></li>
         <li ng-class="{ active: isActive('contact') }"><a id="menu-link" class="link5" ui-sref="contact">Contacto</a></li>
       </ul>
-    <div style="position:absolute; right:-10px;">
+    <div ng-controller="NavCtrl" ng-show="isActive('home')" style="position:absolute; right:-10px;">
       <img class="republicImg" alt="Rep&uacute;blica Portuguesa" class="img-responsive" src="../home/img/republica.png"></img>
     </div>
 </nav>
