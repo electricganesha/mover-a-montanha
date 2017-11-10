@@ -515,8 +515,6 @@ module.exports = function(apiRouter){
 	// add a post
 	apiRouter.post('/posts', function(req, res){
 
-		console.log(req.body);
-
 		var post = new Post();
 		post.title = req.body.title;
 		post.author = req.body.author;
