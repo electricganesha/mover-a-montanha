@@ -1128,7 +1128,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 								$scope.refreshCharts();
 							}
 
-							if(value=="visitors" && $scopeStatistics.categoryChecked == "fa fa-square-o")
+							if(value=="visitors" && $scope.categoryChecked == "fa fa-square-o")
 							{
 								$scope.visitorsChecked = 'fa fa-check-square-o';
 								$scope.visitorFilter();
