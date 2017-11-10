@@ -1363,9 +1363,8 @@ iframe{
 
 .republicImg
 {
-  position:fixed;
+  position:absolute;
   margin-top:10px;
   width:5.5vw;
-  right:1vw;
-  top:5px;
+  right:-3vw;
 }
