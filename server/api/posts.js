@@ -529,8 +529,6 @@ module.exports = function(apiRouter){
 		post.categories = req.body.tags;
 		post.isHighlight = req.body.isHighlight;
 
-		console.log(post);
-
 		post.save(function(err, post){
 			if(err) res.send(err);
 
