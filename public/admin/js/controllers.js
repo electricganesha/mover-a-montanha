@@ -877,6 +877,11 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 						});
 					};
 
+					$scope.removeAuthorImage = function()
+					{
+						$scope.activeAuthor.photo = '../home/img/thumbnail.jpeg';
+					}
+
 					// upload on file select or drop
 					$scope.upload = function (file) {
 						var fd = new FormData();
@@ -994,6 +999,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 					adminApp.controller('AddAuthorCtrl', function($scope, Authors, ngToast){
 						$scope.author = {};
 						$scope.defaultPhoto = '../home/img/thumbnail.jpeg'
+						var photo = '../home/img/thumbnail.jpeg';
 
 						// upload on file select or drop
 						$scope.upload = function (file) {
