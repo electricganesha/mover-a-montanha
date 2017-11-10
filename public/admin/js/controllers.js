@@ -1026,7 +1026,9 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 						};
 
 						$scope.addAuthor = function(newAuthor){
-							$scope.author.photo = photo;
+							if(photo != undefined)
+								$scope.author.photo = photo;
+
 							Authors.add(newAuthor).then(function(res){
 								if(res.message != undefined)
 								{
