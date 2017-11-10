@@ -646,6 +646,17 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 				idsTags = ['596755fa5e0882799220c6a8','596755fe5e0882799220c6a9','596756015e0882799220c6aa']
 			});
 
+			$scope.getAuthorNameById = function(author)
+			{
+				for(var i=0; i<authorList.length; i++)
+				{
+					if(authorList[i]._id == author)
+					{
+						return authorList[i].name;
+					}
+				}
+			}
+
 			$scope.loadTags = function(query) {
 				return Categories.returnJSON();
 			};
