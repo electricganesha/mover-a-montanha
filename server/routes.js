@@ -154,6 +154,11 @@ router.post('/changePwd', function(req, res){
 
 });
 
+app.get('*', function(req, res, next) {
+    // call all routes and return the index.html file here
+		res.render('index');
+});
+
 app.use(function(req, res, next){
 	res.status(404);
 	res.render('404');

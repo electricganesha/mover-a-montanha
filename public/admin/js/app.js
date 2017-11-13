@@ -26,7 +26,7 @@ adminApp.run(['ngAnalyticsService', function (ngAnalyticsService) {
 }]);
 
 
-adminApp.config(function($stateProvider, $urlRouterProvider, $provide){
+adminApp.config(function($stateProvider, $urlRouterProvider, $provide, $locationProvider){
 
 	$urlRouterProvider.otherwise('/');
 
@@ -168,4 +168,9 @@ adminApp.config(function($stateProvider, $urlRouterProvider, $provide){
 		taOptions.toolbar[3].splice(2,0,'uploadImage');
 		return taOptions;
 	}]);
+
+	//Remover o trailing # do url
+	$locationProvider.html5Mode({
+		enabled: true,
+	});
 });
