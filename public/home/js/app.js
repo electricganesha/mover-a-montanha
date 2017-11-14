@@ -178,8 +178,8 @@ app.config(function($stateProvider, $urlRouterProvider, $locationProvider){
 
 	//Remover o trailing # do url
 	$locationProvider.html5Mode({
-		enabled: false,
-		requireBase: false
+		enabled: true,
 	});
+	
 	$urlRouterProvider.otherwise("/");
 });

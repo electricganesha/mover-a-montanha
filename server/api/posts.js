@@ -515,8 +515,6 @@ module.exports = function(apiRouter){
 	// add a post
 	apiRouter.post('/posts', function(req, res){
 
-		console.log(req.body);
-
 		var post = new Post();
 		post.title = req.body.title;
 		post.author = req.body.author;
@@ -528,8 +526,6 @@ module.exports = function(apiRouter){
 		post.recap = req.body.recap;
 		post.categories = req.body.tags;
 		post.isHighlight = req.body.isHighlight;
-
-		console.log(post);
 
 		post.save(function(err, post){
 			if(err) res.send(err);

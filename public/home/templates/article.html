@@ -1,7 +1,7 @@
 <!-- Main Content -->
 <div id="headerimg" class="col-md-12"></div>
 <div id="headerblueband"></div>
-<a href="/#!/author/{{post.author._id}}" id="artigoAuthor">
+<a href="/author/{{post.author._id}}" id="artigoAuthor">
   <div id="infoAuthorArticle">
     <img id="autorfotoarticle" style="margin:auto;" src="{{ post.author.photo }}"></img>
     <br>
@@ -18,7 +18,7 @@
     <div id="artigoautor">
       <p style="text-transform: uppercase;"> Artigos deste autor </p>
       <br>
-      <a href="/#!/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor | orderBy: '-created_at'" ng-if="post._id != otherPost._id">
+      <a href="/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor | orderBy: '-created_at'" ng-if="post._id != otherPost._id">
         <p style="margin:5px; margin-bottom:10px;">{{ otherPost.title }}</p>
       </a>
     </div>
@@ -29,7 +29,7 @@
         <p style="font-family: 'Raleway', sans-serif;"> PALAVRAS-CHAVE </p>
         <!--<a style="color:white;" href="/category/{{category._id}}" ng-repeat="category in post.categories">
           {{ category }}-->
-          <div ng-repeat="category in post.categories"><a style="color:white;" href="/#!/articles?category={{category._id}}"><p> {{ category.tag }} </p></a></div>
+          <div ng-repeat="category in post.categories"><a style="color:white;" href="/articles?category={{category._id}}"><p> {{ category.tag }} </p></a></div>
         <!--</a >-->
       </div>
       <div id="recap"><span id="aspa">"</span><p style="margin-top: -84px;">{{ post.recap }}</p></div>
@@ -40,7 +40,7 @@
         <p style="font-family: 'Raleway', sans-serif;"> PALAVRAS-CHAVE </p>
         <!--<a style="color:white;" href="/category/{{category._id}}" ng-repeat="category in post.categories">
           {{ category }}-->
-          <div ng-repeat="category in post.categories"><a style="color:white;" href="/#!/articles?category={{category._id}}"><p> {{ category.tag }} </p></a></div>
+          <div ng-repeat="category in post.categories"><a style="color:white;" href="/articles?category={{category._id}}"><p> {{ category.tag }} </p></a></div>
         <!--</a >-->
       </div>
     </div>
@@ -48,7 +48,7 @@
     <div id="post2" ta-bind ng-model="post2" ng-if="post2TemVideo"></div>
     <div id="articlefooter">
       <div id="articlefooterright" class="col-xs-12 col-md-6">
-        <input type="image" src="/icons/email.png" href="#" style="width: 30px;" alt = "Partilhar via Email" ng-init="url='http://www.moveramontanha.pt/#!/article/'+post._id"
+        <input type="image" src="/icons/email.png" href="#" style="width: 30px;" alt = "Partilhar via Email" ng-init="url='http://www.moveramontanha.pt/article/'+post._id"
             socialshare
             socialshare-provider="email"
             socialshare-type="sharer"
@@ -57,7 +57,7 @@
             socialshare-hashtags="moveramontanha"
             socialshare-url="{{url}}">
         </input>
-        <input type="image" src="/icons/twitter.png" href="#" style="width: 30px;" alt = "Partilhar no Twitter" ng-init="url='http://www.moveramontanha.pt/#!/article/'+post._id"
+        <input type="image" src="/icons/twitter.png" href="#" style="width: 30px;" alt = "Partilhar no Twitter" ng-init="url='http://www.moveramontanha.pt/article/'+post._id"
             socialshare
             socialshare-provider="twitter"
             socialshare-type="sharer"
@@ -65,7 +65,7 @@
             socialshare-hashtags="moveramontanha"
             socialshare-url="{{url}}">
         </input>
-        <input type="image" src="/icons/facebook.png" href="#" style="width: 30px;" alt = "Partilhar no Facebook" ng-init="url='http://www.moveramontanha.pt/#!/article/'+post._id"
+        <input type="image" src="/icons/facebook.png" href="#" style="width: 30px;" alt = "Partilhar no Facebook" ng-init="url='http://www.moveramontanha.pt/article/'+post._id"
             socialshare
             socialshare-provider="facebook"
             socialshare-type="simple sharer"
@@ -76,7 +76,7 @@
             socialshare-hashtags="#moveramontanha"
             socialshare-url="{{url}}">
         </input>
-        <input type="image" src="/icons/google.png" href="#" style="width: 30px;" alt = "Partilhar no Google+" ng-init="url='http://www.moveramontanha.pt/#!/article/'+post._id"
+        <input type="image" src="/icons/google.png" href="#" style="width: 30px;" alt = "Partilhar no Google+" ng-init="url='http://www.moveramontanha.pt/article/'+post._id"
             socialshare
             socialshare-provider="google"
             socialshare-type="sharer"
@@ -84,7 +84,7 @@
             socialshare-hashtags="moveramontanha"
             socialshare-url="{{url}}">
         </input>
-        <input type="image" src="/icons/pocket.png" href="#" style="width: 30px;" alt = "Partilhar no Pocket" ng-init="url='http://www.moveramontanha.pt/#!/article/'+post._id"
+        <input type="image" src="/icons/pocket.png" href="#" style="width: 30px;" alt = "Partilhar no Pocket" ng-init="url='http://www.moveramontanha.pt/article/'+post._id"
             socialshare
             socialshare-provider="pocket"
             socialshare-type="sharer"
@@ -103,7 +103,7 @@
 <div id="artigoautormobile">
   <p style="text-transform: uppercase;"> Artigos deste autor </p>
   <br>
-  <a href="/#!/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor" ng-if="post._id != otherPost._id">
+  <a href="/article/{{otherPost._id}}" id="otherpostsauthor" ng-repeat="otherPost in postsAuthor" ng-if="post._id != otherPost._id">
     <p>{{ otherPost.title }}</p>
   </a>
 </div>

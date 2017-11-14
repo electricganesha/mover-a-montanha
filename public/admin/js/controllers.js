@@ -646,6 +646,17 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 				idsTags = ['596755fa5e0882799220c6a8','596755fe5e0882799220c6a9','596756015e0882799220c6aa']
 			});
 
+			$scope.getAuthorNameById = function(author)
+			{
+				for(var i=0; i<authorList.length; i++)
+				{
+					if(authorList[i]._id == author)
+					{
+						return authorList[i].name;
+					}
+				}
+			}
+
 			$scope.loadTags = function(query) {
 				return Categories.returnJSON();
 			};
@@ -877,6 +888,11 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 						});
 					};
 
+					$scope.removeAuthorImage = function()
+					{
+						$scope.activeAuthor.photo = '../home/img/thumbnail.jpeg';
+					}
+
 					// upload on file select or drop
 					$scope.upload = function (file) {
 						var fd = new FormData();
@@ -994,6 +1010,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 					adminApp.controller('AddAuthorCtrl', function($scope, Authors, ngToast){
 						$scope.author = {};
 						$scope.defaultPhoto = '../home/img/thumbnail.jpeg'
+						var photo = '../home/img/thumbnail.jpeg';
 
 						// upload on file select or drop
 						$scope.upload = function (file) {
@@ -1026,7 +1043,9 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 						};
 
 						$scope.addAuthor = function(newAuthor){
-							$scope.author.photo = photo;
+							if(photo != undefined)
+								$scope.author.photo = photo;
+
 							Authors.add(newAuthor).then(function(res){
 								if(res.message != undefined)
 								{
@@ -1128,7 +1147,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 								$scope.refreshCharts();
 							}
 
-							if(value=="visitors" && $scopeStatistics.categoryChecked == "fa fa-square-o")
+							if(value=="visitors" && $scope.categoryChecked == "fa fa-square-o")
 							{
 								$scope.visitorsChecked = 'fa fa-check-square-o';
 								$scope.visitorFilter();

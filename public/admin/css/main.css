@@ -84,3 +84,15 @@ textarea {
   margin: auto;
   padding-top: 2vw;
 }
+
+#removeAuthorImage
+{
+  float:right;
+  font-size:18px;
+  cursor:pointer;
+}
+
+#removeAuthorImage:hover
+{
+  color:red;
+}

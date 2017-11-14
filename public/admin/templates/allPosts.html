@@ -49,9 +49,45 @@
       <div class="panel-body" style=" overflow:auto; height: 75vh;">
         <ul class="list-group">
           <li ng-show="!posts.length">N&atilde;o existe nenhum artigo publicado.</li>
-          <div class="row" ng-repeat='post in posts | orderBy:selectedFilter' style="margin-top:1vh; border-bottom:1px solid darkgrey;">
-            <li ng-show="post.author._id == currentUser.author || currentUser.author == undefined" style="cursor: pointer; border: none; padding: 0;" class="list-group-item" ng-click='setActive(post)'>
-              <div class = "panel" style="margin-bottom:5px;" ng-style="{ border: activePost == post ? 'solid 1px #87A6AC' : '' }" ng-class="{'panel-success' : post.isDraft, 'panel-danger' : !post.isDraft}">
+          <div ng-if="currentUser.level == 1 || currentUser.level == 2" class="row" ng-repeat='post in posts | orderBy:selectedFilter' style="margin-top:1vh; border-bottom:1px solid darkgrey;">
+            <li style="cursor: pointer; border: none; padding: 0;" class="list-group-item" ng-click='setActive(post)'>
+            <div class = "panel" style="margin-bottom:5px;" ng-style="{ border: activePost == post ? 'solid 1px #87A6AC' : '' }" ng-class="{'panel-success' : post.isDraft, 'panel-danger' : !post.isDraft}">
+                <div class="panel-heading" style="padding-top:5px; padding-bottom:0px;">
+                  <h4 class="panel-title"><b>{{post.title}}</b></h4><h6>{{ post.author.name }}</h6>
+                </div>
+                <div class="panel-body" style="padding-top:0px; padding-bottom:0px;">
+                  <div class="list-group-item-text" btf-markdown='trimContentTo140Char(post)'></div>
+                </div>
+                <div class="panel-footer" style="padding:0px;">
+                  <div class="col-sm-12" style="padding-top:1vh;">
+                    <div class="col-sm-6" style="padding:0px;">
+                      <h6 style="margin: 0px;"><b>Criado a :</b> {{post.created_at | date :  "MMM d, y - HH:mm" }} </h6>
+                    </div>
+                    <div class="col-sm-6" style="padding:0px;">
+                      <h6 style="margin: 0px; float:right;"><b>Actualizado a :</b> {{post.updated_at | date :  "MMM d, y - HH:mm" }}</h6>
+                    </div>
+                  </div>
+                  <div class="col-sm-12" style="padding-bottom:1vh;">
+                    <div class="col-sm-8" style="padding:0px;">
+                      <h6 ng-show="post.isAuto" style="margin: 0; margin-top: 7px; width: 70%; float: left;"><b>Programado para Publicação :</b> {{post.programmed_to_post | date :  "MMM d, y - HH:mm" }}</h6>
+                      <h6 ng-show="!post.isAuto" style="margin: 0; margin-top: 7px; width: 70%; float: left;"><b>Não Programado / Publicação Manual</b></h6>
+                    </div>
+                    <div class="col-sm-4" style="padding:0px;">
+                      <div style="cursor:pointer; display:inline-block; float:right; margin-left:10px;"><img ng-click="removePost( post._id ); $event.stopPropagation();" src="/home/img/icons/delete.png" alt="Apagar Artigo"></div>
+                      <div style="cursor:pointer; display:inline-block; float:right; margin-left:10px;"><img ng-if="post.isAuto" ng-click="changePubMode(post); $event.stopPropagation();" ng-src="/home/img/icons/auto.png" alt="Rascunho"></div>
+                      <div style="cursor:pointer; display:inline-block; float:right; margin-left:10px;"><img ng-if="!post.isAuto" ng-click="changePubMode(post); $event.stopPropagation();" ng-src="/home/img/icons/manual.png" alt="Rascunho"></div>
+                      <div style="cursor:pointer; display:inline-block; float:right; margin-left:10px;"><img ng-if="post.isDraft" ng-click="draftIt(post); $event.stopPropagation();" ng-src="/home/img/icons/public.png" alt="Rascunho"></div>
+                      <div style="cursor:pointer; display:inline-block; float:right; margin-left:10px;"><img ng-if="!post.isDraft" ng-click="draftIt(post); $event.stopPropagation();" ng-src="/home/img/icons/private.png" alt="Rascunho"></div>
+                      <div style="cursor:pointer; display:inline-block; float:right; "><img ng-if="post.isHighlight" ng-src="/home/img/icons/featured.png" alt="Rascunho"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </div>
+          <div ng-if="currentUser.level == 3 && currentUser.author == post.author._id" class="row" ng-repeat='post in posts | orderBy:selectedFilter' style="margin-top:1vh; border-bottom:1px solid darkgrey;">
+            <li style="cursor: pointer; border: none; padding: 0;" class="list-group-item" ng-click='setActive(post)'>
+            <div class = "panel" style="margin-bottom:5px;" ng-style="{ border: activePost == post ? 'solid 1px #87A6AC' : '' }" ng-class="{'panel-success' : post.isDraft, 'panel-danger' : !post.isDraft}">
                 <div class="panel-heading" style="padding-top:5px; padding-bottom:0px;">
                   <h4 class="panel-title"><b>{{post.title}}</b></h4><h6>{{ post.author.name }}</h6>
                 </div>
@@ -103,17 +139,20 @@
                 <div class="col-sm-12" style="padding:0px;">
                   <div class="col-sm-6" style="padding:0px;">
                     <p style="display:inline-block;">por&nbsp;&nbsp;</p>
-                    <select ng-show="currentUser.author == undefined" class="form-control" style="display:inline-block; width:85%;" name="authorSelect" id="authorSelect" ng-model="selectedAuthor" ng-change="selectAuthor(selectedAuthor)"
+                    <select ng-if="currentUser.level == 3" ng-show="currentUser.author == undefined" class="form-control" style="display:inline-block; width:85%;" name="authorSelect" id="authorSelect" ng-model="selectedAuthor" ng-change="selectAuthor(selectedAuthor)"
                     data-ng-options="author as author.name for author in authors">
                   </select>
-                  <p ng-show="currentUser.author != ''" style="display:inline-block; width:20%;">{{currentUserName}}</p>
+                  <select ng-if="currentUser.level == 1 || currentUser.level == 2" class="form-control" style="display:inline-block; width:85%;" name="authorSelect" id="authorSelect" ng-model="selectedAuthor" ng-change="selectAuthor(selectedAuthor)"
+                  data-ng-options="author as author.name for author in authors">
+                </select>
+                  <span ng-if="currentUser.level == 3" ng-show="currentUser.author != ''" style="display:inline-block; width:80%;">{{currentUserName}}</span>
                 </div>
                 <div class="col-sm-6" style="padding:0px; margin-top: 8px;">
                   <div class="col-sm-1" style="padding:0px;">
-                    <input type="checkbox" class="form-control" ng-model="post.isHighlight" style="display:inline-block; margin:0px; float:right; height:20px; padding:0px;"></input>
+                    <input type="checkbox" class="form-control" ng-model="activePost.isHighlight" style="display:inline-block; margin:0px; float:right; height:20px; padding:0px;"></input>
                   </div>
                   <div class="col-sm-5" style="padding:0px;">
-                    <p style="padding:0px; display:inline-block; float:left;">&Eacute; Destaque?</p> <img ng-if="post.isHighlight" style="margin-left:10px; margin-top:-4px;" ng-src="/home/img/icons/featured.png" alt="Rascunho">
+                    <p style="padding:0px; display:inline-block; float:left;">&Eacute; Destaque?</p> <img ng-if="activePost.isHighlight" style="margin-left:10px; margin-top:-4px;" ng-src="/home/img/icons/featured.png" alt="Rascunho">
                   </div>
                 </div>
               </div>

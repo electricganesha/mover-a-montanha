@@ -27,10 +27,11 @@
               <div class="col-sm-12">
                 <div class="col-sm-6" style="padding-right: 0;">
                   <input style="margin-bottom:2vh;" type='text' placeholder='T&iacute;tulo' ng-model='post.title' name='title' class='form-control'></input>
-                  <select name="authorSelect" class="form-control" style="display:inline-block;" id="authorSelect" ng-model="selectedAuthor" ng-change="selectAuthor(selectedAuthor)"
+                  <select ng-show="currentUser.level == 1 || currentUser.level == 2" name="authorSelect" class="form-control" style="display:inline-block;" id="authorSelect" ng-model="selectedAuthor" ng-change="selectAuthor(selectedAuthor)"
                   data-ng-options="author as author.name for author in authors">
                   <option value="">Escolha o autor</option> <!-- not selected / blank option -->
                 </select>
+                <span ng-show="currentUser.level == 3" style="margin-left:10px;"> por {{ getAuthorNameById(currentUser.author) }}</span>
                 <textarea style="height:17vh; margin-top:2vh;" placeholder='Resumo do Artigo' ng-model='post.recap' name='title' class='form-control'></textarea>
                 <div class="col-sm-12" style="padding:0px; margin-top:10px;">
                   <div class="col-sm-9">
@@ -91,7 +92,8 @@
               <div class="panel-body" style="height: 41vw; overflow: auto;">
                 <div class="row">
                   <div class="col-md-12 full-height" id="markdown" style="padding-bottom:4vh; border:none;">
-                    <div><h2 style="display:inline-block;" ng-if="post.title">{{post.title}}</h2><h2 style="display:inline-block;" ng-if="!post.title">Sem T&iacute;tulo</h2> por <h4 style="display:inline-block;" ng-if="selectedAuthor.name">{{selectedAuthor.name}}</h4><h4 style="display:inline-block;" ng-if="!selectedAuthor.name">Autor Desconhecido</h4></div>
+                    <div><h2 style="display:inline-block;" ng-if="post.title">{{post.title}}</h2><h2 style="display:inline-block;" ng-if="!post.title">Sem T&iacute;tulo</h2> por <h4 style="display:inline-block;" ng-if="currentUser.level == 3">{{getAuthorNameById(currentUser.author)}}</h4><h4 style="display:inline-block;" ng-if="!selectedAuthor.name && (currentUser.level == 1 || currentUser.level == 2)">Autor Desconhecido</h4>
+                      <h4 style="display:inline-block;" ng-if="selectedAuthor.name && (currentUser.level == 1 || currentUser.level == 2)">{{selectedAuthor.name}}</h4></div>
                     <div btf-markdown='post.body'></div>
                   </div>
                 </div>

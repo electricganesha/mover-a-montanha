@@ -31,6 +31,9 @@ apiRouter.get('/authors', function(req, res){
 // add an author
 apiRouter.post('/authors', function(req, res){
 
+  if(req.body.photo == undefined)
+    req.body.photo = '/home/img/thumbnail.jpeg';
+
   var author = new Author();
   author.name = req.body.name;
   author.bio = req.body.bio;
@@ -55,6 +58,9 @@ apiRouter.get('/authors/:id', function(req, res){
 // update an author
 apiRouter.put('/authors/:id', function(req, res){
   Author.findById(req.params.id, function(err, author){
+
+    if(req.body.photo == undefined)
+      req.body.photo = '/home/img/thumbnail.jpeg';
 
     if(err) res.send(err);
 
