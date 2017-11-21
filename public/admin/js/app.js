@@ -70,6 +70,14 @@ adminApp.config(function($stateProvider, $urlRouterProvider, $provide, $location
 		templateUrl: '/admin/templates/changepass.html',
 		controller: 'ChangePassCtrl'
 	})
+	.state('logout', {
+		url: '/logout',
+		controller: function($scope, $location, $window, Services) {
+			Services.logout().then(function(err, data){
+				$window.location.href= "/admin"
+			});
+		}
+	})
 	.state('allAuthors', {
 		url: '/allAuthors',
 		templateUrl: '/admin/templates/allAuthors.html',
