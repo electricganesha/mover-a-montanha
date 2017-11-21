@@ -96,3 +96,15 @@ textarea {
 {
   color:red;
 }
+
+#addCategory
+{
+  font-size:18px;
+  color:black;
+  cursor:pointer;
+}
+
+#addCategory:hover
+{
+  color:DodgerBlue;
+}
