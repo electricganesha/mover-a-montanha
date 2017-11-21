@@ -48,21 +48,38 @@
     <div id="post2" ta-bind ng-model="post2" ng-if="post2TemVideo"></div>
     <div id="articlefooter">
       <div id="articlefooterright" class="col-xs-12 col-md-6">
-        <input type="image" src="/icons/email.png" href="#" style="width: 30px;" alt = "Partilhar via Email"
+        <input type="image" src="/icons/email.png" href="#" style="width: 30px;" alt = "Partilhar via Email" ng-init="url='http://www.moveramontanha.pt/article/'+post._id"
             socialshare
             socialshare-provider="email"
+            socialshare-type="sharer"
+            socialshare-subject="Mover A Montanha - Partilha de Artigo"
+            socialshare-body="Leia o novo artigo - {{post.title}} por {{post.author.name}} - em {{url}}"
+            socialshare-hashtags="moveramontanha"
+            socialshare-url="{{url}}">
         </input>
-        <input type="image" src="/icons/twitter.png" href="#" style="width: 30px;" alt = "Partilhar no Twitter"
+        <input type="image" src="/icons/twitter.png" href="#" style="width: 30px;" alt = "Partilhar no Twitter" ng-init="url='http://www.moveramontanha.pt/article/'+post._id"
             socialshare
             socialshare-provider="twitter"
+            socialshare-text="{{post.title}} por {{post.author.name}}"
+            socialshare-hashtags="moveramontanha"
+            socialshare-url="{{url}}">
         </input>
-        <input type="image" src="/icons/facebook.png" href="#" style="width: 30px;" alt = "Partilhar no Facebook"
+        <input type="image" src="/icons/facebook.png" href="#" style="width: 30px;" alt = "Partilhar no Facebook" ng-init="url='http://www.moveramontanha.pt/article/'+post._id"
             socialshare
             socialshare-provider="facebook"
+            socialshare-text="{{post.title}} por {{post.author.name}}"
+            socialshare-display="{{post.title}} por {{post.author.name}}"
+            socialshare-quote="{{post.title}} por {{post.author.name}}"
+            socialshare-redirect-uri="{{url}}"
+            socialshare-hashtags="#moveramontanha"
+            socialshare-url="{{url}}">
         </input>
-        <input type="image" src="/icons/google.png" href="#" style="width: 30px;" alt = "Partilhar no Google+"
+        <input type="image" src="/icons/google.png" href="#" style="width: 30px;" alt = "Partilhar no Google+" ng-init="url='http://www.moveramontanha.pt/article/'+post._id"
             socialshare
             socialshare-provider="google"
+            socialshare-text="{{post.title}} por {{post.author.name}}"
+            socialshare-hashtags="#moveramontanha"
+            socialshare-url="{{url}}">
         </input>
         <input type="image" src="/icons/pocket.png" href="#" style="width: 30px;" alt = "Partilhar no Pocket" ng-init="url='http://www.moveramontanha.pt/article/'+post._id"
             socialshare
