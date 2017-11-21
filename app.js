@@ -10,6 +10,7 @@ var methodOverride = require('method-override');
 var cors = require('cors');
 var flash = require('connect-flash');
 var cron = require('./cronJobs');
+var feed = require('feed');
 
 require('./server/passport')(passport);   // this file is defined below
 
