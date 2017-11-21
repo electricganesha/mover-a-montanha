@@ -64,9 +64,12 @@
             socialshare
             socialshare-provider="google"
         </input>
-        <input type="image" src="/icons/pocket.png" href="#" style="width: 30px;" alt = "Partilhar no Pocket"
+        <input type="image" src="/icons/pocket.png" href="#" style="width: 30px;" alt = "Partilhar no Pocket" ng-init="url='http://www.moveramontanha.pt/article/'+post._id"
             socialshare
-            socialshare-provider="pocket">
+            socialshare-provider="pocket"
+            socialshare-type="sharer"
+            socialshare-url="{{url}}"
+            socialshare-text="{{post.title}} por {{post.author.name}}">
         </input>
       </div>
       <div id="articlefooterleft" class="col-xs-12 col-md-6">
