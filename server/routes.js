@@ -7,6 +7,8 @@ router = express.Router();
 fs = require('fs');
 geoip = require('geoip-lite');
 http = require('http');
+Feed = require('feed');
+var Post = require('./models/post');
 
 var Stats = require('./models/stats');
 
@@ -24,6 +26,66 @@ module.exports = function(app, passport){
 	require('./api/stats')(apiRouter);
 	require('./api/mailconfig')(apiRouter);
 
+	//rss feed generator
+	let feed = new Feed({
+		title: 'Mover-A-Montanha',
+		description: 'Blogue Mover-a-Montanha',
+		id: 'https://www.moveramontanha.pt',
+		link: 'https://www.moveramontanha.pt',
+		image: 'https://www.moveramontanha.pt/home/img/mam_share.jpg',
+		favicon: 'https://www.moveramontanha.pt/home/img/icons/mountains.png',
+		copyright: 'Todos os direitos reservados, Mover-A-Montanha',
+		updated: new Date(), // optional, default = today
+		generator: 'Feed Generator', // optional, default = 'Feed for Node.js'
+		feedLinks: {
+			rss: 'https://www.moveramontanha.pt/rssFeed',
+			json: 'https://www.moveramontanha.pt/jsonFeed',
+			atom: 'https://www.moveramontanha.pt/atomFeed',
+		},
+		author: {
+			name: 'Mover-A-Montanha',
+			email: 'moveramontanha@gmail.com',
+			link: 'https://www.moveramontanha.pt'
+		}
+	});
+
+	Post.find().sort('-created_at').populate('author').populate('categories')
+	.exec(function(err, posts){
+		if(err)
+		{
+			res.send(err);
+			console.log(err);
+		}
+		else
+		{
+			for(var i=0; i<posts.length; i++)
+			{
+
+				if(posts[i].isDraft == true && posts[i].author != undefined)
+				{
+					feed.addItem({
+						title: posts[i].title,
+						id: 'https://www.moveramontanha.pt/article/'+posts[i]._id,
+						link:'https://www.moveramontanha.pt/article/'+posts[i]._id,
+						description: posts[i].recap,
+						content: posts[i].body,
+						author: [{
+							name: posts[i].author.name,
+							link: 'https://www.moveramontanha.pt/author/'+posts[i].author._id
+						}],
+						date: new Date(posts[i].created_at),
+						image: 'https://www.moveramontanha.pt/'+posts[i].author.photo.replace("../", "")
+					});
+				}
+
+				if(i==posts.length-1)
+				{
+					feed.addCategory('Artigos');
+				}
+			}
+		}
+	});
+
 	// home route
 	router.get('/', function(req, res) {
 		// ADICIONAR ESTATISTICAS EXTERNAS
@@ -32,12 +94,12 @@ module.exports = function(app, passport){
 		if(remoteAddress[3] != null && remoteAddress[3] != '127.0.0.1')
 		{
 			return http.get('http://ipinfo.io/'+remoteAddress[3]+'/geo', function(response) {
-        // Continuously update stream with data
-        var body = '';
-        response.on('data', function(d) {
-            body += d;
-        });
-        response.on('end', function() {
+				// Continuously update stream with data
+				var body = '';
+				response.on('data', function(d) {
+					body += d;
+				});
+				response.on('end', function() {
 
 					body = JSON.parse(body);
 
@@ -48,11 +110,11 @@ module.exports = function(app, passport){
 					stat.userLocationCountry = body.country;
 					stat.userLocationCity = body.city;
 					stat.save(function(err, stat){
-		  			if(err) res.send(err);
-		  			res.render('index');
-		  		});
-        });
-    });
+						if(err) res.send(err);
+						res.render('index');
+					});
+				});
+			});
 		}
 		else {
 			res.render('index');
@@ -89,6 +151,22 @@ module.exports = function(app, passport){
 	router.get('/admin/emailhour',function(req, res)
 	{
 		res.json(returnEmailHour());
+	});
+
+	// contact form service
+	app.get('/rssFeed', function(req, res){
+		res.setHeader('content-type', 'application/xml');
+		res.send(feed.rss2());
+	});
+
+	app.get('/atomFeed', function(req, res){
+		res.setHeader('content-type', 'application/atom');
+		res.send(feed.atom1());
+	});
+
+	app.get('/jsonFeed', function(req, res){
+		res.setHeader('content-type', 'application/json');
+		res.send(feed.json1());
 	});
 
 	router.post('/admin/emailhour',function(req, res)
@@ -140,23 +218,23 @@ router.post('/logout', function(req, res){
 
 router.post('/changePwd', function(req, res){
 	User.findById(req.body.user).then(function(sanitizedUser){
-    if (sanitizedUser){
-        sanitizedUser.setPassword(req.body.pwd, function(){
-            sanitizedUser.save();
-            res.status(200).json({message: 'Password alterada com sucesso'});
-        });
-    } else {
-        res.status(500).json({message: 'Este utilizador nao existe.'});
-    }
-},function(err){
-    console.error(err);
-})
+		if (sanitizedUser){
+			sanitizedUser.setPassword(req.body.pwd, function(){
+				sanitizedUser.save();
+				res.status(200).json({message: 'Password alterada com sucesso'});
+			});
+		} else {
+			res.status(500).json({message: 'Este utilizador nao existe.'});
+		}
+	},function(err){
+		console.error(err);
+	})
 
 });
 
 app.get('*', function(req, res, next) {
-    // call all routes and return the index.html file here
-		res.render('index');
+	// call all routes and return the index.html file here
+	res.render('index');
 });
 
 app.use(function(req, res, next){
