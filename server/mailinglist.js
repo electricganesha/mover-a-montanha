@@ -50,11 +50,16 @@ module.exports = function(){
     else
     {
       mailConfig = result[0];
-      transporter.options.service = mailConfig.service;
-      transporter.options.host = mailConfig.host;
-      transporter.options.port = mailConfig.port;
-      transporter.options.auth.user = mailConfig.mail;
-      transporter.options.auth.pass = mailConfig.password;
+      transporter = nodemailer.createTransport({
+        service: mailConfig.service,
+        host:  mailConfig.host,
+        port: mailConfig.port,
+        secure: true,
+        auth: {
+          user: mailConfig.mail,
+          pass: mailConfig.password,
+        }
+      });
     }
   });
 
