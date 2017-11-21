@@ -144,6 +144,21 @@ servicesModule.service('Services', function($http){
 				return postCountArray.data;
 			});
 		},
+		logout: function()
+		{
+			return $http({
+				method: 'post',
+				url: '/logout'
+			}).then(function(res){
+				// return the new post
+				console.log(res);
+				return res.data;
+			}).catch(function(err){
+				console.error('Ocorreu um erro ao terminar a sessão!');
+				console.error(err);
+				return err;
+			});
+		},
 		changePwd: function(pwd,user){
 			var body = {};
 			body.pwd = pwd;

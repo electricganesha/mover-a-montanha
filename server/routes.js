@@ -135,7 +135,7 @@ failureFlash: 'Utilizador ou palavra-passe inválidos' })
 router.post('/logout', function(req, res){
 	req.session.destroy();
 	req.logout();
-	res.redirect('/admin');
+	res.status(200).json({message: 'Sessão terminada com sucesso'});
 });
 
 router.post('/changePwd', function(req, res){
