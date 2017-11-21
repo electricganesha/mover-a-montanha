@@ -434,9 +434,13 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 		return trimmedContent;
 	}
 
-	$scope.loadTags = function(query) {
-		var loadedTags = Categories.returnJSON();
-		return loadedTags;
+	$scope.loadTags = function($query) {
+		return Categories.returnJSON().then(function(data){
+			var loadedTags = data;
+			return loadedTags.filter(function(loadedTag) {
+				return loadedTag.text.toLowerCase().indexOf($query.toLowerCase()) != -1;
+		});
+		});
 	};
 
 	$scope.removeTag = function(tag)
@@ -657,8 +661,13 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 				}
 			}
 
-			$scope.loadTags = function(query) {
-				return Categories.returnJSON();
+			$scope.loadTags = function($query) {
+				return Categories.returnJSON().then(function(data){
+					var loadedTags = data;
+					return loadedTags.filter(function(loadedTag) {
+						return loadedTag.text.toLowerCase().indexOf($query.toLowerCase()) != -1;
+				});
+				});
 			};
 
 			$scope.$watch('tags.length', function(value) {
@@ -978,7 +987,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 						};
 					});
 
-					adminApp.controller('AllCategoriesCtrl', function($scope, categoryList, Categories){
+					adminApp.controller('AllCategoriesCtrl', function($scope, ngToast, categoryList, Categories){
 
 						$scope.updateCategories = function () {
 							Categories.all().then(function(data){
@@ -991,6 +1000,49 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 						$scope.setActive = function(category){
 							$scope.activeCategory = category;
+						}
+
+						$scope.addCategory = function(category)
+						{
+							if(category == undefined || category == '')
+								ngToast.danger("A categoria deve ter um nome.");
+							else {
+								var categoryToInsert = {};
+								categoryToInsert.tag = category;
+								Categories.add(categoryToInsert).then(function(res){
+									console.log(res);
+									if(res)
+									{
+										if(res.code == 11000)
+										{
+											ngToast.danger("Categoria já existe");
+										}
+										else {
+											$scope.updateCategories();
+											ngToast.create("Categoria Adicionada com Sucesso");
+										}
+										}
+									else {
+										$scope.updateCategories();
+									}
+								});
+							}
+							console.log(category);
+						}
+
+						$scope.saveCategory = function(category)
+						{
+							Categories.update(category._id,category).then(function(res){
+								if(res.message != undefined)
+								{
+									if(res.message == 'Category updated!')
+									$scope.updateCategories();
+									ngToast.create("Categoria Editada com Sucesso");
+								}
+								else {
+									$scope.updateCategories();
+								}
+							});
 						}
 
 						$scope.removeCategory = function(category){

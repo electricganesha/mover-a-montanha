@@ -26,7 +26,20 @@ adminApp.run(['ngAnalyticsService', function (ngAnalyticsService) {
 }]);
 
 
-adminApp.config(function($stateProvider, $urlRouterProvider, $provide, $locationProvider){
+adminApp.config(function($stateProvider, $urlRouterProvider, $provide, $locationProvider, tagsInputConfigProvider){
+
+
+	tagsInputConfigProvider
+    .setDefaults('tagsInput', {
+      placeholder: 'New tag',
+      minLength: 5,
+      addOnEnter: false
+    })
+    .setDefaults('autoComplete', {
+      debounceDelay: 200,
+      loadOnDownArrow: true,
+      loadOnEmpty: true
+    });
 
 	$urlRouterProvider.otherwise('/');
 
