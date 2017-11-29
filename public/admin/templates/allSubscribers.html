@@ -14,10 +14,12 @@
               <div class="panel panel-default">
                 <div class="panel-body col-sm-12" style="padding:0px; border:1px solid darkgrey; border-radius:5%;">
                   <div class="col-sm-6" style="padding:0px;">
-                    <p style="margin:4px; margin-left:10px; display:inline-block; font-size:16px;"> {{ subscriber.email }}</p>
+                    <p ng-style="subscriber.active && {'color':'green'} || {'color':'firebrick'}" style="margin:4px; margin-left:10px; display:inline-block; font-size:16px;"> {{ subscriber.email }}</p>
                   </div>
                   <div class="col-sm-6" style="padding:0px;">
-                    <div style="float:right; display:inline-block; cursor:pointer;"><img class="btn btn-default" ng-click="removeSubscriber( subscriber )" src="/home/img/icons/delete.png"></div>
+                    <div ng-if="subscriber.active" style="float:right; display:inline-block; cursor:pointer;"><button class="btn btn-default" ng-click="toggleActive ( subscriber )"><span style="color:green;" class="glyphicon glyphicon-ok-sign"></span></button></div>
+                    <div ng-if="!subscriber.active" style="float:right; display:inline-block; cursor:pointer;"><button class="btn btn-default" ng-click="toggleActive ( subscriber )"><span style="color:red;" class="glyphicon glyphicon-remove-sign"></span></button></div>
+                    <div style="float:right; display:inline-block; cursor:pointer;"><button class="btn btn-default" ng-click="removeSubscriber ( subscriber )"><span class="glyphicon glyphicon-trash"></span></button></div>
                   </div>
                 </div>
               </div>

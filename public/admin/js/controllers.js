@@ -985,6 +985,22 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 								}
 							});
 						};
+
+						$scope.toggleActive = function(subscriber){
+
+							subscriber.active = !subscriber.active;
+
+							Subscribers.update(subscriber._id, subscriber).then(function(res){
+								if(res.message != undefined)
+								{
+									if(res.message == 'Subscriber updated!')
+									$scope.updateSubscribers();
+								}
+								else {
+									$scope.updateSubscribers();
+								}
+							});
+						};
 					});
 
 					adminApp.controller('AllCategoriesCtrl', function($scope, ngToast, categoryList, Categories){

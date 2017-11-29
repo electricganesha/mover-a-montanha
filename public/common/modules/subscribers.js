@@ -13,6 +13,11 @@ subscribersModule.service('Subscribers', function($http){
 				return subscriber.data;
 			});
 		},
+		oneByEmail: function(email){
+			return $http.get('/api/subscribers/email/'+email).then(function(subscriber){
+				return subscriber.data;
+			});
+		},
 		add: function(newSubscriber){
 			return $http({
 				method: 'post',
