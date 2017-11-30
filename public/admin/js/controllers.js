@@ -1502,6 +1502,10 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 								$scope.totalSubscribers = data;
 							});
 
+							Services.getSubscriberCountAllActive().then(function(data){
+								$scope.totalSubscribersActive = data;
+							});
+
 							Services.getVisitorCountAll().then(function(data){
 								$scope.totalVisitors = data;
 							});
