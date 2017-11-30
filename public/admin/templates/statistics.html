@@ -138,6 +138,8 @@
           <h3>Subscritores: </h3>
           <hr>
           <p> <b>Total de subscritores:</b> {{ totalSubscribers }} </p>
+          <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><u>Activos</u>:</b>&nbsp;&nbsp; {{ totalSubscribersActive }} </p>
+          <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><u>Inactivos</u>:</b> {{ totalSubscribers - totalSubscribersActive }} </p>
           <hr>
           <p> <b> Hora<span ng-show="subscribersTimeMetrics.hour.length > 1">s</span> com mais registos: </b> </p>
           <p style="margin-left:15px;" ng-repeat="hour in subscribersTimeMetrics.hour">

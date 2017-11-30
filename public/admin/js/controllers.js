@@ -985,6 +985,37 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 								}
 							});
 						};
+
+						$scope.toggleActive = function(subscriber){
+
+							subscriber.active = !subscriber.active;
+
+							Subscribers.update(subscriber._id, subscriber).then(function(res){
+								if(res.message != undefined)
+								{
+									if(res.message == 'Subscriber updated!')
+									$scope.updateSubscribers();
+								}
+								else {
+									$scope.updateSubscribers();
+								}
+							});
+						};
+
+						$scope.downloadSubscribers = function()
+						{
+							Subscribers.getCSV().then(function(data)
+						{
+							var filename = 'subscritores-'+ moment().format('YYYY-MMM-D');
+							var anchor = angular.element('<a/>');
+					     anchor.attr({
+					         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+					         target: '_blank',
+					         download: filename+'.csv'
+					     })[0].click();
+
+						});
+						}
 					});
 
 					adminApp.controller('AllCategoriesCtrl', function($scope, ngToast, categoryList, Categories){
@@ -1469,6 +1500,10 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 							Services.getSubscriberCountAll().then(function(data){
 								$scope.totalSubscribers = data;
+							});
+
+							Services.getSubscriberCountAllActive().then(function(data){
+								$scope.totalSubscribersActive = data;
 							});
 
 							Services.getVisitorCountAll().then(function(data){

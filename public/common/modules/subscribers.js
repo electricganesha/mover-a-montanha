@@ -13,6 +13,11 @@ subscribersModule.service('Subscribers', function($http){
 				return subscriber.data;
 			});
 		},
+		oneByEmail: function(email){
+			return $http.get('/api/subscribers/email/'+email).then(function(subscriber){
+				return subscriber.data;
+			});
+		},
 		add: function(newSubscriber){
 			return $http({
 				method: 'post',
@@ -66,6 +71,11 @@ subscribersModule.service('Subscribers', function($http){
 				console.error('Ocorreu um erro ao enviar o email!');
 				console.error(err);
 				return err;
+			});
+		},
+		getCSV: function(){
+			return $http.get('/api/getSubscribersCSV').then(function(csv){
+				return csv.data;
 			});
 		}
 	};

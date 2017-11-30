@@ -536,16 +536,43 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
   {
     var subscriber = { email:'' };
     subscriber.email = $scope.email;
+    subscriber.active = true;
     Subscribers.add(subscriber).then(function(data){
+      console.log(data);
       if(!data.code)
       {
         Subscribers.email(subscriber).then(function(data){
-          alert('Obrigado por subscrever ao blog Mover-A-Montanha!');
+          alert('Bem-vindo! Obrigado por subscrever ao blog Mover-A-Montanha!');
         });
       }
       else if(data.code == '11000')
       {
-        alert('Este e-mail já se encontra na nossa base-de-dados.');
+
+        Subscribers.oneByEmail($scope.email).then(function(data)
+        {
+
+          theSubscriber = data[0];
+
+          if(theSubscriber.active == true)
+          {
+            alert('Este e-mail já se encontra registado na nossa base-de-dados!');
+          }
+          else
+          {
+            theSubscriber.active = true;
+            Subscribers.update(theSubscriber._id, theSubscriber).then(function(res){
+              if(res.message != undefined)
+              {
+                if(res.message == 'Subscriber updated!')
+                {
+                  alert('Bem-vindo de volta. Obrigado por voltar a subscrever ao blog Mover-A-Montanha!');
+                }
+              }
+              else {
+              }
+            });
+          }
+        });
       }
     });
 

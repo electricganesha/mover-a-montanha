@@ -129,6 +129,11 @@ servicesModule.service('Services', function($http){
 				return postCountArray.data;
 			});
 		},
+		getSubscriberCountAllActive: function(){
+			return $http.get('/api/subscribers/countAllActive').then(function(postCountArray){
+				return postCountArray.data;
+			});
+		},
 		getPostsTimeMetrics: function(){
 			return $http.get('/api/posts/timemetrics').then(function(postCountArray){
 				return postCountArray.data;
