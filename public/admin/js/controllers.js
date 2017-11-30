@@ -439,7 +439,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 			var loadedTags = data;
 			return loadedTags.filter(function(loadedTag) {
 				return loadedTag.text.toLowerCase().indexOf($query.toLowerCase()) != -1;
-		});
+			});
 		});
 	};
 
@@ -666,7 +666,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 					var loadedTags = data;
 					return loadedTags.filter(function(loadedTag) {
 						return loadedTag.text.toLowerCase().indexOf($query.toLowerCase()) != -1;
-				});
+					});
 				});
 			};
 
@@ -1002,19 +1002,53 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 							});
 						};
 
+						$scope.uploadSubscribers = function()
+						{
+							var file = document.getElementById('file-input').files[0];
+
+							if (file) {
+								new Promise(function(resolve, reject) {
+									var reader = new FileReader();
+									reader.onload = function (evt) {
+										resolve(evt.target.result);
+									};
+									reader.readAsText(file);
+									reader.onerror = reject;
+								})
+								.then(processFileContent)
+								.catch(function(err) {
+									console.log(err)
+								});
+							}
+
+							function processFileContent(data) {
+  							var list = data.split(',');
+
+								for(var i=0; i<list.length; i++)
+								{
+									var subscriber = { 'email':list[i], 'active':true };
+							    Subscribers.add(subscriber).then(function(data){
+										console.log(data);
+										$scope.subscribers = $scope.updateSubscribers();
+									});
+								}
+							}
+
+						}
+
 						$scope.downloadSubscribers = function()
 						{
 							Subscribers.getCSV().then(function(data)
-						{
-							var filename = 'subscritores-'+ moment().format('YYYY-MMM-D');
-							var anchor = angular.element('<a/>');
-					     anchor.attr({
-					         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
-					         target: '_blank',
-					         download: filename+'.csv'
-					     })[0].click();
+							{
+								var filename = 'subscritores-'+ moment().format('YYYY-MMM-D');
+								var anchor = angular.element('<a/>');
+								anchor.attr({
+									href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+									target: '_blank',
+									download: filename+'.csv'
+								})[0].click();
 
-						});
+							});
 						}
 					});
 
@@ -1036,7 +1070,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 						$scope.addCategory = function(category)
 						{
 							if(category == undefined || category == '')
-								ngToast.danger("A categoria deve ter um nome.");
+							ngToast.danger("A categoria deve ter um nome.");
 							else {
 								var categoryToInsert = {};
 								categoryToInsert.tag = category;
@@ -1052,7 +1086,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 											$scope.updateCategories();
 											ngToast.create("Categoria Adicionada com Sucesso");
 										}
-										}
+									}
 									else {
 										$scope.updateCategories();
 									}
@@ -1127,7 +1161,7 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 						$scope.addAuthor = function(newAuthor){
 							if(photo != undefined)
-								$scope.author.photo = photo;
+							$scope.author.photo = photo;
 
 							Authors.add(newAuthor).then(function(res){
 								if(res.message != undefined)

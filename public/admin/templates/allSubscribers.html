@@ -1,7 +1,9 @@
 <div class="container" id="adminHeader">
   <div class="panel panel-default">
     <div class="panel-heading">
-      <h4 style="display: inline-block;">Subscritores</h4>
+      <h4 style="display: inline-block;">Subscritores |</h4>
+      <span style="font-size:10px;"> <b>ATEN&Ccedil;&Atilde;O</b> : Deve carregar ficheiros com emails separados por v&iacute;rgula. </span>
+      <span style="font-size:10px;"> Exemplo : email1@gmail.com,email2@gmail.com,email3@gmail.com,...</span>
     </div>
     <div class="panel-body">
       <div class="col-md-4">
@@ -9,10 +11,14 @@
           <div class="panel-heading">
             <h4 style="display: inline-block;">Lista de Subscritores</h4>
             <div style="float:right;">
-              <button class="btn btn-default" ng-click="uploadSubscribers()" title="Carregar Subscritores"><span class="glyphicon glyphicon-cloud-upload"></span></button>
-              <button class="btn btn-default" ng-click="downloadSubscribers()" title="Descarregar Subscritores"><span class="glyphicon glyphicon-cloud-download"></span></button>
+              <div class="image-upload" style="display:inline-block;" title="Carregar Subscritores na BD">
+                <label for="file-input" style="cursor:pointer; margin:0px;">
+                 <span class="glyphicon glyphicon-cloud-upload"></span>
+                </label>
+                <input type="file" id="file-input" ng-model="file" onchange="angular.element(this).scope().uploadSubscribers()">
+              </div>
+              &nbsp;<button class="btn btn-default" ng-click="downloadSubscribers()" title="Descarregar Subscritores da BD"><span class="glyphicon glyphicon-cloud-download"></span></button>
             </div>
-
           </div>
           <div class="panel-body" style="padding-top:0px;">
             <div class="col-md-12" ng-repeat='subscriber in subscribers | orderBy:"name"' style="margin-top:1vh;">
