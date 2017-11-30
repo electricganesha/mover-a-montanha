@@ -8,6 +8,11 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h4 style="display: inline-block;">Lista de Subscritores</h4>
+            <div style="float:right;">
+              <button class="btn btn-default" ng-click="uploadSubscribers()" title="Carregar Subscritores"><span class="glyphicon glyphicon-cloud-upload"></span></button>
+              <button class="btn btn-default" ng-click="downloadSubscribers()" title="Descarregar Subscritores"><span class="glyphicon glyphicon-cloud-download"></span></button>
+            </div>
+
           </div>
           <div class="panel-body" style="padding-top:0px;">
             <div class="col-md-12" ng-repeat='subscriber in subscribers | orderBy:"name"' style="margin-top:1vh;">

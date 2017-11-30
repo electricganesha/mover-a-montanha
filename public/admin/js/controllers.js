@@ -1001,6 +1001,21 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 								}
 							});
 						};
+
+						$scope.downloadSubscribers = function()
+						{
+							Subscribers.getCSV().then(function(data)
+						{
+							var filename = 'subscritores-'+ moment().format('YYYY-MMM-D');
+							var anchor = angular.element('<a/>');
+					     anchor.attr({
+					         href: 'data:attachment/csv;charset=utf-8,' + encodeURI(data),
+					         target: '_blank',
+					         download: filename+'.csv'
+					     })[0].click();
+
+						});
+						}
 					});
 
 					adminApp.controller('AllCategoriesCtrl', function($scope, ngToast, categoryList, Categories){

@@ -72,6 +72,11 @@ subscribersModule.service('Subscribers', function($http){
 				console.error(err);
 				return err;
 			});
+		},
+		getCSV: function(){
+			return $http.get('/api/getSubscribersCSV').then(function(csv){
+				return csv.data;
+			});
 		}
 	};
 });

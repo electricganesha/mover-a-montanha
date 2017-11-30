@@ -95,20 +95,23 @@ module.exports = function(){
       {
         var subscriber = subscribers[i];
 
-        body = mailConfig.header+
-        digest
-        +'<div style="text-align:center; padding:70px; background-image:url(https://www.moveramontanha.pt/home/img/footerimg.jpg); color:white;"><p><strong>Este email foi enviado de forma autom&aacute;tica atrav&eacute;s do nosso servidor de email.</strong></p><p>&nbsp;</p><p>Se n&atilde;o deseja receber esta newsletter, por favor <a style="color:white" href="https://www.moveramontanha.pt/api/unsubscribe/'+subscriber._id+'">remova a sua subscri&ccedil;&atilde;o aqui.</a></p><div></body>';
-
-        if(posts.length > 0)
+        if(subscriber.active == true)
         {
-          transporter.sendMail(
-            {
-              from: mailConfig.mail,
-              to: subscriber.email,
-              subject: mailConfig.subject +" "+ dataFormatada,
-              html: body
-            }
-          );
+          body = mailConfig.header+
+          digest
+          +'<div style="text-align:center; padding:70px; background-image:url(https://www.moveramontanha.pt/home/img/footerimg.jpg); color:white;"><p><strong>Este email foi enviado de forma autom&aacute;tica atrav&eacute;s do nosso servidor de email.</strong></p><p>&nbsp;</p><p>Se n&atilde;o deseja receber esta newsletter, por favor <a style="color:white" href="https://www.moveramontanha.pt/api/unsubscribe/'+subscriber._id+'">remova a sua subscri&ccedil;&atilde;o aqui.</a></p><div></body>';
+
+          if(posts.length > 0)
+          {
+            transporter.sendMail(
+              {
+                from: mailConfig.mail,
+                to: subscriber.email,
+                subject: mailConfig.subject +" "+ dataFormatada,
+                html: body
+              }
+            );
+          }
         }
       }
     }
