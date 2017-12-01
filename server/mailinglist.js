@@ -91,7 +91,7 @@ module.exports = function(){
       var data = new Date();
       var dataFormatada = data.getUTCDate() + "/" + data.getUTCMonth() + "/" + data.getUTCFullYear();
 
-      console.log("MAILSERVICE:Enviando email para " subscribers.length + " subscritores");
+      console.log("MAILSERVICE:Enviando email para " + subscribers.length + " subscritores");
       console.log("MAILSERVICE:Transporter Config");
       console.log(transporter);
 
