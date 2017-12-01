@@ -20,7 +20,7 @@ var transporter = nodemailer.createTransport({
 
 module.exports = function(){
 
-  console.log("A iniciar processo de emails");
+  console.log("MAILSERVICE: A iniciar processo de emails");
 
   var subscribers = '';
 
@@ -90,6 +90,10 @@ module.exports = function(){
 
       var data = new Date();
       var dataFormatada = data.getUTCDate() + "/" + data.getUTCMonth() + "/" + data.getUTCFullYear();
+
+      console.log("MAILSERVICE:Enviando email para " subscribers.length + " subscritores");
+      console.log("MAILSERVICE:Transporter Config");
+      console.log(transporter);
 
       for(var i=0; i<subscribers.length; i++)
       {
