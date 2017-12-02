@@ -83,12 +83,15 @@ module.exports = function(){
 
       for(var i=0; i<posts.length; i++)
       {
-        var post = posts[i];
+        if(posts[i].isDraft) //se o artigo estiver activo
+        {
+          var post = posts[i];
 
-        var postDate = new Date(post.created_at);
-        var postDateFormatted = postDate.getUTCDate() + "/" + postDate.getUTCMonth() + "/" + postDate.getUTCFullYear();
+          var postDate = new Date(post.created_at);
+          var postDateFormatted = postDate.getUTCDate() + "/" + postDate.getUTCMonth() + "/" + postDate.getUTCFullYear();
 
-        digest += '<hr><br><br><div style="text-align:center"><a href="https://www.moveramontanha.pt/article/'+post._id+'"><h3 style="display:inline;">'+ post.title +'</h3></a><p><h5 style="display:inline">por '+post.author.name+'</h5><h6 style="display:inline"> a '+postDateFormatted+'</h6><p>&#8220;<i>'+post.recap+'</i>&#8221;</p><br>';
+          digest += '<hr><br><br><div style="text-align:center"><a href="https://www.moveramontanha.pt/article/'+post._id+'"><h3 style="display:inline;">'+ post.title +'</h3></a><p><h5 style="display:inline">por '+post.author.name+'</h5><h6 style="display:inline"> a '+postDateFormatted+'</h6><p>&#8220;<i>'+post.recap+'</i>&#8221;</p><br>';
+        }
       }
 
       var data = new Date();
