@@ -939,6 +939,21 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 						$scope.mailConfig = mailConfig;
 						$scope.emailHour = mailConfig[0].emailHour;
+						if($scope.mailConfig[0].active)
+							$scope.activeState = '(Ligado)';
+						else
+							$scope.activeState = '(Desligado)';
+
+
+						$scope.toggleActiveMail = function()
+						{
+							$scope.mailConfig[0].active = !$scope.mailConfig[0].active;
+
+							if($scope.mailConfig[0].active)
+								$scope.activeState = '(Ligado)';
+							else
+								$scope.activeState = '(Desligado)';
+						}
 
 						$scope.saveConfig = function(updatedMailConfig)
 						{

@@ -9,6 +9,7 @@ var mailConfigSchema = new mongoose.Schema({
 	emailHour: { type: String },
 	subject: { type: String },
 	header: { type: String},
+	active: { type: Boolean, default:true}
 });
 
 mailConfigSchema.pre('save', function(next){

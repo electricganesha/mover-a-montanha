@@ -41,7 +41,7 @@
       <div class="col-md-8">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h4 style="display: inline-block;">Configura&ccedil;&otilde;es de E-Mail Autom&aacute;tico</h4>
+            <h4 style="display: inline-block;">Configura&ccedil;&otilde;es de E-Mail Autom&aacute;tico<span ng-click="toggleActiveMail()" ng-style="mailConfig[0].active && {'color':'darkgreen'} || {'color':'firebrick'}" style="margin-left:20px; cursor:pointer;" class="glyphicon glyphicon-off"><span style="font-size:12px; margin-top:-5px;"> {{ activeState }}</span></span></h4>
           </div>
           <div class="panel-body">
             <form ng-submit='saveConfig(mailConfig)'>

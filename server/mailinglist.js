@@ -8,13 +8,16 @@ var MailConfig = require('./models/mailconfig');
 var nodemailer = require('nodemailer');
 
 var transporter = nodemailer.createTransport({
-  service: 'Gmail',
-  //host: 'smtp.gmail.com',
-  //port: 465,
-  //secure: true, // secure:true for port 465, secure:false for port 587
+  pool: true,
+  maxConnections: 20,
+  maxMessages: Infinity,
+  service: '',
+  host: '',
+  port: 465,
+  secure: true, // secure:true for port 465, secure:false for port 587
   auth: {
-    user: 'moveramontanha@gmail.com',
-    pass: 'Mover1Montanha2'
+    user: '',
+    pass: ''
   }
 });
 
@@ -91,33 +94,43 @@ module.exports = function(){
       var data = new Date();
       var dataFormatada = data.getUTCDate() + "/" + data.getUTCMonth() + "/" + data.getUTCFullYear();
 
-      console.log("MAILSERVICE:Enviando email para " + subscribers.length + " subscritores");
-      console.log("MAILSERVICE:Transporter Config");
-      console.log(transporter);
-
-      for(var i=0; i<subscribers.length; i++)
+      if(mailConfig.active)
       {
-        var subscriber = subscribers[i];
+        console.log("MAILSERVICE:Enviando email para " + subscribers.length + " subscritores");
+        console.log("MAILSERVICE:Transporter Config");
+        console.log(transporter);
 
-        if(subscriber.active == true)
+        for(var i=0; i<subscribers.length; i++)
         {
-          body = mailConfig.header+
-          digest
-          +'<div style="text-align:center; padding:70px; background-image:url(https://www.moveramontanha.pt/home/img/footerimg.jpg); color:white;"><p><strong>Este email foi enviado de forma autom&aacute;tica atrav&eacute;s do nosso servidor de email.</strong></p><p>&nbsp;</p><p>Se n&atilde;o deseja receber esta newsletter, por favor <a style="color:white" href="https://www.moveramontanha.pt/api/unsubscribe/'+subscriber._id+'">remova a sua subscri&ccedil;&atilde;o aqui.</a></p><div></body>';
+          var subscriber = subscribers[i];
 
-          if(posts.length > 0)
+          if(subscriber.active == true)
           {
-            transporter.sendMail(
+            body = mailConfig.header+
+            digest
+            +'<div style="text-align:center; padding:70px; background-image:url(https://www.moveramontanha.pt/home/img/footerimg.jpg); color:white;"><p><strong>Este email foi enviado de forma autom&aacute;tica atrav&eacute;s do nosso servidor de email.</strong></p><p>&nbsp;</p><p>Se n&atilde;o deseja receber esta newsletter, por favor <a style="color:white" href="https://www.moveramontanha.pt/api/unsubscribe/'+subscriber._id+'">remova a sua subscri&ccedil;&atilde;o aqui.</a></p><div></body>';
+
+            if(posts.length > 0)
+            {
+              if(mailConfig.active)
               {
-                from: mailConfig.mail,
-                to: subscriber.email,
-                subject: mailConfig.subject +" "+ dataFormatada,
-                html: body
+                transporter.sendMail(
+                  {
+                    from: mailConfig.mail,
+                    to: subscriber.email,
+                    subject: mailConfig.subject +" "+ dataFormatada,
+                    html: body
+                  }
+                );
               }
-            );
+            }
           }
         }
       }
+      else {
+        console.log("MAILSERVICE:Desligado - Sem envio de email automático");
+      }
+
     }
   });
 };
