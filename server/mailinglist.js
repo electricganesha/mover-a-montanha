@@ -81,6 +81,8 @@ module.exports = function(){
       var body = '';
       var digest = '';
 
+      console.log("MAILSERVICE: NOVOS ARTIGOS ENCONTRADOS - " +posts.length);
+
       for(var i=0; i<posts.length; i++)
       {
         if(posts[i].isDraft) //se o artigo estiver activo
@@ -100,8 +102,6 @@ module.exports = function(){
       if(mailConfig.active)
       {
         console.log("MAILSERVICE:Enviando email para " + subscribers.length + " subscritores");
-        console.log("MAILSERVICE:Transporter Config");
-        console.log(transporter);
 
         for(var i=0; i<subscribers.length; i++)
         {
