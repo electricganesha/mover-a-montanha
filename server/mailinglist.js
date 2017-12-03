@@ -69,7 +69,7 @@ module.exports = function(){
   var yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
 
-  Post.find({ created_at : { $lte: Date.now().toString() , $gte: yesterday.toString() } }).sort('-created_at').populate('author')
+  Post.find({ created_at : { $lte: Date.now().toString() , $gte: yesterday.toString() }, programmed_to_post : { $lte: Date.now().toString() , $gte: yesterday.toString() } }).sort('-created_at').populate('author')
   .exec(function(err, posts){
 
     if(err)
@@ -117,14 +117,17 @@ module.exports = function(){
             {
               if(mailConfig.active)
               {
-                transporter.sendMail(
-                  {
-                    from: mailConfig.mail,
-                    to: subscriber.email,
-                    subject: mailConfig.subject +" "+ dataFormatada,
-                    html: body
-                  }
-                );
+                var mailSendInterval = setInterval(function() {
+                  transporter.sendMail(
+                    {
+                      from: mailConfig.mail,
+                      to: subscriber.email,
+                      subject: mailConfig.subject +" "+ dataFormatada,
+                      html: body
+                    }
+                  );
+                   }, 1000);
+
               }
             }
           }
