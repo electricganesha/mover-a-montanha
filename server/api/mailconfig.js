@@ -34,6 +34,7 @@ module.exports = function(apiRouter){
     mailConfig.emailHour = req.body.emailHour;
     mailConfig.subject = req.body.subject;
     mailConfig.header = req.body.header;
+		mailConfig.active = req.body.active;
 
 		mailConfig.save(function(err, config){
 			if(err) res.send(err);
@@ -56,6 +57,7 @@ module.exports = function(apiRouter){
       mailConfig.emailHour = req.body[0].emailHour;
       mailConfig.subject = req.body[0].subject;
       mailConfig.header = req.body[0].header;
+			mailConfig.active = req.body[0].active;
 
 			mailConfig.save(function(err,newMailConfig){
 				if(err) res.send(err);
