@@ -4,22 +4,19 @@ var nodemailer = require('nodemailer');
 var Post = require('./models/post');
 var Subscribers = require('./models/subscriber');
 var MailConfig = require('./models/mailconfig');
+var mg = require('nodemailer-mailgun-transport');
 
 var nodemailer = require('nodemailer');
 
-var transporter = nodemailer.createTransport({
-  pool: true,
-  maxConnections: 20,
-  maxMessages: Infinity,
-  service: '',
-  host: '',
-  port: 465,
-  secure: true, // secure:true for port 465, secure:false for port 587
+// This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
+var auth = {
   auth: {
-    user: '',
-    pass: ''
+    api_key: 'key-f317067ecc01a05389a6273c600cfed7',
+    domain: 'www.moveramontanha.pt'
   }
-});
+}
+
+var nodemailerMailgun = nodemailer.createTransport(mg(auth));
 
 module.exports = function(){
 
@@ -117,17 +114,20 @@ module.exports = function(){
             {
               if(mailConfig.active)
               {
-                var mailSendInterval = setInterval(function() {
-                  transporter.sendMail(
-                    {
-                      from: mailConfig.mail,
-                      to: subscriber.email,
-                      subject: mailConfig.subject +" "+ dataFormatada,
-                      html: body
-                    }
-                  );
-                   }, 1000);
-
+                nodemailerMailgun.sendMail({
+                  from:  mailConfig.mail,
+                  to: subscriber.email, // An array if you have multiple recipients.
+                  subject: mailConfig.subject +" "+ dataFormatada,
+                  //You can use "html:" to send HTML email content. It's magic!
+                  html: body,
+                }, function (err, info) {
+                  if (err) {
+                    console.log('Error: ' + err);
+                  }
+                  else {
+                    console.log('Response: ' + info);
+                  }
+                });
               }
             }
           }
