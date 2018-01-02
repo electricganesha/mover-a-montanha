@@ -6,6 +6,7 @@ var postSchema = new mongoose.Schema({
 	author: { type: mongoose.Schema.Types.ObjectId, ref: 'Author'},
 	created_at: { type: Date },
 	updated_at: { type: Date, default: Date.now },
+	timestamp: { type: Date, default: Date.now },
 	programmed_to_post: { type: Date },
 	isDraft: { type: Boolean, default: true},
 	isAuto: { type: Boolean, default: true}, //se o post deve ser publicado automaticamente segundo a agenda ou nao

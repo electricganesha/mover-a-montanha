@@ -867,7 +867,7 @@ iframe{
     left: 59px;
     top: 135px;
     background-color: #486af0;
-    z-index: 0;
+    z-index: 1;
     width: 259px;
     min-height: 480px;
     text-align: center;
@@ -1235,7 +1235,7 @@ iframe{
     left: 147px;
     top: 135px;
     background-color: #486af0;
-    z-index: 0;
+    z-index: 1;
     width: 259px;
     min-height: 480px;
     text-align: center;

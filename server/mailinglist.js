@@ -66,7 +66,7 @@ module.exports = function(){
   var yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
 
-  Post.find({ created_at : { $lte: Date.now().toString() , $gte: yesterday.toString() }, programmed_to_post : { $lte: Date.now().toString() , $gte: yesterday.toString() } }).sort('-created_at').populate('author')
+  Post.find({ timestamp : { $lte: Date.now().toString() , $gte: yesterday.toString() }, programmed_to_post : { $lte: Date.now().toString() , $gte: yesterday.toString() } }).sort('-created_at').populate('author')
   .exec(function(err, posts){
 
     if(err)
