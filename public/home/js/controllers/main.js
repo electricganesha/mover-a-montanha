@@ -1,12 +1,12 @@
 app.factory('initMenu', function(){
   return {
-      init: function () {
-        (function($) {
-          $(window).scroll(function() {
-            var addRemClass = $(window).scrollTop() > 300 ? 'addClass' : 'removeClass';
-            $("header")[addRemClass]('muda');
-          });
-        })(jQuery);
+    init: function () {
+      (function($) {
+        $(window).scroll(function() {
+          var addRemClass = $(window).scrollTop() > 300 ? 'addClass' : 'removeClass';
+          $("header")[addRemClass]('muda');
+        });
+      })(jQuery);
       (function($) {
         $('.button').off('click');
         $("#cssmenu ul li").off('click');
@@ -432,8 +432,15 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
   $scope.post = article;
   var meioartigo = article.body.length/2;
   var brDoMeio = article.body.indexOf("<br/>", meioartigo);
-  $scope.post1 = article.body.substr(0, brDoMeio);
-  $scope.post2 = article.body.substr(brDoMeio, article.body.length);
+  if(brDoMeio != -1)
+  {
+    $scope.post1 = article.body.substr(0, brDoMeio);
+    $scope.post2 = article.body.substr(brDoMeio, article.body.length);
+  }
+  else {
+    $scope.post1 = article.body;
+    $scope.post2 = "";
+  }
 
   $scope.mostraRecap = false;
   $scope.mostraRecapSoCat = false;
