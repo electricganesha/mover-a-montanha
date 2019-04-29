@@ -972,7 +972,9 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 						$scope.updateEmailHour = function()
 						{
 							var hour = $('#timepicker')[0].value;
-							$scope.mailConfig[0].emailHour = hour;
+							if(hour != "" && hour.length == 5 && hour.indexOf(':') !== -1) {
+								$scope.mailConfig[0].emailHour = hour;
+							}
 						}
 
 						$scope.updateSubscribers = function () {
