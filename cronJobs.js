@@ -23,6 +23,9 @@ var exports = module.exports = {};
         mailConfig = result[0];
         //CRON JOBS EMAIL
         var hour = mailConfig.emailHour.split(':');
+	if(hour.length != 5){
+		hour = "11:00";
+	}
         var crontime = hour[1]+" "+hour[0]+" * * 0-6"; //todos os dias as XX:XX (segunda a domingo)
         console.log("EMAILS AUTOMATICOS PROGRAMADOS PARA: " +crontime);
         jobs = [

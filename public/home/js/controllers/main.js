@@ -28,15 +28,11 @@ app.factory('initMenu', function(){
           }, options);
           return this.each(function() {
             $(this).find(".button").on('click', function(){
-              console.log("clickei");
               var mainmenu = $(this).next('ul');
-              console.log(mainmenu);
               $(this).toggleClass('menu-opened');
               if (mainmenu.hasClass('open')) {
                 mainmenu.slideToggle().removeClass('open');
-                console.log("entrei remove class");
               } else {
-                console.log("entrei add class");
                 mainmenu.slideToggle().addClass('open');
                 if (settings.format === "dropdown") {
                   mainmenu.find('ul').show();
@@ -431,15 +427,22 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
   initMenu.init();
   $scope.post = article;
   var meioartigo = article.body.length/2;
-  var brDoMeio = article.body.indexOf("<br/>", meioartigo);
+  var brDoMeio = article.body.indexOf("</p>", meioartigo);
   if(brDoMeio != -1)
   {
     $scope.post1 = article.body.substr(0, brDoMeio);
     $scope.post2 = article.body.substr(brDoMeio, article.body.length);
   }
   else {
+    brDoMeio2 = article.body.indexOf("<br/>", meioartigo);
+	if(brDoMeio2 != -1){
+		$scope.post1 = article.body.substr(0, brDoMeio2);
+    		$scope.post2 = article.body.substr(brDoMeio2, article.body.length);
+	}
+else {
     $scope.post1 = article.body;
     $scope.post2 = "";
+}
   }
 
   $scope.mostraRecap = false;
@@ -545,7 +548,6 @@ app.controller('MainCtrl', function ($scope, $log, postList, authorList, categor
     subscriber.email = $scope.email;
     subscriber.active = true;
     Subscribers.add(subscriber).then(function(data){
-      console.log(data);
       if(!data.code)
       {
         Subscribers.email(subscriber).then(function(data){

@@ -322,7 +322,11 @@ adminApp.controller('AllPostsCtrl', function($scope, $window, $modal, postList, 
 
 	$scope.editPost = function(id,editedPost){
 
-		editedPost.tags = idsTags;
+		const fullPost = $scope.posts.find(function(element) {
+		  	return element._id === id;
+		});
+
+		editedPost.tags = fullPost.categories;
 
 		var isPostOK = true;
 
